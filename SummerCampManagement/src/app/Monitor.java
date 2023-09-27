@@ -55,7 +55,18 @@ public class Monitor {
 		
 	}
 	
-	
+	public String toString() {
+		return "{id: " 
+				+ this.id 
+				+ ", firstName: '"
+				+ this.firstName
+				+ "', lastName: '"
+				+ this.lastName 
+				+ ", isSpecialEducator: "
+				+ this.SpecialEducator + "}";
+		
+	}
+		
 }
 
 	
