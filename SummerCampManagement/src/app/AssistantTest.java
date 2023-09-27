@@ -20,7 +20,7 @@ class AssistantTest {
 				id,
 				firstName,
 				lastName,
-				"26/01/2001",
+				birthDate,
 				requireSpecialAttention
 		);
 		
@@ -48,4 +48,26 @@ class AssistantTest {
         assertEquals(requireSpecialAttention, assistant.isRequireSpecialAttention());
 	}
 
+	@Test
+	void testSetters() {
+		Assistant assistant = new Assistant();
+		int id = 1;
+		String firstName = "José";
+		String lastName = "Trujillo";
+		Date birthDate = Utils.parseDate("26/01/2001");
+		boolean requireSpecialAttention = true;
+		
+		assistant.setId(id);
+		assistant.setFirstName(firstName);
+		assistant.setLastName(lastName);
+		assistant.setBirthDate(birthDate);
+		assistant.setRequireSpecialAttention(requireSpecialAttention);
+		
+		assertEquals(id, assistant.getId());
+        assertEquals(firstName, assistant.getFirstName());
+        assertEquals(lastName, assistant.getLastName());
+        assertEquals(birthDate, assistant.getBirthDate());
+        assertEquals(requireSpecialAttention, assistant.isRequireSpecialAttention());
+	}
+	
 }

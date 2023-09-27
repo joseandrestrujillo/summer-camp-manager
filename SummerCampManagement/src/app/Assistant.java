@@ -9,11 +9,11 @@ public class Assistant {
 	private Date birthDate;
 	private boolean requireSpecialAttention;
 
-	public Assistant(int id, String firstName, String lastName, String birthDateString, boolean requireSpecialAttention) {
+	public Assistant(int id, String firstName, String lastName, Date birthDate, boolean requireSpecialAttention) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.birthDate = Utils.parseDate(birthDateString);
+		this.birthDate = birthDate;
 		this.requireSpecialAttention = requireSpecialAttention;
 	}
 
@@ -43,6 +43,26 @@ public class Assistant {
 
 	public Object isRequireSpecialAttention() {
 		return this.requireSpecialAttention;
+	}
+
+	public void setId(int id2) {
+		this.id = id2;
+	}
+
+	public void setFirstName(String firstName2) {
+		this.firstName = firstName2;
+	}
+
+	public void setLastName(String lastName2) {
+		this.lastName = lastName2;
+	}
+
+	public void setBirthDate(Date birthDate2) {
+		this.birthDate = birthDate2;
+	}
+
+	public void setRequireSpecialAttention(boolean requireSpecialAttention2) {
+		this.requireSpecialAttention = requireSpecialAttention2;
 	}
 
 }
