@@ -4,21 +4,21 @@ public class Monitor {
 	private int id;
 	private String firstName;
 	private String lastName;
-	private boolean SpecialEducator;
+	private boolean specialEducator;
 	
 	
 	public Monitor() {
 		this.id= 0;
 		this.firstName = "";
 		this.lastName = "";
-		this.SpecialEducator = false;
+		this.specialEducator = false;
 	}
 	
 	public Monitor(int id, String firstName, String lastName, boolean SpecialEducator) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.SpecialEducator = SpecialEducator;
+		this.specialEducator = SpecialEducator;
 		
 	}
 	
@@ -35,7 +35,7 @@ public class Monitor {
 	}
 	
 	public Object isSpecialEducator() {
-		return this.SpecialEducator;
+		return this.specialEducator;
 	}
 	
 	public void setId(int id2) {
@@ -51,7 +51,7 @@ public class Monitor {
 	}
 	
 	public void setSpecialEducator(boolean SpecialEducator2) {
-		this.SpecialEducator = SpecialEducator2;
+		this.specialEducator = SpecialEducator2;
 		
 	}
 	
@@ -63,7 +63,7 @@ public class Monitor {
 				+ "', lastName: '"
 				+ this.lastName 
 				+ ", isSpecialEducator: "
-				+ this.SpecialEducator + "}";
+				+ this.specialEducator + "}";
 		
 	}
 		
