@@ -20,7 +20,7 @@ class AssistantTest {
 				id,
 				firstName,
 				lastName,
-				birthDate,
+				"26/01/2001",
 				requireSpecialAttention
 		);
 		

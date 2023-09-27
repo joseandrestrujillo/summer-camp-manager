@@ -3,8 +3,13 @@ package app;
 import java.util.Date;
 
 public class Assistant {
+	private int id;
+	private String firstName;
+	private String lastName;
+	private String birthDate;
+	private String requireSpecialAttention;
 
-	public Assistant(int id, String firstName, String lastName, Date birthDate, boolean requireSpecialAttention) {
+	public Assistant(int id, String firstName, String lastName, String birthDateString, boolean requireSpecialAttention) {
 		// TODO Auto-generated constructor stub
 	}
 
