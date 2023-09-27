@@ -17,6 +17,14 @@ public class Assistant {
 		this.requireSpecialAttention = requireSpecialAttention;
 	}
 
+	public Assistant() {
+		this.id = 0;
+		this.firstName = "";
+		this.lastName = "";
+		this.birthDate = null;
+		this.requireSpecialAttention = false;
+	}
+
 	public Integer getId() {
 		return this.id;
 	}

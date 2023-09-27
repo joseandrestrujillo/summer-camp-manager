@@ -30,5 +30,22 @@ class AssistantTest {
         assertEquals(birthDate, assistant.getBirthDate());
         assertEquals(requireSpecialAttention, assistant.isRequireSpecialAttention());
 	}
+	
+	@Test
+	void testDefaultConstructor() {
+		int id = 0;
+		String firstName = "";
+		String lastName = "";
+		Date birthDate = null;
+		boolean requireSpecialAttention = false;
+		
+		Assistant assistant = new Assistant();
+		
+		assertEquals(id, assistant.getId());
+        assertEquals(firstName, assistant.getFirstName());
+        assertEquals(lastName, assistant.getLastName());
+        assertEquals(birthDate, assistant.getBirthDate());
+        assertEquals(requireSpecialAttention, assistant.isRequireSpecialAttention());
+	}
 
 }
