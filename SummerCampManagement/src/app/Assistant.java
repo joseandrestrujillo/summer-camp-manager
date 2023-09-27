@@ -6,36 +6,35 @@ public class Assistant {
 	private int id;
 	private String firstName;
 	private String lastName;
-	private String birthDate;
-	private String requireSpecialAttention;
+	private Date birthDate;
+	private boolean requireSpecialAttention;
 
 	public Assistant(int id, String firstName, String lastName, String birthDateString, boolean requireSpecialAttention) {
-		// TODO Auto-generated constructor stub
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.birthDate = Utils.parseDate(birthDateString);
+		this.requireSpecialAttention = requireSpecialAttention;
 	}
 
 	public Integer getId() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.id;
 	}
 
 	public Object getFirstName() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.firstName;
 	}
 
 	public Object getLastName() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.lastName;
 	}
 
 	public Object getBirthDate() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.birthDate;
 	}
 
 	public Object isRequireSpecialAttention() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.requireSpecialAttention;
 	}
 
 }
