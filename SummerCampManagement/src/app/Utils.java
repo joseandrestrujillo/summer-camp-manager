@@ -12,4 +12,8 @@ public class Utils {
 	         return null;
 	     }
 	}
+
+	public static String getStringDate(Date date) {
+		return new SimpleDateFormat("dd/MM/yyyy").format(date);
+	}
 }

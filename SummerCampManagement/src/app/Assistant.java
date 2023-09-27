@@ -65,4 +65,17 @@ public class Assistant {
 		this.requireSpecialAttention = requireSpecialAttention2;
 	}
 
+	public String toString() {
+		return "{id: " 
+				+ this.id 
+				+ ", firstName: '"
+				+ this.firstName
+				+ "', lastName: '"
+				+ this.lastName
+				+ "', birthDate: "
+				+ Utils.getStringDate(this.birthDate) 
+				+ ", requireSpecialAttention: "
+				+ this.requireSpecialAttention + "}";
+		
+	}
 }
