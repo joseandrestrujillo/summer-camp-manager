@@ -70,4 +70,24 @@ class AssistantTest {
         assertEquals(requireSpecialAttention, assistant.isRequireSpecialAttention());
 	}
 	
+	@Test
+    public void testToString() {
+		int id = 1;
+		String firstName = "José";
+		String lastName = "Trujillo";
+		Date birthDate = Utils.parseDate("26/01/2001");
+		boolean requireSpecialAttention = true;
+		
+		Assistant assistant = new Assistant(
+				id,
+				firstName,
+				lastName,
+				birthDate,
+				requireSpecialAttention
+		);
+
+        String expectedToString = "{id: 1, firstName: 'José', lastName: 'Trujillo', birthDate: 26/01/2001, requireSpecialAttention: true}";
+        assertEquals(expectedToString, assistant.toString());
+    }
+	
 }
