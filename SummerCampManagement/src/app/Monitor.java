@@ -62,7 +62,7 @@ public class Monitor {
 				+ this.firstName
 				+ "', lastName: '"
 				+ this.lastName 
-				+ ", isSpecialEducator: "
+				+ "', isSpecialEducator: "
 				+ this.specialEducator + "}";
 		
 	}

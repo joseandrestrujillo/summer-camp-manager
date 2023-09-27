@@ -2,7 +2,6 @@ package app;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
 import org.junit.jupiter.api.Test;
 
 class MonitorTest {
@@ -62,6 +61,23 @@ class MonitorTest {
         assertEquals(specialEducator, monitor.isSpecialEducator());
 	}
 	
+	@Test
+    public void testToString() {
+		int id = 1;
+		String firstName = "Alberto";
+		String lastName = "Quesada";
+		boolean specialEducator = true;
+		
+		Monitor monitor = new Monitor(
+				id,
+				firstName,
+				lastName,
+				specialEducator
+		);
+
+        String expectedToString = "{id: 1, firstName: 'Alberto', lastName: 'Quesada', isSpecialEducator: true}";
+        assertEquals(expectedToString, monitor.toString());
+    }
 	
 
 }
