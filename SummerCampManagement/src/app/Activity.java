@@ -92,4 +92,8 @@ public class Activity {
 		
 	}
 
+	public void addMonitor(Monitor monitor) {
+		monitorList.add(monitor);
+	}
+
 }
