@@ -97,4 +97,49 @@ class ActivityTest {
         String expectedToString = "{activityName: 'Activity', educativeLevel: PRESCHOOL, timeSlot: AFTERNOON, maxAssistants: 10, neededMonitors: 3}";
         assertEquals(expectedToString, activity.toString());
     }
+
+	@Test
+	public void testAddMonitor(){
+		Monitor monitor = new Monitor(
+				1,
+				"Alberto",
+				"Quesada",
+				true
+		);
+
+		Monitor monitor2 = new Monitor(
+				2,
+				"Francisco",
+				"Ruíz",
+				false
+		);
+
+		String activityName = "Activity";
+        EducativeLevel educativeLevel = EducativeLevel.PRESCHOOL;
+        TimeSlot timeSlot = TimeSlot.AFTERNOON;
+        int maxAssistants = 10;
+        int neededMonitors = 3;
+
+        Activity activity = new Activity(
+                activityName,
+                educativeLevel,
+                timeSlot,
+                maxAssistants,
+                neededMonitors
+        );
+
+		activity.addMonitor(monitor);
+		activity.addMonitor(monitor2);
+
+
+		assertEquals("Alberto", activity.getMonitorList.get(0).getFirstName());
+		assertEquals("Francisco", activity.getMonitorList.get(1).getFirstName());
+
+
+	}
+
+	
+
 }
+
+
