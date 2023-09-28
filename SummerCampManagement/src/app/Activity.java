@@ -77,5 +77,19 @@ public class Activity {
 	public void setMonitorList(List<Monitor> monitorList) {
 		this.monitorList = monitorList;
 	}
+	public String toString() {
+		return "{activityName: '" 
+				+ this.activityName 
+				+ "', educativeLevel: "
+				+ this.educativeLevel
+				+ ", timeSlot: "
+				+ this.timeSlot 
+				+ ", maxAssistants: "
+				+ this.maxAssistants 
+				+ ", neededMonitors: "
+				+ this.neededMonitors
+				+ "}";
+		
+	}
 
 }
