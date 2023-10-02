@@ -3,6 +3,10 @@ package app;
 import java.util.ArrayList;
 import java.util.List;
 
+import utilities.EducativeLevel;
+import utilities.MaxMonitorsAddedException;
+import utilities.TimeSlot;
+
 public class Activity {
 	private String activityName; 
 	private EducativeLevel educativeLevel;

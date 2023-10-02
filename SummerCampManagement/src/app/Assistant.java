@@ -2,6 +2,8 @@ package app;
 
 import java.util.Date;
 
+import utilities.Utils;
+
 public class Assistant {
 	private int id;
 	private String firstName;

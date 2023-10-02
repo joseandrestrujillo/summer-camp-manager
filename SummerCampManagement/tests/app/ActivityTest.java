@@ -7,6 +7,10 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import utilities.EducativeLevel;
+import utilities.MaxMonitorsAddedException;
+import utilities.TimeSlot;
+
 class ActivityTest {
 	
 	@Test

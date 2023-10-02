@@ -8,6 +8,10 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import utilities.EducativeLevel;
+import utilities.TimeSlot;
+import utilities.Utils;
+
 class CampTest {
 	
 	@Test

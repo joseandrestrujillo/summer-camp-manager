@@ -3,6 +3,8 @@ package app;
 import java.util.Date;
 import java.util.List;
 
+import utilities.EducativeLevel;
+
 
 //TODO: List need be checked
 public class Camp {

@@ -6,6 +6,8 @@ import java.util.Date;
 
 import org.junit.jupiter.api.Test;
 
+import utilities.Utils;
+
 class AssistantTest {
 
 	@Test
