@@ -88,7 +88,6 @@ class ActivityTest {
         TimeSlot timeSlot = TimeSlot.AFTERNOON;
         int maxAssistants = 10;
         int neededMonitors = 3;
-        List<Monitor> monitorList = new ArrayList<Monitor>(neededMonitors);
 
         Activity activity = new Activity(
                 activityName,
