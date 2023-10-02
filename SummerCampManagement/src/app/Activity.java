@@ -93,6 +93,9 @@ public class Activity {
 	}
 
 	public void addMonitor(Monitor monitor) {
+		if (monitorList.size() == this.neededMonitors) {
+			throw new MaxMonitorsAddedException();
+		}
 		monitorList.add(monitor);
 	}
 
