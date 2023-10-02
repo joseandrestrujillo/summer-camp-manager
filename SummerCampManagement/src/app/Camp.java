@@ -1,9 +1,11 @@
 package app;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import utilities.EducativeLevel;
+import utilities.Utils;
 
 
 //TODO: List need be checked
@@ -15,7 +17,6 @@ public class Camp {
     private int capacity;
     private List<Activity> activities;
     private List<Monitor> monitors;
-    private List<Assistant> assistants;
 
     public Camp(){
         this.campID = -1;
@@ -31,6 +32,8 @@ public class Camp {
         this.end = end;
         this.educativeLevel = educativeLevel;
         this.capacity = capacity;
+        this.activities = new ArrayList<Activity>();
+        this.monitors = new ArrayList<Monitor>();
     }
 
     public int getCampID() {
@@ -89,18 +92,16 @@ public class Camp {
         this.monitors = monitors;
     }
     
-    public List<Assistant> getAssistants() {
-		return assistants;
-	}
-
-    public void setAssistants(List<Assistant> assistants) {
-        this.assistants = assistants;
-    }
 		
     public String toString() {
-        return "{campID: "+ this.campID + ", start: '" + this.start + "', end: '" + this.end + "', educativeLevel: "
-                + this.educativeLevel + ", capacity: " + this.capacity + ", activities: " + this.activities.toString() + 
-                ", monitors: " + this.monitors.toString()+ "}";
+        return 
+        		"{campID: " + this.campID 
+        		+ ", start: '" + Utils.getStringDate(start)
+        		+ "', end: '" + Utils.getStringDate(end)
+        		+ "', educativeLevel: " + this.educativeLevel 
+        		+ ", capacity: " + this.capacity 
+        		+ ", activities: " + this.activities.toString() 
+        		+ ", monitors: " + this.monitors.toString()+ "}";
     }
 
 	

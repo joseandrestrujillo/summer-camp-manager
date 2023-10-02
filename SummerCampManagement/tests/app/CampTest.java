@@ -20,11 +20,8 @@ class CampTest {
 		Date start = Utils.parseDate("15/01/2024");
 		Date end = Utils.parseDate("25/01/2024");
 		EducativeLevel educativeLevel = EducativeLevel.PRESCHOOL;
-		int capacity = 10;
-		List<Activity> activities = new ArrayList<>();
-		List<Monitor> monitors = new ArrayList<>();		
+		int capacity = 10;	
 		
-		monitors.add(new Monitor (1, "Pepe", "Sanchez Rodriguez", false));
 
 		Camp camp = new Camp(
 				campID,
@@ -33,15 +30,13 @@ class CampTest {
 				educativeLevel,
 				capacity				
 		);
-		camp.setActivities(activities);
-		camp.setMonitors(monitors);
 		assertEquals(campID, camp.getCampID());
 		assertEquals(start, camp.getStart());
 		assertEquals(end, camp.getEnd());
 		assertEquals(educativeLevel, camp.getEducativeLevel());
 		assertEquals(capacity, camp.getCapacity());
-		assertEquals(activities, camp.getActivities());
-		assertEquals(monitors, camp.getMonitors());
+		assert(camp.getActivities().isEmpty());
+		assert(camp.getMonitors().isEmpty());
 	}
 	
 	@Test
@@ -59,9 +54,8 @@ class CampTest {
 		assertEquals(end, camp.getEnd());
 		assertEquals(educativeLevel, camp.getEducativeLevel());
 		assertEquals(capacity, camp.getCapacity());
-		// assertEquals(null, camp.getActivities());
-		// assertEquals(null, camp.getMonitors());
-		// assertEquals(null, camp.getAssistants());
+		assertEquals(null, camp.getActivities());
+		assertEquals(null, camp.getMonitors());
 	}
 
 	@Test
@@ -72,21 +66,26 @@ class CampTest {
 		Date end = Utils.parseDate("25/01/2024");
 		EducativeLevel educativeLevel = EducativeLevel.PRESCHOOL;
 		int capacity = 10;
-		// List<Activity> activities = new ArrayList<>();
-		// List<Monitor> monitors = new ArrayList<>();
-		// List<Assistant> assistants = new ArrayList<>(capacity);
+		List<Activity> activities = new ArrayList<>();
+		List<Monitor> monitors = new ArrayList<>();		
+		monitors.add(new Monitor (1, "Pepe", "Sanchez Rodriguez", false));
+
 
 		camp.setCampID(campID);
 		camp.setStart(start);
 		camp.setEnd(end);
 		camp.setEducativeLevel(educativeLevel);
 		camp.setCapacity(capacity);
-
+		camp.setActivities(activities);
+		camp.setMonitors(monitors);
+		
 		assertEquals(campID, camp.getCampID());
 		assertEquals(start, camp.getStart());
 		assertEquals(end, camp.getEnd());
 		assertEquals(educativeLevel, camp.getEducativeLevel());
 		assertEquals(capacity, camp.getCapacity());
+		assertEquals(activities, camp.getActivities());
+		assertEquals(monitors, camp.getMonitors());
 
 	}
 	
@@ -107,9 +106,18 @@ class CampTest {
 				10,
 				3
 		);
+		
+		Activity activity2 = new Activity(
+				"Actividad 2",
+				educativeLevel,
+				TimeSlot.AFTERNOON,
+				10,
+				3
+		);
 
 		monitors.add(new Monitor (1, "Pepe", "Sanchez Rodriguez", false));
 		activities.add(activity);
+		activities.add(activity2);
 
 		Camp camp = new Camp(
 				campID,
@@ -122,7 +130,17 @@ class CampTest {
 		camp.setActivities(activities);
 		camp.setMonitors(monitors);		
 
-        String expectedToString = "{campID: 1, start: '"+Utils.parseDate("15/01/2024")+"', end: '"+Utils.parseDate("25/01/2024")+"', educativeLevel: PRESCHOOL, capacity: 10, activities: " + activities.toString()+", monitors: "+monitors.toString()+"}";
+        String expectedToString = ""
+        		+ "{campID: 1, "
+        		+ "start: '15/01/2024', "
+        		+ "end: '25/01/2024', "
+        		+ "educativeLevel: PRESCHOOL, "
+        		+ "capacity: 10, "
+        		+ "activities: ["
+        		+ "{activityName: 'Actividad', educativeLevel: PRESCHOOL, timeSlot: AFTERNOON, maxAssistants: 10, neededMonitors: 3}, "
+        		+ "{activityName: 'Actividad 2', educativeLevel: PRESCHOOL, timeSlot: AFTERNOON, maxAssistants: 10, neededMonitors: 3}"
+        		+ "], "
+        		+ "monitors: [{id: 1, firstName: 'Pepe', lastName: 'Sanchez Rodriguez', isSpecialEducator: false}]}";
         assertEquals(expectedToString, camp.toString());
     }
 	
@@ -140,9 +158,15 @@ class CampTest {
 				educativeLevel,
 				capacity				
 		);
-		//TODO: List need be checked
-        String expectedToString = "{campID: 1, start: '"+Utils.parseDate("15/01/2024")+"', end: '"+Utils.parseDate("25/01/2024")+"', educativeLevel: PRESCHOOL, capacity: 10, activities: [], monitors: []}";
-        assertEquals(expectedToString, camp.toString());
+		String expectedToString = ""
+	        		+ "{campID: 1, "
+	        		+ "start: '15/01/2024', "
+	        		+ "end: '25/01/2024', "
+	        		+ "educativeLevel: PRESCHOOL, "
+	        		+ "capacity: 10, "
+	        		+ "activities: [], "
+	        		+ "monitors: []}";
+		assertEquals(expectedToString, camp.toString());
     }
 
 }
