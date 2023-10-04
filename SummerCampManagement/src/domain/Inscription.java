@@ -3,6 +3,7 @@ package domain;
 import java.util.Date;
 
 import utilities.InscriptionType;
+import utilities.Utils;
 
 public class Inscription {
 	private int assistantId;
@@ -10,7 +11,15 @@ public class Inscription {
 	private Date inscriptionDate;
 	private float price;
 	private InscriptionType inscriptionType;
-	
+
+	public Inscription( int assistantId, int campId, Date inscriptionDate, float price,
+	 InscriptionType inscriptionType) {
+		this.assistantId = assistantId;
+		this.campId = campId;
+		this.inscriptionDate = inscriptionDate;
+		this.price = price;
+		this.inscriptionType = inscriptionType;
+	}
 	public Inscription() {
 		this.assistantId = -1;
 		this.campId = -1;
@@ -58,7 +67,19 @@ public class Inscription {
 	public void setInscriptionType(InscriptionType inscriptionType){
 		this.inscriptionType = inscriptionType;
 	}
-	
+	public String toString() {
+		return "{AssistantId: " 
+				+ this.assistantId 
+				+ ", CampId: '"
+				+ this.campId
+				+ "', InscriptionDate: '"
+				+Utils.getStringDate(this.inscriptionDate)
+				+ ", Price: "
+				+ this.price 
+				+ ", InscriptionType: "
+				+ this.inscriptionType + "}";
+		
+	}
 
 
 }

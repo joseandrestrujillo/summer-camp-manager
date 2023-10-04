@@ -55,4 +55,38 @@ class InscriptionTest {
 		assertEquals(inscriptionType, inscription.getInscriptionType());
 		
 	}
+
+	@Test
+	void testConstructorAndGetters() {
+		int assistantId = 1;
+		int campId = 1;
+		Date inscriptionDate = Utils.parseDate("12/01/2024");
+		float price = 100;
+		InscriptionType inscriptionType = InscriptionType.COMPLETE;
+		
+		
+		Inscription inscription = new Inscription(assistantId,campId,inscriptionDate,price,inscriptionType);
+		
+		assertEquals(assistantId, inscription.getAssistantId());
+		assertEquals(campId, inscription.getCampId());
+		assertEquals(inscriptionDate, inscription.getInscriptionDate());
+		assertEquals(price, inscription.getPrice());
+		assertEquals(inscriptionType, inscription.getInscriptionType());
+	}
+
+
+	@Test
+    public void testToString() {
+		int assistantId = 1;
+		int campId = 1;
+		Date inscriptionDate = Utils.parseDate("12/01/2024");
+		float price = 100;
+		InscriptionType inscriptionType = InscriptionType.COMPLETE;
+		
+		Inscription inscription = new Inscription(assistantId,campId,inscriptionDate,price,inscriptionType);
+
+        String expectedToString = "{AssistantId: 1, CampId: '1', InscriptionDate: '12/01/2024, Price: 100.0, InscriptionType: COMPLETE}";
+        assertEquals(expectedToString, inscription.toString());
+    }
+	
 }
