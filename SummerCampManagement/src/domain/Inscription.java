@@ -38,6 +38,27 @@ public class Inscription {
 	public InscriptionType getInscriptionType() {
 		return this.inscriptionType;
 	}
+	
+	public void setAssistantId(int assistantId ){
+		this.assistantId = assistantId;
+	}
+	
+	public void setCampId(int campId) {
+		this.campId = campId;
+	}
+	
+	public void setInscriptionDate(Date inscriptionDate){
+		this.inscriptionDate = inscriptionDate;
+	}
+
+	public void setPrice(float price){
+		this.price = price;
+	}
+	
+	public void setInscriptionType(InscriptionType inscriptionType){
+		this.inscriptionType = inscriptionType;
+	}
+	
 
 
 }

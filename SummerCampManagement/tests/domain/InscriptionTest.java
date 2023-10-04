@@ -2,11 +2,16 @@ package domain;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import utilities.EducativeLevel;
 import utilities.InscriptionType;
+import utilities.TimeSlot;
+import utilities.Utils;
 
 class InscriptionTest {
 
@@ -26,5 +31,28 @@ class InscriptionTest {
         assertEquals(inscriptionDate, inscription.getInscriptionDate());
         assertEquals(price, inscription.getPrice());
         assertEquals(inscriptionType, inscription.getInscriptionType());
+	}
+
+	@Test
+	void testSetters() {
+		Inscription inscription = new Inscription();
+		int assistantId = 1;
+		int campId = 4;
+		Date inscriptionDate = Utils.parseDate("12/01/2024");
+		float price = 100;
+		InscriptionType inscriptionType =  InscriptionType.COMPLETE;
+				
+		inscription.setAssistantId(assistantId);
+		inscription.setCampId(campId);
+		inscription.setInscriptionDate(inscriptionDate);
+		inscription.setPrice(price);
+		inscription.setInscriptionType(inscriptionType);
+		
+		assertEquals(assistantId, inscription.getAssistantId());
+		assertEquals(campId, inscription.getCampId());
+		assertEquals(inscriptionDate, inscription.getInscriptionDate());
+		assertEquals(price, inscription.getPrice());
+		assertEquals(inscriptionType, inscription.getInscriptionType());
+		
 	}
 }
