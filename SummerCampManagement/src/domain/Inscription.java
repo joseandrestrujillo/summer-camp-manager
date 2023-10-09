@@ -11,15 +11,18 @@ public class Inscription {
 	private Date inscriptionDate;
 	private float price;
 	private InscriptionType inscriptionType;
+	private boolean canBeCanceled;
 
 	public Inscription( int assistantId, int campId, Date inscriptionDate, float price,
-	 InscriptionType inscriptionType) {
+	 InscriptionType inscriptionType, boolean canBeCanceled) {
 		this.assistantId = assistantId;
 		this.campId = campId;
 		this.inscriptionDate = inscriptionDate;
 		this.price = price;
 		this.inscriptionType = inscriptionType;
+		this.canBeCanceled = canBeCanceled;
 	}
+	
 	public Inscription() {
 		this.assistantId = -1;
 		this.campId = -1;
@@ -68,17 +71,18 @@ public class Inscription {
 		this.inscriptionType = inscriptionType;
 	}
 	public String toString() {
-		return "{AssistantId: " 
-				+ this.assistantId 
-				+ ", CampId: '"
-				+ this.campId
-				+ "', InscriptionDate: '"
-				+Utils.getStringDate(this.inscriptionDate)
-				+ ", Price: "
-				+ this.price 
-				+ ", InscriptionType: "
-				+ this.inscriptionType + "}";
+		return "{"
+				+ "AssistantId: " + this.assistantId 
+				+ ", CampId: '" + this.campId
+				+ "', InscriptionDate: '" +Utils.getStringDate(this.inscriptionDate)
+				+ ", Price: " + this.price 
+				+ ", InscriptionType: " + this.inscriptionType 
+				+ "}";
 		
+	}
+
+	public boolean canBeCanceled() {
+		return canBeCanceled;
 	}
 
 

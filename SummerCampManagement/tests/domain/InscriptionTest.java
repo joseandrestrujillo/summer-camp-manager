@@ -65,13 +65,15 @@ class InscriptionTest {
 		InscriptionType inscriptionType = InscriptionType.COMPLETE;
 		
 		
-		Inscription inscription = new Inscription(assistantId,campId,inscriptionDate,price,inscriptionType);
+		
+		Inscription inscription = new Inscription(assistantId, campId, inscriptionDate, price, inscriptionType, true);
 		
 		assertEquals(assistantId, inscription.getAssistantId());
 		assertEquals(campId, inscription.getCampId());
 		assertEquals(inscriptionDate, inscription.getInscriptionDate());
 		assertEquals(price, inscription.getPrice());
 		assertEquals(inscriptionType, inscription.getInscriptionType());
+		assertEquals(true, inscription.canBeCanceled());
 	}
 
 
@@ -83,7 +85,7 @@ class InscriptionTest {
 		float price = 100;
 		InscriptionType inscriptionType = InscriptionType.COMPLETE;
 		
-		Inscription inscription = new Inscription(assistantId,campId,inscriptionDate,price,inscriptionType);
+		Inscription inscription = new Inscription(assistantId,campId,inscriptionDate,price,inscriptionType, true);
 
         String expectedToString = "{AssistantId: 1, CampId: '1', InscriptionDate: '12/01/2024, Price: 100.0, InscriptionType: COMPLETE}";
         assertEquals(expectedToString, inscription.toString());
