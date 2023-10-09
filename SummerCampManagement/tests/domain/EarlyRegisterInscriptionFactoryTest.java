@@ -7,6 +7,8 @@ import java.util.Date;
 import org.junit.jupiter.api.Test;
 
 import utilities.InscriptionType;
+import utilities.MaxMonitorsAddedException;
+import utilities.NotInTimeException;
 import utilities.Utils;
 
 class EarlyRegisterInscriptionFactoryTest {
@@ -35,8 +37,9 @@ class EarlyRegisterInscriptionFactoryTest {
 		float price = 100;
 		InscriptionType inscriptionType = InscriptionType.COMPLETE;
 		
-		
 		EarlyRegisterInscriptionFactory factory = new EarlyRegisterInscriptionFactory();
-		Inscription inscription = factory.create(assistantId, campId, inscriptionDate, price, inscriptionType);
+		// inscription = factory.create(assistantId, campId, inscriptionDate, price, inscriptionType);
+		assertThrows(NotInTimeException.class, () -> factory.create(assistantId, campId, inscriptionDate, price, inscriptionType));
+
 	}
 }
