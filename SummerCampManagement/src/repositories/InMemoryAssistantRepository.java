@@ -1,4 +1,4 @@
-package domain.repositories;
+package repositories;
 
 import java.util.ArrayList;
 import java.util.Date;

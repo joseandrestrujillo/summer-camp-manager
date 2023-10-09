@@ -11,9 +11,9 @@ import domain.entities.Inscription;
 import domain.exceptions.NotInTimeException;
 import domain.factories.EarlyRegisterInscriptionFactory;
 import domain.interfaces.IRepository;
-import domain.repositories.InMemoryCampRepository;
 import domain.values.EducativeLevel;
 import domain.values.InscriptionType;
+import repositories.InMemoryCampRepository;
 import utilities.Utils;
 
 class EarlyRegisterInscriptionFactoryTest  {
