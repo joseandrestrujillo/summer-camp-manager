@@ -1,10 +1,10 @@
-package domain;
+package domain.entities;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import utilities.EducativeLevel;
+import domain.values.EducativeLevel;
 import utilities.Utils;
 
 

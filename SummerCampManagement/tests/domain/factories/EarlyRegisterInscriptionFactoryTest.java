@@ -1,4 +1,4 @@
-package domain;
+package domain.factories;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -6,10 +6,14 @@ import java.util.Date;
 
 import org.junit.jupiter.api.Test;
 
-import data_access.InMemoryCampRepository;
-import utilities.EducativeLevel;
-import utilities.InscriptionType;
-import utilities.NotInTimeException;
+import domain.entities.Camp;
+import domain.entities.Inscription;
+import domain.exceptions.NotInTimeException;
+import domain.factories.EarlyRegisterInscriptionFactory;
+import domain.interfaces.IRepository;
+import domain.repositories.InMemoryCampRepository;
+import domain.values.EducativeLevel;
+import domain.values.InscriptionType;
 import utilities.Utils;
 
 class EarlyRegisterInscriptionFactoryTest  {

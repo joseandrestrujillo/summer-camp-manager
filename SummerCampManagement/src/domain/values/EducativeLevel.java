@@ -1,4 +1,4 @@
-package utilities;
+package domain.values;
 
 public enum EducativeLevel {
 	PRESCHOOL,

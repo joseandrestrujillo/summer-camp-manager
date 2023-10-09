@@ -1,8 +1,8 @@
-package domain;
+package domain.entities;
 
 import java.util.Date;
 
-import utilities.InscriptionType;
+import domain.values.InscriptionType;
 import utilities.Utils;
 
 public class Inscription {

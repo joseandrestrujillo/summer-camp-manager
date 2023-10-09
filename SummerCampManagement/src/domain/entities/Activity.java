@@ -1,11 +1,11 @@
-package domain;
+package domain.entities;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import utilities.EducativeLevel;
-import utilities.MaxMonitorsAddedException;
-import utilities.TimeSlot;
+import domain.exceptions.MaxMonitorsAddedException;
+import domain.values.EducativeLevel;
+import domain.values.TimeSlot;
 
 public class Activity {
 	private String activityName; 

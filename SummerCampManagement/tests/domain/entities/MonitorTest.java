@@ -1,10 +1,10 @@
-package domain;
+package domain.entities;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import domain.Monitor;
+import domain.entities.Monitor;
 
 class MonitorTest {
 	

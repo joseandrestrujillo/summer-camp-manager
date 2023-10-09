@@ -1,4 +1,4 @@
-package data_access;
+package domain.repositories;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -6,10 +6,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import domain.Assistant;
-import domain.Camp;
-import domain.IRepository;
-import utilities.NotFoundException;
+import domain.entities.Assistant;
+import domain.entities.Camp;
+import domain.exceptions.NotFoundException;
+import domain.interfaces.IRepository;
 
 public class InMemoryCampRepository implements IRepository<Camp>{
 

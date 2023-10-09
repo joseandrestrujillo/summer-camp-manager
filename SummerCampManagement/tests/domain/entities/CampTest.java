@@ -1,4 +1,4 @@
-package domain;
+package domain.entities;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -8,11 +8,11 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import domain.Activity;
-import domain.Camp;
-import domain.Monitor;
-import utilities.EducativeLevel;
-import utilities.TimeSlot;
+import domain.entities.Activity;
+import domain.entities.Camp;
+import domain.entities.Monitor;
+import domain.values.EducativeLevel;
+import domain.values.TimeSlot;
 import utilities.Utils;
 
 class CampTest {

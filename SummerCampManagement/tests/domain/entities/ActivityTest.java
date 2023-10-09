@@ -1,4 +1,4 @@
-package domain;
+package domain.entities;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -7,11 +7,11 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import domain.Activity;
-import domain.Monitor;
-import utilities.EducativeLevel;
-import utilities.MaxMonitorsAddedException;
-import utilities.TimeSlot;
+import domain.entities.Activity;
+import domain.entities.Monitor;
+import domain.exceptions.MaxMonitorsAddedException;
+import domain.values.EducativeLevel;
+import domain.values.TimeSlot;
 
 class ActivityTest {
 	

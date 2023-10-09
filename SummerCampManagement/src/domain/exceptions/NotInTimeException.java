@@ -1,4 +1,4 @@
-package utilities;
+package domain.exceptions;
 
 public class NotInTimeException extends RuntimeException {
 

@@ -1,4 +1,4 @@
-package domain;
+package domain.interfaces;
 
 public interface IRepository<T> {
 	public T find(int identifier);

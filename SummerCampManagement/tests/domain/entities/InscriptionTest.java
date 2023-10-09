@@ -1,4 +1,4 @@
-package domain;
+package domain.entities;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -8,9 +8,10 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import utilities.EducativeLevel;
-import utilities.InscriptionType;
-import utilities.TimeSlot;
+import domain.entities.Inscription;
+import domain.values.EducativeLevel;
+import domain.values.InscriptionType;
+import domain.values.TimeSlot;
 import utilities.Utils;
 
 class InscriptionTest {

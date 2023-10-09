@@ -1,22 +1,25 @@
-package domain;
+package domain.factories;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
-import utilities.InscriptionType;
-import utilities.NotInTimeException;
+import domain.entities.Camp;
+import domain.entities.Inscription;
+import domain.exceptions.NotInTimeException;
+import domain.interfaces.AbstractInscriptionFactory;
+import domain.interfaces.IRepository;
+import domain.values.InscriptionType;
 import utilities.Utils;
 
-public class EarlyRegisterInscriptionFactory extends AbstractInscriptionFactory{
+public class EarlyRegisterInscriptionFactory implements AbstractInscriptionFactory{
 	private IRepository<Camp> campRepository;
 	
 	public EarlyRegisterInscriptionFactory(IRepository<Camp> campRepository) {
 		this.campRepository = campRepository;
 	}
 
-	@Override
 	public Inscription create(int assistantId, int campId, Date inscriptionDate, float price,
 			InscriptionType inscriptionType) {
 		Camp camp = this.campRepository.find(campId);

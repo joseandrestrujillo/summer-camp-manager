@@ -1,4 +1,4 @@
-package domain;
+package domain.entities;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -6,7 +6,7 @@ import java.util.Date;
 
 import org.junit.jupiter.api.Test;
 
-import domain.Assistant;
+import domain.entities.Assistant;
 import utilities.Utils;
 
 class AssistantTest {
