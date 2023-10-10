@@ -11,7 +11,7 @@ public class AssistantsManager {
 		this.assistantRepository = assistantRepository;
 	}
 	public void registerAssistant(Assistant assistant) {
-		
+		this.assistantRepository.save(assistant);
 	}
 	public boolean isRegistered(Assistant assistant) {
 		try {
