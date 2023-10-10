@@ -31,4 +31,9 @@ public class InMemoryCampRepository implements IRepository<Camp>{
 	public void save(Camp obj) {
 		this.mapOfCamp.put(obj.getCampID(), obj);
 	}
+
+	@Override
+	public List<Camp> getAll() {
+		return new ArrayList<Camp>(this.mapOfCamp.values());
+	}
 }

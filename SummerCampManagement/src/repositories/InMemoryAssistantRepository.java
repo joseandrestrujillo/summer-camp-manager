@@ -31,4 +31,9 @@ public class InMemoryAssistantRepository implements IRepository<Assistant>{
 		this.mapOfAssistants.put(obj.getId(), obj);
 	}
 
+	@Override
+	public List<Assistant> getAll() {
+		return new ArrayList<Assistant>(this.mapOfAssistants.values());
+	}
+
 }

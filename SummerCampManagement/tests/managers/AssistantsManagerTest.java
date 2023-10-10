@@ -2,6 +2,9 @@ package managers;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 import domain.entities.Assistant;
@@ -93,5 +96,23 @@ class AssistantsManagerTest {
 		assertThrows(AssistantNotFoundException.class, 
 				() -> assistantsManager.updateAssistant(assistant)
 		);
+	}
+	
+	@Test
+	void getListOfRegisteredAssistant_returnListRegisteredAssitant(){
+		InMemoryAssistantRepository assistantRepository = new InMemoryAssistantRepository();
+		AssistantsManager assistantsManager = new AssistantsManager(assistantRepository);		
+		Assistant assistant = new Assistant(
+				1,
+				"José",
+				"Trujillo",
+				Utils.parseDate("26/01/2001"),
+				true
+				);
+		
+		assistantsManager.registerAssistant(assistant);
+		List<Assistant> list = new ArrayList<Assistant>();
+		list.add(assistant);
+		assertEquals(list, assistantsManager.getListOfRegisteredAssistant());
 	}
 }

@@ -1,5 +1,7 @@
 package managers;
 
+import java.util.List;
+
 import domain.entities.Assistant;
 import domain.exceptions.AssistantAlreadyRegisteredException;
 import domain.exceptions.AssistantNotFoundException;
@@ -34,6 +36,10 @@ public class AssistantsManager {
 		} catch (NotFoundException e) {
 			return false;
 		}
+	}
+	
+	public List<Assistant> getListOfRegisteredAssistant(){
+		return this.assistantRepository.getAll();
 	}
 
 }
