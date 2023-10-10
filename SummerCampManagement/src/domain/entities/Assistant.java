@@ -31,19 +31,19 @@ public class Assistant {
 		return this.id;
 	}
 
-	public Object getFirstName() {
+	public String getFirstName() {
 		return this.firstName;
 	}
 
-	public Object getLastName() {
+	public String getLastName() {
 		return this.lastName;
 	}
 
-	public Object getBirthDate() {
+	public Date getBirthDate() {
 		return this.birthDate;
 	}
 
-	public Object isRequireSpecialAttention() {
+	public boolean isRequireSpecialAttention() {
 		return this.requireSpecialAttention;
 	}
 
