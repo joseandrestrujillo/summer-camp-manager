@@ -7,7 +7,9 @@ import java.util.Date;
 
 import domain.entities.Assistant;
 import domain.entities.Camp;
+import domain.entities.CompleteInscription;
 import domain.entities.Inscription;
+import domain.entities.PartialInscription;
 import domain.exceptions.AfterEarlyTimeException;
 import domain.exceptions.AfterStartTime;
 import domain.exceptions.AfterStartTimeException;
@@ -29,8 +31,8 @@ public class EarlyRegisterInscriptionFactory implements AbstractInscriptionFacto
 		this.assistantRepository = assistantRepository;
 	}
 
-	public Inscription create(int assistantId, int campId, Date inscriptionDate, float price,
-			InscriptionType inscriptionType) {
+	@Override
+	public PartialInscription createPartial(int assistantId, int campId, Date inscriptionDate, float price) {
 		try {
 			this.assistantRepository.find(assistantId);			
 		} catch (NotFoundException e) {
@@ -48,11 +50,36 @@ public class EarlyRegisterInscriptionFactory implements AbstractInscriptionFacto
 				throw new AfterStartTimeException();
 			}
 			
-			return new Inscription(assistantId, campId, inscriptionDate, price, inscriptionType, true);
+			return new PartialInscription(assistantId, campId, inscriptionDate, price, true);
 			
 		} catch (NotFoundException e) {
 			throw new CampNotFoundException();
 		}
+	}
+
+	@Override
+	public CompleteInscription createComplete(int assistantId, int campId, Date inscriptionDate, float price) {
+		try {
+			this.assistantRepository.find(assistantId);			
+		} catch (NotFoundException e) {
+			throw new AssistantNotFoundException();
+		} 
 		
+		try {
+			Camp camp = this.campRepository.find(campId);	
+			
+			long daysDifference = Utils.daysBetween(camp.getStart(), inscriptionDate);
+			
+			if ((daysDifference <= 15) && (daysDifference > 0)) {
+				throw new AfterEarlyTimeException();
+			} else if (daysDifference < 0) {
+				throw new AfterStartTimeException();
+			}
+			
+			return new CompleteInscription(assistantId, campId, inscriptionDate, price, true);
+			
+		} catch (NotFoundException e) {
+			throw new CampNotFoundException();
+		}
 	}
 }

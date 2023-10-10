@@ -22,7 +22,6 @@ class InscriptionTest {
 		int campId = -1;
 		Date inscriptionDate = null;
 		float price = -1;
-		InscriptionType inscriptionType = null;
 		
 
 		Inscription inscription = new Inscription();
@@ -31,7 +30,6 @@ class InscriptionTest {
         assertEquals(campId, inscription.getCampId());
         assertEquals(inscriptionDate, inscription.getInscriptionDate());
         assertEquals(price, inscription.getPrice());
-        assertEquals(inscriptionType, inscription.getInscriptionType());
 	}
 
 	@Test
@@ -41,19 +39,16 @@ class InscriptionTest {
 		int campId = 4;
 		Date inscriptionDate = Utils.parseDate("12/01/2024");
 		float price = 100;
-		InscriptionType inscriptionType =  InscriptionType.COMPLETE;
 				
 		inscription.setAssistantId(assistantId);
 		inscription.setCampId(campId);
 		inscription.setInscriptionDate(inscriptionDate);
 		inscription.setPrice(price);
-		inscription.setInscriptionType(inscriptionType);
 		
 		assertEquals(assistantId, inscription.getAssistantId());
 		assertEquals(campId, inscription.getCampId());
 		assertEquals(inscriptionDate, inscription.getInscriptionDate());
 		assertEquals(price, inscription.getPrice());
-		assertEquals(inscriptionType, inscription.getInscriptionType());
 		
 	}
 
@@ -63,17 +58,15 @@ class InscriptionTest {
 		int campId = 1;
 		Date inscriptionDate = Utils.parseDate("12/01/2024");
 		float price = 100;
-		InscriptionType inscriptionType = InscriptionType.COMPLETE;
 		
 		
 		
-		Inscription inscription = new Inscription(assistantId, campId, inscriptionDate, price, inscriptionType, true);
+		Inscription inscription = new Inscription(assistantId, campId, inscriptionDate, price, true);
 		
 		assertEquals(assistantId, inscription.getAssistantId());
 		assertEquals(campId, inscription.getCampId());
 		assertEquals(inscriptionDate, inscription.getInscriptionDate());
 		assertEquals(price, inscription.getPrice());
-		assertEquals(inscriptionType, inscription.getInscriptionType());
 		assertEquals(true, inscription.canBeCanceled());
 	}
 
@@ -84,11 +77,10 @@ class InscriptionTest {
 		int campId = 1;
 		Date inscriptionDate = Utils.parseDate("12/01/2024");
 		float price = 100;
-		InscriptionType inscriptionType = InscriptionType.COMPLETE;
 		
-		Inscription inscription = new Inscription(assistantId,campId,inscriptionDate,price,inscriptionType, true);
+		Inscription inscription = new Inscription(assistantId,campId,inscriptionDate,price, true);
 
-        String expectedToString = "{AssistantId: 1, CampId: '1', InscriptionDate: '12/01/2024, Price: 100.0, InscriptionType: COMPLETE}";
+        String expectedToString = "{AssistantId: 1, CampId: '1', InscriptionDate: '12/01/2024, Price: 100.0}";
         assertEquals(expectedToString, inscription.toString());
     }
 	
