@@ -1,9 +1,9 @@
 package managers;
 
 import domain.entities.Assistant;
+import domain.exceptions.AssistantAlreadyRegisteredException;
 import domain.exceptions.NotFoundException;
 import domain.interfaces.IRepository;
-import repositories.InMemoryAssistantRepository;
 
 public class AssistantsManager {
 	private IRepository<Assistant> assistantRepository;
@@ -13,6 +13,9 @@ public class AssistantsManager {
 	}
 	
 	public void registerAssistant(Assistant assistant) {
+		if (isRegistered(assistant) == true) {
+			throw new AssistantAlreadyRegisteredException();
+		}
 		this.assistantRepository.save(assistant);
 	}
 	
