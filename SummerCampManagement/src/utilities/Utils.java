@@ -2,6 +2,7 @@ package utilities;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
@@ -19,7 +20,9 @@ public class Utils {
 		return new SimpleDateFormat("dd/MM/yyyy").format(date);
 	}
 	
-	public static long daysBetween(Date newest, Date oldest) {
-		return ChronoUnit.DAYS.between(newest.toInstant(), oldest.toInstant());
+	public static long daysBetween(Date zero, Date date) {
+		long daysBetween = ChronoUnit.DAYS.between(zero.toInstant(), date.toInstant());
+		boolean isBefore = zero.getTime() >= date.getTime();
+		return Math.abs(daysBetween) * (isBefore ? 1 : -1);
 	}
 }
