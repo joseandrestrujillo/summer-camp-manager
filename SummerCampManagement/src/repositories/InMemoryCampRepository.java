@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import domain.entities.Activity;
 import domain.entities.Assistant;
 import domain.entities.Camp;
 import domain.exceptions.NotFoundException;
@@ -36,4 +37,6 @@ public class InMemoryCampRepository implements IRepository<Camp>{
 	public List<Camp> getAll() {
 		return new ArrayList<Camp>(this.mapOfCamp.values());
 	}
+
+
 }

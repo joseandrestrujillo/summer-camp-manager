@@ -8,11 +8,14 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import domain.entities.Activity;
 import domain.entities.Assistant;
 import domain.entities.Camp;
+import domain.entities.Monitor;
 import domain.exceptions.AssistantAlreadyRegisteredException;
 import domain.exceptions.AssistantNotFoundException;
 import domain.values.EducativeLevel;
+import domain.values.TimeSlot;
 import repositories.InMemoryAssistantRepository;
 import repositories.InMemoryCampRepository;
 import utilities.Utils;
@@ -23,7 +26,31 @@ class CampsManagerTest {
 	void registerCamp_whenCampIsNotRegistered_thenRegisterTheCamp(){
 		InMemoryCampRepository campRepository = new InMemoryCampRepository();
 		CampsManager campsManager = new CampsManager(campRepository);	
+		//-------------ESTO LO HA HECHO MIGUEL----------------------
+		List<Activity> activities = new ArrayList<Activity>();
+		List<Monitor> monitors = new ArrayList<Monitor>();
+		Activity activity = new Activity(
+				"Actividad",
+				EducativeLevel.ELEMENTARY,
+				TimeSlot.AFTERNOON,
+				10,
+				3
+		);
 		
+		Activity activity2 = new Activity(
+				"Actividad 2",
+				EducativeLevel.PRESCHOOL,
+				TimeSlot.AFTERNOON,
+				10,
+				3
+		);
+		Monitor monitor = new Monitor(
+				1, 
+				"Pepe", 
+				"Sanchez Rodriguez", 
+				false
+		);
+	    //--------------------------------------------
 		Camp camp = new Camp(
 				1,
 				Utils.parseDate("15/01/2024"),
@@ -33,6 +60,9 @@ class CampsManagerTest {
 		);
 		
 		campsManager.registerCamp(camp);
+		campsManager.registerMonitor(monitor);
+		campsManager.registerActivity(activity);
+		campsManager.registerActivity(activity2);
 		
 		assertEquals(true, campsManager.isRegistered(camp));
 	}
