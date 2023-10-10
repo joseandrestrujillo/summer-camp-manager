@@ -13,6 +13,7 @@ class AssistantsManagerTest {
 	@Test
 	void registerAssistant_whenAssistantIsNotRegistered_thenRegisterTheAssistant(){
 		InMemoryAssistantRepository assistantRepository = new InMemoryAssistantRepository();
+		AssistantsManager assistantsManager = new AssistantsManager(assistantRepository);		
 		Assistant assistant = new Assistant(
 				1,
 				"José",
@@ -20,7 +21,6 @@ class AssistantsManagerTest {
 				Utils.parseDate("26/01/2001"),
 				true
 				);
-		AssistantsManager assistantsManager = new AssistantsManager(assistantRepository);
 		
 		assistantsManager.registerAssistant(assistant);
 		
