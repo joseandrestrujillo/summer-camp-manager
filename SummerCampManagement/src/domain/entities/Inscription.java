@@ -6,6 +6,7 @@ import domain.values.InscriptionType;
 import utilities.Utils;
 
 public class Inscription {
+	private String inscriptionIdentifier;
 	private int assistantId;
 	private int campId;
 	private Date inscriptionDate;
@@ -18,6 +19,16 @@ public class Inscription {
 		this.inscriptionDate = inscriptionDate;
 		this.price = price;
 		this.canBeCanceled = canBeCanceled;
+		this.reloadIdentifier();
+	}
+	
+	private void reloadIdentifier() {
+		if ((this.inscriptionDate == null) || (this.assistantId == -1) || (this.campId == -1)) {
+			this.inscriptionIdentifier = "";
+		}else {
+			this.inscriptionIdentifier = this.assistantId + "-" + this.campId + "-" + Utils.getStringDate(this.inscriptionDate);
+		}
+		
 	}
 	
 	public Inscription() {
@@ -25,8 +36,14 @@ public class Inscription {
 		this.campId = -1;
 		this.inscriptionDate = null;
 		this.price = -1;
+		this.reloadIdentifier();
+
 	}
 
+	public String getInscriptionIdentifier() {
+		return this.inscriptionIdentifier;
+	}
+	
 	public Integer getAssistantId() {
 		return this.assistantId;
 	}
@@ -46,14 +63,18 @@ public class Inscription {
 	
 	public void setAssistantId(int assistantId ){
 		this.assistantId = assistantId;
+		this.reloadIdentifier();
+		
 	}
 	
 	public void setCampId(int campId) {
 		this.campId = campId;
+		this.reloadIdentifier();
 	}
 	
 	public void setInscriptionDate(Date inscriptionDate){
 		this.inscriptionDate = inscriptionDate;
+		this.reloadIdentifier();
 	}
 
 	public void setPrice(float price){
