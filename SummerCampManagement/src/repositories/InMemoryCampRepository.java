@@ -37,6 +37,18 @@ public class InMemoryCampRepository implements IRepository<Camp>{
 	public List<Camp> getAll() {
 		return new ArrayList<Camp>(this.mapOfCamp.values());
 	}
+	//------ME OBLIGA LA class a ponerlas aunque no se usen----
+	@Override
+	public Camp findActivity(String activityName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void saveActivity(String activityName) {
+		// TODO Auto-generated method stub
+		
+	}
 
 
 }

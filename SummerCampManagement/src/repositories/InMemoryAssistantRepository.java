@@ -35,5 +35,17 @@ public class InMemoryAssistantRepository implements IRepository<Assistant>{
 	public List<Assistant> getAll() {
 		return new ArrayList<Assistant>(this.mapOfAssistants.values());
 	}
+	//------ME OBLIGA LA class a ponerlas aunque no se usen----
+	@Override
+	public Assistant findActivity(String activityName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void saveActivity(String activityName) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

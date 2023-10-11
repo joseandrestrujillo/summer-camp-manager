@@ -65,6 +65,12 @@ class CampsManagerTest {
 		campsManager.registerActivity(activity2);
 		
 		assertEquals(true, campsManager.isRegistered(camp));
+		assertEquals(true, campsManager.isRegistered(monitor));
+		assertEquals(true, campsManager.isRegistered(activity));
+		assertEquals(true, campsManager.isRegistered(activity2));
+
+
+
 	}
 	
 //	@Test

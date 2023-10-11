@@ -35,5 +35,17 @@ public class InMemoryMontiorRepository implements IRepository<Monitor>{
 	public List<Monitor> getAll() {
 		return new ArrayList<Monitor>(this.mapOfMonitor.values());
 	}
+	//------ME OBLIGA LA class a ponerlas aunque no se usen----
+	@Override
+	public Monitor findActivity(String activityName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void saveActivity(String activityName) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

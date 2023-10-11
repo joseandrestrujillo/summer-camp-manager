@@ -7,40 +7,47 @@ import java.util.List;
 import java.util.Map;
 
 import domain.entities.Activity;
-import domain.entities.Assistant;
-import domain.entities.Camp;
 import domain.exceptions.NotFoundException;
 import domain.interfaces.IRepository;
 
 public class InMemoryActivityRepository implements IRepository<Activity>{
 
-	private Map<Integer, Activity> mapOfActivity;
+	private Map<String, Activity> mapOfActivity;
 	
 	public InMemoryActivityRepository() {
-		this.mapOfActivity = new HashMap<Integer, Activity>();
+		this.mapOfActivity = new HashMap<String, Activity>();
 	}
 	
 	@Override
-	public Activity find(int identifier) {
-		if (this.mapOfActivity.get(identifier) == null) {
+	public Activity findActivity(String activityName) {
+		if (this.mapOfActivity.get(activityName)==null) {
 			throw new NotFoundException();
 		}
-		return this.mapOfActivity.get(identifier);
+		return this.mapOfActivity.get(activityName);
 	}
 
 	@Override
-	public void save(Activity obj) {
-		this.mapOfActivity.put(obj.getCampID(), obj);
+	public void saveActivity(String activityName) {
+		this.mapOfActivity.put(activityName, null);
 	}
 
 	@Override
 	public List<Activity> getAll() {
 		return new ArrayList<Activity>(this.mapOfActivity.values());
 	}
+	//------ME OBLIGA LA class a ponerlas aunque no se usen----
+	//QUIZAS HAY QUE CREAR OTRO IRepository para las operaciones activity???
+	@Override
+	public Activity find(int identifier) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	@Override
-	public ArrayList<Activity> findActivity(String identifier) {
+	public void save(Activity obj) {
 		// TODO Auto-generated method stub
-		return new ArrayList<Activity>(this.mapOfActivity.values());
+		
 	}
+
+
 }
