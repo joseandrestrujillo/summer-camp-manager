@@ -9,9 +9,9 @@ import domain.exceptions.NotFoundException;
 import domain.interfaces.IRepository;
 
 public class AssistantsManager {
-	private IRepository<Assistant> assistantRepository;
+	private IRepository<Assistant, Integer> assistantRepository;
 	
-	public AssistantsManager(IRepository<Assistant> assistantRepository) {
+	public AssistantsManager(IRepository<Assistant, Integer> assistantRepository) {
 		this.assistantRepository = assistantRepository;
 	}
 	

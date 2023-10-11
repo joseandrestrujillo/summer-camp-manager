@@ -133,8 +133,8 @@ class ActivityTest {
                 neededMonitors
         );
 
-		activity.addMonitor(monitor);
-		activity.addMonitor(monitor2);
+		activity.registerMonitor(monitor);
+		activity.registerMonitor(monitor2);
 
 
 		assertEquals("Alberto", activity.getMonitorList().get(0).getFirstName());
@@ -180,11 +180,11 @@ class ActivityTest {
                 neededMonitors
         );
 
-		activity.addMonitor(monitor);
-		activity.addMonitor(monitor2);
+		activity.registerMonitor(monitor);
+		activity.registerMonitor(monitor2);
 
 
-		assertThrows(MaxMonitorsAddedException.class, () -> activity.addMonitor(monitor3));
+		assertThrows(MaxMonitorsAddedException.class, () -> activity.registerMonitor(monitor3));
  		
 	}
 

@@ -10,7 +10,7 @@ import domain.entities.Monitor;
 import domain.exceptions.NotFoundException;
 import domain.interfaces.IRepository;
 
-public class InMemoryMontiorRepository implements IRepository<Monitor>{
+public class InMemoryMontiorRepository implements IRepository<Monitor, Integer>{
 
 	private Map<Integer, Monitor> mapOfMonitor;
 	
@@ -19,7 +19,7 @@ public class InMemoryMontiorRepository implements IRepository<Monitor>{
 	}
 	
 	@Override
-	public Monitor find(int identifier) {
+	public Monitor find(Integer identifier) {
 		if (this.mapOfMonitor.get(identifier) == null) {
 			throw new NotFoundException();
 		}
@@ -34,18 +34,6 @@ public class InMemoryMontiorRepository implements IRepository<Monitor>{
 	@Override
 	public List<Monitor> getAll() {
 		return new ArrayList<Monitor>(this.mapOfMonitor.values());
-	}
-	//------ME OBLIGA LA class a ponerlas aunque no se usen----
-	@Override
-	public Monitor findActivity(String activityName) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void saveActivity(String activityName) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

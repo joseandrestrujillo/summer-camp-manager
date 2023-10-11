@@ -17,10 +17,10 @@ import domain.interfaces.IRepository;
 import utilities.Utils;
 
 public class LateRegisterInscriptionFactory implements AbstractInscriptionFactory{
-	private IRepository<Camp> campRepository;
-	private IRepository<Assistant> assistantRepository;
+	private IRepository<Camp, Integer> campRepository;
+	private IRepository<Assistant, Integer> assistantRepository;
 	
-	public LateRegisterInscriptionFactory(IRepository<Camp> campRepository, IRepository<Assistant> assistanRepository) {
+	public LateRegisterInscriptionFactory(IRepository<Camp, Integer> campRepository, IRepository<Assistant, Integer> assistanRepository) {
 		this.campRepository = campRepository;
 		this.assistantRepository = assistanRepository;
 	}

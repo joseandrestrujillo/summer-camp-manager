@@ -10,7 +10,7 @@ import domain.entities.Activity;
 import domain.exceptions.NotFoundException;
 import domain.interfaces.IRepository;
 
-public class InMemoryActivityRepository implements IRepository<Activity>{
+public class InMemoryActivityRepository implements IRepository<Activity, String>{
 
 	private Map<String, Activity> mapOfActivity;
 	
@@ -19,7 +19,7 @@ public class InMemoryActivityRepository implements IRepository<Activity>{
 	}
 	
 	@Override
-	public Activity findActivity(String activityName) {
+	public Activity find(String activityName) {
 		if (this.mapOfActivity.get(activityName)==null) {
 			throw new NotFoundException();
 		}
@@ -27,26 +27,13 @@ public class InMemoryActivityRepository implements IRepository<Activity>{
 	}
 
 	@Override
-	public void saveActivity(String activityName) {
-		this.mapOfActivity.put(activityName, null);
+	public void save(Activity activity) {
+		this.mapOfActivity.put(activity.getActivityName(), activity);
 	}
 
 	@Override
 	public List<Activity> getAll() {
 		return new ArrayList<Activity>(this.mapOfActivity.values());
-	}
-	//------ME OBLIGA LA class a ponerlas aunque no se usen----
-	//QUIZAS HAY QUE CREAR OTRO IRepository para las operaciones activity???
-	@Override
-	public Activity find(int identifier) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void save(Activity obj) {
-		// TODO Auto-generated method stub
-		
 	}
 
 

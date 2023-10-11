@@ -10,7 +10,7 @@ import domain.entities.Assistant;
 import domain.exceptions.NotFoundException;
 import domain.interfaces.IRepository;
 
-public class InMemoryAssistantRepository implements IRepository<Assistant>{
+public class InMemoryAssistantRepository implements IRepository<Assistant, Integer>{
 
 	private Map<Integer, Assistant> mapOfAssistants;
 	
@@ -19,7 +19,7 @@ public class InMemoryAssistantRepository implements IRepository<Assistant>{
 	}
 	
 	@Override
-	public Assistant find(int identifier) {
+	public Assistant find(Integer identifier) {
 		if (this.mapOfAssistants.get(identifier) == null) {
 			throw new NotFoundException();
 		}
@@ -34,18 +34,6 @@ public class InMemoryAssistantRepository implements IRepository<Assistant>{
 	@Override
 	public List<Assistant> getAll() {
 		return new ArrayList<Assistant>(this.mapOfAssistants.values());
-	}
-	//------ME OBLIGA LA class a ponerlas aunque no se usen----
-	@Override
-	public Assistant findActivity(String activityName) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void saveActivity(String activityName) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

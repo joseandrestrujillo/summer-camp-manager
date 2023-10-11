@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import domain.exceptions.MonitorNotFoundException;
+import domain.exceptions.NotTheSameLevelException;
+import domain.exceptions.SpecialMonitorAlreadyRegisterException;
 import domain.values.EducativeLevel;
 import utilities.Utils;
 
@@ -16,7 +19,8 @@ public class Camp {
     private EducativeLevel educativeLevel;
     private int capacity;
     private List<Activity> activities;
-    private List<Monitor> monitors;
+    private Monitor principalMonitor;
+    private Monitor specialMonitor;
 
     public Camp(){
         this.campID = -1;
@@ -33,9 +37,53 @@ public class Camp {
         this.educativeLevel = educativeLevel;
         this.capacity = capacity;
         this.activities = new ArrayList<Activity>();
-        this.monitors = new ArrayList<Monitor>();
     }
 
+    public void registerActivity(Activity activity) {
+    	if(activity.getEducativeLevel() != this.educativeLevel) {
+    		throw new NotTheSameLevelException();
+    	}
+    	
+    	this.activities.add(activity);
+    }
+    
+    public void setPrincipalMonitor(Monitor monitor) {
+    	boolean founded = false;
+    	for (int i = 0; i < this.activities.size(); i++) {
+    	    Activity activity = this.activities.get(i);
+    	    if(activity.monitorIsRegistered(monitor)) {
+    	    	founded = true;
+    	    }
+    	}
+    	
+    	if(founded == false) {
+    		throw new MonitorNotFoundException();
+    	}
+    	this.principalMonitor = monitor;
+    }
+    
+	public void setSpecialMonitor(Monitor monitor) {
+    	for (int i = 0; i < this.activities.size(); i++) {
+    	    Activity activity = this.activities.get(i);
+    	    if(activity.monitorIsRegistered(monitor)) {
+    	    	throw new SpecialMonitorAlreadyRegisterException();
+    	    }
+    	}
+    	this.specialMonitor = monitor;
+    }
+    
+	public boolean activityIsRegistered(Activity activity) {
+		return this.activities.contains(activity);
+	}
+	
+	public Monitor getPrincipalMonitor() {
+		return this.principalMonitor;
+	}
+	
+	public Monitor getSpecialMonitor() {
+		return this.specialMonitor;
+	}
+	
     public int getCampID() {
         return campID;
     }
@@ -83,14 +131,6 @@ public class Camp {
     public void setActivities(List<Activity> activities) {
         this.activities = activities;
     }
-
-    public List<Monitor> getMonitors() {
-        return monitors;
-    }
-
-    public void setMonitors(List<Monitor> monitors) {
-        this.monitors = monitors;
-    }
     
 		
     public String toString() {
@@ -101,7 +141,7 @@ public class Camp {
         		+ "', educativeLevel: " + this.educativeLevel 
         		+ ", capacity: " + this.capacity 
         		+ ", activities: " + this.activities.toString() 
-        		+ ", monitors: " + this.monitors.toString()+ "}";
+        		+  "}";
     }
 
 	

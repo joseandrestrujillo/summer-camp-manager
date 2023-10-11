@@ -32,7 +32,7 @@ class LateRegisterInscriptionFactoryTest  {
 		Date inscriptionDate = Utils.parseDate("10/1/2024");
 		float price = 100;
 		
-		IRepository<Camp> campRepository = new InMemoryCampRepository();
+		IRepository<Camp, Integer> campRepository = new InMemoryCampRepository();
 		campRepository.save(new Camp(
 					campId, 
 					Utils.parseDate("15/01/2024"),
@@ -41,7 +41,7 @@ class LateRegisterInscriptionFactoryTest  {
 					10
 					));
 		
-		IRepository<Assistant> assistantIRepository = new InMemoryAssistantRepository();
+		IRepository<Assistant, Integer> assistantIRepository = new InMemoryAssistantRepository();
 		assistantIRepository.save(new Assistant(
 				assistantId,
 				"José",
@@ -64,7 +64,7 @@ class LateRegisterInscriptionFactoryTest  {
 		Date inscriptionDate = Utils.parseDate("18/01/2024");
 		float price = 100;
 		
-		IRepository<Camp> campRepository = new InMemoryCampRepository();
+		IRepository<Camp, Integer> campRepository = new InMemoryCampRepository();
 		campRepository.save(new Camp(
 					campId, 
 					Utils.parseDate("15/01/2024"),
@@ -73,7 +73,7 @@ class LateRegisterInscriptionFactoryTest  {
 					10
 					));
 		
-		IRepository<Assistant> assistantIRepository = new InMemoryAssistantRepository();
+		IRepository<Assistant, Integer> assistantIRepository = new InMemoryAssistantRepository();
 		assistantIRepository.save(new Assistant(
 				assistantId,
 				"José",
@@ -96,7 +96,7 @@ class LateRegisterInscriptionFactoryTest  {
 		Date inscriptionDate = Utils.parseDate("24/12/2023");
 		float price = 100;
 		
-		IRepository<Camp> campRepository = new InMemoryCampRepository();
+		IRepository<Camp, Integer> campRepository = new InMemoryCampRepository();
 		campRepository.save(new Camp(
 					campId, 
 					Utils.parseDate("15/01/2024"),
@@ -105,7 +105,7 @@ class LateRegisterInscriptionFactoryTest  {
 					10
 					));
 		
-		IRepository<Assistant> assistantIRepository = new InMemoryAssistantRepository();
+		IRepository<Assistant, Integer> assistantIRepository = new InMemoryAssistantRepository();
 		assistantIRepository.save(new Assistant(
 				assistantId,
 				"José",
@@ -128,7 +128,7 @@ class LateRegisterInscriptionFactoryTest  {
 		Date inscriptionDate = Utils.parseDate("13/01/2024");
 		float price = 100;
 		
-		IRepository<Camp> campRepository = new InMemoryCampRepository();
+		IRepository<Camp, Integer> campRepository = new InMemoryCampRepository();
 		campRepository.save(new Camp(
 					campId, 
 					Utils.parseDate("15/01/2024"),
@@ -137,7 +137,7 @@ class LateRegisterInscriptionFactoryTest  {
 					10
 					));
 		
-		IRepository<Assistant> assistantIRepository = new InMemoryAssistantRepository();
+		IRepository<Assistant, Integer> assistantIRepository = new InMemoryAssistantRepository();
 		assistantIRepository.save(new Assistant(
 				assistantId,
 				"José",
@@ -160,7 +160,7 @@ class LateRegisterInscriptionFactoryTest  {
 		Date inscriptionDate = Utils.parseDate("12/01/2024");
 		float price = 100;
 		
-		IRepository<Camp> campRepository = new InMemoryCampRepository();
+		IRepository<Camp, Integer> campRepository = new InMemoryCampRepository();
 		campRepository.save(new Camp(
 					campId, 
 					Utils.parseDate("15/01/2024"),
@@ -183,7 +183,7 @@ class LateRegisterInscriptionFactoryTest  {
 		Date inscriptionDate = Utils.parseDate("12/01/2024");
 		float price = 100;
 		
-		IRepository<Assistant> assistantIRepository = new InMemoryAssistantRepository();
+		IRepository<Assistant, Integer> assistantIRepository = new InMemoryAssistantRepository();
 		assistantIRepository.save(new Assistant(
 				assistantId,
 				"José",
@@ -206,7 +206,7 @@ class LateRegisterInscriptionFactoryTest  {
 		Date inscriptionDate = Utils.parseDate("10/1/2024");
 		float price = 100;
 		
-		IRepository<Camp> campRepository = new InMemoryCampRepository();
+		IRepository<Camp, Integer> campRepository = new InMemoryCampRepository();
 		campRepository.save(new Camp(
 					campId, 
 					Utils.parseDate("15/01/2024"),
@@ -215,7 +215,7 @@ class LateRegisterInscriptionFactoryTest  {
 					10
 					));
 		
-		IRepository<Assistant> assistantIRepository = new InMemoryAssistantRepository();
+		IRepository<Assistant, Integer> assistantIRepository = new InMemoryAssistantRepository();
 		assistantIRepository.save(new Assistant(
 				assistantId,
 				"José",
@@ -238,7 +238,7 @@ class LateRegisterInscriptionFactoryTest  {
 		Date inscriptionDate = Utils.parseDate("18/01/2024");
 		float price = 100;
 		
-		IRepository<Camp> campRepository = new InMemoryCampRepository();
+		IRepository<Camp, Integer> campRepository = new InMemoryCampRepository();
 		campRepository.save(new Camp(
 					campId, 
 					Utils.parseDate("15/01/2024"),
@@ -247,7 +247,7 @@ class LateRegisterInscriptionFactoryTest  {
 					10
 					));
 		
-		IRepository<Assistant> assistantIRepository = new InMemoryAssistantRepository();
+		IRepository<Assistant, Integer> assistantIRepository = new InMemoryAssistantRepository();
 		assistantIRepository.save(new Assistant(
 				assistantId,
 				"José",
@@ -270,7 +270,7 @@ class LateRegisterInscriptionFactoryTest  {
 		Date inscriptionDate = Utils.parseDate("24/12/2023");
 		float price = 100;
 		
-		IRepository<Camp> campRepository = new InMemoryCampRepository();
+		IRepository<Camp, Integer> campRepository = new InMemoryCampRepository();
 		campRepository.save(new Camp(
 					campId, 
 					Utils.parseDate("15/01/2024"),
@@ -279,7 +279,7 @@ class LateRegisterInscriptionFactoryTest  {
 					10
 					));
 		
-		IRepository<Assistant> assistantIRepository = new InMemoryAssistantRepository();
+		IRepository<Assistant, Integer> assistantIRepository = new InMemoryAssistantRepository();
 		assistantIRepository.save(new Assistant(
 				assistantId,
 				"José",
@@ -302,7 +302,7 @@ class LateRegisterInscriptionFactoryTest  {
 		Date inscriptionDate = Utils.parseDate("13/01/2024");
 		float price = 100;
 		
-		IRepository<Camp> campRepository = new InMemoryCampRepository();
+		IRepository<Camp, Integer> campRepository = new InMemoryCampRepository();
 		campRepository.save(new Camp(
 					campId, 
 					Utils.parseDate("15/01/2024"),
@@ -311,7 +311,7 @@ class LateRegisterInscriptionFactoryTest  {
 					10
 					));
 		
-		IRepository<Assistant> assistantIRepository = new InMemoryAssistantRepository();
+		IRepository<Assistant, Integer> assistantIRepository = new InMemoryAssistantRepository();
 		assistantIRepository.save(new Assistant(
 				assistantId,
 				"José",
@@ -334,7 +334,7 @@ class LateRegisterInscriptionFactoryTest  {
 		Date inscriptionDate = Utils.parseDate("12/01/2024");
 		float price = 100;
 		
-		IRepository<Camp> campRepository = new InMemoryCampRepository();
+		IRepository<Camp, Integer> campRepository = new InMemoryCampRepository();
 		campRepository.save(new Camp(
 					campId, 
 					Utils.parseDate("15/01/2024"),
@@ -357,7 +357,7 @@ class LateRegisterInscriptionFactoryTest  {
 		Date inscriptionDate = Utils.parseDate("12/01/2024");
 		float price = 100;
 		
-		IRepository<Assistant> assistantIRepository = new InMemoryAssistantRepository();
+		IRepository<Assistant, Integer> assistantIRepository = new InMemoryAssistantRepository();
 		assistantIRepository.save(new Assistant(
 				assistantId,
 				"José",

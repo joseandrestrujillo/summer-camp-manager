@@ -1,8 +1,6 @@
 package domain.factories;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 import domain.entities.Assistant;
@@ -19,10 +17,10 @@ import domain.interfaces.IRepository;
 import utilities.Utils;
 
 public class EarlyRegisterInscriptionFactory implements AbstractInscriptionFactory{
-	private IRepository<Camp> campRepository;
-	private IRepository<Assistant> assistantRepository;
+	private IRepository<Camp, Integer> campRepository;
+	private IRepository<Assistant, Integer> assistantRepository;
 	
-	public EarlyRegisterInscriptionFactory(IRepository<Camp> campRepository, IRepository<Assistant> assistantRepository) {
+	public EarlyRegisterInscriptionFactory(IRepository<Camp, Integer> campRepository, IRepository<Assistant, Integer> assistantRepository) {
 		this.campRepository = campRepository;
 		this.assistantRepository = assistantRepository;
 	}

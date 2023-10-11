@@ -96,11 +96,15 @@ public class Activity {
 		
 	}
 
-	public void addMonitor(Monitor monitor) {
+	public void registerMonitor(Monitor monitor) {
 		if (monitorList.size() == this.neededMonitors) {
 			throw new MaxMonitorsAddedException();
 		}
 		monitorList.add(monitor);
+	}
+	
+	public boolean monitorIsRegistered(Monitor monitor) {
+		return this.monitorList.contains(monitor);
 	}
 
 }

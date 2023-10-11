@@ -11,6 +11,9 @@ import org.junit.jupiter.api.Test;
 import domain.entities.Activity;
 import domain.entities.Camp;
 import domain.entities.Monitor;
+import domain.exceptions.MonitorNotFoundException;
+import domain.exceptions.NotTheSameLevelException;
+import domain.exceptions.SpecialMonitorAlreadyRegisterException;
 import domain.values.EducativeLevel;
 import domain.values.TimeSlot;
 import utilities.Utils;
@@ -39,7 +42,6 @@ class CampTest {
 		assertEquals(educativeLevel, camp.getEducativeLevel());
 		assertEquals(capacity, camp.getCapacity());
 		assert(camp.getActivities().isEmpty());
-		assert(camp.getMonitors().isEmpty());
 	}
 	
 	@Test
@@ -58,7 +60,6 @@ class CampTest {
 		assertEquals(educativeLevel, camp.getEducativeLevel());
 		assertEquals(capacity, camp.getCapacity());
 		assertEquals(null, camp.getActivities());
-		assertEquals(null, camp.getMonitors());
 	}
 
 	@Test
@@ -70,8 +71,6 @@ class CampTest {
 		EducativeLevel educativeLevel = EducativeLevel.PRESCHOOL;
 		int capacity = 10;
 		List<Activity> activities = new ArrayList<>();
-		List<Monitor> monitors = new ArrayList<>();		
-		monitors.add(new Monitor (1, "Pepe", "Sanchez Rodriguez", false));
 
 
 		camp.setCampID(campID);
@@ -80,7 +79,6 @@ class CampTest {
 		camp.setEducativeLevel(educativeLevel);
 		camp.setCapacity(capacity);
 		camp.setActivities(activities);
-		camp.setMonitors(monitors);
 		
 		assertEquals(campID, camp.getCampID());
 		assertEquals(start, camp.getStart());
@@ -88,7 +86,6 @@ class CampTest {
 		assertEquals(educativeLevel, camp.getEducativeLevel());
 		assertEquals(capacity, camp.getCapacity());
 		assertEquals(activities, camp.getActivities());
-		assertEquals(monitors, camp.getMonitors());
 
 	}
 	
@@ -101,7 +98,6 @@ class CampTest {
 		int capacity = 10;
 
 		List<Activity> activities = new ArrayList<Activity>();
-		List<Monitor> monitors = new ArrayList<Monitor>();
 		Activity activity = new Activity(
 				"Actividad",
 				educativeLevel,
@@ -118,7 +114,6 @@ class CampTest {
 				3
 		);
 
-		monitors.add(new Monitor (1, "Pepe", "Sanchez Rodriguez", false));
 		activities.add(activity);
 		activities.add(activity2);
 
@@ -131,7 +126,6 @@ class CampTest {
 		);
 
 		camp.setActivities(activities);
-		camp.setMonitors(monitors);		
 
         String expectedToString = ""
         		+ "{campID: 1, "
@@ -142,8 +136,8 @@ class CampTest {
         		+ "activities: ["
         		+ "{activityName: 'Actividad', educativeLevel: PRESCHOOL, timeSlot: AFTERNOON, maxAssistants: 10, neededMonitors: 3}, "
         		+ "{activityName: 'Actividad 2', educativeLevel: PRESCHOOL, timeSlot: AFTERNOON, maxAssistants: 10, neededMonitors: 3}"
-        		+ "], "
-        		+ "monitors: [{id: 1, firstName: 'Pepe', lastName: 'Sanchez Rodriguez', isSpecialEducator: false}]}";
+        		+ "]"
+        		+ "}";
         assertEquals(expectedToString, camp.toString());
     }
 	
@@ -167,9 +161,217 @@ class CampTest {
 	        		+ "end: '25/01/2024', "
 	        		+ "educativeLevel: PRESCHOOL, "
 	        		+ "capacity: 10, "
-	        		+ "activities: [], "
-	        		+ "monitors: []}";
+	        		+ "activities: []}";
 		assertEquals(expectedToString, camp.toString());
     }
+	
+	@Test
+	public void registerActivity_whenIsTheSameEducativeLevel_thenRegisterTheActivity() {
+		int campID = 1;
+		Date start = Utils.parseDate("15/01/2024");
+		Date end = Utils.parseDate("25/01/2024");
+		EducativeLevel educativeLevel = EducativeLevel.PRESCHOOL;
+		int capacity = 10;
+
+		List<Activity> activities = new ArrayList<Activity>();
+		Activity activity = new Activity(
+				"Actividad",
+				educativeLevel,
+				TimeSlot.AFTERNOON,
+				10,
+				3
+		);
+
+		Camp camp = new Camp(
+				campID,
+				start,
+				end,
+				educativeLevel,
+				capacity				
+		);
+		
+		camp.registerActivity(activity);
+		
+		assertEquals(true, camp.activityIsRegistered(activity));
+	}
+	
+	@Test
+	public void registerActivity_whenIsNotTheSameEducativeLevel_throwsNotTheSameLevelException() {
+		int campID = 1;
+		Date start = Utils.parseDate("15/01/2024");
+		Date end = Utils.parseDate("25/01/2024");
+		EducativeLevel educativeLevel = EducativeLevel.ELEMENTARY;
+		int capacity = 10;
+
+		List<Activity> activities = new ArrayList<Activity>();
+		Activity activity = new Activity(
+				"Actividad",
+				EducativeLevel.PRESCHOOL,
+				TimeSlot.AFTERNOON,
+				10,
+				3
+		);
+
+		Camp camp = new Camp(
+				campID,
+				start,
+				end,
+				educativeLevel,
+				capacity				
+		);
+				
+		assertThrows(NotTheSameLevelException.class,
+				() -> camp.registerActivity(activity)
+		);
+	}
+	
+	@Test
+	public void setPrincipalMonitor_whenBelongToOneActivity_thenSetThePrincipalMonitor() {
+		int campID = 1;
+		Date start = Utils.parseDate("15/01/2024");
+		Date end = Utils.parseDate("25/01/2024");
+		EducativeLevel educativeLevel = EducativeLevel.PRESCHOOL;
+		int capacity = 10;
+		Camp camp = new Camp(
+				campID,
+				start,
+				end,
+				educativeLevel,
+				capacity				
+		);
+		
+		Activity activity = new Activity(
+				"Actividad",
+				EducativeLevel.PRESCHOOL,
+				TimeSlot.AFTERNOON,
+				10,
+				3
+		);
+
+		Monitor monitor = new Monitor(
+				1,
+				"Alberto",
+				"Quesada",
+				false
+		);
+		activity.registerMonitor(monitor);
+		camp.registerActivity(activity);
+		
+		camp.setPrincipalMonitor(monitor);
+		
+		assertEquals(monitor, camp.getPrincipalMonitor());
+	}
+	
+	@Test
+	public void setPrincipalMonitor_whenNotBelongToOneActivity_throwsMonitorNotFoundException() {
+		int campID = 1;
+		Date start = Utils.parseDate("15/01/2024");
+		Date end = Utils.parseDate("25/01/2024");
+		EducativeLevel educativeLevel = EducativeLevel.PRESCHOOL;
+		int capacity = 10;
+		Camp camp = new Camp(
+				campID,
+				start,
+				end,
+				educativeLevel,
+				capacity				
+		);
+		
+		Activity activity = new Activity(
+				"Actividad",
+				EducativeLevel.PRESCHOOL,
+				TimeSlot.AFTERNOON,
+				10,
+				3
+		);
+
+		Monitor monitor = new Monitor(
+				1,
+				"Alberto",
+				"Quesada",
+				false
+		);
+		camp.registerActivity(activity);
+		
+		
+		assertThrows(MonitorNotFoundException.class,
+				() -> camp.setPrincipalMonitor(monitor)
+		);
+		
+	}
+	
+	@Test
+	public void setSpecialMonitor_whenBelongToOneActivity_throwsSpecialMonitorAlreadyRegisterException() {
+		int campID = 1;
+		Date start = Utils.parseDate("15/01/2024");
+		Date end = Utils.parseDate("25/01/2024");
+		EducativeLevel educativeLevel = EducativeLevel.PRESCHOOL;
+		int capacity = 10;
+		Camp camp = new Camp(
+				campID,
+				start,
+				end,
+				educativeLevel,
+				capacity				
+		);
+		
+		Activity activity = new Activity(
+				"Actividad",
+				EducativeLevel.PRESCHOOL,
+				TimeSlot.AFTERNOON,
+				10,
+				3
+		);
+
+		Monitor monitor = new Monitor(
+				1,
+				"Alberto",
+				"Quesada",
+				false
+		);
+		activity.registerMonitor(monitor);
+		camp.registerActivity(activity);
+				
+		assertThrows(SpecialMonitorAlreadyRegisterException.class,
+				() -> camp.setSpecialMonitor(monitor)
+		);
+	}
+	
+	@Test
+	public void setSpecialMonitor_whenNotBelongToOneActivity_thenSetThePrincipalMonitor () {
+		int campID = 1;
+		Date start = Utils.parseDate("15/01/2024");
+		Date end = Utils.parseDate("25/01/2024");
+		EducativeLevel educativeLevel = EducativeLevel.PRESCHOOL;
+		int capacity = 10;
+		Camp camp = new Camp(
+				campID,
+				start,
+				end,
+				educativeLevel,
+				capacity				
+		);
+		
+		Activity activity = new Activity(
+				"Actividad",
+				EducativeLevel.PRESCHOOL,
+				TimeSlot.AFTERNOON,
+				10,
+				3
+		);
+
+		Monitor monitor = new Monitor(
+				1,
+				"Alberto",
+				"Quesada",
+				false
+		);
+		camp.registerActivity(activity);
+		
+		camp.setSpecialMonitor(monitor);
+		
+		assertEquals(monitor, camp.getSpecialMonitor());
+		
+	}
 
 }

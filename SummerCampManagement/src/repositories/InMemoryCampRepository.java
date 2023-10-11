@@ -12,7 +12,7 @@ import domain.entities.Camp;
 import domain.exceptions.NotFoundException;
 import domain.interfaces.IRepository;
 
-public class InMemoryCampRepository implements IRepository<Camp>{
+public class InMemoryCampRepository implements IRepository<Camp, Integer>{
 
 	private Map<Integer, Camp> mapOfCamp;
 	
@@ -21,7 +21,7 @@ public class InMemoryCampRepository implements IRepository<Camp>{
 	}
 	
 	@Override
-	public Camp find(int identifier) {
+	public Camp find(Integer identifier) {
 		if (this.mapOfCamp.get(identifier) == null) {
 			throw new NotFoundException();
 		}
@@ -37,18 +37,4 @@ public class InMemoryCampRepository implements IRepository<Camp>{
 	public List<Camp> getAll() {
 		return new ArrayList<Camp>(this.mapOfCamp.values());
 	}
-	//------ME OBLIGA LA class a ponerlas aunque no se usen----
-	@Override
-	public Camp findActivity(String activityName) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void saveActivity(String activityName) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
 }
