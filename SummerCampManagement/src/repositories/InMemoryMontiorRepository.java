@@ -36,4 +36,9 @@ public class InMemoryMontiorRepository implements IRepository<Monitor, Integer>{
 		return new ArrayList<Monitor>(this.mapOfMonitor.values());
 	}
 
+	@Override
+	public void delete(Monitor obj) {
+		this.mapOfMonitor.remove(obj.getId());
+	}
+
 }

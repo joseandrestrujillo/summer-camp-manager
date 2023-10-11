@@ -36,4 +36,9 @@ public class InMemoryAssistantRepository implements IRepository<Assistant, Integ
 		return new ArrayList<Assistant>(this.mapOfAssistants.values());
 	}
 
+	@Override
+	public void delete(Assistant obj) {
+		this.mapOfAssistants.remove(obj.getId());
+	}
+
 }

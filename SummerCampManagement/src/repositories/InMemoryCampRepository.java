@@ -37,4 +37,9 @@ public class InMemoryCampRepository implements IRepository<Camp, Integer>{
 	public List<Camp> getAll() {
 		return new ArrayList<Camp>(this.mapOfCamp.values());
 	}
+
+	@Override
+	public void delete(Camp obj) {
+		this.mapOfCamp.remove(obj.getCampID());
+	}
 }

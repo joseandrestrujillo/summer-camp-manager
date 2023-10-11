@@ -36,5 +36,10 @@ public class InMemoryActivityRepository implements IRepository<Activity, String>
 		return new ArrayList<Activity>(this.mapOfActivity.values());
 	}
 
+	@Override
+	public void delete(Activity obj) {
+		this.mapOfActivity.remove(obj.getActivityName());
+	}
+
 
 }

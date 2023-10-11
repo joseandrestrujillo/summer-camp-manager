@@ -11,7 +11,6 @@ import domain.values.EducativeLevel;
 import utilities.Utils;
 
 
-//TODO: List need be checked
 public class Camp {
     private int campID;
     private Date start;
@@ -38,39 +37,7 @@ public class Camp {
         this.capacity = capacity;
         this.activities = new ArrayList<Activity>();
     }
-
-    public void registerActivity(Activity activity) {
-    	if(activity.getEducativeLevel() != this.educativeLevel) {
-    		throw new NotTheSameLevelException();
-    	}
-    	
-    	this.activities.add(activity);
-    }
     
-    public void setPrincipalMonitor(Monitor monitor) {
-    	boolean founded = false;
-    	for (int i = 0; i < this.activities.size(); i++) {
-    	    Activity activity = this.activities.get(i);
-    	    if(activity.monitorIsRegistered(monitor)) {
-    	    	founded = true;
-    	    }
-    	}
-    	
-    	if(founded == false) {
-    		throw new MonitorNotFoundException();
-    	}
-    	this.principalMonitor = monitor;
-    }
-    
-	public void setSpecialMonitor(Monitor monitor) {
-    	for (int i = 0; i < this.activities.size(); i++) {
-    	    Activity activity = this.activities.get(i);
-    	    if(activity.monitorIsRegistered(monitor)) {
-    	    	throw new SpecialMonitorAlreadyRegisterException();
-    	    }
-    	}
-    	this.specialMonitor = monitor;
-    }
     
 	public boolean activityIsRegistered(Activity activity) {
 		return this.activities.contains(activity);
@@ -143,6 +110,14 @@ public class Camp {
         		+ ", activities: " + this.activities.toString() 
         		+  "}";
     }
+
+	public void setPrincipalMonitor(Monitor monitor) {
+		this.principalMonitor = monitor;
+	}
+
+	public void setSpecialMonitor(Monitor monitor) {
+		this.specialMonitor = monitor;
+	}
 
 	
 }
