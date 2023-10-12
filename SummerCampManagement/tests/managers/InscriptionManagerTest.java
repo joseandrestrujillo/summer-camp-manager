@@ -12,6 +12,7 @@ import domain.entities.Camp;
 import domain.entities.CompleteInscription;
 import domain.entities.Inscription;
 import domain.exceptions.AssistantAlreadyEnrolledException;
+import domain.exceptions.NeedToAddAnSpecialMonitorException;
 import domain.factories.EarlyRegisterInscriptionFactory;
 import domain.values.EducativeLevel;
 import domain.values.TimeSlot;
@@ -938,5 +939,49 @@ class InscriptionManagerTest {
 		
 		
 		assertEquals(200, inscription.getPrice());
+	}
+	
+	@Test
+	void enroll_whenTheAssistantNeedSpecialAttentioandthedontCampSpceialMonitor_throwsNeedToAddAnSpecialMonitorException() {
+		int campID = 1;
+		Date start = Utils.parseDate("15/01/2024");
+		Date end = Utils.parseDate("25/01/2024");
+		EducativeLevel educativeLevel = EducativeLevel.PRESCHOOL;
+		int capacity = 10;
+
+		Assistant assistant = new Assistant(
+				1,
+				"José",
+				"Trujillo",
+				Utils.parseDate("26/01/2001"),
+				true
+				);
+		Camp camp = new Camp(
+				campID,
+				start,
+				end,
+				educativeLevel,
+				capacity				
+		);
+		
+		Date inscriptionDate = Utils.parseDate("10/01/2024");
+		
+		InMemoryCampRepository campRepository = new InMemoryCampRepository();
+		InMemoryActivityRepository activityRepository = new InMemoryActivityRepository();
+		InMemoryMontiorRepository monitorRepository = new InMemoryMontiorRepository();
+		InMemoryAssistantRepository assistantRepository = new InMemoryAssistantRepository();
+		InMemoryInscriptionRepository inscriptionRepository = new InMemoryInscriptionRepository();
+		
+		
+		campRepository.save(camp);
+		assistantRepository.save(assistant);
+		InscriptionManager inscriptionManager = new InscriptionManager(campRepository, activityRepository, monitorRepository, assistantRepository, inscriptionRepository);
+		
+		
+				
+		
+		assertThrows(NeedToAddAnSpecialMonitorException.class, 
+				 () -> inscriptionManager.enroll(1, campID, inscriptionDate, false, true)
+		);
 	}
 }

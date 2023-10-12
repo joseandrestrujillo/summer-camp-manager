@@ -10,6 +10,7 @@ import domain.entities.Inscription;
 import domain.entities.Monitor;
 import domain.exceptions.AfterEarlyTimeException;
 import domain.exceptions.AssistantAlreadyEnrolledException;
+import domain.exceptions.NeedToAddAnSpecialMonitorException;
 import domain.exceptions.NotFoundException;
 import domain.factories.EarlyRegisterInscriptionFactory;
 import domain.factories.LateRegisterInscriptionFactory;
@@ -53,7 +54,11 @@ public class InscriptionManager {
 			boolean needSpecialAttention
 	) {
 		String inscriptionId = assistantId + "-" + campId;
-		int nActivities = campRepository.find(campId).getActivities().size();
+		Camp camp = campRepository.find(campId);
+		int nActivities =camp.getActivities().size();
+		if ((needSpecialAttention)&&(camp.getSpecialMonitor()== null)) {
+			throw new NeedToAddAnSpecialMonitorException();
+		}
 		float basePrice = isPartial ? 100 : 300;
 		float price = basePrice + 20*nActivities;
 		
