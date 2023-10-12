@@ -2,14 +2,31 @@ package domain.entities;
 
 import java.util.Date;
 import java.util.Scanner;
+
+import domain.interfaces.IRepository;
 import managers.AssistantsManager;
 import managers.CampsManager;
 import managers.InscriptionManager;
+import repositories.InMemoryActivityRepository;
+import repositories.InMemoryAssistantRepository;
+import repositories.InMemoryCampRepository;
+import repositories.InMemoryInscriptionRepository;
+import repositories.InMemoryMontiorRepository;
 
 public class Main {
 	public static void main(String[] args) {
 		int opcion;
+		IRepository<Camp, Integer> campRepository = new InMemoryCampRepository();
+		IRepository<Activity, String> activityRepository = new InMemoryActivityRepository();
+		IRepository<Monitor, Integer> monitorRepository = new InMemoryMontiorRepository();
+		IRepository<Assistant, Integer> assistantRepository = new InMemoryAssistantRepository();
+		IRepository<Inscription, String> inscriptionRepository = new InMemoryInscriptionRepository();
+		AssistantsManager assistantsManager = new AssistantsManager(assistantRepository);
+		CampsManager campsManager = new CampsManager(campRepository, activityRepository, monitorRepository);
+		InscriptionManager inscriptionManager = new InscriptionManager(campRepository, activityRepository, monitorRepository,
+																		assistantRepository, inscriptionRepository);
         Scanner sc = new Scanner(System.in);
+        
 		do {
             System.out.println("1. Gestor de asistentes\n");
             System.out.println("2. Gestor de campamentos\n");
@@ -35,7 +52,10 @@ public class Main {
 							case 1:
 							System.out.println("Introduzca su DNI (sin letra)\n");
 							Scanner scAssistantId = new Scanner(System.in);
-							if(AssistantManager.isRegistered(scAssistantId )== true ){
+							
+							Assistant assistant = new Assistant(scAssistantId.nextInt(), "", "", null, false);
+							boolean isRegistered = assistantsManager.isRegistered(assistant);
+							if(isRegistered == true ){
 								System.out.println("Este DNI ya ha sido registrado en nuestro sistema\n");
 							}
 							
