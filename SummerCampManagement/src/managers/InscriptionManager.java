@@ -1,6 +1,8 @@
 package managers;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import domain.entities.Activity;
 import domain.entities.Assistant;
@@ -79,5 +81,36 @@ public class InscriptionManager {
 		
 		this.inscriptionRepository.save(inscription);
 		return inscription;
+	}
+	private List<Assistant> getAssistantsOfACamp(Camp camp) {
+		List<Inscription> allInscriptions = this.inscriptionRepository.getAll();
+		List<Assistant> assistantsOfCamp = new ArrayList<Assistant>();
+		
+		for (int i = 0; i < allInscriptions.size(); i++) {
+			Inscription inscription = allInscriptions.get(i);
+			if (inscription.getCampId() == camp.getCampID()) {
+				Assistant assistant = this.assitantRepository.find(inscription.getAssistantId());
+				assistantsOfCamp.add(assistant);
+			}
+			
+		}
+		
+		return assistantsOfCamp;
+	}
+	public List<Camp> avaliableCamps(Date actualDate){
+		List<Camp> allCamps = this.campRepository.getAll();
+		List<Camp> avaliableCamps = new ArrayList<Camp>();
+		
+		for (int i = 0; i < allCamps.size(); i++) {
+			Camp camp = allCamps.get(i);
+			List<Assistant> assistants = getAssistantsOfACamp(camp);
+			
+			if (camp.getStart().after(actualDate) && (assistants.size() < camp.getCapacity())) {
+				avaliableCamps.add(camp);
+			}
+		}
+    	
+		
+		return avaliableCamps;
 	}
 }

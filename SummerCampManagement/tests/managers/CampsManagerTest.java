@@ -7,9 +7,12 @@ import java.util.Date;
 import org.junit.jupiter.api.Test;
 
 import domain.entities.Activity;
+import domain.entities.Assistant;
 import domain.entities.Camp;
 import domain.entities.Monitor;
 import domain.exceptions.ActivityNotFoundException;
+import domain.exceptions.AssistantAlreadyRegisteredException;
+import domain.exceptions.CampAlreadyRegisteredException;
 import domain.exceptions.MonitorIsNotInActivityException;
 import domain.exceptions.NotFoundException;
 import domain.exceptions.NotTheSameLevelException;
@@ -17,11 +20,63 @@ import domain.exceptions.SpecialMonitorAlreadyRegisterException;
 import domain.values.EducativeLevel;
 import domain.values.TimeSlot;
 import repositories.InMemoryActivityRepository;
+import repositories.InMemoryAssistantRepository;
 import repositories.InMemoryCampRepository;
 import repositories.InMemoryMontiorRepository;
 import utilities.Utils;
 
 class CampsManagerTest {
+	@Test
+	void registerCamp_whenCampIsNotRegistered_thenRegisterTheCamp(){
+		InMemoryCampRepository campRepository = new InMemoryCampRepository();
+		InMemoryActivityRepository activityRepository = new InMemoryActivityRepository();
+		InMemoryMontiorRepository monitorRepository = new InMemoryMontiorRepository();
+		CampsManager campsManager = new CampsManager(campRepository, activityRepository, monitorRepository);
+		int campID = 1;
+		Date start = Utils.parseDate("15/01/2024");
+		Date end = Utils.parseDate("25/01/2024");
+		EducativeLevel educativeLevel = EducativeLevel.PRESCHOOL;
+		int capacity = 10;
+		Camp camp = new Camp(
+				campID,
+				start,
+				end,
+				educativeLevel,
+				capacity				
+		);
+		
+		campsManager.registerCamp(camp);
+		
+		assertEquals(true, campsManager.isRegistered(camp));
+	}
+	
+	@Test
+	void registerCamp_whenCampIsRegistered_throwsAssitantisAlreadyRegisteredException(){
+		int campID = 1;
+		Date start = Utils.parseDate("15/01/2024");
+		Date end = Utils.parseDate("25/01/2024");
+		EducativeLevel educativeLevel = EducativeLevel.PRESCHOOL;
+		int capacity = 10;
+		Camp camp = new Camp(
+				campID,
+				start,
+				end,
+				educativeLevel,
+				capacity				
+		);
+		InMemoryCampRepository campRepository = new InMemoryCampRepository();
+		InMemoryActivityRepository activityRepository = new InMemoryActivityRepository();
+		InMemoryMontiorRepository monitorRepository = new InMemoryMontiorRepository();
+		campRepository.save(camp);
+		CampsManager campsManager = new CampsManager(campRepository, activityRepository, monitorRepository);
+	
+		
+	
+		assertThrows(CampAlreadyRegisteredException.class, 
+				() ->campsManager.registerCamp(camp)
+		);	
+	}
+	
 	@Test
 	public void registerActivity_whenIsTheSameEducativeLevel_thenRegisterTheActivity() {
 		int campID = 1;

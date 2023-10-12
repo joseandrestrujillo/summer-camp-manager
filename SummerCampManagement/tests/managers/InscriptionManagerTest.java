@@ -2,7 +2,9 @@ package managers;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -983,5 +985,198 @@ class InscriptionManagerTest {
 		assertThrows(NeedToAddAnSpecialMonitorException.class, 
 				 () -> inscriptionManager.enroll(1, campID, inscriptionDate, false, true)
 		);
+	}
+	
+	@Test
+	void avaliableCamps_whenAllCampamentsHaveNotStartAndHaveCapacity_thenReturnAllCampaments() {
+		int campID = 1;
+		Date start = Utils.parseDate("15/01/2024");
+		Date end = Utils.parseDate("25/01/2024");
+		EducativeLevel educativeLevel = EducativeLevel.PRESCHOOL;
+		int capacity = 10;
+
+		Assistant assistant = new Assistant(
+				1,
+				"José",
+				"Trujillo",
+				Utils.parseDate("26/01/2001"),
+				true
+				);
+		Camp camp = new Camp(
+				campID,
+				start,
+				end,
+				educativeLevel,
+				capacity				
+		);
+		
+		Camp camp1 = new Camp(
+				2,
+				start,
+				end,
+				educativeLevel,
+				capacity				
+		);
+		
+		Camp camp2 = new Camp(
+				3,
+				start,
+				end,
+				educativeLevel,
+				capacity				
+		);
+		
+		Date actualDate = Utils.parseDate("10/01/2024");
+		
+		InMemoryCampRepository campRepository = new InMemoryCampRepository();
+		InMemoryActivityRepository activityRepository = new InMemoryActivityRepository();
+		InMemoryMontiorRepository monitorRepository = new InMemoryMontiorRepository();
+		InMemoryAssistantRepository assistantRepository = new InMemoryAssistantRepository();
+		InMemoryInscriptionRepository inscriptionRepository = new InMemoryInscriptionRepository();
+		
+		AssistantsManager assistantsManager = new AssistantsManager(assistantRepository);
+		CampsManager campManager = new CampsManager(campRepository, activityRepository, monitorRepository);
+		InscriptionManager inscriptionManager = new InscriptionManager(campRepository, activityRepository, monitorRepository, assistantRepository, inscriptionRepository);
+		
+		assistantsManager.registerAssistant(assistant);
+		campManager.registerCamp(camp);
+		campManager.registerCamp(camp1);
+		campManager.registerCamp(camp2);
+		
+		List<Camp> expectedResult = new ArrayList<Camp>();
+		expectedResult.add(camp);
+		expectedResult.add(camp1);
+		expectedResult.add(camp2);
+		
+		assertEquals(expectedResult, inscriptionManager.avaliableCamps(actualDate));
+	}
+	
+	@Test
+	void avaliableCamps_whenThereAreSomeCampThatAlreadyStart_thenReturnOnlyCampamentsThatHaveNotStartAndHaveCapacity() {
+		int campID = 1;
+		Date start = Utils.parseDate("15/01/2024");
+		Date end = Utils.parseDate("25/01/2024");
+		EducativeLevel educativeLevel = EducativeLevel.PRESCHOOL;
+		int capacity = 10;
+
+		Assistant assistant = new Assistant(
+				1,
+				"José",
+				"Trujillo",
+				Utils.parseDate("26/01/2001"),
+				true
+				);
+		Camp camp = new Camp(
+				campID,
+				start,
+				end,
+				educativeLevel,
+				capacity				
+		);
+		
+		Camp camp1 = new Camp(
+				2,
+				start,
+				end,
+				educativeLevel,
+				capacity				
+		);
+		
+		Camp camp2 = new Camp(
+				3,
+				Utils.parseDate("09/01/2024"),
+				end,
+				educativeLevel,
+				capacity				
+		);
+		
+		Date actualDate = Utils.parseDate("10/01/2024");
+		
+		InMemoryCampRepository campRepository = new InMemoryCampRepository();
+		InMemoryActivityRepository activityRepository = new InMemoryActivityRepository();
+		InMemoryMontiorRepository monitorRepository = new InMemoryMontiorRepository();
+		InMemoryAssistantRepository assistantRepository = new InMemoryAssistantRepository();
+		InMemoryInscriptionRepository inscriptionRepository = new InMemoryInscriptionRepository();
+		
+		AssistantsManager assistantsManager = new AssistantsManager(assistantRepository);
+		CampsManager campManager = new CampsManager(campRepository, activityRepository, monitorRepository);
+		InscriptionManager inscriptionManager = new InscriptionManager(campRepository, activityRepository, monitorRepository, assistantRepository, inscriptionRepository);
+		
+		assistantsManager.registerAssistant(assistant);
+		campManager.registerCamp(camp);
+		campManager.registerCamp(camp1);
+		campManager.registerCamp(camp2);
+		
+		List<Camp> expectedResult = new ArrayList<Camp>();
+		expectedResult.add(camp);
+		expectedResult.add(camp1);
+		
+		assertEquals(expectedResult, inscriptionManager.avaliableCamps(actualDate));
+	}
+	
+	@Test
+	void avaliableCamps_whenThereAreSomeCampThatIsFull_thenReturnOnlyCampamentsThatHaveNotStartAndHaveCapacity() {
+		int campID = 1;
+		Date start = Utils.parseDate("15/01/2024");
+		Date end = Utils.parseDate("25/01/2024");
+		EducativeLevel educativeLevel = EducativeLevel.PRESCHOOL;
+		int capacity = 10;
+
+		Assistant assistant = new Assistant(
+				1,
+				"José",
+				"Trujillo",
+				Utils.parseDate("26/01/2001"),
+				true
+				);
+		Camp camp = new Camp(
+				campID,
+				start,
+				end,
+				educativeLevel,
+				capacity				
+		);
+		
+		Camp camp1 = new Camp(
+				2,
+				start,
+				end,
+				educativeLevel,
+				capacity				
+		);
+		
+		Camp camp2 = new Camp(
+				3,
+				start,
+				end,
+				educativeLevel,
+				1				
+		);
+		
+		Date inscriptionDate = Utils.parseDate("8/01/2024");
+
+		Date actualDate = Utils.parseDate("10/01/2024");
+		
+		InMemoryCampRepository campRepository = new InMemoryCampRepository();
+		InMemoryActivityRepository activityRepository = new InMemoryActivityRepository();
+		InMemoryMontiorRepository monitorRepository = new InMemoryMontiorRepository();
+		InMemoryAssistantRepository assistantRepository = new InMemoryAssistantRepository();
+		InMemoryInscriptionRepository inscriptionRepository = new InMemoryInscriptionRepository();
+		
+		AssistantsManager assistantsManager = new AssistantsManager(assistantRepository);
+		CampsManager campManager = new CampsManager(campRepository, activityRepository, monitorRepository);
+		InscriptionManager inscriptionManager = new InscriptionManager(campRepository, activityRepository, monitorRepository, assistantRepository, inscriptionRepository);
+		
+		assistantsManager.registerAssistant(assistant);
+		campManager.registerCamp(camp);
+		campManager.registerCamp(camp1);
+		campManager.registerCamp(camp2);
+		inscriptionManager.enroll(assistant.getId(), 3, inscriptionDate, false, false);
+		
+		List<Camp> expectedResult = new ArrayList<Camp>();
+		expectedResult.add(camp);
+		expectedResult.add(camp1);
+		
+		assertEquals(expectedResult, inscriptionManager.avaliableCamps(actualDate));
 	}
 }

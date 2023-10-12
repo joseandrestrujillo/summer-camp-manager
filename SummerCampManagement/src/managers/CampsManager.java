@@ -6,7 +6,10 @@ import domain.entities.Activity;
 import domain.entities.Camp;
 import domain.entities.Monitor;
 import domain.exceptions.ActivityNotFoundException;
+import domain.exceptions.AssistantAlreadyRegisteredException;
+import domain.exceptions.CampAlreadyRegisteredException;
 import domain.exceptions.MonitorIsNotInActivityException;
+import domain.exceptions.NotFoundException;
 import domain.exceptions.NotTheSameLevelException;
 import domain.exceptions.SpecialMonitorAlreadyRegisterException;
 import domain.interfaces.IRepository;
@@ -101,5 +104,21 @@ public class CampsManager {
 		this.activityRepository.delete(activity);
 		this.campRepository.save(camp);
 		return camp;
+	}
+
+	public boolean isRegistered(Camp camp) {
+		try {
+			this.campRepository.find(camp.getCampID());
+			return true;
+		} catch (NotFoundException e) {
+			return false;
+		}
+	}
+
+	public void registerCamp(Camp camp) {
+		if (isRegistered(camp) == true) {
+			throw new CampAlreadyRegisteredException();
+		}
+		this.campRepository.save(camp);
 	}
 }
