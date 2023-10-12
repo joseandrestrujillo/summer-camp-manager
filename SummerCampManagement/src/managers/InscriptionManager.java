@@ -38,6 +38,7 @@ public class InscriptionManager {
 			boolean needSpecialAttention
 	) {
 		String inscriptionId = assistantId + "-" + campId;
+		int nActivities = campRepository.find(campId).getActivities().size();
 		
 		try {
 			this.inscriptionRepository.find(inscriptionId);
@@ -49,16 +50,16 @@ public class InscriptionManager {
 		try {
 			EarlyRegisterInscriptionFactory factory = new EarlyRegisterInscriptionFactory(campRepository, assitantRepository);
 			if (! isPartial) {
-				inscription = factory.createComplete(assistantId, campId, inscriptionDate, 0);
+				inscription = factory.createComplete(assistantId, campId, inscriptionDate, 300+20*nActivities);
 			} else {
-				inscription = factory.createPartial(assistantId, campId, inscriptionDate, 0);
+				inscription = factory.createPartial(assistantId, campId, inscriptionDate, 100+20*nActivities);
 			}
 		} catch (AfterEarlyTimeException e) {
 			LateRegisterInscriptionFactory factory = new LateRegisterInscriptionFactory(campRepository, assitantRepository);
 			if (! isPartial) {
-				inscription = factory.createComplete(assistantId, campId, inscriptionDate, 0);
+				inscription = factory.createComplete(assistantId, campId, inscriptionDate, 300+20*nActivities);
 			} else {
-				inscription = factory.createPartial(assistantId, campId, inscriptionDate, 0);
+				inscription = factory.createPartial(assistantId, campId, inscriptionDate, 100+20*nActivities);
 			}
 		}
 		
