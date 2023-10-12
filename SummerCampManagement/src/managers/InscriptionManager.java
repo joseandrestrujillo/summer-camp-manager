@@ -8,6 +8,9 @@ import domain.entities.Camp;
 import domain.entities.CompleteInscription;
 import domain.entities.Inscription;
 import domain.entities.Monitor;
+import domain.exceptions.AfterEarlyTimeException;
+import domain.factories.EarlyRegisterInscriptionFactory;
+import domain.factories.LateRegisterInscriptionFactory;
 import domain.interfaces.IRepository;
 
 public class InscriptionManager {
@@ -32,6 +35,24 @@ public class InscriptionManager {
 			boolean isPartial, 
 			boolean needSpecialAttention
 	) {
-		return new CompleteInscription(assistantId, campId, inscriptionDate, 300, true);
+		Inscription inscription;
+		
+		try {
+			EarlyRegisterInscriptionFactory factory = new EarlyRegisterInscriptionFactory(campRepository, assitantRepository);
+			if (! isPartial) {
+				inscription = factory.createComplete(assistantId, campId, inscriptionDate, 0);
+			} else {
+				inscription = factory.createPartial(assistantId, campId, inscriptionDate, 0);
+			}
+		} catch (AfterEarlyTimeException e) {
+			LateRegisterInscriptionFactory factory = new LateRegisterInscriptionFactory(campRepository, assitantRepository);
+			if (! isPartial) {
+				inscription = factory.createComplete(assistantId, campId, inscriptionDate, 0);
+			} else {
+				inscription = factory.createPartial(assistantId, campId, inscriptionDate, 0);
+			}
+		}
+		
+		return inscription;
 	}
 }
