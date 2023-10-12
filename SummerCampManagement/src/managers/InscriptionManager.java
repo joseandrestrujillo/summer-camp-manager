@@ -9,6 +9,8 @@ import domain.entities.CompleteInscription;
 import domain.entities.Inscription;
 import domain.entities.Monitor;
 import domain.exceptions.AfterEarlyTimeException;
+import domain.exceptions.AssistantAlreadyEnrolledException;
+import domain.exceptions.NotFoundException;
 import domain.factories.EarlyRegisterInscriptionFactory;
 import domain.factories.LateRegisterInscriptionFactory;
 import domain.interfaces.IRepository;
@@ -35,6 +37,13 @@ public class InscriptionManager {
 			boolean isPartial, 
 			boolean needSpecialAttention
 	) {
+		String inscriptionId = assistantId + "-" + campId;
+		
+		try {
+			this.inscriptionRepository.find(inscriptionId);
+			throw new AssistantAlreadyEnrolledException();
+		} catch (NotFoundException e) {}
+		
 		Inscription inscription;
 		
 		try {
@@ -53,6 +62,7 @@ public class InscriptionManager {
 			}
 		}
 		
+		this.inscriptionRepository.save(inscription);
 		return inscription;
 	}
 }

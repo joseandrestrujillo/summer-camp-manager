@@ -26,7 +26,7 @@ public class Inscription {
 		if ((this.inscriptionDate == null) || (this.assistantId == -1) || (this.campId == -1)) {
 			this.inscriptionIdentifier = "";
 		}else {
-			this.inscriptionIdentifier = this.assistantId + "-" + this.campId + "-" + Utils.getStringDate(this.inscriptionDate);
+			this.inscriptionIdentifier = this.assistantId + "-" + this.campId;
 		}
 		
 	}
