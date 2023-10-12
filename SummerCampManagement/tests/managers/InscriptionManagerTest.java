@@ -16,6 +16,7 @@ import domain.entities.Inscription;
 import domain.exceptions.AssistantAlreadyEnrolledException;
 import domain.exceptions.MaxAssistantExcededException;
 import domain.exceptions.NeedToAddAnSpecialMonitorException;
+import domain.exceptions.WrongEducativeLevelException;
 import domain.factories.EarlyRegisterInscriptionFactory;
 import domain.values.EducativeLevel;
 import domain.values.TimeSlot;

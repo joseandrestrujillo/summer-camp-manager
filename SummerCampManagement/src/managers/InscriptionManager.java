@@ -14,6 +14,7 @@ import domain.exceptions.AssistantAlreadyEnrolledException;
 import domain.exceptions.MaxAssistantExcededException;
 import domain.exceptions.NeedToAddAnSpecialMonitorException;
 import domain.exceptions.NotFoundException;
+import domain.exceptions.WrongEducativeLevelException;
 import domain.factories.EarlyRegisterInscriptionFactory;
 import domain.factories.LateRegisterInscriptionFactory;
 import domain.interfaces.AbstractInscriptionFactory;

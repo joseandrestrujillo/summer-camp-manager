@@ -1,8 +1,13 @@
-package domain.entities;
+package cli;
 
 import java.util.Date;
 import java.util.Scanner;
 
+import domain.entities.Activity;
+import domain.entities.Assistant;
+import domain.entities.Camp;
+import domain.entities.Inscription;
+import domain.entities.Monitor;
 import domain.interfaces.IRepository;
 import managers.AssistantsManager;
 import managers.CampsManager;

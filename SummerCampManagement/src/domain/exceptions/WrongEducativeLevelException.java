@@ -1,4 +1,4 @@
-package managers;
+package domain.exceptions;
 
 public class WrongEducativeLevelException extends RuntimeException{
 
