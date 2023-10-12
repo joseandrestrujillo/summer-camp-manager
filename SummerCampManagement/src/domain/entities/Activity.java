@@ -13,6 +13,7 @@ public class Activity {
 	private TimeSlot timeSlot;
 	private int maxAssistants;
 	private int neededMonitors;
+	private List<Assistant> assistantList;
 	private List<Monitor> monitorList;
 
 	public Activity(String activityName, EducativeLevel educativeLevel, TimeSlot timeSlot, int maxAssistants,
@@ -23,6 +24,7 @@ public class Activity {
 		this.maxAssistants = maxAssistants;
 		this.neededMonitors = neededMonitors;
 		this.monitorList = new ArrayList<Monitor>(this.neededMonitors);
+		this.assistantList = new ArrayList<Assistant>(this.maxAssistants);
 	}
 
 	public Activity() {
@@ -32,8 +34,17 @@ public class Activity {
 		this.maxAssistants = -1;
 		this.neededMonitors = -1;
 		this.monitorList = null;
+		this.assistantList = null;
 	}
 
+	public List<Assistant> getAssistants() {
+		return assistantList;
+	}
+	
+	public void setAssistants(List<Assistant> assistants) {
+		this.assistantList = assistants;
+	}
+	
 	public String getActivityName() {
 		return activityName;
 	}

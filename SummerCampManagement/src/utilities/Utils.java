@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
 import java.util.Date;
 
 
@@ -24,5 +25,16 @@ public class Utils {
 		long daysBetween = ChronoUnit.DAYS.between(zero.toInstant(), date.toInstant());
 		boolean isBefore = zero.getTime() >= date.getTime();
 		return Math.abs(daysBetween) * (isBefore ? 1 : -1);
+	}
+	
+	public static long yearsBetween(Date zero, Date date) {
+		Calendar calendar = Calendar.getInstance();
+        calendar.setTime(zero);
+        int startYear = calendar.get(Calendar.YEAR);
+
+        calendar.setTime(date);
+        int endYear = calendar.get(Calendar.YEAR);
+
+        return Math.abs(endYear - startYear);
 	}
 }
