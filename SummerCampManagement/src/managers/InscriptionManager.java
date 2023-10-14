@@ -23,6 +23,10 @@ import domain.values.EducativeLevel;
 import domain.values.TimeSlot;
 import utilities.Utils;
 
+/**
+ * Esta clase gestiona las inscripciones en los campamentos y actividades.
+ */
+
 public class InscriptionManager {
 	private IRepository<Camp, Integer> campRepository;
 	private IRepository<Activity, String> activityRepository;
@@ -30,7 +34,16 @@ public class InscriptionManager {
 	private IRepository<Assistant, Integer> assitantRepository;
 	private IRepository<Inscription, String> inscriptionRepository;
 
-	
+	  /**
+     * Constructor de InscriptionManager.
+     *
+     * @param campRepository        Repositorio de campamentos.
+     * @param activityRepository    Repositorio de actividades.
+     * @param monitorRepository     Repositorio de monitores.
+     * @param assistantRepository   Repositorio de asistentes.
+     * @param inscriptionRepository Repositorio de inscripciones.
+	 */
+
 	public InscriptionManager(IRepository<Camp, Integer> campRepository, IRepository<Activity, String> activityRepository, IRepository<Monitor, Integer> monitorRepository, IRepository<Assistant, Integer> assitantRepository, IRepository<Inscription, String> inscriptionRepository) {
 		this.campRepository = campRepository;
 		this.activityRepository = activityRepository;
@@ -39,6 +52,17 @@ public class InscriptionManager {
 		this.inscriptionRepository = inscriptionRepository;
 	}
 	
+	/**
+     * Realiza la inscripción de un asistente en un campamento.
+     *
+     * @param assistantId           ID del asistente.
+     * @param campId                ID del campamento.
+     * @param inscriptionDate       Fecha de inscripción.
+     * @param isPartial             Indica si la inscripción es parcial.
+     * @param needSpecialAttention  Indica si se necesita atención especial.
+     * @return La inscripción creada.
+     */
+
 	public Inscription enroll(int assistantId, int campId, Date inscriptionDate, 
 			boolean isPartial, boolean needSpecialAttention) 
 	{
@@ -64,6 +88,17 @@ public class InscriptionManager {
 		return inscription;
 	}
 	
+	/**
+	 * Crea una inscripción utilizando una fábrica de inscripciones.
+	 *
+	 * @param factory       Fábrica de inscripciones a utilizar.
+	 * @param assistantId   ID del asistente.
+	 * @param campId        ID del campamento.
+	 * @param inscriptionDate Fecha de inscripción.
+	 * @param isPartial     Indica si la inscripción es parcial.
+	 * @param price         Precio de la inscripción.
+	 * @return La inscripción creada.
+	 */
 
 	private Inscription create(AbstractInscriptionFactory factory, int assistantId, int campId, 
 			Date inscriptionDate, boolean isPartial, float price ) {
@@ -76,6 +111,14 @@ public class InscriptionManager {
 		return inscription;
 	}
 	
+	/**
+	 * Agrega al asistente a las actividades del campamento.
+	 *
+	 * @param assistantId   ID del asistente.
+	 * @param campId        ID del campamento.
+	 * @param isPartial     Indica si la inscripción es parcial.
+	 */
+
 	private void addAssistantToActivities(int assistantId, int campId, boolean isPartial) {
 		Camp camp = this.campRepository.find(campId);
 		Assistant assistant = this.assitantRepository.find(assistantId);
@@ -100,6 +143,15 @@ public class InscriptionManager {
 		}
 	}
 	
+	/**
+	 * Verifica si el nivel educativo del asistente es correcto para el campamento.
+	 *
+	 * @param assistantId   ID del asistente.
+	 * @param campId        ID del campamento.
+	 * @param inscriptionDate Fecha de inscripción.
+	 * @throws WrongEducativeLevelException Si el nivel educativo no es adecuado.
+	 */
+
 	private void ensureEducativeLevelIsCorrect(int assistantId, int campId, Date inscriptionDate) {
 		Assistant assistant = this.assitantRepository.find(assistantId);
 		Camp camp = this.campRepository.find(campId);
@@ -123,6 +175,14 @@ public class InscriptionManager {
 		}
 	}
 	
+	/**
+	 * Verifica si se requiere un monitor especial para el campamento.
+	 *
+	 * @param campId                ID del campamento.
+	 * @param needSpecialAttention  Indica si se necesita atención especial.
+	 * @throws NeedToAddAnSpecialMonitorException Si no hay un monitor especial y se necesita atención especial.
+	 */
+
 	private void ensureIfThereAreAnSpecialMonitorIfIsNecessary(int campId, boolean needSpecialAttention) {
 		Camp camp = campRepository.find(campId);
 		if ((needSpecialAttention)&&(camp.getSpecialMonitor()== null)) {
@@ -130,6 +190,14 @@ public class InscriptionManager {
 		}
 	}
 	
+	/**
+	 * Verifica si el asistente ya está inscrito en el campamento.
+	 *
+	 * @param assistantId   ID del asistente.
+	 * @param campId        ID del campamento.
+	 * @throws AssistantAlreadyEnrolledException Si el asistente ya está inscrito.
+	 */
+
 	private void ensureIfTheAssistantIsAlreadyEnrolled(int assistantId, int campId) {
 		String inscriptionId = assistantId + "-" + campId;
 		try {
@@ -138,6 +206,14 @@ public class InscriptionManager {
 		} catch (NotFoundException e) {}
 	}
 	
+	/**
+	 * Calcula el precio de la inscripción en función del campamento y si es parcial.
+	 *
+	 * @param campId        ID del campamento.
+	 * @param isPartial     Indica si la inscripción es parcial.
+	 * @return El precio de la inscripción.
+	 */
+
 	private float calculatePrice(int campId, boolean isPartial) {
 		Camp camp = this.campRepository.find(campId);
 		
@@ -147,6 +223,14 @@ public class InscriptionManager {
 		return basePrice + 20*nActivities;
 	}
 	
+	/**
+	 * Verifica si alguna actividad del campamento está completamente llena.
+	 *
+	 * @param campId        ID del campamento.
+	 * @param isPartial     Indica si la inscripción es parcial.
+	 * @throws MaxAssistantExcededException Si alguna actividad está completamente llena.
+	 */
+
 	private void ensureAnyActivityIsFully(int campId, boolean isPartial) {
 		Camp camp = this.campRepository.find(campId);
 		List<Activity> activities = camp.getActivities();
@@ -166,6 +250,13 @@ public class InscriptionManager {
 		}
 	}
 	
+	/**
+ * Obtiene la lista de asistentes de un campamento a partir de las inscripciones.
+ *
+ * @param camp El campamento del que se desea obtener la lista de asistentes.
+ * @return La lista de asistentes del campamento.
+ */
+
 	private List<Assistant> getAssistantsOfACamp(Camp camp) {
 		List<Inscription> allInscriptions = this.inscriptionRepository.getAll();
 		List<Assistant> assistantsOfCamp = new ArrayList<Assistant>();
@@ -181,6 +272,14 @@ public class InscriptionManager {
 		
 		return assistantsOfCamp;
 	}
+
+	/**
+	 * Obtiene la lista de campamentos disponibles en una fecha dada.
+	 *
+	 * @param actualDate Fecha actual para la comparación.
+	 * @return La lista de campamentos disponibles.
+	 */
+
 	public List<Camp> avaliableCamps(Date actualDate){
 		List<Camp> allCamps = this.campRepository.getAll();
 		List<Camp> avaliableCamps = new ArrayList<Camp>();
