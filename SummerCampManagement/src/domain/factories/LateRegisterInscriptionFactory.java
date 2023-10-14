@@ -103,7 +103,7 @@ public class LateRegisterInscriptionFactory implements AbstractInscriptionFactor
         try {
             Camp camp = this.campRepository.find(campId);
 
-            long daysDifference = Utils.daysBetween(camp.Start(), inscriptionDate);
+            long daysDifference = Utils.daysBetween(camp.getStart(), inscriptionDate);
 
             if (daysDifference > 15) {
                 throw new BeforeLateTimeException();
