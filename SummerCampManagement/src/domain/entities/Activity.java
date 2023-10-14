@@ -1,8 +1,5 @@
 
-/**
- * La clase Activity representa una actividad educativa que se lleva a cabo en un horario específico
- * y se asocia con un nivel educativo, un nombre y un límite de asistentes y monitores.
- */
+
 package domain.entities;
 
 import java.util.ArrayList;
@@ -11,7 +8,10 @@ import java.util.List;
 import domain.exceptions.MaxMonitorsAddedException;
 import domain.values.EducativeLevel;
 import domain.values.TimeSlot;
-
+/**
+ * La clase Activity representa una actividad educativa que se lleva a cabo en un horario específico
+ * y se asocia con un nivel educativo, un nombre y un límite de asistentes y monitores.
+ */
 public class Activity {
     private String activityName;
     private EducativeLevel educativeLevel;

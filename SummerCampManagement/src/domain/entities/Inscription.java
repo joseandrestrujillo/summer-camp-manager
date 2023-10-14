@@ -4,7 +4,9 @@ import java.util.Date;
 
 import domain.values.InscriptionType;
 import utilities.Utils;
-
+/**
+ * La clase Inscription representa una inscripción para un asistente en un campamento.
+ */
 public class Inscription {
 	private String inscriptionIdentifier;
 	private int assistantId;
@@ -13,6 +15,15 @@ public class Inscription {
 	private float price;
 	private boolean canBeCanceled;
 
+	 /**
+     * Constructor para crear un objeto Inscription con la información proporcionada.
+     *
+     * @param assistantId     El ID del asistente inscrito.
+     * @param campId          El ID del campamento al que se ha inscrito el asistente.
+     * @param inscriptionDate La fecha en que se realizó la inscripción.
+     * @param price           El precio total de la inscripción.
+     * @param canBeCanceled   Indica si la inscripción se puede cancelar o no.
+     */
 	public Inscription( int assistantId, int campId, Date inscriptionDate, float price, boolean canBeCanceled) {
 		this.assistantId = assistantId;
 		this.campId = campId;
@@ -22,6 +33,11 @@ public class Inscription {
 		this.reloadIdentifier();
 	}
 	
+	/**
+	* Recarga el identificador de la inscripción basándose en el ID del asistente y el ID del campamento.
+ 	* Si cualquiera de estos valores es nulo o igual a -1, el identificador se establece como una cadena vacía.
+ 	* Si ambos valores son válidos, el identificador se forma concatenando el ID del asistente y el ID del campamento con un guion.
+ 	*/
 	private void reloadIdentifier() {
 		if ((this.inscriptionDate == null) || (this.assistantId == -1) || (this.campId == -1)) {
 			this.inscriptionIdentifier = "";
@@ -30,7 +46,12 @@ public class Inscription {
 		}
 		
 	}
-	
+	/**
+ 	* Constructor predeterminado para crear un objeto Inscription vacío con valores predeterminados.
+ 	* El ID del asistente se inicializa como -1, el ID del campamento se inicializa como -1,
+ 	* la fecha de la inscripción se inicializa como null, el precio se inicializa como -1,
+ 	* y el identificador de la inscripción se recarga utilizando los valores iniciales.
+ 	*/
 	public Inscription() {
 		this.assistantId = -1;
 		this.campId = -1;
@@ -39,48 +60,96 @@ public class Inscription {
 		this.reloadIdentifier();
 
 	}
-
+	/**
+ 	* Obtiene el identificador único de la inscripción, formado por el ID del asistente y el ID del campamento concatenados con un guion.
+ 	*
+	* @return El identificador único de la inscripción.
+	*/
 	public String getInscriptionIdentifier() {
 		return this.inscriptionIdentifier;
 	}
 	
+	/**
+ 	* Obtiene el ID del asistente inscrito en esta inscripción.
+	*
+	* @return El ID del asistente inscrito.
+ 	*/
 	public Integer getAssistantId() {
 		return this.assistantId;
 	}
 
+	/**
+ 	* Obtiene el ID del campamento al que se ha inscrito el asistente en esta inscripción.
+	*
+ 	* @return El ID del campamento al que se ha inscrito el asistente.
+ 	*/
 	public Integer getCampId() {
 		return this.campId;
 	}
 
+	/**
+ 	* Obtiene la fecha en que se realizó la inscripción.
+ 	*
+ 	* @return La fecha en que se realizó la inscripción.
+ 	*/
 	public Date getInscriptionDate() {
 		return this.inscriptionDate;
 	}
 
+	/**
+ 	* Obtiene el precio total de la inscripción.
+ 	*
+ 	* @return El precio total de la inscripción.
+ 	*/
 	public Float getPrice() {
 		return this.price;
 	}
 
-	
+	/**
+ 	* Establece el ID del asistente inscrito y actualiza el identificador de la inscripción.
+ 	*
+ 	* @param assistantId El nuevo ID del asistente inscrito.
+ 	*/
 	public void setAssistantId(int assistantId ){
 		this.assistantId = assistantId;
 		this.reloadIdentifier();
 		
 	}
-	
+
+	/**
+ 	* Establece el ID del campamento y actualiza el identificador de la inscripción.
+ 	*
+ 	* @param campId El nuevo ID del campamento.
+ 	*/
 	public void setCampId(int campId) {
 		this.campId = campId;
 		this.reloadIdentifier();
 	}
 	
+	/**
+	 * Establece la fecha de la inscripción y actualiza el identificador de la inscripción.
+ 	*
+ 	* @param inscriptionDate La nueva fecha de la inscripción.
+ 	*/
 	public void setInscriptionDate(Date inscriptionDate){
 		this.inscriptionDate = inscriptionDate;
 		this.reloadIdentifier();
 	}
-
+	
+	/**
+	 * Establece el precio total de la inscripción.
+ 	*
+ 	* @param price El nuevo precio total de la inscripción.
+ 	*/
 	public void setPrice(float price){
 		this.price = price;
 	}
-	
+
+	/**
+ 	* Devuelve una representación en formato de cadena del objeto Inscription.
+ 	*
+ 	* @return Una cadena que representa el objeto Inscription, incluyendo todos sus atributos.
+ 	*/
 	public String toString() {
 		return "{"
 				+ "AssistantId: " + this.assistantId 
@@ -91,6 +160,11 @@ public class Inscription {
 		
 	}
 
+	/**
+ 	* Indica si la inscripción se puede cancelar o no.
+ 	*
+ 	* @return true si la inscripción se puede cancelar, false en caso contrario.
+ 	*/
 	public boolean canBeCanceled() {
 		return canBeCanceled;
 	}
