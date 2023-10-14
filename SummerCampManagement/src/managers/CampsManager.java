@@ -8,6 +8,7 @@ import domain.entities.Monitor;
 import domain.exceptions.ActivityNotFoundException;
 import domain.exceptions.AssistantAlreadyRegisteredException;
 import domain.exceptions.CampAlreadyRegisteredException;
+import domain.exceptions.IsNotAnSpecialEducator;
 import domain.exceptions.MonitorIsNotInActivityException;
 import domain.exceptions.NotFoundException;
 import domain.exceptions.NotTheSameLevelException;
@@ -107,12 +108,18 @@ public class CampsManager {
      * @param monitor El monitor a establecer como especial.
      * @return El campamento actualizado con el monitor especial.
      * @throws SpecialMonitorAlreadyRegisterException Si el monitor ya está asignado a alguna actividad en el campamento.
+     * @throws IsNotAnSpecialEducator Si el monitor no es un monitor especial.
+	 *
      */
     public Camp setSpecialMonitor(Camp camp, Monitor monitor) {
         boolean founded = isMonitorInSomeActivity(camp, monitor);
 
         if (founded) {
             throw new SpecialMonitorAlreadyRegisterException();
+        }
+        
+        if (monitor.isSpecialEducator() == false) {
+        	throw new IsNotAnSpecialEducator();
         }
 
         camp.setSpecialMonitor(monitor);

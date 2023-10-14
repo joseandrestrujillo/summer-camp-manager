@@ -48,7 +48,7 @@ public class Monitor {
      *
      * @return El primer nombre del monitor.
      */
-    public Object getFirstName() {
+    public String getFirstName() {
         return this.firstName;
     }
 
@@ -57,7 +57,7 @@ public class Monitor {
      *
      * @return El apellido del monitor.
      */
-    public Object getLastName() {
+    public String getLastName() {
         return this.lastName;
     }
 
@@ -66,7 +66,7 @@ public class Monitor {
      *
      * @return `true` si el monitor es un educador especial, `false` en caso contrario.
      */
-    public Object isSpecialEducator() {
+    public boolean isSpecialEducator() {
         return this.specialEducator;
     }
 

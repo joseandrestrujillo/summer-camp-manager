@@ -65,4 +65,13 @@ public class Utils {
 
         return Math.abs(endYear - startYear);
     }
+    
+    /**
+     * Devuelve la fecha actual.
+     *
+     * @return La fecha actual.
+     */
+    public static Date getCurrentDate() {
+        return new Date();
+    }
 }
