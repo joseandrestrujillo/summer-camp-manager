@@ -33,12 +33,9 @@ public class InMemoryInscriptionRepository implements IRepository<Inscription, S
      */
     @Override
     public Inscription find(String inscriptionName) {
-        // Verificar si la inscripción existe en el repositorio.
         if (this.mapOfInscription.get(inscriptionName) == null) {
-            // Lanzar una excepción si la inscripción no se encuentra.
             throw new NotFoundException();
         }
-        // Devolver la inscripción encontrada.
         return this.mapOfInscription.get(inscriptionName);
     }
 
@@ -49,7 +46,6 @@ public class InMemoryInscriptionRepository implements IRepository<Inscription, S
      */
     @Override
     public void save(Inscription activity) {
-        // Almacenar la inscripción en el mapa, utilizando su identificador como clave.
         this.mapOfInscription.put(activity.getInscriptionIdentifier(), activity);
     }
 
@@ -60,9 +56,7 @@ public class InMemoryInscriptionRepository implements IRepository<Inscription, S
      */
     @Override
     public List<Inscription> getAll() {
-        // Crear una lista que contenga a todas las inscripciones en el repositorio.
         List<Inscription> allInscriptions = new ArrayList<>(this.mapOfInscription.values());
-        // Devolver la lista de inscripciones.
         return allInscriptions;
     }
 
@@ -73,7 +67,6 @@ public class InMemoryInscriptionRepository implements IRepository<Inscription, S
      */
     @Override
     public void delete(Inscription obj) {
-        // Eliminar la inscripción del mapa utilizando su identificador como clave.
         this.mapOfInscription.remove(obj.getInscriptionIdentifier());
     }
 }

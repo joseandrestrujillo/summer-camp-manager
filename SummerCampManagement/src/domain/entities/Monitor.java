@@ -3,10 +3,10 @@ package domain.entities;
  * La clase Monitor representa a un monitor en un sistema educativo.
  */
 public class Monitor {
-    private int id;             // El identificador del monitor
-    private String firstName;   // El primer nombre del monitor
-    private String lastName;    // El apellido del monitor
-    private boolean specialEducator; // Indica si el monitor es educador especial
+    private int id;             
+    private String firstName;   
+    private String lastName;    
+    private boolean specialEducator; 
 
     /**
      * Constructor predeterminado de la clase Monitor.

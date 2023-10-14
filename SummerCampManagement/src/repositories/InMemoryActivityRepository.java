@@ -33,12 +33,9 @@ public class InMemoryActivityRepository implements IRepository<Activity, String>
      */
     @Override
     public Activity find(String activityName) {
-        // Verificar si la actividad existe en el repositorio.
         if (this.mapOfActivity.get(activityName) == null) {
-            // Lanzar una excepción si la actividad no se encuentra.
             throw new NotFoundException();
         }
-        // Devolver la actividad encontrada.
         return this.mapOfActivity.get(activityName);
     }
 
@@ -49,7 +46,6 @@ public class InMemoryActivityRepository implements IRepository<Activity, String>
      */
     @Override
     public void save(Activity activity) {
-        // Almacenar la actividad en el mapa, utilizando su nombre como clave.
         this.mapOfActivity.put(activity.getActivityName(), activity);
     }
 
@@ -60,9 +56,7 @@ public class InMemoryActivityRepository implements IRepository<Activity, String>
      */
     @Override
     public List<Activity> getAll() {
-        // Crear una lista que contenga todas las actividades en el repositorio.
         List<Activity> allActivities = new ArrayList<>(this.mapOfActivity.values());
-        // Devolver la lista de actividades.
         return allActivities;
     }
 
@@ -73,7 +67,6 @@ public class InMemoryActivityRepository implements IRepository<Activity, String>
      */
     @Override
     public void delete(Activity obj) {
-        // Eliminar la actividad del mapa utilizando su nombre como clave.
         this.mapOfActivity.remove(obj.getActivityName());
     }
 }

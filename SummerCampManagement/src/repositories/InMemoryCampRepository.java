@@ -36,12 +36,9 @@ public class InMemoryCampRepository implements IRepository<Camp, Integer> {
      */
     @Override
     public Camp find(Integer identifier) {
-        // Verificar si el campamento existe en el repositorio.
         if (this.mapOfCamp.get(identifier) == null) {
-            // Lanzar una excepción si el campamento no se encuentra.
             throw new NotFoundException();
         }
-        // Devolver el campamento encontrado.
         return this.mapOfCamp.get(identifier);
     }
 
@@ -52,7 +49,6 @@ public class InMemoryCampRepository implements IRepository<Camp, Integer> {
      */
     @Override
     public void save(Camp obj) {
-        // Almacenar el campamento en el mapa, utilizando su identificador como clave.
         this.mapOfCamp.put(obj.getCampID(), obj);
     }
 
@@ -63,9 +59,7 @@ public class InMemoryCampRepository implements IRepository<Camp, Integer> {
      */
     @Override
     public List<Camp> getAll() {
-        // Crear una lista que contenga a todos los campamentos en el repositorio.
         List<Camp> allCamps = new ArrayList<>(this.mapOfCamp.values());
-        // Devolver la lista de campamentos.
         return allCamps;
     }
 
@@ -76,7 +70,6 @@ public class InMemoryCampRepository implements IRepository<Camp, Integer> {
      */
     @Override
     public void delete(Camp obj) {
-        // Eliminar el campamento del mapa utilizando su identificador como clave.
         this.mapOfCamp.remove(obj.getCampID());
     }
 }

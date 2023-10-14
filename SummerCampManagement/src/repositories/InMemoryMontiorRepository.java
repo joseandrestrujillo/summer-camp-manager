@@ -33,12 +33,9 @@ public class InMemoryMontiorRepository implements IRepository<Monitor, Integer> 
      */
     @Override
     public Monitor find(Integer identifier) {
-        // Verificar si el monitor existe en el repositorio.
         if (this.mapOfMonitor.get(identifier) == null) {
-            // Lanzar una excepción si el monitor no se encuentra.
             throw new NotFoundException();
         }
-        // Devolver el monitor encontrado.
         return this.mapOfMonitor.get(identifier);
     }
 
@@ -49,7 +46,6 @@ public class InMemoryMontiorRepository implements IRepository<Monitor, Integer> 
      */
     @Override
     public void save(Monitor obj) {
-        // Almacenar el monitor en el mapa, utilizando su identificador como clave.
         this.mapOfMonitor.put(obj.getId(), obj);
     }
 
@@ -60,9 +56,7 @@ public class InMemoryMontiorRepository implements IRepository<Monitor, Integer> 
      */
     @Override
     public List<Monitor> getAll() {
-        // Crear una lista que contenga a todos los monitores en el repositorio.
         List<Monitor> allMonitors = new ArrayList<>(this.mapOfMonitor.values());
-        // Devolver la lista de monitores.
         return allMonitors;
     }
 
@@ -73,7 +67,6 @@ public class InMemoryMontiorRepository implements IRepository<Monitor, Integer> 
      */
     @Override
     public void delete(Monitor obj) {
-        // Eliminar el monitor del mapa utilizando su identificador como clave.
         this.mapOfMonitor.remove(obj.getId());
     }
 }

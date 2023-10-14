@@ -34,12 +34,9 @@ public class InMemoryAssistantRepository implements IRepository<Assistant, Integ
      */
     @Override
     public Assistant find(Integer identifier) {
-        // Verificar si el asistente existe en el repositorio.
         if (this.mapOfAssistants.get(identifier) == null) {
-            // Lanzar una excepción si el asistente no se encuentra.
             throw new NotFoundException();
         }
-        // Devolver el asistente encontrado.
         return this.mapOfAssistants.get(identifier);
     }
 
@@ -50,7 +47,6 @@ public class InMemoryAssistantRepository implements IRepository<Assistant, Integ
      */
     @Override
     public void save(Assistant obj) {
-        // Almacenar al asistente en el mapa, utilizando su identificador como clave.
         this.mapOfAssistants.put(obj.getId(), obj);
     }
 
@@ -61,9 +57,7 @@ public class InMemoryAssistantRepository implements IRepository<Assistant, Integ
      */
     @Override
     public List<Assistant> getAll() {
-        // Crear una lista que contenga a todos los asistentes en el repositorio.
         List<Assistant> allAssistants = new ArrayList<>(this.mapOfAssistants.values());
-        // Devolver la lista de asistentes.
         return allAssistants;
     }
 
@@ -74,7 +68,6 @@ public class InMemoryAssistantRepository implements IRepository<Assistant, Integ
      */
     @Override
     public void delete(Assistant obj) {
-        // Eliminar al asistente del mapa utilizando su identificador como clave.
         this.mapOfAssistants.remove(obj.getId());
     }
 }
