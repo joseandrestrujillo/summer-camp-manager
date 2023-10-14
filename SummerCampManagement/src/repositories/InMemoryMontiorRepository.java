@@ -1,7 +1,6 @@
 package repositories;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,35 +9,73 @@ import domain.entities.Monitor;
 import domain.exceptions.NotFoundException;
 import domain.interfaces.IRepository;
 
-public class InMemoryMontiorRepository implements IRepository<Monitor, Integer>{
+/**
+ * La clase InMemoryMontiorRepository es una implementación en memoria de un repositorio de monitores.
+ *
+ * @param <Monitor>  El tipo de entidad que se almacena en el repositorio.
+ * @param <Integer>  El tipo de la clave utilizada para identificar los monitores.
+ */
+public class InMemoryMontiorRepository implements IRepository<Monitor, Integer> {
+    private Map<Integer, Monitor> mapOfMonitor;
 
-	private Map<Integer, Monitor> mapOfMonitor;
-	
-	public InMemoryMontiorRepository() {
-		this.mapOfMonitor = new HashMap<Integer, Monitor>();
-	}
-	
-	@Override
-	public Monitor find(Integer identifier) {
-		if (this.mapOfMonitor.get(identifier) == null) {
-			throw new NotFoundException();
-		}
-		return this.mapOfMonitor.get(identifier);
-	}
+    /**
+     * Constructor de la clase InMemoryMontiorRepository.
+     * Inicializa un nuevo mapa para almacenar monitores en memoria.
+     */
+    public InMemoryMontiorRepository() {
+        this.mapOfMonitor = new HashMap<Integer, Monitor>();
+    }
 
-	@Override
-	public void save(Monitor obj) {
-		this.mapOfMonitor.put(obj.getId(), obj);
-	}
+    /**
+     * Busca un monitor por su identificador.
+     *
+     * @param identifier El identificador del monitor a buscar.
+     * @return El monitor encontrado.
+     * @throws NotFoundException Si el monitor no se encuentra en el repositorio.
+     */
+    @Override
+    public Monitor find(Integer identifier) {
+        // Verificar si el monitor existe en el repositorio.
+        if (this.mapOfMonitor.get(identifier) == null) {
+            // Lanzar una excepción si el monitor no se encuentra.
+            throw new NotFoundException();
+        }
+        // Devolver el monitor encontrado.
+        return this.mapOfMonitor.get(identifier);
+    }
 
-	@Override
-	public List<Monitor> getAll() {
-		return new ArrayList<Monitor>(this.mapOfMonitor.values());
-	}
+    /**
+     * Guarda un monitor en el repositorio.
+     *
+     * @param obj El monitor a guardar en el repositorio.
+     */
+    @Override
+    public void save(Monitor obj) {
+        // Almacenar el monitor en el mapa, utilizando su identificador como clave.
+        this.mapOfMonitor.put(obj.getId(), obj);
+    }
 
-	@Override
-	public void delete(Monitor obj) {
-		this.mapOfMonitor.remove(obj.getId());
-	}
+    /**
+     * Obtiene una lista de todos los monitores almacenados en el repositorio.
+     *
+     * @return Una lista de monitores.
+     */
+    @Override
+    public List<Monitor> getAll() {
+        // Crear una lista que contenga a todos los monitores en el repositorio.
+        List<Monitor> allMonitors = new ArrayList<>(this.mapOfMonitor.values());
+        // Devolver la lista de monitores.
+        return allMonitors;
+    }
 
+    /**
+     * Elimina un monitor del repositorio.
+     *
+     * @param obj El monitor a eliminar del repositorio.
+     */
+    @Override
+    public void delete(Monitor obj) {
+        // Eliminar el monitor del mapa utilizando su identificador como clave.
+        this.mapOfMonitor.remove(obj.getId());
+    }
 }

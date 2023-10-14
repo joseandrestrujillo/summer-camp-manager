@@ -9,36 +9,73 @@ import domain.entities.Inscription;
 import domain.exceptions.NotFoundException;
 import domain.interfaces.IRepository;
 
-public class InMemoryInscriptionRepository implements IRepository<Inscription, String>{
+/**
+ * La clase InMemoryInscriptionRepository es una implementación en memoria de un repositorio de inscripciones.
+ *
+ * @param <Inscription> El tipo de entidad que se almacena en el repositorio.
+ * @param <String>      El tipo de la clave utilizada para identificar las inscripciones.
+ */
+public class InMemoryInscriptionRepository implements IRepository<Inscription, String> {
+    private Map<String, Inscription> mapOfInscription;
 
-	private Map<String, Inscription> mapOfInscription;
-	
-	public InMemoryInscriptionRepository() {
-		this.mapOfInscription = new HashMap<String, Inscription>();
-	}
-	
-	@Override
-	public Inscription find(String inscriptionName) {
-		if (this.mapOfInscription.get(inscriptionName)==null) {
-			throw new NotFoundException();
-		}
-		return this.mapOfInscription.get(inscriptionName);
-	}
+    /**
+     * Constructor de la clase InMemoryInscriptionRepository.
+     * Inicializa un nuevo mapa para almacenar inscripciones en memoria.
+     */
+    public InMemoryInscriptionRepository() {
+        this.mapOfInscription = new HashMap<String, Inscription>();
+    }
 
-	@Override
-	public void save(Inscription activity) {
-		this.mapOfInscription.put(activity.getInscriptionIdentifier(), activity);
-	}
+    /**
+     * Busca una inscripción por su nombre.
+     *
+     * @param inscriptionName El nombre de la inscripción a buscar.
+     * @return La inscripción encontrada.
+     * @throws NotFoundException Si la inscripción no se encuentra en el repositorio.
+     */
+    @Override
+    public Inscription find(String inscriptionName) {
+        // Verificar si la inscripción existe en el repositorio.
+        if (this.mapOfInscription.get(inscriptionName) == null) {
+            // Lanzar una excepción si la inscripción no se encuentra.
+            throw new NotFoundException();
+        }
+        // Devolver la inscripción encontrada.
+        return this.mapOfInscription.get(inscriptionName);
+    }
 
-	@Override
-	public List<Inscription> getAll() {
-		return new ArrayList<Inscription>(this.mapOfInscription.values());
-	}
+    /**
+     * Guarda una inscripción en el repositorio.
+     *
+     * @param activity La inscripción a guardar en el repositorio.
+     */
+    @Override
+    public void save(Inscription activity) {
+        // Almacenar la inscripción en el mapa, utilizando su identificador como clave.
+        this.mapOfInscription.put(activity.getInscriptionIdentifier(), activity);
+    }
 
-	@Override
-	public void delete(Inscription obj) {
-		this.mapOfInscription.remove(obj.getInscriptionIdentifier());
-	}
+    /**
+     * Obtiene una lista de todas las inscripciones almacenadas en el repositorio.
+     *
+     * @return Una lista de inscripciones.
+     */
+    @Override
+    public List<Inscription> getAll() {
+        // Crear una lista que contenga a todas las inscripciones en el repositorio.
+        List<Inscription> allInscriptions = new ArrayList<>(this.mapOfInscription.values());
+        // Devolver la lista de inscripciones.
+        return allInscriptions;
+    }
 
-
+    /**
+     * Elimina una inscripción del repositorio.
+     *
+     * @param obj La inscripción a eliminar del repositorio.
+     */
+    @Override
+    public void delete(Inscription obj) {
+        // Eliminar la inscripción del mapa utilizando su identificador como clave.
+        this.mapOfInscription.remove(obj.getInscriptionIdentifier());
+    }
 }
