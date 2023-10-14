@@ -11,9 +11,7 @@ import domain.interfaces.IRepository;
 
 /**
  * La clase InMemoryMontiorRepository es una implementación en memoria de un repositorio de monitores.
- *
- * @param <Monitor>  El tipo de entidad que se almacena en el repositorio.
- * @param <Integer>  El tipo de la clave utilizada para identificar los monitores.
+ 
  */
 public class InMemoryMontiorRepository implements IRepository<Monitor, Integer> {
     private Map<Integer, Monitor> mapOfMonitor;

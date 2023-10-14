@@ -14,9 +14,7 @@ import domain.interfaces.IRepository;
 
 /**
  * La clase InMemoryCampRepository es una implementación en memoria de un repositorio de campamentos.
- *
- * @param <Camp>    El tipo de entidad que se almacena en el repositorio.
- * @param <Integer> El tipo de la clave utilizada para identificar los campamentos.
+ 
  */
 public class InMemoryCampRepository implements IRepository<Camp, Integer> {
     private Map<Integer, Camp> mapOfCamp;

@@ -12,9 +12,7 @@ import domain.interfaces.IRepository;
 
 /**
  * La clase InMemoryAssistantRepository es una implementación en memoria de un repositorio de asistentes.
- *
- * @param <Assistant> El tipo de entidad que se almacena en el repositorio.
- * @param <Integer>   El tipo de la clave utilizada para identificar a los asistentes.
+ 
  */
 public class InMemoryAssistantRepository implements IRepository<Assistant, Integer> {
     private Map<Integer, Assistant> mapOfAssistants;

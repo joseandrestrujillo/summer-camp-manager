@@ -12,9 +12,6 @@ import domain.interfaces.IRepository;
 
 /**
  * La clase InMemoryActivityRepository es una implementación en memoria de un repositorio de actividades.
- *
- * @param <Activity> El tipo de entidad que se almacena en el repositorio.
- * @param <String>  El tipo de la clave utilizada para identificar las actividades.
  */
 public class InMemoryActivityRepository implements IRepository<Activity, String> {
     private Map<String, Activity> mapOfActivity;

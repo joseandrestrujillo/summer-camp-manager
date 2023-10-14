@@ -11,9 +11,7 @@ import domain.interfaces.IRepository;
 
 /**
  * La clase InMemoryInscriptionRepository es una implementación en memoria de un repositorio de inscripciones.
- *
- * @param <Inscription> El tipo de entidad que se almacena en el repositorio.
- * @param <String>      El tipo de la clave utilizada para identificar las inscripciones.
+
  */
 public class InMemoryInscriptionRepository implements IRepository<Inscription, String> {
     private Map<String, Inscription> mapOfInscription;
