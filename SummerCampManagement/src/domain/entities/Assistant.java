@@ -1,9 +1,13 @@
 package domain.entities;
 
+import java.lang.reflect.Constructor;
 import java.util.Date;
 
 import utilities.Utils;
 
+/**
+ * La clase Assistant representa a un asistente con su información básica.
+ */
 public class Assistant {
 	private int id;
 	private String firstName;
@@ -11,6 +15,16 @@ public class Assistant {
 	private Date birthDate;
 	private boolean requireSpecialAttention;
 
+
+ /**
+     * Constructor para crear un nuevo objeto Assistant con información proporcionada.
+     *
+     * @param id                     El identificador del asistente.
+     * @param firstName              El nombre del asistente.
+     * @param lastName               El apellido del asistente.
+     * @param birthDate              La fecha de nacimiento del asistente.
+     * @param requireSpecialAttention Indica si el asistente requiere atención especial.
+     */
 	public Assistant(int id, String firstName, String lastName, Date birthDate, boolean requireSpecialAttention) {
 		this.id = id;
 		this.firstName = firstName;
@@ -19,6 +33,10 @@ public class Assistant {
 		this.requireSpecialAttention = requireSpecialAttention;
 	}
 
+
+	/**
+     * Constructor predeterminado para crear un objeto Assistant vacío.
+     */
 	public Assistant() {
 		this.id = 0;
 		this.firstName = "";
@@ -27,46 +45,104 @@ public class Assistant {
 		this.requireSpecialAttention = false;
 	}
 
+
+	/**
+     * Obtiene el identificador del asistente.
+     *
+     * @return El identificador del asistente.
+     */
 	public Integer getId() {
 		return this.id;
 	}
 
+
+	/**
+     * Obtiene el nombre del asistente.
+     *
+     * @return El nombre del asistente.
+     */
 	public String getFirstName() {
 		return this.firstName;
 	}
 
-	public String getLastName() {
-		return this.lastName;
-	}
+	 /**
+     * Obtiene el apellido del asistente.
+     *
+     * @return El apellido del asistente.
+     */
+    public String getLastName() {
+        return this.lastName;
+    }
 
-	public Date getBirthDate() {
-		return this.birthDate;
-	}
+    /**
+     * Obtiene la fecha de nacimiento del asistente.
+     *
+     * @return La fecha de nacimiento del asistente.
+     */
+    public Date getBirthDate() {
+        return this.birthDate;
+    }
 
-	public boolean isRequireSpecialAttention() {
-		return this.requireSpecialAttention;
-	}
+    /**
+     * Verifica si el asistente requiere atención especial.
+     *
+     * @return true si el asistente requiere atención especial, false en caso contrario.
+     */
+    public boolean isRequireSpecialAttention() {
+        return this.requireSpecialAttention;
+    }
 
-	public void setId(int id2) {
-		this.id = id2;
-	}
+    /**
+     * Establece el identificador del asistente.
+     *
+     * @param id2 El nuevo identificador del asistente.
+     */
+    public void setId(int id2) {
+        this.id = id2;
+    }
 
-	public void setFirstName(String firstName2) {
-		this.firstName = firstName2;
-	}
+    /**
+     * Establece el nombre del asistente.
+     *
+     * @param firstName2 El nuevo nombre del asistente.
+     */
+    public void setFirstName(String firstName2) {
+        this.firstName = firstName2;
+    }
 
-	public void setLastName(String lastName2) {
-		this.lastName = lastName2;
-	}
+    /**
+     * Establece el apellido del asistente.
+     *
+     * @param lastName2 El nuevo apellido del asistente.
+     */
+    public void setLastName(String lastName2) {
+        this.lastName = lastName2;
+    }
 
-	public void setBirthDate(Date birthDate2) {
-		this.birthDate = birthDate2;
-	}
+    /**
+     * Establece la fecha de nacimiento del asistente.
+     *
+     * @param birthDate2 La nueva fecha de nacimiento del asistente.
+     */
+    public void setBirthDate(Date birthDate2) {
+        this.birthDate = birthDate2;
+    }
 
-	public void setRequireSpecialAttention(boolean requireSpecialAttention2) {
-		this.requireSpecialAttention = requireSpecialAttention2;
-	}
+    /**
+     * Establece si el asistente requiere atención especial.
+     *
+     * @param requireSpecialAttention2 true si el asistente requiere atención especial, false en caso contrario.
+     */
+    public void setRequireSpecialAttention(boolean requireSpecialAttention2) {
+        this.requireSpecialAttention = requireSpecialAttention2;
+    }
 
+	/**
+     * Devuelve una representación en formato de cadena del objeto Assistant.
+     *
+     * @return Una cadena que representa el objeto Assistant, incluyendo todos sus atributos.
+     */
+	
 	public String toString() {
 		return "{id: " 
 				+ this.id 
