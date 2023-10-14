@@ -1,9 +1,9 @@
 package domain.exceptions;
 
 /**
- * This exception is thrown when a monitor is not in the expected activity state.
- * It typically indicates that an operation or action is being performed on a monitor
- * that should be in a specific activity but is not.
+ * Esta excepción se lanza cuando un monitor no se encuentra en el estado de actividad esperado.
+ * Normalmente indica que se está realizando una operación o acción en un monitor
+ * que debería estar en una actividad específica pero no lo está.
  */
 
 public class MonitorIsNotInActivityException extends RuntimeException {

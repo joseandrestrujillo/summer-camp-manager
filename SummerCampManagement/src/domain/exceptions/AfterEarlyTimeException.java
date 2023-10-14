@@ -1,9 +1,9 @@
 package domain.exceptions;
 
 /**
- * This exception is thrown when an operation attempts to use a time
- * that is considered to be after an early time constraint.
- * This is a runtime exception, so it does not need to be explicitly caught.
+ * Esta excepción se lanza cuando una operación intenta utilizar una hora 
+ * que se considera posterior a una restricción temporal temprana.
+ * Se trata de una excepción en tiempo de ejecución, por lo que no es necesario capturarla explícitamente.
  */
 
 public class AfterEarlyTimeException extends RuntimeException {

@@ -1,9 +1,9 @@
 package domain.exceptions;
 
 /**
- * This exception is thrown when two objects are not at the same level.
- * For example, if you have a hierarchy of objects and you expect them to be at the same level,
- * but they are not, this exception can be thrown to indicate the inconsistency.
+ * Esta excepción se lanza cuando dos objetos no están en el mismo nivel.
+ * Por ejemplo, si tienes una jerarquía de objetos y esperas que estén en el mismo nivel,
+ * pero no lo están, esta excepción puede ser lanzada para indicar la inconsistencia.
  */
 
 
