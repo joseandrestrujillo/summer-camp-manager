@@ -92,7 +92,7 @@ public class EarlyRegisterInscriptionFactory implements AbstractInscriptionFacto
         try {
             this.assistantRepository.find(assistantId);
         } catch (NotFoundException e) {
-            throw a AssistantNotFoundException();
+            throw new AssistantNotFoundException();
         }
 
         try {
