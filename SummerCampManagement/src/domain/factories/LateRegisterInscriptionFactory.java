@@ -29,7 +29,7 @@ public class LateRegisterInscriptionFactory implements AbstractInscriptionFactor
      * Constructor para LateRegisterInscriptionFactory.
      *
      * @param campRepository        Repositorio de campamentos.
-     * @param assistantRepository   Repositorio de asistentes.
+     * @param assistanRepository   Repositorio de asistentes.
      */
     public LateRegisterInscriptionFactory(IRepository<Camp, Integer> campRepository, IRepository<Assistant, Integer> assistanRepository) {
         this.campRepository = campRepository;

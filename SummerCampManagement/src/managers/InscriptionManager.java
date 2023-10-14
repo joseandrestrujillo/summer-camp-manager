@@ -40,7 +40,7 @@ public class InscriptionManager {
      * @param campRepository        Repositorio de campamentos.
      * @param activityRepository    Repositorio de actividades.
      * @param monitorRepository     Repositorio de monitores.
-     * @param assistantRepository   Repositorio de asistentes.
+     * @param assistanRepository   Repositorio de asistentes.
      * @param inscriptionRepository Repositorio de inscripciones.
 	 */
 
