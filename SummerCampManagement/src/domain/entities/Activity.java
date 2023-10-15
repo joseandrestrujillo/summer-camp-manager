@@ -221,44 +221,79 @@ public class Activity {
     public boolean monitorIsRegistered(Monitor monitor){
 		return this.monitorList.contains(monitor);	
 	}
-
+    
     public static Activity fromString(String inputString) {
-    	Pattern pattern = Pattern.compile("activityName: '(.+)',\\s+educativeLevel:\\s+(.+),\\s+timeSlot:\\s+(.+),\\s+maxAssistants:\\s+(\\d+),\\s+neededMonitors:\\s+(\\d+),\\s+assistants:\\s+\\[(.+)\\],\\s+monitors:\\s+\\[(.+)\\]");
-    	Matcher matcher = pattern.matcher(inputString);
+
+        Pattern pattern = Pattern.compile("activityName: '(.+)',\\s+educativeLevel:\\s+(.+),\\s+timeSlot:\\s+(.+),\\s+maxAssistants:\\s+(\\d+),\\s+neededMonitors:\\s+(\\d+),\\s+assistants:\\s+\\[(.+)\\],\\s+monitors:\\s+\\[(.+)\\]");
+
+        Matcher matcher = pattern.matcher(inputString);
+
+        if(!matcher.find()) {
+          throw new IllegalStateException("No match found");
+        }
 
         String activityName = matcher.group(1);
-        EducativeLevel educativeLevel = EducativeLevel.valueOf(matcher.group(2));
-        TimeSlot timeSlot = TimeSlot.valueOf(matcher.group(3));
-        int maxAssistants = Integer.parseInt(matcher.group(4));
-        int neededMonitors = Integer.parseInt(matcher.group(5));
+        if(activityName == null) {
+          throw new IllegalArgumentException("Activity name is null"); 
+        }
+
+        String educativeLevelStr = matcher.group(2);
+        if(educativeLevelStr == null) {
+          throw new IllegalArgumentException("Educative level is null");
+        }
+        EducativeLevel educativeLevel = EducativeLevel.valueOf(educativeLevelStr);
+
+        String timeSlotStr = matcher.group(3);
+        if(timeSlotStr == null) {
+          throw new IllegalArgumentException("Time slot is null");
+        }
+        TimeSlot timeSlot = TimeSlot.valueOf(timeSlotStr);
+
+        String maxAssistantsStr = matcher.group(4);
+        if(maxAssistantsStr == null) {
+          throw new IllegalArgumentException("Max assistants is null");
+        }
+        int maxAssistants = Integer.parseInt(maxAssistantsStr);
+
+        String neededMonitorsStr = matcher.group(5);
+        if(neededMonitorsStr == null) {
+          throw new IllegalArgumentException("Needed monitors is null");
+        }
+        int neededMonitors = Integer.parseInt(neededMonitorsStr);
 
         List<Assistant> assistantList = new ArrayList<>();
         String assistantString = matcher.group(6);
-        if (!assistantString.isEmpty()) {
-            Pattern assistantPattern = Pattern.compile("\\{([^\\{\\}]+)\\}");
-            Matcher assistantMatcher = assistantPattern.matcher(assistantString);
-            while (assistantMatcher.find()) {
-                String assistantData = assistantMatcher.group(1);
-                Assistant assistant = Assistant.fromString(assistantData);
-                assistantList.add(assistant);
+        if(assistantString != null && !assistantString.isEmpty()) {
+        	if (!assistantString.isEmpty()) {
+                Pattern assistantPattern = Pattern.compile("\\{([^\\{\\}]+)\\}");
+                Matcher assistantMatcher = assistantPattern.matcher(assistantString);
+                while (assistantMatcher.find()) {
+                    String assistantData = assistantMatcher.group(1);
+                    Assistant assistant = Assistant.fromString(assistantData);
+                    assistantList.add(assistant);
+                }
             }
         }
 
         List<Monitor> monitorList = new ArrayList<>();
         String monitorString = matcher.group(7);
-        if (!monitorString.isEmpty()) {
-            Pattern monitorPattern = Pattern.compile("\\{([^\\{\\}]+)\\}");
-            Matcher monitorMatcher = monitorPattern.matcher(monitorString);
-            while (monitorMatcher.find()) {
-                String monitorData = monitorMatcher.group(1);
-                Monitor monitor = Monitor.fromString(monitorData);
-                monitorList.add(monitor);
+        if(monitorString != null && !monitorString.isEmpty()) {
+        	if (!monitorString.isEmpty()) {
+                Pattern monitorPattern = Pattern.compile("\\{([^\\{\\}]+)\\}");
+                Matcher monitorMatcher = monitorPattern.matcher(monitorString);
+                while (monitorMatcher.find()) {
+                    String monitorData = monitorMatcher.group(1);
+                    Monitor monitor = Monitor.fromString(monitorData);
+                    monitorList.add(monitor);
+                }
             }
         }
 
         Activity activity = new Activity(activityName, educativeLevel, timeSlot, maxAssistants, neededMonitors);
         activity.setAssistants(assistantList);
         activity.setMonitorList(monitorList);
+
         return activity;
-    }
+
+      }
 }
