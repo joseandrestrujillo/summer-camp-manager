@@ -31,11 +31,11 @@ import domain.values.TimeSlot;
 import managers.AssistantsManager;
 import managers.CampsManager;
 import managers.InscriptionManager;
-import repositories.InMemoryActivityRepository;
-import repositories.InMemoryAssistantRepository;
+import repositories.InFileSystemActivityRepository;
+import repositories.InFileSystemAssistantsRepository;
 import repositories.InMemoryCampRepository;
-import repositories.InMemoryInscriptionRepository;
-import repositories.InMemoryMontiorRepository;
+import repositories.InFileSystemInscriptionRepository;
+import repositories.InFileSystemMonitorRepository;
 import utilities.Utils;
 
 
@@ -239,7 +239,7 @@ public class Main {
 		}
 		
 		int opcion;
-		IRepository<Camp, Integer> campRepository = new InFileSystemCampRepository(pathCampRep);
+		IRepository<Camp, Integer> campRepository = new InMemoryCampRepository();
 		IRepository<Activity, String> activityRepository = new InFileSystemActivityRepository(pathActivityRep);
 		IRepository<Monitor, Integer> monitorRepository = new InFileSystemMonitorRepository(pathMonitorRep);
 		IRepository<Assistant, Integer> assistantRepository = new InFileSystemAssistantRepository(pathAssistantRep);
