@@ -250,15 +250,16 @@ public class Camp {
 		  Monitor specialMonitor = specialMonitorString.equals("null") ? null : Monitor.fromString(specialMonitorString);
 
 		  List<Activity> activities = new ArrayList<>();
+		  
 		  String activitiesString = matcher.group(8);
 		  if (activitiesString != null && !activitiesString.isEmpty()) {
-		    Pattern activityPattern = Pattern.compile("\\{([^\\{\\}]+)\\}");
-		    Matcher activityMatcher = activityPattern.matcher(activitiesString);
-		    while (activityMatcher.find()) {
-		      String activityData = activityMatcher.group(1);
-		      Activity activity = Activity.fromString(activityData);
-		      activities.add(activity);
-		    }
+			  Pattern activityPattern = Pattern.compile("activityName: '(.+)',\\s+educativeLevel:\\s+(.+),\\s+timeSlot:\\s+(.+),\\s+maxAssistants:\\s+(\\d+),\\s+neededMonitors:\\s+(\\d+),\\s+assistants:\\s*(\\[[^\\]]*\\])?\\s*,\\s*monitors:\\s*(\\[[^\\]]*\\])?\\s*}");
+			  Matcher activityMatcher = activityPattern.matcher(activitiesString);
+			  while (activityMatcher.find()) {
+				  String activityData = activityMatcher.group();
+				  Activity activity = Activity.fromString(activityData);
+				  activities.add(activity);
+			  }
 		  }
 
 		  Camp camp = new Camp(campID, start, end, educativeLevel, capacity);

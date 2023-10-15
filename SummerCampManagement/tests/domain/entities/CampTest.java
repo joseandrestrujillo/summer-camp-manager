@@ -205,6 +205,26 @@ class CampTest {
     }
 	
 	@Test
+	public void fromString_nonEmptyMonitors() {
+		
+		Date start = Utils.parseDate("10/11/2024");
+		Date end = Utils.parseDate("17/11/2024");
+		EducativeLevel educativeLevel = EducativeLevel.TEENAGER;
+		int capacity = 5;
+		
+		String inputString = "{campID: 1, start: 10/11/2024, end: 17/11/2024, educativeLevel: TEENAGER, capacity: 5, principalMonitor: null, specialMonitor: null, activities: [{activityName: 'Act1', educativeLevel: TEENAGER, timeSlot: MORNING, maxAssistants: 5, neededMonitors: 1, assistants: [], monitors: [{id: 5, firstName: 'Pepe', lastName: 'Meñique', isSpecialEducator: false}]}]}";
+		String activities = "[{activityName: 'Act1', educativeLevel: TEENAGER, timeSlot: MORNING, maxAssistants: 5, neededMonitors: 1, assistants: [], monitors: [{id: 5, firstName: 'Pepe', lastName: 'Meñique', isSpecialEducator: false}]}]";
+		Camp campcreated = Camp.fromString(inputString);
+		
+		assertEquals(1, campcreated.getCampID());
+        assertEquals(start, campcreated.getStart());
+        assertEquals(end, campcreated.getEnd());
+        assertEquals(educativeLevel, campcreated.getEducativeLevel());
+        assertEquals(capacity, campcreated.getCapacity());
+        assertEquals(activities, campcreated.getActivities().toString());
+	}
+	
+	@Test
 	public void testToString_emptyLists() {
 		int campID = 1;
 		Date start = Utils.parseDate("15/01/2024");

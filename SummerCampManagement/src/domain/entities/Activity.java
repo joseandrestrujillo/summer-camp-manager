@@ -225,7 +225,7 @@ public class Activity {
     public static Activity fromString(String inputString) {
 
     	Pattern pattern = Pattern.compile("activityName: '(.+)',\\s+educativeLevel:\\s+(.+),\\s+timeSlot:\\s+(.+),\\s+maxAssistants:\\s+(\\d+),\\s+neededMonitors:\\s+(\\d+),\\s+assistants:\\s*(\\[[^\\]]*\\])?\\s*,\\s*monitors:\\s*(\\[[^\\]]*\\])?");
-        Matcher matcher = pattern.matcher(inputString);
+    	Matcher matcher = pattern.matcher(inputString);
 
         if(!matcher.find()) {
           throw new IllegalStateException("No match found");
@@ -264,7 +264,7 @@ public class Activity {
         String assistantString = matcher.group(6);
         if(assistantString != null && !assistantString.isEmpty()) {
         	if (!assistantString.isEmpty()) {
-                Pattern assistantPattern = Pattern.compile("\\{([^\\{\\}]+)\\}");
+                Pattern assistantPattern = Pattern.compile("\\{(.*?)\\}");
                 Matcher assistantMatcher = assistantPattern.matcher(assistantString);
                 while (assistantMatcher.find()) {
                     String assistantData = assistantMatcher.group(1);
@@ -278,7 +278,7 @@ public class Activity {
         String monitorString = matcher.group(7);
         if(monitorString != null && !monitorString.isEmpty()) {
         	if (!monitorString.isEmpty()) {
-                Pattern monitorPattern = Pattern.compile("\\{([^\\{\\}]+)\\}");
+                Pattern monitorPattern = Pattern.compile("\\{(.*?)\\}");
                 Matcher monitorMatcher = monitorPattern.matcher(monitorString);
                 while (monitorMatcher.find()) {
                     String monitorData = monitorMatcher.group(1);
@@ -295,4 +295,5 @@ public class Activity {
         return activity;
 
     }
+    
 }
