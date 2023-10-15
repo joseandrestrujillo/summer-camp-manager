@@ -23,7 +23,7 @@ public class InFileSystemActivityRepository implements IRepository<Activity, Str
 
     
     /**
-     * Constructor de la clase InMemoryActivityRepository.
+     * Constructor de la clase InFileSystemActivityRepository.
      * Inicializa un nuevo mapa para almacenar actividades en memoria y carga las actividades almacenadas en el fichero
      * 
      * @param filePath path al fichero de actividades

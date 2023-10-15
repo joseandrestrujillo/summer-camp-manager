@@ -14,16 +14,34 @@ import domain.entities.Assistant;
 import domain.exceptions.repository.NotFoundException;
 import domain.interfaces.IRepository;
 
+
+/**
+ * La clase InFileSystemAssistantRepository es una implementación en sistema de ficheros de un repositorio de asistentes.
+ 
+ */
 public class InFileSystemAssistantRepository implements IRepository<Assistant, Integer>{
     private String filePath;
     private Map<Integer, Assistant> mapOfAssistants;
 
+    
+    /**
+     * Constructor de la clase InFileSystemAssistantRepository.
+     * Inicializa un nuevo mapa para almacenar asistentes en memoria y carga los asistentes almacenados en el fichero
+     * 
+     * @param filePath path al fichero de asistentes
+     */
     public InFileSystemAssistantRepository(String filePath) {
         this.filePath = filePath;
         this.mapOfAssistants = new HashMap<>();
         loadFromFile();
     }
-
+    /**
+     * Busca a un asistente por su identificador.
+     *
+     * @param identifier El identificador del asistente a buscar.
+     * @return El asistente encontrado.
+     * @throws NotFoundException Si el asistente no se encuentra en el repositorio.
+     */
     @Override
     public Assistant find(Integer identifier) {
         if (!mapOfAssistants.containsKey(identifier)) {
@@ -31,18 +49,30 @@ public class InFileSystemAssistantRepository implements IRepository<Assistant, I
         }
         return mapOfAssistants.get(identifier);
     }
-
+    /**
+     * Guarda a un asistente en el repositorio.
+     *
+     * @param obj El asistente a guardar en el repositorio.
+     */
     @Override
     public void save(Assistant obj) {
         mapOfAssistants.put(obj.getId(), obj);
         saveToFile();
     }
-
+    /**
+     * Obtiene una lista de todos los asistentes almacenados en el repositorio.
+     *
+     * @return Una lista de asistentes.
+     */
     @Override
     public List<Assistant> getAll() {
         return new ArrayList<>(mapOfAssistants.values());
     }
-
+    /**
+     * Elimina a un asistente del repositorio.
+     *
+     * @param obj El asistente a eliminar del repositorio.
+     */
     @Override
     public void delete(Assistant obj) {
         mapOfAssistants.remove(obj.getId());
