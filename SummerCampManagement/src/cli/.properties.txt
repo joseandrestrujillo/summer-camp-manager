@@ -1,0 +1,5 @@
+pathActivityRep=persistence/activity.txt
+pathAssistantRep=persistence/assistant.txt
+pathCampRep=persistence/camp.txt
+pathInscriptionRep=persistence/inscription.txt
+pathMonitorRep=persistence/monitor.txt
