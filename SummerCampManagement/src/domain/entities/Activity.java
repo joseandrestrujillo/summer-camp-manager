@@ -224,8 +224,7 @@ public class Activity {
     
     public static Activity fromString(String inputString) {
 
-        Pattern pattern = Pattern.compile("activityName: '(.+)',\\s+educativeLevel:\\s+(.+),\\s+timeSlot:\\s+(.+),\\s+maxAssistants:\\s+(\\d+),\\s+neededMonitors:\\s+(\\d+),\\s+assistants:\\s+\\[(.+)\\],\\s+monitors:\\s+\\[(.+)\\]");
-
+    	Pattern pattern = Pattern.compile("activityName: '(.+)',\\s+educativeLevel:\\s+(.+),\\s+timeSlot:\\s+(.+),\\s+maxAssistants:\\s+(\\d+),\\s+neededMonitors:\\s+(\\d+),\\s+assistants:\\s*(\\[[^\\]]*\\])?\\s*,\\s*monitors:\\s*(\\[[^\\]]*\\])?");
         Matcher matcher = pattern.matcher(inputString);
 
         if(!matcher.find()) {

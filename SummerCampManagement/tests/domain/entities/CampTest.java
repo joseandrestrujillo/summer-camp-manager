@@ -133,6 +133,8 @@ class CampTest {
         		+ "end: 25/01/2024, "
         		+ "educativeLevel: PRESCHOOL, "
         		+ "capacity: 10, "
+				+ "principalMonitor: null, "
+				+ "specialMonitor: null, "
         		+ "activities: ["
         		+ "{activityName: 'Actividad', educativeLevel: PRESCHOOL, timeSlot: AFTERNOON, maxAssistants: 10, neededMonitors: 3, assistants: [], monitors: []}, "
         		+ "{activityName: 'Actividad 2', educativeLevel: PRESCHOOL, timeSlot: AFTERNOON, maxAssistants: 10, neededMonitors: 3, assistants: [], monitors: []}"
@@ -185,6 +187,8 @@ class CampTest {
         		+ "end: 25/01/2024, "
         		+ "educativeLevel: PRESCHOOL, "
         		+ "capacity: 10, "
+				+ "principalMonitor: null, "
+				+ "specialMonitor: null, "
         		+ "activities: ["
         		+ "{activityName: 'Actividad', educativeLevel: PRESCHOOL, timeSlot: AFTERNOON, maxAssistants: 10, neededMonitors: 3, assistants: [], monitors: []}, "
         		+ "{activityName: 'Actividad 2', educativeLevel: PRESCHOOL, timeSlot: AFTERNOON, maxAssistants: 10, neededMonitors: 3, assistants: [], monitors: []}"
@@ -220,6 +224,8 @@ class CampTest {
 	        		+ "end: 25/01/2024, "
 	        		+ "educativeLevel: PRESCHOOL, "
 	        		+ "capacity: 10, "
+	        		+ "principalMonitor: null, "
+					+ "specialMonitor: null, "
 	        		+ "activities: []}";
 		assertEquals(expectedToString, camp.toString());
     }
