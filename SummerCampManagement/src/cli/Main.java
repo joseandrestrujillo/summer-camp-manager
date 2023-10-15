@@ -707,6 +707,8 @@ public class Main {
 					} while (optionInscriptionManager != 3);
                     break;
                  case 4:
+                	clearConsole();
+                	System.out.println("Saliendo del programa. . .");
                     System.exit(0);
                     break;
                 default:
