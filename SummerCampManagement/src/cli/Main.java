@@ -33,7 +33,7 @@ import managers.CampsManager;
 import managers.InscriptionManager;
 import repositories.InFileSystemActivityRepository;
 import repositories.InFileSystemAssistantRepository;
-import repositories.InMemoryCampRepository;
+import repositories.InFileSystemCampRepository;
 import repositories.InFileSystemInscriptionRepository;
 import repositories.InFileSystemMonitorRepository;
 import utilities.Utils;
