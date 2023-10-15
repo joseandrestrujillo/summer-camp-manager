@@ -295,5 +295,5 @@ public class Activity {
 
         return activity;
 
-      }
+    }
 }

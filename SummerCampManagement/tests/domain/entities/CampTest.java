@@ -129,8 +129,8 @@ class CampTest {
 
         String expectedToString = ""
         		+ "{campID: 1, "
-        		+ "start: '15/01/2024', "
-        		+ "end: '25/01/2024', "
+        		+ "start: 15/01/2024, "
+        		+ "end: 25/01/2024, "
         		+ "educativeLevel: PRESCHOOL, "
         		+ "capacity: 10, "
         		+ "activities: ["
@@ -181,8 +181,8 @@ class CampTest {
 
         String inputString = ""
         		+ "{campID: 1, "
-        		+ "start: '15/01/2024', "
-        		+ "end: '25/01/2024', "
+        		+ "start: 15/01/2024, "
+        		+ "end: 25/01/2024, "
         		+ "educativeLevel: PRESCHOOL, "
         		+ "capacity: 10, "
         		+ "activities: ["
@@ -190,14 +190,14 @@ class CampTest {
         		+ "{activityName: 'Actividad 2', educativeLevel: PRESCHOOL, timeSlot: AFTERNOON, maxAssistants: 10, neededMonitors: 3, assistants: [], monitors: []}"
         		+ "]"
         		+ "}";
-        Camp camp = Camp.fromString(inputString);
+        Camp campcreated = Camp.fromString(inputString);
         
-        assertEquals(campID, camp.getCampID());
-        assertEquals(start, camp.getStart());
-        assertEquals(end, camp.getEnd());
-        assertEquals(neededMonitors, activity.getNeededMonitors());
-        assertEquals(assistants.toString(), activity.getAssistants().toString());
-        assertEquals(activities.toString(), camp.getActivities().toString());
+        assertEquals(campID, campcreated.getCampID());
+        assertEquals(start, campcreated.getStart());
+        assertEquals(end, campcreated.getEnd());
+        assertEquals(educativeLevel, campcreated.getEducativeLevel());
+        assertEquals(capacity, campcreated.getCapacity());
+        assertEquals(activities.toString(), campcreated.getActivities().toString());
     }
 	
 	@Test
@@ -216,8 +216,8 @@ class CampTest {
 		);
 		String expectedToString = ""
 	        		+ "{campID: 1, "
-	        		+ "start: '15/01/2024', "
-	        		+ "end: '25/01/2024', "
+	        		+ "start: 15/01/2024, "
+	        		+ "end: 25/01/2024, "
 	        		+ "educativeLevel: PRESCHOOL, "
 	        		+ "capacity: 10, "
 	        		+ "activities: []}";

@@ -3,9 +3,11 @@ package domain.entities;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import domain.values.EducativeLevel;
+import domain.values.TimeSlot;
 import utilities.Utils;
 
 /**
@@ -193,9 +195,9 @@ public class Camp {
     public String toString() {
         return 
         		"{campID: " + this.campID 
-        		+ ", start: '" + Utils.getStringDate(start)
-        		+ "', end: '" + Utils.getStringDate(end)
-        		+ "', educativeLevel: " + this.educativeLevel 
+        		+ ", start: " + Utils.getStringDate(start)
+        		+ ", end: " + Utils.getStringDate(end)
+        		+ ", educativeLevel: " + this.educativeLevel 
         		+ ", capacity: " + this.capacity 
         		+ ", activities: " + this.activities.toString() 
         		+  "}";
@@ -219,5 +221,55 @@ public class Camp {
 		this.specialMonitor = monitor;
 	}
 
+	public static Camp fromString(String inputString) {
+
+		  Pattern pattern = Pattern.compile("campID: (\\d+), start: (.+), end: (.+), educativeLevel: (.+), capacity: (\\d+), activities: \\[(.+)\\], principalMonitor: \\{([^\\{\\}]+)\\}, specialMonitor: \\{([^\\{\\}]+)\\}");
+		  
+		  Matcher matcher = pattern.matcher(inputString);
+		  
+		  if(!matcher.find()) {
+		    throw new IllegalStateException("No match found"); 
+		  }
+		  
+		  int campID = Integer.parseInt(matcher.group(1));
+		  
+		  Date start = Utils.parseDate(matcher.group(2));
+		  Date end = Utils.parseDate(matcher.group(3));
+		  
+		  EducativeLevel educativeLevel = EducativeLevel.valueOf(matcher.group(4));
+		  
+		  int capacity = Integer.parseInt(matcher.group(5));
+
+		  List<Activity> activities = new ArrayList<>();
+		  String activitiesString = matcher.group(6);
+		  if (activitiesString != null && !activitiesString.isEmpty()) {
+		    Pattern activityPattern = Pattern.compile("\\{([^\\{\\}]+)\\}");
+		    Matcher activityMatcher = activityPattern.matcher(activitiesString);
+		    while (activityMatcher.find()) {
+		      String activityData = activityMatcher.group(1);
+		      Activity activity = Activity.fromString(activityData);
+		      activities.add(activity);
+		    }
+		  }
+
+		  Monitor principalMonitor = null;
+		  String principalMonitorString = matcher.group(7);
+		  if (principalMonitorString != null && !principalMonitorString.isEmpty()) {
+		    principalMonitor = Monitor.fromString(principalMonitorString); 
+		  }
+
+		  Monitor specialMonitor = null;
+		  String specialMonitorString = matcher.group(8);
+		  if (specialMonitorString != null && !specialMonitorString.isEmpty()) {
+		    specialMonitor = Monitor.fromString(specialMonitorString);
+		  }
+
+		  Camp camp = new Camp(campID, start, end, educativeLevel, capacity);
+		  camp.setActivities(activities);
+		  camp.setPrincipalMonitor(principalMonitor);
+		  camp.setSpecialMonitor(specialMonitor);
+		  
+		  return camp;
+	}
 	
 }
