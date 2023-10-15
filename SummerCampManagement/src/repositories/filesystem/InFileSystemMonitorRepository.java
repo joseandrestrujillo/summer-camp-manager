@@ -13,17 +13,29 @@ import java.util.Map;
 import domain.entities.Monitor;
 import domain.exceptions.repository.NotFoundException;
 import domain.interfaces.IRepository;
-
+/**
+ * La clase InFileSystemMonitorRepository es una implementación en memoria de un sistema de ficheros de la clase monitor.
+ 
+ */
 public class InFileSystemMonitorRepository implements IRepository<Monitor, Integer>{
     private String filePath;
     private Map<Integer, Monitor> mapOfMonitors;
-
+    /**
+     * Constructor de la clase InFileSystemMonitorRepository.
+     * Inicializa un nuevo mapa para almacenar monitores en memoria y recibe la ruta de fichero como parametro
+     */
     public InFileSystemMonitorRepository(String filePath) {
         this.filePath = filePath;
         this.mapOfMonitors = new HashMap<>();
         loadFromFile();
     }
-
+    /**
+     * Busca un monitor por su identificador.
+     *
+     * @param identifier El identificador del monitor a buscar.
+     * @return El monitor encontrado.
+     * @throws NotFoundException Si el monitor no se encuentra en el sistema de archivos.
+     */
     @Override
     public Monitor find(Integer identifier) {
         if (!mapOfMonitors.containsKey(identifier)) {
@@ -31,24 +43,37 @@ public class InFileSystemMonitorRepository implements IRepository<Monitor, Integ
         }
         return mapOfMonitors.get(identifier);
     }
-
+    /**
+     * Guarda un monitor en el sistema de archivos.
+     *
+     * @param obj El monitor a guardar en el  sistema de archivos.
+     */
     @Override
     public void save(Monitor obj) {
         mapOfMonitors.put(obj.getId(), obj);
         saveToFile();
     }
-
+    /**
+     * Obtiene una lista de todos los monitores almacenados en el sistema de archivos.
+     *
+     * @return Una lista de monitores.
+     */
     @Override
     public List<Monitor> getAll() {
         return new ArrayList<>(mapOfMonitors.values());
     }
 
+    /**
+     * Elimina un monitor del sistema de archivos.
+     *
+     * @param obj El monitor a eliminar del sistema de archivos.
+     */
     @Override
     public void delete(Monitor obj) {
         mapOfMonitors.remove(obj.getId());
         saveToFile();
     }
-
+   
     private void loadFromFile() {
         try {
             File file = new File(filePath);
