@@ -1,23 +1,31 @@
+package repositories;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import domain.entities.Activity;
+import domain.exceptions.NotFoundException;
+import domain.interfaces.IRepository;
+
 /**
- * This class represents a repository for storing and managing activities in a file system.
- * It implements the IRepository interface for the Activity entity.
+ * InFileSystemActivityRepository es una implementación de IRepository
+ * que almacena y gestiona actividades en un sistema de archivos.
  */
 public class InFileSystemActivityRepository implements IRepository<Activity, String> {
-
-    /**
-     * The file path where the activities are stored.
-     */
     private String filePath;
-
-    /**
-     * A map that stores activities with their identifiers as keys.
-     */
     private Map<String, Activity> mapOfAssistants;
 
     /**
-     * Constructs an InFileSystemActivityRepository with the specified file path.
+     * Constructor de la clase InFileSystemActivityRepository.
      *
-     * @param filePath The path to the file where activities are stored.
+     * @param filePath Ruta al archivo en el que se almacenan las actividades.
      */
     public InFileSystemActivityRepository(String filePath) {
         this.filePath = filePath;
@@ -26,11 +34,11 @@ public class InFileSystemActivityRepository implements IRepository<Activity, Str
     }
 
     /**
-     * Retrieves an activity by its identifier.
+     * Busca una actividad por su identificador.
      *
-     * @param identifier The identifier of the activity to find.
-     * @return The found activity.
-     * @throws NotFoundException if the activity is not found.
+     * @param identifier Identificador de la actividad.
+     * @return La actividad correspondiente al identificador.
+     * @throws NotFoundException Si la actividad no se encuentra.
      */
     @Override
     public Activity find(String identifier) {
@@ -41,9 +49,9 @@ public class InFileSystemActivityRepository implements IRepository<Activity, Str
     }
 
     /**
-     * Saves an activity to the repository.
+     * Guarda una actividad en el repositorio.
      *
-     * @param obj The activity to be saved.
+     * @param obj La actividad que se va a guardar.
      */
     @Override
     public void save(Activity obj) {
@@ -52,9 +60,9 @@ public class InFileSystemActivityRepository implements IRepository<Activity, Str
     }
 
     /**
-     * Retrieves a list of all activities in the repository.
+     * Obtiene todas las actividades almacenadas en el repositorio.
      *
-     * @return A list of all activities.
+     * @return Una lista de todas las actividades.
      */
     @Override
     public List<Activity> getAll() {
@@ -62,9 +70,9 @@ public class InFileSystemActivityRepository implements IRepository<Activity, Str
     }
 
     /**
-     * Deletes an activity from the repository.
+     * Elimina una actividad del repositorio.
      *
-     * @param obj The activity to be deleted.
+     * @param obj La actividad que se va a eliminar.
      */
     @Override
     public void delete(Activity obj) {
@@ -73,7 +81,7 @@ public class InFileSystemActivityRepository implements IRepository<Activity, Str
     }
 
     /**
-     * Loads activities from the file system and populates the repository.
+     * Carga las actividades almacenadas en el archivo en el sistema de archivos.
      */
     private void loadFromFile() {
         try {
@@ -93,7 +101,7 @@ public class InFileSystemActivityRepository implements IRepository<Activity, Str
     }
 
     /**
-     * Saves activities to the file system.
+     * Guarda las actividades en el archivo en el sistema de archivos.
      */
     private void saveToFile() {
         try (FileWriter writer = new FileWriter(filePath)) {
@@ -105,10 +113,10 @@ public class InFileSystemActivityRepository implements IRepository<Activity, Str
     }
 
     /**
-     * Converts a map of activities to a string representation.
+     * Convierte un mapa de actividades a una cadena de texto.
      *
-     * @param assistantMap The map of activities to convert.
-     * @return A string representation of the activities.
+     * @param assistantMap Mapa de actividades.
+     * @return La representación en cadena de texto del mapa de actividades.
      */
     private String AssistantMapToString(Map<String, Activity> assistantMap) {
         StringBuilder sb = new StringBuilder();
@@ -119,20 +127,7 @@ public class InFileSystemActivityRepository implements IRepository<Activity, Str
     }
 
     /**
-     * Converts a string representation of activities to a map.
+     * Convierte una cadena de texto en un mapa de actividades.
      *
-     * @param fileContent The string representation of activities.
-     * @return A map of activities.
-     */
-    private Map<String, Activity> AssistantMapFromString(String fileContent) {
-        Map<String, Activity> assistantMap = new HashMap<>();
-        String[] lines = fileContent.split(System.lineSeparator());
-        for (String line : lines) {
-            Activity assistant = Activity.fromString(line);
-            if (assistant != null) {
-                assistantMap.put(assistant.getActivityName(), assistant);
-            }
-        }
-        return assistantMap;
-    }
-}
+     * @param fileContent Cadena de texto que representa las actividades.
+     * @return Un mapa de actividades recuperado de la

@@ -1,79 +1,86 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import domain.entities.Monitor;
+import domain.exceptions.NotFoundException;
+import domain.interfaces.IRepository;
+
 /**
- * This class represents a repository that stores Assistant objects in the file system.
- * It implements the IRepository interface for Assistant objects with Integer identifiers.
+ * Esta clase implementa un repositorio de monitores en el sistema de archivos.
+ * Permite realizar operaciones de carga, guardado, búsqueda y eliminación de monitores
+ * almacenados en un archivo.
  */
-public class InFileSystemAssistantRepository implements IRepository<Assistant, Integer> {
-
-    /**
-     * The file path where the data is stored.
-     */
+public class InFileSystemMonitorRepository implements IRepository<Monitor, Integer> {
     private String filePath;
+    private Map<Integer, Monitor> mapOfMonitors;
 
     /**
-     * A map that holds Assistant objects with their Integer identifiers.
-     */
-    private Map<Integer, Assistant> mapOfAssistants;
-
-    /**
-     * Constructs an InFileSystemAssistantRepository with the specified file path.
+     * Constructor de la clase InFileSystemMonitorRepository.
      *
-     * @param filePath The file path where the data is stored.
+     * @param filePath La ruta del archivo en el que se almacenan los datos de los monitores.
      */
-    public InFileSystemAssistantRepository(String filePath) {
+    public InFileSystemMonitorRepository(String filePath) {
         this.filePath = filePath;
-        this.mapOfAssistants = new HashMap<>();
+        this.mapOfMonitors = new HashMap<>();
         loadFromFile();
     }
 
     /**
-     * Retrieves an Assistant object by its identifier.
+     * Busca un monitor por su identificador.
      *
-     * @param identifier The identifier of the Assistant to find.
-     * @return The Assistant object if found.
-     * @throws NotFoundException If the Assistant with the given identifier is not found.
+     * @param identifier El identificador del monitor que se desea buscar.
+     * @return El monitor con el identificador especificado.
+     * @throws NotFoundException Si no se encuentra un monitor con el identificador especificado.
      */
     @Override
-    public Assistant find(Integer identifier) {
-        if (!mapOfAssistants.containsKey(identifier)) {
+    public Monitor find(Integer identifier) {
+        if (!mapOfMonitors.containsKey(identifier)) {
             throw new NotFoundException();
         }
-        return mapOfAssistants.get(identifier);
+        return mapOfMonitors.get(identifier);
     }
 
     /**
-     * Saves an Assistant object to the repository.
+     * Guarda un monitor en el repositorio.
      *
-     * @param obj The Assistant object to be saved.
+     * @param obj El monitor que se desea guardar.
      */
     @Override
-    public void save(Assistant obj) {
-        mapOfAssistants.put(obj.getId(), obj);
+    public void save(Monitor obj) {
+        mapOfMonitors.put(obj.getId(), obj);
         saveToFile();
     }
 
     /**
-     * Retrieves all Assistant objects stored in the repository.
+     * Obtiene una lista de todos los monitores en el repositorio.
      *
-     * @return A list of all Assistant objects.
+     * @return Una lista de monitores almacenados en el repositorio.
      */
     @Override
-    public List<Assistant> getAll() {
-        return new ArrayList<>(mapOfAssistants.values());
+    public List<Monitor> getAll() {
+        return new ArrayList<>(mapOfMonitors.values());
     }
 
     /**
-     * Deletes an Assistant object from the repository.
+     * Elimina un monitor del repositorio.
      *
-     * @param obj The Assistant object to be deleted.
+     * @param obj El monitor que se desea eliminar.
      */
     @Override
-    public void delete(Assistant obj) {
-        mapOfAssistants.remove(obj.getId());
+    public void delete(Monitor obj) {
+        mapOfMonitors.remove(obj.getId());
         saveToFile();
     }
 
     /**
-     * Loads Assistant data from the file specified by filePath.
+     * Carga los datos de monitores desde un archivo en el sistema de archivos.
      */
     private void loadFromFile() {
         try {
@@ -85,7 +92,7 @@ public class InFileSystemAssistantRepository implements IRepository<Assistant, I
             List<String> lines = Files.readAllLines(Paths.get(filePath));
             String fileContent = String.join(System.lineSeparator(), lines);
             if (!fileContent.isEmpty()) {
-                mapOfAssistants = AssistantMapFromString(fileContent);
+                mapOfMonitors = monitorMapFromString(fileContent);
             }
         } catch (IOException e) {
             System.err.println("No se han podido cargar los datos desde el sistema de archivos.");
@@ -93,11 +100,11 @@ public class InFileSystemAssistantRepository implements IRepository<Assistant, I
     }
 
     /**
-     * Saves Assistant data to the file specified by filePath.
+     * Guarda los datos de monitores en un archivo en el sistema de archivos.
      */
     private void saveToFile() {
         try (FileWriter writer = new FileWriter(filePath)) {
-            String fileContent = AssistantMapToString(mapOfAssistants);
+            String fileContent = monitorMapToString(mapOfMonitors);
             writer.write(fileContent);
         } catch (IOException e) {
             System.err.println("No se han podido guardar los datos en el sistema de archivos.");
@@ -105,30 +112,30 @@ public class InFileSystemAssistantRepository implements IRepository<Assistant, I
     }
 
     /**
-     * Converts a map of Assistant objects to a string representation.
+     * Convierte un mapa de monitores en una cadena de texto.
      *
-     * @param assistantMap The map of Assistant objects to be converted.
-     * @return A string representing the Assistant objects.
+     * @param assistantMap El mapa de monitores que se desea convertir.
+     * @return Una cadena de texto que representa los monitores en el mapa.
      */
-    private String AssistantMapToString(Map<Integer, Assistant> assistantMap) {
+    private String monitorMapToString(Map<Integer, Monitor> assistantMap) {
         StringBuilder sb = new StringBuilder();
-        for (Assistant assistant : assistantMap.values()) {
+        for (Monitor assistant : assistantMap.values()) {
             sb.append(assistant.toString()).append(System.lineSeparator());
         }
         return sb.toString();
     }
 
     /**
-     * Converts a string representation to a map of Assistant objects.
+     * Convierte una cadena de texto en un mapa de monitores.
      *
-     * @param fileContent The string representation of Assistant data.
-     * @return A map of Assistant objects.
+     * @param fileContent La cadena de texto que contiene la representación de los monitores.
+     * @return Un mapa de monitores construido a partir de la cadena de texto.
      */
-    private Map<Integer, Assistant> AssistantMapFromString(String fileContent) {
-        Map<Integer, Assistant> assistantMap = new HashMap<>();
+    private Map<Integer, Monitor> monitorMapFromString(String fileContent) {
+        Map<Integer, Monitor> assistantMap = new HashMap<>();
         String[] lines = fileContent.split(System.lineSeparator());
         for (String line : lines) {
-            Assistant assistant = Assistant.fromString(line);
+            Monitor assistant = Monitor.fromString(line);
             if (assistant != null) {
                 assistantMap.put(assistant.getId(), assistant);
             }
