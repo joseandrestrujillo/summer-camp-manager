@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Properties;
+import java.io.File;
 
 import domain.entities.Activity;
 import domain.entities.Assistant;
@@ -35,8 +37,7 @@ import repositories.InMemoryCampRepository;
 import repositories.InMemoryInscriptionRepository;
 import repositories.InMemoryMontiorRepository;
 import utilities.Utils;
-import java.util.Properties;
-import java.io.File;
+
 
 public class Main {
 	 private static void clearConsole() {
@@ -230,25 +231,22 @@ public class Main {
 
 																		Properties prop = new Properties();
 		String filename = "src/cli/.properties.txt";
-		String pathActivityRep;
-		String pathAssistantRep;
-		String pathCampRep;
-		String pathInscriptionRep;
-		String pathMonitorRep;
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader(new File(filename)));
 			prop.load(reader);
 			
-			pathActivityRep = prop.getProperty("pathActivityRep");
-			pathAssistantRep = prop.getProperty("pathAssistantRep");
-			pathCampRep = prop.getProperty("pathCampRep");
-			pathInscriptionRep = prop.getProperty("pathInscriptionRep");
-			pathMonitorRep = prop.getProperty("pathMonitorRep");
+			String pathActivityRep = prop.getProperty("pathActivityRep");
+			String pathAssistantRep = prop.getProperty("pathAssistantRep");
+			String pathCampRep = prop.getProperty("pathCampRep");
+			String pathInscriptionRep = prop.getProperty("pathInscriptionRep");
+			String pathMonitorRep = prop.getProperty("pathMonitorRep");
 			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
+			System.exit(-1);
 		} catch (IOException e) {
 			e.printStackTrace();
+			System.exit(-1);
 		}
 		
 		
