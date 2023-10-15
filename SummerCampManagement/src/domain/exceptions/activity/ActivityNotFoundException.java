@@ -1,4 +1,4 @@
-package domain.exceptions;
+package domain.exceptions.activity;
 
 /**
  * Esta excepción se lanza cuando no se puede encontrar una actividad en el sistema.

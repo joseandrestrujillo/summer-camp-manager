@@ -1,4 +1,4 @@
-package domain.exceptions;
+package domain.exceptions.repository;
 
 /**
  * La clase NotFoundException representa una excepción que se lanza cuando un elemento no se encuentra.

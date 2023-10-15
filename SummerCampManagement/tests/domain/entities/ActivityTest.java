@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import domain.entities.Activity;
 import domain.entities.Monitor;
-import domain.exceptions.MaxMonitorsAddedException;
+import domain.exceptions.activity.MaxMonitorsAddedException;
 import domain.values.EducativeLevel;
 import domain.values.TimeSlot;
 import utilities.Utils;

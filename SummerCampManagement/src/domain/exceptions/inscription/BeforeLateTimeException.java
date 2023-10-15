@@ -1,4 +1,4 @@
-package domain.exceptions;
+package domain.exceptions.inscription;
 
 /**
  * Esta clase representa una excepción personalizada que se lanza cuando se intenta realizar

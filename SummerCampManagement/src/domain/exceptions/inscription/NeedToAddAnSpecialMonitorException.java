@@ -1,4 +1,4 @@
-package domain.exceptions;
+package domain.exceptions.inscription;
 
 /**
  * Una excepción personalizada que se lanza cuando se requiere agregar un monitor especial pero no se ha proporcionado.

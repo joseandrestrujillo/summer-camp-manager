@@ -1,4 +1,4 @@
-package domain.exceptions;
+package domain.exceptions.inscription;
 
 /**
  * Esta excepción se lanza cuando una operación intenta utilizar una hora 

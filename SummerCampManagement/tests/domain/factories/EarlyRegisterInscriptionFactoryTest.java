@@ -9,14 +9,14 @@ import org.junit.jupiter.api.Test;
 import domain.entities.Assistant;
 import domain.entities.Camp;
 import domain.entities.Inscription;
-import domain.exceptions.AfterEarlyTimeException;
-import domain.exceptions.AfterStartTimeException;
-import domain.exceptions.AssistantNotFoundException;
-import domain.exceptions.CampNotFoundException;
+import domain.exceptions.assistant.AssistantNotFoundException;
+import domain.exceptions.camp.CampNotFoundException;
+import domain.exceptions.inscription.AfterEarlyTimeException;
+import domain.exceptions.inscription.AfterStartTimeException;
 import domain.interfaces.IRepository;
 import domain.values.EducativeLevel;
-import repositories.InMemoryAssistantRepository;
-import repositories.InMemoryCampRepository;
+import repositories.memory.InMemoryAssistantRepository;
+import repositories.memory.InMemoryCampRepository;
 import utilities.Utils;
 
 class EarlyRegisterInscriptionFactoryTest  {

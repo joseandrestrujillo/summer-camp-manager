@@ -1,4 +1,4 @@
-package domain.exceptions;
+package domain.exceptions.camp;
 
 /**
  * Ws una excepción que se lanza cuando no se puede encontrar un campo (campamento) en el sistema.

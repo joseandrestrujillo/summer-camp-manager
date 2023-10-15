@@ -1,4 +1,4 @@
-package domain.exceptions;
+package domain.exceptions.camp;
 
 public class IsNotAnSpecialEducator extends RuntimeException {
 

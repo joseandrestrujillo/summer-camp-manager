@@ -8,9 +8,9 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import domain.entities.Assistant;
-import domain.exceptions.AssistantAlreadyRegisteredException;
-import domain.exceptions.AssistantNotFoundException;
-import repositories.InMemoryAssistantRepository;
+import domain.exceptions.assistant.AssistantAlreadyRegisteredException;
+import domain.exceptions.assistant.AssistantNotFoundException;
+import repositories.memory.InMemoryAssistantRepository;
 import utilities.Utils;
 
 class AssistantsManagerTest {

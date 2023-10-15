@@ -3,9 +3,9 @@ package managers;
 import java.util.List;
 
 import domain.entities.Assistant;
-import domain.exceptions.AssistantAlreadyRegisteredException;
-import domain.exceptions.AssistantNotFoundException;
-import domain.exceptions.NotFoundException;
+import domain.exceptions.assistant.AssistantAlreadyRegisteredException;
+import domain.exceptions.assistant.AssistantNotFoundException;
+import domain.exceptions.repository.NotFoundException;
 import domain.interfaces.IRepository;
 
 /**

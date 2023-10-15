@@ -9,18 +9,17 @@ import org.junit.jupiter.api.Test;
 import domain.entities.Assistant;
 import domain.entities.Camp;
 import domain.entities.Inscription;
-import domain.exceptions.AfterLateTimeException;
-import domain.exceptions.AfterStartTimeException;
-import domain.exceptions.AssistantNotFoundException;
-import domain.exceptions.BeforeLateTimeException;
-import domain.exceptions.CampNotFoundException;
-import domain.exceptions.NotInTimeException;
+import domain.exceptions.assistant.AssistantNotFoundException;
+import domain.exceptions.camp.CampNotFoundException;
+import domain.exceptions.inscription.AfterLateTimeException;
+import domain.exceptions.inscription.AfterStartTimeException;
+import domain.exceptions.inscription.BeforeLateTimeException;
 import domain.factories.EarlyRegisterInscriptionFactory;
 import domain.interfaces.IRepository;
 import domain.values.EducativeLevel;
 import domain.values.InscriptionType;
-import repositories.InMemoryAssistantRepository;
-import repositories.InMemoryCampRepository;
+import repositories.memory.InMemoryAssistantRepository;
+import repositories.memory.InMemoryCampRepository;
 import utilities.Utils;
 
 class LateRegisterInscriptionFactoryTest  {

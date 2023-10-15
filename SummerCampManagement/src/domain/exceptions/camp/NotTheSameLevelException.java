@@ -1,4 +1,4 @@
-package domain.exceptions;
+package domain.exceptions.camp;
 
 /**
  * Esta excepción se lanza cuando dos objetos no están en el mismo nivel.

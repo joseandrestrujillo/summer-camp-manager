@@ -1,4 +1,4 @@
-package repositories;
+package repositories.filesystem;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.Map;
 
 import domain.entities.Camp;
+import domain.exceptions.repository.NotFoundException;
 import domain.entities.Camp;
-import domain.exceptions.NotFoundException;
 import domain.interfaces.IRepository;
 
 public class InFileSystemCampRepository implements IRepository<Camp, Integer> {

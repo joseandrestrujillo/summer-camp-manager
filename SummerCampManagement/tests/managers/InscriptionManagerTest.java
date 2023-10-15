@@ -14,18 +14,18 @@ import domain.entities.Assistant;
 import domain.entities.Camp;
 import domain.entities.CompleteInscription;
 import domain.entities.Inscription;
-import domain.exceptions.AssistantAlreadyEnrolledException;
-import domain.exceptions.MaxAssistantExcededException;
-import domain.exceptions.NeedToAddAnSpecialMonitorException;
-import domain.exceptions.WrongEducativeLevelException;
+import domain.exceptions.inscription.AssistantAlreadyEnrolledException;
+import domain.exceptions.inscription.MaxAssistantExcededException;
+import domain.exceptions.inscription.NeedToAddAnSpecialMonitorException;
+import domain.exceptions.inscription.WrongEducativeLevelException;
 import domain.factories.EarlyRegisterInscriptionFactory;
 import domain.values.EducativeLevel;
 import domain.values.TimeSlot;
-import repositories.InMemoryActivityRepository;
-import repositories.InMemoryAssistantRepository;
-import repositories.InMemoryCampRepository;
-import repositories.InMemoryInscriptionRepository;
-import repositories.InMemoryMontiorRepository;
+import repositories.memory.InMemoryActivityRepository;
+import repositories.memory.InMemoryAssistantRepository;
+import repositories.memory.InMemoryCampRepository;
+import repositories.memory.InMemoryInscriptionRepository;
+import repositories.memory.InMemoryMontiorRepository;
 import utilities.Utils;
 
 class InscriptionManagerTest {

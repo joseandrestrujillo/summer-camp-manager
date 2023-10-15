@@ -1,4 +1,4 @@
-package domain.exceptions;
+package domain.exceptions.camp;
 
 /**
  * Esta excepción se lanza cuando se intenta registrar un monitor especial que ya ha sido registrado previamente.

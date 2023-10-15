@@ -1,4 +1,4 @@
-package repositories;
+package repositories.filesystem;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import domain.entities.Inscription;
-import domain.exceptions.NotFoundException;
+import domain.exceptions.repository.NotFoundException;
 import domain.interfaces.IRepository;
 
 public class InFileSystemInscriptionRepository implements IRepository<Inscription, String> {

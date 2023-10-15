@@ -5,14 +5,14 @@ import java.util.List;
 import domain.entities.Activity;
 import domain.entities.Camp;
 import domain.entities.Monitor;
-import domain.exceptions.ActivityNotFoundException;
-import domain.exceptions.AssistantAlreadyRegisteredException;
-import domain.exceptions.CampAlreadyRegisteredException;
-import domain.exceptions.IsNotAnSpecialEducator;
-import domain.exceptions.MonitorIsNotInActivityException;
-import domain.exceptions.NotFoundException;
-import domain.exceptions.NotTheSameLevelException;
-import domain.exceptions.SpecialMonitorAlreadyRegisterException;
+import domain.exceptions.activity.ActivityNotFoundException;
+import domain.exceptions.activity.MonitorIsNotInActivityException;
+import domain.exceptions.assistant.AssistantAlreadyRegisteredException;
+import domain.exceptions.camp.CampAlreadyRegisteredException;
+import domain.exceptions.camp.IsNotAnSpecialEducator;
+import domain.exceptions.camp.NotTheSameLevelException;
+import domain.exceptions.camp.SpecialMonitorAlreadyRegisterException;
+import domain.exceptions.repository.NotFoundException;
 import domain.interfaces.IRepository;
 
 /**

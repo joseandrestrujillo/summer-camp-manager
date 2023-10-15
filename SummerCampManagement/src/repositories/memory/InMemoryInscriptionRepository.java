@@ -1,4 +1,4 @@
-package repositories;
+package repositories.memory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import domain.entities.Inscription;
-import domain.exceptions.NotFoundException;
+import domain.exceptions.repository.NotFoundException;
 import domain.interfaces.IRepository;
 
 /**

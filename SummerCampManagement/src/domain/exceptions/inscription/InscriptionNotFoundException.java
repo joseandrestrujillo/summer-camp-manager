@@ -1,4 +1,4 @@
-package domain.exceptions;
+package domain.exceptions.inscription;
 
 /**
  * Esta clase representa una excepción que se lanza cuando no se encuentra una inscripción.

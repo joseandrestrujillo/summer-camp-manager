@@ -1,4 +1,4 @@
-package domain.exceptions;
+package domain.exceptions.camp;
 
 /**
  * Excepción que se lanza cuando se intenta registrar un campamento que ya ha sido registrado previamente.

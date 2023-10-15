@@ -1,4 +1,4 @@
-package domain.exceptions;
+package domain.exceptions.activity;
 
 /**
  * Esta clase representa una excepción que se lanza cuando se intenta agregar

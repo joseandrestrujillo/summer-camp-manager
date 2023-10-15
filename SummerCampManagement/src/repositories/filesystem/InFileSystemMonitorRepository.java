@@ -1,4 +1,4 @@
-package repositories;
+package repositories.filesystem;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import domain.entities.Monitor;
-import domain.exceptions.NotFoundException;
+import domain.exceptions.repository.NotFoundException;
 import domain.interfaces.IRepository;
 
 public class InFileSystemMonitorRepository implements IRepository<Monitor, Integer>{

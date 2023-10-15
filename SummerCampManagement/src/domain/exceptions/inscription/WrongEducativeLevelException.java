@@ -1,4 +1,4 @@
-package domain.exceptions;
+package domain.exceptions.inscription;
 
 /**
  * Excepción que se lanza cuando se detecta un nivel educativo incorrecto.

@@ -1,4 +1,4 @@
-package domain.exceptions;
+package domain.exceptions.activity;
 
 /**
  * Esta excepción se lanza cuando un monitor no se encuentra en el estado de actividad esperado.

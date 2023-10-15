@@ -1,4 +1,4 @@
-package domain.exceptions;
+package domain.exceptions.inscription;
 
 /**
  * La excepción AfterStartTimeException se lanza cuando se intenta realizar una operación

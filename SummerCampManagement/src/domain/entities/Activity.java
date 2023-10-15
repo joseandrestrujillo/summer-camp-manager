@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import domain.exceptions.MaxMonitorsAddedException;
+import domain.exceptions.activity.MaxMonitorsAddedException;
 import domain.values.EducativeLevel;
 import domain.values.TimeSlot;
 import utilities.Utils;

@@ -1,4 +1,4 @@
-package domain.exceptions;
+package domain.exceptions.monitor;
 
 /**
  * Esta clase representa una excepción personalizada para el caso en que no se encuentra un monitor.

@@ -1,4 +1,4 @@
-package domain.exceptions;
+package domain.exceptions.assistant;
 
 /**
  * La excepción AssistantNotFoundException se lanza cuando un asistente no se encuentra en el sistema.

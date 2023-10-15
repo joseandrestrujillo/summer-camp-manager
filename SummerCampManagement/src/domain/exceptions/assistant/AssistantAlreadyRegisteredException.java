@@ -1,4 +1,4 @@
-package domain.exceptions;
+package domain.exceptions.assistant;
 
 /**
  * Esta excepción se lanza cuando se intenta registrar un asistente que ya está registrado.

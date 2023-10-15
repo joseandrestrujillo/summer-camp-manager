@@ -1,4 +1,4 @@
-package domain.exceptions;
+package domain.exceptions.inscription;
 
 /**
  * La excepción AfterLateTimeException es lanzada cuando se intenta realizar
