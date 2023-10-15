@@ -382,7 +382,7 @@ public class Main {
 									break;
 								}
 								
-								Activity selectedActivity = listOfActivities.get(optionSelected);
+								Activity selectedActivity = listOfActivities.get(optionSelected-1);
 								
 								System.out.println("Introduzca el DNI (sin letra) del monitor\n");
 								int monitorId = sc.nextInt();
@@ -429,7 +429,7 @@ public class Main {
 									break;
 								}
 								
-								Camp selectedCamp = listAvailableCamps.get(optionSelectedCamp);
+								Camp selectedCamp = listAvailableCamps.get(optionSelectedCamp -1 );
 								
 								clearConsole();								
 								
@@ -468,7 +468,7 @@ public class Main {
 												break;
 											}
 											
-											Activity selectedActivity = listOfActivities.get(optionSelected);
+											Activity selectedActivity = listOfActivities.get(optionSelected -1);
 
 											try {
 												campsManager.registerActivity(selectedCamp, selectedActivity);
@@ -499,7 +499,7 @@ public class Main {
 												System.out.println("Opción invalida\n");
 												break;
 											}
-											Activity selectedActivity = listOfActivitiesOfTheSelectedCamp.get(optionSelected);
+											Activity selectedActivity = listOfActivitiesOfTheSelectedCamp.get(optionSelected - 1);
 
 											clearConsole();
 											System.out.println("Campamento seleccionado: \n");
@@ -523,7 +523,7 @@ public class Main {
 												System.out.println("Opción invalida\n");
 												break;
 											}
-											Monitor selectedMonitor = listOfMonitorsOfTheSelectedActivity.get(optionSelected);
+											Monitor selectedMonitor = listOfMonitorsOfTheSelectedActivity.get(optionSelected - 1);
 											
 											campsManager.setPrincipalMonitor(selectedCamp, selectedMonitor);
 											
@@ -609,7 +609,7 @@ public class Main {
 									break;
 								}
 								
-								Assistant selectedAssistant = listOfAssistants.get(optionSelected);
+								Assistant selectedAssistant = listOfAssistants.get(optionSelected - 1);
 								
 								clearConsole();
 								System.out.println("Asistente seleccionado: \n");
@@ -632,7 +632,7 @@ public class Main {
 									break;
 								}
 								
-								Camp selectedCamp = listAvailableCamps.get(optionSelected);
+								Camp selectedCamp = listAvailableCamps.get(optionSelected - 1);
 								
 								clearConsole();
 								System.out.println("Asistente seleccionado: \n");
