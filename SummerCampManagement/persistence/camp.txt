@@ -1,0 +1,1 @@
+{campID: 1, start: 10/11/2024, end: 17/11/2024, educativeLevel: TEENAGER, capacity: 5, principalMonitor: null, specialMonitor: null, activities: [{activityName: 'Act1', educativeLevel: TEENAGER, timeSlot: MORNING, maxAssistants: 5, neededMonitors: 1, assistants: [], monitors: [{id: 5, firstName: 'Pepe', lastName: 'Meñique', isSpecialEducator: false}]}]}
