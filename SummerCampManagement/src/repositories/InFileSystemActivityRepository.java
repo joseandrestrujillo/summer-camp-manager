@@ -125,7 +125,7 @@ public class InFileSystemActivityRepository implements IRepository<Activity, Str
         }
         return sb.toString();
     }
-
+}
     /**
      * Convierte una cadena de texto en un mapa de actividades.
      *
