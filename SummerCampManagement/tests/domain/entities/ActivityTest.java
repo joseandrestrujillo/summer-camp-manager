@@ -166,8 +166,8 @@ class ActivityTest {
         assertEquals(educativeLevel, activity.getEducativeLevel());
         assertEquals(maxAssistants, activity.getMaxAssistants());
         assertEquals(neededMonitors, activity.getNeededMonitors());
-        assertEquals(assistants, activity.getAssistants());
-        assertEquals(monitors, activity.getMonitorList());
+        assertEquals(assistants.toString(), activity.getAssistants().toString());
+        assertEquals(monitors.toString(), activity.getMonitorList().toString());
     }
 	
 	@Test
