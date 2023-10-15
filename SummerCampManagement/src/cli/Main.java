@@ -32,6 +32,8 @@ import repositories.InMemoryCampRepository;
 import repositories.InMemoryInscriptionRepository;
 import repositories.InMemoryMontiorRepository;
 import utilities.Utils;
+import java.util.Properties;
+
 
 public class Main {
 	 private static void clearConsole() {
@@ -46,7 +48,7 @@ public class Main {
             e.printStackTrace();
         }
     }
-	 
+
 	private static void showAssistants(List<Assistant> listOfAssistants, boolean returnOption) {
         for (int i = 0; i < listOfAssistants.size(); i++) {
         	Assistant iterableAssistant = listOfAssistants.get(i);
@@ -222,6 +224,26 @@ public class Main {
 		CampsManager campsManager = new CampsManager(campRepository, activityRepository, monitorRepository);
 		InscriptionManager inscriptionManager = new InscriptionManager(campRepository, activityRepository, monitorRepository,
 																		assistantRepository, inscriptionRepository);
+
+																		Properties prop = new Properties();
+		String filename = ".properties.txt";
+		try {
+			BufferedReader reader = new BufferedReader(new FileReader(new File(filename)));
+			prop.load(reader);
+			
+			String pathActivityRep = prop.getProperty("pathActivityRep");
+			String pathAssistantRep = prop.getProperty("pathAssistantRep");
+			String pathCampRep = prop.getProperty("pathCampRep");
+			String pathInscriptionRep = prop.getProperty("pathInscriptionRep");
+			String pathMonitorRep = prop.getProperty("pathMonitorRep");
+			
+		} catch (FileNotFoundException e) {
+			
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
         Scanner sc = new Scanner(System.in);
         
         clearConsole();
