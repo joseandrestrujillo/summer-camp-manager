@@ -14,16 +14,33 @@ import domain.entities.Activity;
 import domain.exceptions.repository.NotFoundException;
 import domain.interfaces.IRepository;
 
+/**
+ * La clase InFileSystemActivityRepository es una implementación en sistema de ficheros de un repositorio de actividades.
+ */
 public class InFileSystemActivityRepository implements IRepository<Activity, String>{
     private String filePath;
     private Map<String, Activity> mapOfAssistants;
 
+    
+    /**
+     * Constructor de la clase InMemoryActivityRepository.
+     * Inicializa un nuevo mapa para almacenar actividades en memoria y carga las actividades almacenadas en el fichero
+     * 
+     * @param filePath path al fichero de actividades
+     */
     public InFileSystemActivityRepository(String filePath) {
         this.filePath = filePath;
         this.mapOfAssistants = new HashMap<>();
         loadFromFile();
     }
-
+    
+    /**
+     * Busca una actividad por su nombre.
+     *
+     * @param activityName El nombre de la actividad a buscar.
+     * @return La actividad encontrada.
+     * @throws NotFoundException Si la actividad no se encuentra en el repositorio.
+     */
     @Override
     public Activity find(String identifier) {
         if (!mapOfAssistants.containsKey(identifier)) {
@@ -32,17 +49,32 @@ public class InFileSystemActivityRepository implements IRepository<Activity, Str
         return mapOfAssistants.get(identifier);
     }
 
+    /**
+     * Guarda una actividad en el repositorio.
+     *
+     * @param activity La actividad a guardar en el repositorio.
+     */
     @Override
     public void save(Activity obj) {
         mapOfAssistants.put(obj.getActivityName(), obj);
         saveToFile();
     }
-
+    
+    /**
+     * Obtiene una lista de todas las actividades almacenadas en el repositorio.
+     *
+     * @return Una lista de actividades.
+     */
     @Override
     public List<Activity> getAll() {
         return new ArrayList<>(mapOfAssistants.values());
     }
 
+    /**
+     * Elimina una actividad del repositorio.
+     *
+     * @param obj La actividad a eliminar del repositorio.
+     */
     @Override
     public void delete(Activity obj) {
         mapOfAssistants.remove(obj.getActivityName());
