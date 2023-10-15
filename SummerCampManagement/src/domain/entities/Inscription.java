@@ -1,6 +1,8 @@
 package domain.entities;
 
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import domain.values.InscriptionType;
 import utilities.Utils;
@@ -153,10 +155,10 @@ public class Inscription {
 	public String toString() {
 		return "{"
 				+ "AssistantId: " + this.assistantId 
-				+ ", CampId: '" + this.campId
-				+ "', InscriptionDate: '" +Utils.getStringDate(this.inscriptionDate)
-				+ ", Price: " + this.price 
-				+ "}";
+				+ ", CampId: " + this.campId
+				+ ", InscriptionDate: '" +Utils.getStringDate(this.inscriptionDate)
+				+ "', Price: " + this.price + ", "
+				+ "canBeCancelled: " + this.canBeCanceled + "}";
 		
 	}
 
@@ -167,6 +169,26 @@ public class Inscription {
  	*/
 	public boolean canBeCanceled() {
 		return canBeCanceled;
+	}
+
+	public static Inscription fromString(String inputString) {
+	    int assistantId = -1;
+	    int campId = -1;
+	    Date inscriptionDate = null;
+	    float price = -1;
+	    boolean canBeCanceled = false;
+
+	    Pattern pattern = Pattern.compile("AssistantId: (\\d+), CampId: (.+), InscriptionDate: '(.+)', Price: (\\d+\\.\\d+), canBeCancelled: (true|false)");
+	    Matcher matcher = pattern.matcher(inputString);
+	    if (matcher.find()) {
+	        assistantId = Integer.parseInt(matcher.group(1));
+	        campId = Integer.parseInt(matcher.group(2));
+	        inscriptionDate = Utils.parseDate(matcher.group(3));
+	        price = Float.parseFloat(matcher.group(4));
+	        canBeCanceled = Boolean.parseBoolean(matcher.group(5));
+	    }
+
+	    return new Inscription(assistantId, campId, inscriptionDate, price, canBeCanceled);
 	}
 
 

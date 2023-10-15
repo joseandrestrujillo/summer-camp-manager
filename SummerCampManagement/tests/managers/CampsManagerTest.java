@@ -311,7 +311,7 @@ class CampsManagerTest {
 				1,
 				"Alberto",
 				"Quesada",
-				false
+				true
 		);
 		
 		InMemoryCampRepository campRepository = new InMemoryCampRepository();

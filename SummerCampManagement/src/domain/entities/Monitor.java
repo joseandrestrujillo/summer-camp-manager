@@ -1,4 +1,8 @@
 package domain.entities;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * La clase Monitor representa a un monitor en un sistema educativo.
  */
@@ -114,6 +118,24 @@ public class Monitor {
     public String toString() {
         return "{id: " + this.id + ", firstName: '" + this.firstName + "', lastName: '" + this.lastName
                 + "', isSpecialEducator: " + this.specialEducator + "}";
+    }
+    
+    public static Monitor fromString(String monitorString) {
+        int id = 0;
+        String firstName = "";
+        String lastName = "";
+        boolean specialEducator = false;
+
+        Pattern pattern = Pattern.compile("id: (\\d+), firstName: '(.+)', lastName: '(.+)', isSpecialEducator: (true|false)");
+        Matcher matcher = pattern.matcher(monitorString);
+        if (matcher.find()) {
+            id = Integer.parseInt(matcher.group(1));
+            firstName = matcher.group(2);
+            lastName = matcher.group(3);
+            specialEducator = Boolean.parseBoolean(matcher.group(4));
+        }
+
+        return new Monitor(id, firstName, lastName, specialEducator);
     }
 }
 

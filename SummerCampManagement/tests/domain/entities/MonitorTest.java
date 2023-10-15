@@ -2,9 +2,12 @@ package domain.entities;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Date;
+
 import org.junit.jupiter.api.Test;
 
 import domain.entities.Monitor;
+import utilities.Utils;
 
 class MonitorTest {
 	
@@ -81,5 +84,21 @@ class MonitorTest {
         assertEquals(expectedToString, monitor.toString());
     }
 	
+	@Test
+    public void testFromString() {
+		int id = 1;
+		String firstName = "José";
+		String lastName = "Trujillo";
+		boolean isSpecialEducator = true;
+		
+
+        String inputString = "{id: 1, firstName: 'José', lastName: 'Trujillo', isSpecialEducator: true}";
+        Monitor monitor = Monitor.fromString(inputString);
+        
+        assertEquals(id, monitor.getId());
+        assertEquals(firstName, monitor.getFirstName());
+        assertEquals(lastName, monitor.getLastName());
+        assertEquals(isSpecialEducator, monitor.isSpecialEducator());
+    }
 
 }

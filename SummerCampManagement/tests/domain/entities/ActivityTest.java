@@ -3,6 +3,7 @@ package domain.entities;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -12,6 +13,7 @@ import domain.entities.Monitor;
 import domain.exceptions.MaxMonitorsAddedException;
 import domain.values.EducativeLevel;
 import domain.values.TimeSlot;
+import utilities.Utils;
 
 class ActivityTest {
 	
@@ -99,10 +101,75 @@ class ActivityTest {
                 neededMonitors
         );
 
-        String expectedToString = "{activityName: 'Activity', educativeLevel: PRESCHOOL, timeSlot: AFTERNOON, maxAssistants: 10, neededMonitors: 3}";
+        List<Monitor> monitors = new ArrayList<Monitor>();
+        monitors.add(new Monitor(1, "juan", "perez", true));
+        monitors.add(new Monitor(2, "juana", "perez", false));
+        
+        activity.setMonitorList(monitors);
+        
+        List<Assistant> assistants = new ArrayList<Assistant>();
+        assistants.add(new Assistant(1, "juan", "perez", Utils.parseDate("26/01/2001"), true));
+        assistants.add(new Assistant(2, "juana", "perez", Utils.parseDate("26/01/2001"), false));
+        
+        activity.setAssistants(assistants);
+        
+        String expectedToString = "{activityName: 'Activity', "
+        		+ "educativeLevel: PRESCHOOL, "
+        		+ "timeSlot: AFTERNOON, "
+        		+ "maxAssistants: 10, "
+        		+ "neededMonitors: 3, "
+        		+ "assistants: ["
+        		+ "{id: 1, firstName: 'juan', lastName: 'perez', birthDate: 26/01/2001, requireSpecialAttention: true}, "
+        		+ "{id: 2, firstName: 'juana', lastName: 'perez', birthDate: 26/01/2001, requireSpecialAttention: false}"
+        		+ "], "
+        		+ "monitors: ["
+        		+ "{id: 1, firstName: 'juan', lastName: 'perez', isSpecialEducator: true}, "
+        		+ "{id: 2, firstName: 'juana', lastName: 'perez', isSpecialEducator: false}"
+        		+ "]"
+        		+ "}";
         assertEquals(expectedToString, activity.toString());
     }
 
+	@Test
+    public void testFromString() {
+		String activityName = "Activity";
+        EducativeLevel educativeLevel = EducativeLevel.PRESCHOOL;
+        TimeSlot timeSlot = TimeSlot.AFTERNOON;
+        int maxAssistants = 10;
+        int neededMonitors = 3;
+        List<Monitor> monitors = new ArrayList<Monitor>();
+        monitors.add(new Monitor(1, "juan", "perez", true));
+        monitors.add(new Monitor(2, "juana", "perez", false));
+        
+        List<Assistant> assistants = new ArrayList<Assistant>();
+        assistants.add(new Assistant(1, "juan", "perez", Utils.parseDate("26/01/2001"), true));
+        assistants.add(new Assistant(2, "juana", "perez", Utils.parseDate("26/01/2001"), false));
+		
+
+        String inputString = "{activityName: 'Activity', "
+        		+ "educativeLevel: PRESCHOOL, "
+        		+ "timeSlot: AFTERNOON, "
+        		+ "maxAssistants: 10, "
+        		+ "neededMonitors: 3, "
+        		+ "assistants: ["
+        		+ "{id: 1, firstName: 'juan', lastName: 'perez', birthDate: 26/01/2001, requireSpecialAttention: true}, "
+        		+ "{id: 2, firstName: 'juana', lastName: 'perez', birthDate: 26/01/2001, requireSpecialAttention: false}"
+        		+ "], "
+        		+ "monitors: ["
+        		+ "{id: 1, firstName: 'juan', lastName: 'perez', isSpecialEducator: true}, "
+        		+ "{id: 2, firstName: 'juana', lastName: 'perez', isSpecialEducator: false}"
+        		+ "]"
+        		+ "}";
+        
+        Activity activity = Activity.fromString(inputString);
+        assertEquals(activityName, activity.getActivityName());
+        assertEquals(educativeLevel, activity.getEducativeLevel());
+        assertEquals(maxAssistants, activity.getMaxAssistants());
+        assertEquals(neededMonitors, activity.getNeededMonitors());
+        assertEquals(assistants, activity.getAssistants());
+        assertEquals(monitors, activity.getMonitorList());
+    }
+	
 	@Test
 	public void testAddMonitor(){
 		Monitor monitor = new Monitor(

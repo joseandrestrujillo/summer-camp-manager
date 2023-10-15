@@ -2,6 +2,8 @@ package domain.entities;
 
 import java.lang.reflect.Constructor;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import utilities.Utils;
 
@@ -154,6 +156,25 @@ public class Assistant {
 				+ Utils.getStringDate(this.birthDate) 
 				+ ", requireSpecialAttention: "
 				+ this.requireSpecialAttention + "}";
-		
 	}
+	 
+    public static Assistant fromString(String assistantString) {
+        int id = 0;
+        String firstName = "";
+        String lastName = "";
+        Date birthDate = null;
+        boolean requireSpecialAttention = false;
+
+        Pattern pattern = Pattern.compile("id: (\\d+), firstName: '(.+)', lastName: '(.+)', birthDate: (.+), requireSpecialAttention: (true|false)");
+        Matcher matcher = pattern.matcher(assistantString);
+        if (matcher.find()) {
+            id = Integer.parseInt(matcher.group(1));
+            firstName = matcher.group(2);
+            lastName = matcher.group(3);
+            birthDate = Utils.parseDate(matcher.group(4));
+            requireSpecialAttention = Boolean.parseBoolean(matcher.group(5));
+        }
+
+        return new Assistant(id, firstName, lastName, birthDate, requireSpecialAttention);
+    }
 }

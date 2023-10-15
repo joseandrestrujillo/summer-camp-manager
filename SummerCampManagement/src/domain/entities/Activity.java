@@ -3,11 +3,15 @@
 package domain.entities;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import domain.exceptions.MaxMonitorsAddedException;
 import domain.values.EducativeLevel;
 import domain.values.TimeSlot;
+import utilities.Utils;
 /**
  * La clase Activity representa una actividad educativa que se lleva a cabo en un horario específico
  * y se asocia con un nivel educativo, un nombre y un límite de asistentes y monitores.
@@ -186,9 +190,13 @@ public class Activity {
      * @return Una cadena de texto que representa la actividad en formato JSON.
      */
     public String toString() {
-        return "{activityName: '" + this.activityName + "', educativeLevel: " + this.educativeLevel + ", timeSlot: "
-                + this.timeSlot + ", maxAssistants: " + this.maxAssistants + ", neededMonitors: "
-                + this.neededMonitors + "}";
+        return "{activityName: '" + this.activityName + "', "
+        		+ "educativeLevel: " + this.educativeLevel + ", "
+				+ "timeSlot: " + this.timeSlot + ", "
+				+ "maxAssistants: " + this.maxAssistants + ", "
+				+ "neededMonitors: " + this.neededMonitors + ", "
+				+ "assistants: " + this.assistantList.toString() + ", "
+				+ "monitors: " + this.monitorList.toString() + "}";
     }
 
     /**
@@ -211,7 +219,46 @@ public class Activity {
      * @return true si el monitor está registrado, false en caso contrario.
      */
     public boolean monitorIsRegistered(Monitor monitor){
-		return this.monitorList.contains(monitor);	}
+		return this.monitorList.contains(monitor);	
+	}
 
+    public static Activity fromString(String inputString) {
+    	Pattern pattern = Pattern.compile("activityName: '(.+)',\\s+educativeLevel:\\s+(.+),\\s+timeSlot:\\s+(.+),\\s+maxAssistants:\\s+(\\d+),\\s+neededMonitors:\\s+(\\d+),\\s+assistants:\\s+\\[(.+)\\],\\s+monitors:\\s+\\[(.+)\\]");
+    	Matcher matcher = pattern.matcher(inputString);
 
+        String activityName = matcher.group(1);
+        EducativeLevel educativeLevel = EducativeLevel.valueOf(matcher.group(2));
+        TimeSlot timeSlot = TimeSlot.valueOf(matcher.group(3));
+        int maxAssistants = Integer.parseInt(matcher.group(4));
+        int neededMonitors = Integer.parseInt(matcher.group(5));
+
+        List<Assistant> assistantList = new ArrayList<>();
+        String assistantString = matcher.group(6);
+        if (!assistantString.isEmpty()) {
+            Pattern assistantPattern = Pattern.compile("\\{([^\\{\\}]+)\\}");
+            Matcher assistantMatcher = assistantPattern.matcher(assistantString);
+            while (assistantMatcher.find()) {
+                String assistantData = assistantMatcher.group(1);
+                Assistant assistant = Assistant.fromString(assistantData);
+                assistantList.add(assistant);
+            }
+        }
+
+        List<Monitor> monitorList = new ArrayList<>();
+        String monitorString = matcher.group(7);
+        if (!monitorString.isEmpty()) {
+            Pattern monitorPattern = Pattern.compile("\\{([^\\{\\}]+)\\}");
+            Matcher monitorMatcher = monitorPattern.matcher(monitorString);
+            while (monitorMatcher.find()) {
+                String monitorData = monitorMatcher.group(1);
+                Monitor monitor = Monitor.fromString(monitorData);
+                monitorList.add(monitor);
+            }
+        }
+
+        Activity activity = new Activity(activityName, educativeLevel, timeSlot, maxAssistants, neededMonitors);
+        activity.setAssistants(assistantList);
+        activity.setMonitorList(monitorList);
+        return activity;
+    }
 }
