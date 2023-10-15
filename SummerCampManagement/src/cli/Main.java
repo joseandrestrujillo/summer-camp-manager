@@ -218,18 +218,7 @@ public class Main {
 	}
 	
 	public static void main(String[] args) {
-		int opcion;
-		IRepository<Camp, Integer> campRepository = new InMemoryCampRepository();
-		IRepository<Activity, String> activityRepository = new InMemoryActivityRepository();
-		IRepository<Monitor, Integer> monitorRepository = new InMemoryMontiorRepository();
-		IRepository<Assistant, Integer> assistantRepository = new InMemoryAssistantRepository();
-		IRepository<Inscription, String> inscriptionRepository = new InMemoryInscriptionRepository();
-		AssistantsManager assistantsManager = new AssistantsManager(assistantRepository);
-		CampsManager campsManager = new CampsManager(campRepository, activityRepository, monitorRepository);
-		InscriptionManager inscriptionManager = new InscriptionManager(campRepository, activityRepository, monitorRepository,
-																		assistantRepository, inscriptionRepository);
-
-																		Properties prop = new Properties();
+		Properties prop = new Properties();
 		String filename = "src/cli/.properties.txt";
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader(new File(filename)));
@@ -248,6 +237,18 @@ public class Main {
 			e.printStackTrace();
 			System.exit(-1);
 		}
+		
+		int opcion;
+		IRepository<Camp, Integer> campRepository = new InFileSystemCampRepository(pathCampRep);
+		IRepository<Activity, String> activityRepository = new InFileSystemActivityRepository(pathActivityRep);
+		IRepository<Monitor, Integer> monitorRepository = new InFileSystemMonitorRepository(pathMonitorRep);
+		IRepository<Assistant, Integer> assistantRepository = new InFileSystemAssistantRepository(pathAssistantRep);
+		IRepository<Inscription, String> inscriptionRepository = new InFileSystemInscriptionRepository(pathInscriptionRep);
+		AssistantsManager assistantsManager = new AssistantsManager(assistantRepository);
+		CampsManager campsManager = new CampsManager(campRepository, activityRepository, monitorRepository);
+		InscriptionManager inscriptionManager = new InscriptionManager(campRepository, activityRepository, monitorRepository,
+																		assistantRepository, inscriptionRepository);
+
 		
 		
         Scanner sc = new Scanner(System.in);
