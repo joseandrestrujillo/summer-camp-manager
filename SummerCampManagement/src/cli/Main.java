@@ -32,7 +32,7 @@ import managers.AssistantsManager;
 import managers.CampsManager;
 import managers.InscriptionManager;
 import repositories.InFileSystemActivityRepository;
-import repositories.InFileSystemAssistantsRepository;
+import repositories.InFileSystemAssistantRepository;
 import repositories.InMemoryCampRepository;
 import repositories.InFileSystemInscriptionRepository;
 import repositories.InFileSystemMonitorRepository;
@@ -220,15 +220,20 @@ public class Main {
 	public static void main(String[] args) {
 		Properties prop = new Properties();
 		String filename = "src/cli/.properties.txt";
+		String pathActivityRep = null;
+		String pathAssistantRep = null;
+		String pathCampRep = null;
+		String pathInscriptionRep = null;
+		String pathMonitorRep = null;
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader(new File(filename)));
 			prop.load(reader);
 			
-			String pathActivityRep = prop.getProperty("pathActivityRep");
-			String pathAssistantRep = prop.getProperty("pathAssistantRep");
-			String pathCampRep = prop.getProperty("pathCampRep");
-			String pathInscriptionRep = prop.getProperty("pathInscriptionRep");
-			String pathMonitorRep = prop.getProperty("pathMonitorRep");
+			pathActivityRep = prop.getProperty("pathActivityRep");
+			pathAssistantRep = prop.getProperty("pathAssistantRep");
+			pathCampRep = prop.getProperty("pathCampRep");
+			pathInscriptionRep = prop.getProperty("pathInscriptionRep");
+			pathMonitorRep = prop.getProperty("pathMonitorRep");
 			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -239,7 +244,7 @@ public class Main {
 		}
 		
 		int opcion;
-		IRepository<Camp, Integer> campRepository = new InMemoryCampRepository();
+		IRepository<Camp, Integer> campRepository = new InFileSystemCampRepository(pathCampRep);
 		IRepository<Activity, String> activityRepository = new InFileSystemActivityRepository(pathActivityRep);
 		IRepository<Monitor, Integer> monitorRepository = new InFileSystemMonitorRepository(pathMonitorRep);
 		IRepository<Assistant, Integer> assistantRepository = new InFileSystemAssistantRepository(pathAssistantRep);
