@@ -13,15 +13,37 @@ import domain.entities.Inscription;
 import domain.exceptions.repository.NotFoundException;
 import domain.interfaces.IRepository;
 
+
+/**
+ * La clase InFileSystemInscriptionRepository es una implementación en memoria de un repositorio de inscripciones.
+
+ */
+
 public class InFileSystemInscriptionRepository implements IRepository<Inscription, String> {
     private Map<String, Inscription> mapOfInscription;
     private String filePath;
+
+
+    /**
+     * Constructor de la clase InFileSystemInscriptionRepository.
+     * Inicializa un nuevo mapa para almacenar inscripciones en memoria.
+     * @param inscriptfilePath Dirección del directorio donde se guarda la información.
+     */
 
     public InFileSystemInscriptionRepository(String filePath) {
         this.filePath = filePath;
         this.mapOfInscription = new HashMap<String, Inscription>();
         loadFromFile();
     }
+
+
+    /**
+     * Busca una inscripción por su nombre.
+     *
+     * @param identifier El nombre de la inscripción a buscar.
+     * @return La inscripción encontrada.
+     * @throws NotFoundException Si la inscripción no se encuentra en el repositorio.
+     */
 
     @Override
     public Inscription find(String identifier) {
@@ -31,16 +53,36 @@ public class InFileSystemInscriptionRepository implements IRepository<Inscriptio
         return mapOfInscription.get(identifier);
     }
 
+
+    /**
+     * Guarda una inscripción en el repositorio.
+     *
+     * @param obj La inscripción a guardar en el repositorio.
+     */
+
     @Override
     public void save(Inscription obj) {
         mapOfInscription.put(obj.getInscriptionIdentifier(), obj);
         saveToFile();
     }
 
+
+    /**
+     * Obtiene una lista de todas las inscripciones almacenadas en el repositorio.
+     *
+     * @return Una lista de inscripciones.
+     */
+
     @Override
     public List<Inscription> getAll() {
         return new ArrayList<>(mapOfInscription.values());
     }
+
+    /**
+     * Elimina una inscripción del repositorio.
+     *
+     * @param obj La inscripción a eliminar del repositorio.
+     */ 
 
     @Override
     public void delete(Inscription obj) {
