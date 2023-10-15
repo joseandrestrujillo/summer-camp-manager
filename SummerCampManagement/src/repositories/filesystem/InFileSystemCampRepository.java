@@ -13,16 +13,31 @@ import domain.entities.Camp;
 import domain.exceptions.repository.NotFoundException;
 import domain.entities.Camp;
 import domain.interfaces.IRepository;
-
+/**
+ * La clase InFileSystemCampRepository es una implementación en sistema de ficheros de un repositorio de campamentos.
+ 
+ */
 public class InFileSystemCampRepository implements IRepository<Camp, Integer> {
     private Map<Integer, Camp> mapOfCamps;
     private String filePath;
+     /**
+     * Constructor de la clase InFileSystemCampRepository.
+     * @param filePath La ruta del archivo
+     * @return El mapa de campamentos
+     */
 
     public InFileSystemCampRepository(String filePath) {
         this.filePath = filePath;
         this.mapOfCamps = new HashMap<Integer, Camp>();
         loadFromFile();
     }
+     /**
+     * Busca un campamento por su identificador.
+     *
+     * @param identifier El identificador del campamento a buscar.
+     * @return El campamento encontrado.
+     * @throws NotFoundException Si el campamento no se encuentra en el repositorio.
+     */
 
     @Override
     public Camp find(Integer identifier) {
@@ -32,16 +47,32 @@ public class InFileSystemCampRepository implements IRepository<Camp, Integer> {
         return mapOfCamps.get(identifier);
     }
 
+    /**
+     * Guarda un campamento en el repositorio.
+     *
+     * @param obj El campamento a guardar en el repositorio.
+     */
+
     @Override
     public void save(Camp obj) {
         mapOfCamps.put(obj.getCampID(), obj);
         saveToFile();
     }
+    /**
+     * Obtiene una lista de todos los campamentos almacenados en el repositorio.
+     *
+     * @return Una lista de campamentos.
+     */
 
     @Override
     public List<Camp> getAll() {
         return new ArrayList<>(mapOfCamps.values());
     }
+        /**
+     * Elimina un campamento del repositorio.
+     *
+     * @param obj El campamento a eliminar del repositorio.
+     */
 
     @Override
     public void delete(Camp obj) {
