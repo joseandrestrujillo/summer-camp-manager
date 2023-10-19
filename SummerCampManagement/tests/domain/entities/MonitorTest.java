@@ -6,7 +6,7 @@ import java.util.Date;
 
 import org.junit.jupiter.api.Test;
 
-import domain.entities.Monitor;
+import business.entities.Monitor;
 import utilities.Utils;
 
 class MonitorTest {

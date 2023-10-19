@@ -6,7 +6,7 @@ import java.util.Date;
 
 import org.junit.jupiter.api.Test;
 
-import domain.entities.Assistant;
+import business.entities.Assistant;
 import utilities.Utils;
 
 class AssistantTest {

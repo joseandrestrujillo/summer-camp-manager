@@ -8,11 +8,12 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import domain.entities.Activity;
-import domain.entities.Monitor;
-import domain.exceptions.activity.MaxMonitorsAddedException;
-import domain.values.EducativeLevel;
-import domain.values.TimeSlot;
+import business.entities.Activity;
+import business.entities.Assistant;
+import business.entities.Monitor;
+import business.exceptions.activity.MaxMonitorsAddedException;
+import business.values.EducativeLevel;
+import business.values.TimeSlot;
 import utilities.Utils;
 
 class ActivityTest {

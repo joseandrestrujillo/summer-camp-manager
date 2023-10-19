@@ -8,10 +8,10 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import domain.entities.Inscription;
-import domain.values.EducativeLevel;
-import domain.values.InscriptionType;
-import domain.values.TimeSlot;
+import business.entities.Inscription;
+import business.values.EducativeLevel;
+import business.values.InscriptionType;
+import business.values.TimeSlot;
 import utilities.Utils;
 
 class InscriptionTest {

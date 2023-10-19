@@ -7,35 +7,37 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
+
+import business.entities.Activity;
+import business.entities.Assistant;
+import business.entities.Camp;
+import business.entities.Inscription;
+import business.entities.Monitor;
+import business.exceptions.activity.MaxMonitorsAddedException;
+import business.exceptions.camp.IsNotAnSpecialEducator;
+import business.exceptions.camp.NotTheSameLevelException;
+import business.exceptions.inscription.AfterLateTimeException;
+import business.exceptions.inscription.AfterStartTimeException;
+import business.exceptions.inscription.AssistantAlreadyEnrolledException;
+import business.exceptions.inscription.MaxAssistantExcededException;
+import business.exceptions.inscription.NeedToAddAnSpecialMonitorException;
+import business.exceptions.inscription.WrongEducativeLevelException;
+import business.exceptions.repository.NotFoundException;
+import business.interfaces.IRepository;
+import business.managers.AssistantsManager;
+import business.managers.CampsManager;
+import business.managers.InscriptionManager;
+import business.values.EducativeLevel;
+import business.values.TimeSlot;
+import data.filesystem.InFileSystemActivityRepository;
+import data.filesystem.InFileSystemAssistantRepository;
+import data.filesystem.InFileSystemCampRepository;
+import data.filesystem.InFileSystemInscriptionRepository;
+import data.filesystem.InFileSystemMonitorRepository;
+
 import java.util.Properties;
 import java.io.File;
 
-import domain.entities.Activity;
-import domain.entities.Assistant;
-import domain.entities.Camp;
-import domain.entities.Inscription;
-import domain.entities.Monitor;
-import domain.exceptions.activity.MaxMonitorsAddedException;
-import domain.exceptions.camp.IsNotAnSpecialEducator;
-import domain.exceptions.camp.NotTheSameLevelException;
-import domain.exceptions.inscription.AfterLateTimeException;
-import domain.exceptions.inscription.AfterStartTimeException;
-import domain.exceptions.inscription.AssistantAlreadyEnrolledException;
-import domain.exceptions.inscription.MaxAssistantExcededException;
-import domain.exceptions.inscription.NeedToAddAnSpecialMonitorException;
-import domain.exceptions.inscription.WrongEducativeLevelException;
-import domain.exceptions.repository.NotFoundException;
-import domain.interfaces.IRepository;
-import domain.values.EducativeLevel;
-import domain.values.TimeSlot;
-import managers.AssistantsManager;
-import managers.CampsManager;
-import managers.InscriptionManager;
-import repositories.filesystem.InFileSystemActivityRepository;
-import repositories.filesystem.InFileSystemAssistantRepository;
-import repositories.filesystem.InFileSystemCampRepository;
-import repositories.filesystem.InFileSystemInscriptionRepository;
-import repositories.filesystem.InFileSystemMonitorRepository;
 import utilities.Utils;
 
 
@@ -219,7 +221,7 @@ public class Main {
 	
 	public static void main(String[] args) {
 		Properties prop = new Properties();
-		String filename = "src/cli/.properties.txt";
+		String filename = ".properties.txt";
 		String pathActivityRep = null;
 		String pathAssistantRep = null;
 		String pathCampRep = null;

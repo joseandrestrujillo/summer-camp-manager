@@ -6,23 +6,24 @@ import java.util.Date;
 
 import org.junit.jupiter.api.Test;
 
-import domain.entities.Activity;
-import domain.entities.Assistant;
-import domain.entities.Camp;
-import domain.entities.Monitor;
-import domain.exceptions.activity.ActivityNotFoundException;
-import domain.exceptions.activity.MonitorIsNotInActivityException;
-import domain.exceptions.assistant.AssistantAlreadyRegisteredException;
-import domain.exceptions.camp.CampAlreadyRegisteredException;
-import domain.exceptions.camp.NotTheSameLevelException;
-import domain.exceptions.camp.SpecialMonitorAlreadyRegisterException;
-import domain.exceptions.repository.NotFoundException;
-import domain.values.EducativeLevel;
-import domain.values.TimeSlot;
-import repositories.memory.InMemoryActivityRepository;
-import repositories.memory.InMemoryAssistantRepository;
-import repositories.memory.InMemoryCampRepository;
-import repositories.memory.InMemoryMontiorRepository;
+import business.entities.Activity;
+import business.entities.Assistant;
+import business.entities.Camp;
+import business.entities.Monitor;
+import business.exceptions.activity.ActivityNotFoundException;
+import business.exceptions.activity.MonitorIsNotInActivityException;
+import business.exceptions.assistant.AssistantAlreadyRegisteredException;
+import business.exceptions.camp.CampAlreadyRegisteredException;
+import business.exceptions.camp.NotTheSameLevelException;
+import business.exceptions.camp.SpecialMonitorAlreadyRegisterException;
+import business.exceptions.repository.NotFoundException;
+import business.managers.CampsManager;
+import business.values.EducativeLevel;
+import business.values.TimeSlot;
+import data.memory.InMemoryActivityRepository;
+import data.memory.InMemoryAssistantRepository;
+import data.memory.InMemoryCampRepository;
+import data.memory.InMemoryMontiorRepository;
 import utilities.Utils;
 
 class CampsManagerTest {

@@ -8,14 +8,14 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import domain.entities.Activity;
-import domain.entities.Camp;
-import domain.entities.Monitor;
-import domain.exceptions.camp.NotTheSameLevelException;
-import domain.exceptions.camp.SpecialMonitorAlreadyRegisterException;
-import domain.exceptions.monitor.MonitorNotFoundException;
-import domain.values.EducativeLevel;
-import domain.values.TimeSlot;
+import business.entities.Activity;
+import business.entities.Camp;
+import business.entities.Monitor;
+import business.exceptions.camp.NotTheSameLevelException;
+import business.exceptions.camp.SpecialMonitorAlreadyRegisterException;
+import business.exceptions.monitor.MonitorNotFoundException;
+import business.values.EducativeLevel;
+import business.values.TimeSlot;
 import utilities.Utils;
 
 class CampTest {
