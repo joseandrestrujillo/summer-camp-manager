@@ -15,13 +15,13 @@ import business.interfaces.IRepository;
 
 
 /**
- * La clase InDatabaseInscriptionRepository es una implementación en base de datos de un repositorio de inscripciones.
+ * La clase InDatabaseInscriptionDAO es una implementación en base de datos de un DAO de inscripciones.
 
  */
 
 public class InDatabaseInscriptionRepository implements IRepository<Inscription, String> {
     /**
-     * Constructor de la clase InFileSystemInscriptionRepository.
+     * Constructor de la clase InDatabaseInscriptionDA0.
      * Inicializa un nuevo mapa para almacenar inscripciones en memoria.
      */
 
@@ -35,7 +35,7 @@ public class InDatabaseInscriptionRepository implements IRepository<Inscription,
      *
      * @param identifier El nombre de la inscripción a buscar.
      * @return La inscripción encontrada.
-     * @throws NotFoundException Si la inscripción no se encuentra en el repositorio.
+     * @throws NotFoundException Si la inscripción no se encuentra en el DAO.
      */
 
     @Override
@@ -45,9 +45,9 @@ public class InDatabaseInscriptionRepository implements IRepository<Inscription,
 
 
     /**
-     * Guarda una inscripción en el repositorio.
+     * Guarda una inscripción en el DAO.
      *
-     * @param obj La inscripción a guardar en el repositorio.
+     * @param obj La inscripción a guardar en el DAO.
      */
 
     @Override
@@ -57,7 +57,7 @@ public class InDatabaseInscriptionRepository implements IRepository<Inscription,
 
 
     /**
-     * Obtiene una lista de todas las inscripciones almacenadas en el repositorio.
+     * Obtiene una lista de todas las inscripciones almacenadas en el DAO.
      *
      * @return Una lista de inscripciones.
      */
@@ -68,9 +68,9 @@ public class InDatabaseInscriptionRepository implements IRepository<Inscription,
     }
 
     /**
-     * Elimina una inscripción del repositorio.
+     * Elimina una inscripción del DAO.
      *
-     * @param obj La inscripción a eliminar del repositorio.
+     * @param obj La inscripción a eliminar del DAO.
      */ 
 
     @Override

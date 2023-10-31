@@ -13,13 +13,13 @@ import business.entities.Camp;
 import business.exceptions.repository.NotFoundException;
 import business.interfaces.IRepository;
 /**
- * La clase InDatabaseCampRepository es una implementación en base de datos de ficheros de un repositorio de campamentos.
+ * La clase InDatabaseCampDAO es una implementación en base de datos de un DAO de campamentos.
  
  */
 public class InDatabaseCampRepository implements IRepository<Camp, Integer> {
      /**
-     * Constructor de la clase InFileSystemCampRepository.
-     * @param filePath La ruta del archivo
+     * Constructor de la clase InDatabaseCampDAO.
+     * @param filePath La ruta de la tabla
      */
 
     public InDatabaseCampRepository(String filePath) {
@@ -30,7 +30,7 @@ public class InDatabaseCampRepository implements IRepository<Camp, Integer> {
      *
      * @param identifier El identificador del campamento a buscar.
      * @return El campamento encontrado.
-     * @throws NotFoundException Si el campamento no se encuentra en el repositorio.
+     * @throws NotFoundException Si el campamento no se encuentra en el DAO.
      */
 
     @Override
@@ -39,9 +39,9 @@ public class InDatabaseCampRepository implements IRepository<Camp, Integer> {
     }
 
     /**
-     * Guarda un campamento en el repositorio.
+     * Guarda un campamento en el DAO.
      *
-     * @param obj El campamento a guardar en el repositorio.
+     * @param obj El campamento a guardar en el DAO.
      */
 
     @Override
@@ -49,7 +49,7 @@ public class InDatabaseCampRepository implements IRepository<Camp, Integer> {
 
     }
     /**
-     * Obtiene una lista de todos los campamentos almacenados en el repositorio.
+     * Obtiene una lista de todos los campamentos almacenados en el DAO.
      *
      * @return Una lista de campamentos.
      */
@@ -59,9 +59,9 @@ public class InDatabaseCampRepository implements IRepository<Camp, Integer> {
         return null;
     }
         /**
-     * Elimina un campamento del repositorio.
+     * Elimina un campamento del DAO.
      *
-     * @param obj El campamento a eliminar del repositorio.
+     * @param obj El campamento a eliminar del DAO.
      */
 
     @Override

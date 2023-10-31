@@ -15,15 +15,15 @@ import business.exceptions.repository.NotFoundException;
 import business.interfaces.IRepository;
 
 /**
- * La clase InDatabaseActivityRepository es una implementación en base de datos de ficheros de un repositorio de actividades.
+ * La clase InDatabaseActivityDAO es una implementación en base de datos de un DAO de actividades.
  */
 public class InDatabaseActivityRepository implements IRepository<Activity, String>{
 
     /**
-     * Constructor de la clase InFileSystemActivityRepository.
+     * Constructor de la clase InDatabaseActivityDAO.
      * Inicializa un nuevo mapa para almacenar actividades en memoria y carga las actividades almacenadas en la base de datos
      * 
-     * @param filePath path al fichero de actividades
+     * @param filePath path a la tabla de actividades
      */
     public InDatabaseActivityRepository(String filePath) {
 
@@ -34,7 +34,7 @@ public class InDatabaseActivityRepository implements IRepository<Activity, Strin
      *
      * @param identifier El nombre de la actividad a buscar.
      * @return La actividad encontrada.
-     * @throws NotFoundException Si la actividad no se encuentra en el repositorio.
+     * @throws NotFoundException Si la actividad no se encuentra en el DAO.
      */
     @Override
     public Activity find(String identifier) {
@@ -42,9 +42,9 @@ public class InDatabaseActivityRepository implements IRepository<Activity, Strin
     }
 
     /**
-     * Guarda una actividad en el repositorio.
+     * Guarda una actividad en el DAO.
      *
-     * @param obj La actividad a guardar en el repositorio.
+     * @param obj La actividad a guardar en el DAO.
      */
     @Override
     public void save(Activity obj) {
@@ -52,7 +52,7 @@ public class InDatabaseActivityRepository implements IRepository<Activity, Strin
     }
     
     /**
-     * Obtiene una lista de todas las actividades almacenadas en el repositorio.
+     * Obtiene una lista de todas las actividades almacenadas en el DAO.
      *
      * @return Una lista de actividades.
      */
@@ -62,9 +62,9 @@ public class InDatabaseActivityRepository implements IRepository<Activity, Strin
     }
 
     /**
-     * Elimina una actividad del repositorio.
+     * Elimina una actividad del DAO.
      *
-     * @param obj La actividad a eliminar del repositorio.
+     * @param obj La actividad a eliminar del DAO.
      */
     @Override
     public void delete(Activity obj) {

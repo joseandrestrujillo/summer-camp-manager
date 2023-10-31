@@ -14,13 +14,13 @@ import business.entities.Monitor;
 import business.exceptions.repository.NotFoundException;
 import business.interfaces.IRepository;
 /**
- * La clase InDatabaseMonitorRepository es una implementación en base de datos de un sistema de ficheros de la clase monitor.
+ * La clase InDatabaseMonitorDAO es una implementación en base de datos de un DAO de la clase monitor.
  
  */
 public class InDatabaseMonitorRepository implements IRepository<Monitor, Integer>{
     /**
-     * Constructor de la clase InFileSystemMonitorRepository.
-     * Inicializa un nuevo mapa para almacenar monitores en memoria y recibe la ruta de fichero como parametro
+     * Constructor de la clase InDatabaseMonitorDAO.
+     * Inicializa un nuevo mapa para almacenar monitores en memoria y recibe la ruta de la tabla como parametro
      */
     public InDatabaseMonitorRepository(String filePath) {
         
@@ -30,23 +30,23 @@ public class InDatabaseMonitorRepository implements IRepository<Monitor, Integer
      *
      * @param identifier El identificador del monitor a buscar.
      * @return El monitor encontrado.
-     * @throws NotFoundException Si el monitor no se encuentra en el sistema de archivos.
+     * @throws NotFoundException Si el monitor no se encuentra en el DAO.
      */
     @Override
     public Monitor find(Integer identifier) {
         return null;
     }
     /**
-     * Guarda un monitor en el sistema de archivos.
+     * Guarda un monitor en el DAO.
      *
-     * @param obj El monitor a guardar en el  sistema de archivos.
+     * @param obj El monitor a guardar en el  DAO.
      */
     @Override
     public void save(Monitor obj) {
         
     }
     /**
-     * Obtiene una lista de todos los monitores almacenados en el sistema de archivos.
+     * Obtiene una lista de todos los monitores almacenados en el DAO.
      *
      * @return Una lista de monitores.
      */
@@ -56,9 +56,9 @@ public class InDatabaseMonitorRepository implements IRepository<Monitor, Integer
     }
 
     /**
-     * Elimina un monitor del sistema de archivos.
+     * Elimina un monitor del DAO.
      *
-     * @param obj El monitor a eliminar del sistema de archivos.
+     * @param obj El monitor a eliminar del DAO.
      */
     @Override
     public void delete(Monitor obj) {
