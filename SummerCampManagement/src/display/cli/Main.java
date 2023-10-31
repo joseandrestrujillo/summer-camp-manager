@@ -1,4 +1,4 @@
-package cli;
+package display.cli;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
