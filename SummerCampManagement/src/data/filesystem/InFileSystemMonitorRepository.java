@@ -12,12 +12,13 @@ import java.util.Map;
 
 import business.entities.Monitor;
 import business.exceptions.repository.NotFoundException;
-import business.interfaces.IRepository;
+import business.interfaces.IDAO;
+import utilities.StringUtils;
 /**
  * La clase InFileSystemMonitorRepository es una implementación en memoria de un sistema de ficheros de la clase monitor.
  
  */
-public class InFileSystemMonitorRepository implements IRepository<Monitor, Integer>{
+public class InFileSystemMonitorRepository implements IDAO<Monitor, Integer>{
     private String filePath;
     private Map<Integer, Monitor> mapOfMonitors;
     /**
@@ -112,7 +113,7 @@ public class InFileSystemMonitorRepository implements IRepository<Monitor, Integ
         Map<Integer, Monitor> assistantMap = new HashMap<>();
         String[] lines = fileContent.split(System.lineSeparator());
         for (String line : lines) {
-            Monitor assistant = Monitor.fromString(line);
+            Monitor assistant = StringUtils.monitorFromString(line);
             if (assistant != null) {
                 assistantMap.put(assistant.getId(), assistant);
             }

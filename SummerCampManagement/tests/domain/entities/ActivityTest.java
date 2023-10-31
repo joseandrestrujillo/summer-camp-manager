@@ -131,45 +131,7 @@ class ActivityTest {
         assertEquals(expectedToString, activity.toString());
     }
 
-	@Test
-    public void testFromString() {
-		String activityName = "Activity";
-        EducativeLevel educativeLevel = EducativeLevel.PRESCHOOL;
-        TimeSlot timeSlot = TimeSlot.AFTERNOON;
-        int maxAssistants = 10;
-        int neededMonitors = 3;
-        List<Monitor> monitors = new ArrayList<Monitor>();
-        monitors.add(new Monitor(1, "juan", "perez", true));
-        monitors.add(new Monitor(2, "juana", "perez", false));
-        
-        List<Assistant> assistants = new ArrayList<Assistant>();
-        assistants.add(new Assistant(1, "juan", "perez", Utils.parseDate("26/01/2001"), true));
-        assistants.add(new Assistant(2, "juana", "perez", Utils.parseDate("26/01/2001"), false));
-		
-
-        String inputString = "{activityName: 'Activity', "
-        		+ "educativeLevel: PRESCHOOL, "
-        		+ "timeSlot: AFTERNOON, "
-        		+ "maxAssistants: 10, "
-        		+ "neededMonitors: 3, "
-        		+ "assistants: ["
-        		+ "{id: 1, firstName: 'juan', lastName: 'perez', birthDate: 26/01/2001, requireSpecialAttention: true}, "
-        		+ "{id: 2, firstName: 'juana', lastName: 'perez', birthDate: 26/01/2001, requireSpecialAttention: false}"
-        		+ "], "
-        		+ "monitors: ["
-        		+ "{id: 1, firstName: 'juan', lastName: 'perez', isSpecialEducator: true}, "
-        		+ "{id: 2, firstName: 'juana', lastName: 'perez', isSpecialEducator: false}"
-        		+ "]"
-        		+ "}";
-        
-        Activity activity = Activity.fromString(inputString);
-        assertEquals(activityName, activity.getActivityName());
-        assertEquals(educativeLevel, activity.getEducativeLevel());
-        assertEquals(maxAssistants, activity.getMaxAssistants());
-        assertEquals(neededMonitors, activity.getNeededMonitors());
-        assertEquals(assistants.toString(), activity.getAssistants().toString());
-        assertEquals(monitors.toString(), activity.getMonitorList().toString());
-    }
+	
 	
 	@Test
 	public void testAddMonitor(){

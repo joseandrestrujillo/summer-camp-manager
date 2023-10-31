@@ -12,14 +12,15 @@ import java.util.Map;
 
 import business.entities.Assistant;
 import business.exceptions.repository.NotFoundException;
-import business.interfaces.IRepository;
+import business.interfaces.IDAO;
+import utilities.StringUtils;
 
 
 /**
  * La clase InFileSystemAssistantRepository es una implementación en sistema de ficheros de un repositorio de asistentes.
  
  */
-public class InFileSystemAssistantRepository implements IRepository<Assistant, Integer>{
+public class InFileSystemAssistantRepository implements IDAO<Assistant, Integer>{
     private String filePath;
     private Map<Integer, Assistant> mapOfAssistants;
 
@@ -117,7 +118,7 @@ public class InFileSystemAssistantRepository implements IRepository<Assistant, I
         Map<Integer, Assistant> assistantMap = new HashMap<>();
         String[] lines = fileContent.split(System.lineSeparator());
         for (String line : lines) {
-            Assistant assistant = Assistant.fromString(line);
+            Assistant assistant = StringUtils.assistantFromString(line);
             if (assistant != null) {
                 assistantMap.put(assistant.getId(), assistant);
             }

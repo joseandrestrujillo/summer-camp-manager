@@ -120,29 +120,7 @@ public class Monitor {
                 + "', isSpecialEducator: " + this.specialEducator + "}";
     }
     
-    /**
-     * Devuelve objeto Monitor.
-     *
-     * @param monitorString Una cadena que representa al monitor en formato JSON.
-     * @return Objeto de la clase
-     */
-    public static Monitor fromString(String monitorString) {
-        int id = 0;
-        String firstName = "";
-        String lastName = "";
-        boolean specialEducator = false;
-
-        Pattern pattern = Pattern.compile("id: (\\d+), firstName: '(.+)', lastName: '(.+)', isSpecialEducator: (true|false)");
-        Matcher matcher = pattern.matcher(monitorString);
-        if (matcher.find()) {
-            id = Integer.parseInt(matcher.group(1));
-            firstName = matcher.group(2);
-            lastName = matcher.group(3);
-            specialEducator = Boolean.parseBoolean(matcher.group(4));
-        }
-
-        return new Monitor(id, firstName, lastName, specialEducator);
-    }
+    
 }
 
 	

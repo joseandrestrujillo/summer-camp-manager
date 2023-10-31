@@ -18,7 +18,7 @@ import business.exceptions.repository.NotFoundException;
 import business.factories.EarlyRegisterInscriptionFactory;
 import business.factories.LateRegisterInscriptionFactory;
 import business.interfaces.AbstractInscriptionFactory;
-import business.interfaces.IRepository;
+import business.interfaces.IDAO;
 import business.values.EducativeLevel;
 import business.values.TimeSlot;
 import utilities.Utils;
@@ -28,11 +28,11 @@ import utilities.Utils;
  */
 
 public class InscriptionManager {
-	private IRepository<Camp, Integer> campRepository;
-	private IRepository<Activity, String> activityRepository;
-	private IRepository<Monitor, Integer> monitorRepository;
-	private IRepository<Assistant, Integer> assitantRepository;
-	private IRepository<Inscription, String> inscriptionRepository;
+	private IDAO<Camp, Integer> campRepository;
+	private IDAO<Activity, String> activityRepository;
+	private IDAO<Monitor, Integer> monitorRepository;
+	private IDAO<Assistant, Integer> assitantRepository;
+	private IDAO<Inscription, String> inscriptionRepository;
 
 	  /**
      * Constructor de InscriptionManager.
@@ -44,7 +44,7 @@ public class InscriptionManager {
      * @param inscriptionRepository Repositorio de inscripciones.
 	 */
 
-	public InscriptionManager(IRepository<Camp, Integer> campRepository, IRepository<Activity, String> activityRepository, IRepository<Monitor, Integer> monitorRepository, IRepository<Assistant, Integer> assitantRepository, IRepository<Inscription, String> inscriptionRepository) {
+	public InscriptionManager(IDAO<Camp, Integer> campRepository, IDAO<Activity, String> activityRepository, IDAO<Monitor, Integer> monitorRepository, IDAO<Assistant, Integer> assitantRepository, IDAO<Inscription, String> inscriptionRepository) {
 		this.campRepository = campRepository;
 		this.activityRepository = activityRepository;
 		this.monitorRepository = monitorRepository;

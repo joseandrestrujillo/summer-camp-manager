@@ -93,23 +93,6 @@ class AssistantTest {
         assertEquals(expectedToString, assistant.toString());
     }
 	
-	@Test
-    public void testFromString() {
-		int id = 1;
-		String firstName = "José";
-		String lastName = "Trujillo";
-		Date birthDate = Utils.parseDate("26/01/2001");
-		boolean requireSpecialAttention = true;
-		
-
-        String inputString = "{id: 1, firstName: 'José', lastName: 'Trujillo', birthDate: 26/01/2001, requireSpecialAttention: true}";
-        Assistant assistant = Assistant.fromString(inputString);
-        
-        assertEquals(id, assistant.getId());
-        assertEquals(firstName, assistant.getFirstName());
-        assertEquals(lastName, assistant.getLastName());
-        assertEquals(birthDate, assistant.getBirthDate());
-        assertEquals(requireSpecialAttention, assistant.isRequireSpecialAttention());
-    }
+	
 	
 }

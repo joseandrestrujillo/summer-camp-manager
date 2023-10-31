@@ -12,12 +12,12 @@ import java.util.Map;
 
 import business.entities.Activity;
 import business.exceptions.repository.NotFoundException;
-import business.interfaces.IRepository;
+import business.interfaces.IDAO;
 
 /**
  * La clase InDatabaseActivityDAO es una implementación en base de datos de un DAO de actividades.
  */
-public class InDatabaseActivityRepository implements IRepository<Activity, String>{
+public class InDatabaseActivityDAO implements IDAO<Activity, String>{
 
     /**
      * Constructor de la clase InDatabaseActivityDAO.
@@ -25,7 +25,7 @@ public class InDatabaseActivityRepository implements IRepository<Activity, Strin
      * 
      * @param filePath path a la tabla de actividades
      */
-    public InDatabaseActivityRepository(String filePath) {
+    public InDatabaseActivityDAO() {
 
     }
     

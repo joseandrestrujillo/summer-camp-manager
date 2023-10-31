@@ -84,23 +84,5 @@ class InscriptionTest {
         assertEquals(expectedToString, inscription.toString());
     }
 	
-	@Test
-    public void testFromString() {
-		int assistantId = 1;
-		int campId = 1;
-		Date inscriptionDate = Utils.parseDate("12/01/2024");
-		float price = 100;
-		
-
-        String inputString = "{AssistantId: 1, CampId: 1, InscriptionDate: '12/01/2024', Price: 100.0, canBeCancelled: true}";
-
-        Inscription inscription = Inscription.fromString(inputString);
-        
-        assertEquals(assistantId, inscription.getAssistantId());
-        assertEquals(campId, inscription.getCampId());
-        assertEquals(inscriptionDate, inscription.getInscriptionDate());
-        assertEquals(price, inscription.getPrice());
-        assertEquals(true, inscription.canBeCanceled());
-    }
 	
 }

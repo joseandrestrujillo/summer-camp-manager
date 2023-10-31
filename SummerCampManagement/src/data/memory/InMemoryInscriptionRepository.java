@@ -7,13 +7,13 @@ import java.util.Map;
 
 import business.entities.Inscription;
 import business.exceptions.repository.NotFoundException;
-import business.interfaces.IRepository;
+import business.interfaces.IDAO;
 
 /**
  * La clase InMemoryInscriptionRepository es una implementación en memoria de un repositorio de inscripciones.
 
  */
-public class InMemoryInscriptionRepository implements IRepository<Inscription, String> {
+public class InMemoryInscriptionRepository implements IDAO<Inscription, String> {
     private Map<String, Inscription> mapOfInscription;
 
     /**

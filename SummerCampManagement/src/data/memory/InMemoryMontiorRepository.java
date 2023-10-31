@@ -7,13 +7,13 @@ import java.util.Map;
 
 import business.entities.Monitor;
 import business.exceptions.repository.NotFoundException;
-import business.interfaces.IRepository;
+import business.interfaces.IDAO;
 
 /**
  * La clase InMemoryMontiorRepository es una implementación en memoria de un repositorio de monitores.
  
  */
-public class InMemoryMontiorRepository implements IRepository<Monitor, Integer> {
+public class InMemoryMontiorRepository implements IDAO<Monitor, Integer> {
     private Map<Integer, Monitor> mapOfMonitor;
 
     /**

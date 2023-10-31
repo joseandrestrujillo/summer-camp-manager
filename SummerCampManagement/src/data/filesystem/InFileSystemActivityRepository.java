@@ -12,12 +12,13 @@ import java.util.Map;
 
 import business.entities.Activity;
 import business.exceptions.repository.NotFoundException;
-import business.interfaces.IRepository;
+import business.interfaces.IDAO;
+import utilities.StringUtils;
 
 /**
  * La clase InFileSystemActivityRepository es una implementación en sistema de ficheros de un repositorio de actividades.
  */
-public class InFileSystemActivityRepository implements IRepository<Activity, String>{
+public class InFileSystemActivityRepository implements IDAO<Activity, String>{
     private String filePath;
     private Map<String, Activity> mapOfAssistants;
 
@@ -119,7 +120,7 @@ public class InFileSystemActivityRepository implements IRepository<Activity, Str
         Map<String, Activity> assistantMap = new HashMap<>();
         String[] lines = fileContent.split(System.lineSeparator());
         for (String line : lines) {
-            Activity assistant = Activity.fromString(line);
+            Activity assistant = StringUtils.activityFromString(line);
             if (assistant != null) {
                 assistantMap.put(assistant.getActivityName(), assistant);
             }

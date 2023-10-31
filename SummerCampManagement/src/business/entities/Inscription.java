@@ -170,31 +170,7 @@ public class Inscription {
 	public boolean canBeCanceled() {
 		return canBeCanceled;
 	}
-	/**
-     * Devuelve objeto Inscription.
-     *
-     * @param inputString Una cadena que representa la inscripcion en formato JSON.
-     * @return Objeto de la clase
-     */
-	public static Inscription fromString(String inputString) {
-	    int assistantId = -1;
-	    int campId = -1;
-	    Date inscriptionDate = null;
-	    float price = -1;
-	    boolean canBeCanceled = false;
-
-	    Pattern pattern = Pattern.compile("AssistantId: (\\d+), CampId: (.+), InscriptionDate: '(.+)', Price: (\\d+\\.\\d+), canBeCancelled: (true|false)");
-	    Matcher matcher = pattern.matcher(inputString);
-	    if (matcher.find()) {
-	        assistantId = Integer.parseInt(matcher.group(1));
-	        campId = Integer.parseInt(matcher.group(2));
-	        inscriptionDate = Utils.parseDate(matcher.group(3));
-	        price = Float.parseFloat(matcher.group(4));
-	        canBeCanceled = Boolean.parseBoolean(matcher.group(5));
-	    }
-
-	    return new Inscription(assistantId, campId, inscriptionDate, price, canBeCanceled);
-	}
+	
 
 
 }

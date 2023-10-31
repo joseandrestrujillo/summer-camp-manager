@@ -11,12 +11,13 @@ import java.util.Map;
 
 import business.entities.Camp;
 import business.exceptions.repository.NotFoundException;
-import business.interfaces.IRepository;
+import business.interfaces.IDAO;
+import utilities.StringUtils;
 /**
  * La clase InFileSystemCampRepository es una implementación en sistema de ficheros de un repositorio de campamentos.
  
  */
-public class InFileSystemCampRepository implements IRepository<Camp, Integer> {
+public class InFileSystemCampRepository implements IDAO<Camp, Integer> {
     private Map<Integer, Camp> mapOfCamps;
     private String filePath;
      /**
@@ -116,7 +117,7 @@ public class InFileSystemCampRepository implements IRepository<Camp, Integer> {
         Map<Integer, Camp> CampMap = new HashMap<>();
         String[] lines = fileContent.split(System.lineSeparator());
         for (String line : lines) {
-            Camp camp = Camp.fromString(line);
+            Camp camp = StringUtils.campFromString(line);
             if (camp != null) {
                 CampMap.put(camp.getCampID(), camp);
             }

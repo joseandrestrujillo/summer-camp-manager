@@ -10,13 +10,13 @@ import business.entities.Activity;
 import business.entities.Assistant;
 import business.entities.Camp;
 import business.exceptions.repository.NotFoundException;
-import business.interfaces.IRepository;
+import business.interfaces.IDAO;
 
 /**
  * La clase InMemoryCampRepository es una implementación en memoria de un repositorio de campamentos.
  
  */
-public class InMemoryCampRepository implements IRepository<Camp, Integer> {
+public class InMemoryCampRepository implements IDAO<Camp, Integer> {
     private Map<Integer, Camp> mapOfCamp;
 
     /**

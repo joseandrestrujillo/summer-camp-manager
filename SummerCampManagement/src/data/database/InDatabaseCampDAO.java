@@ -11,18 +11,18 @@ import java.util.Map;
 
 import business.entities.Camp;
 import business.exceptions.repository.NotFoundException;
-import business.interfaces.IRepository;
+import business.interfaces.IDAO;
 /**
  * La clase InDatabaseCampDAO es una implementación en base de datos de un DAO de campamentos.
  
  */
-public class InDatabaseCampRepository implements IRepository<Camp, Integer> {
+public class InDatabaseCampDAO implements IDAO<Camp, Integer> {
      /**
      * Constructor de la clase InDatabaseCampDAO.
      * @param filePath La ruta de la tabla
      */
 
-    public InDatabaseCampRepository(String filePath) {
+    public InDatabaseCampDAO(String filePath) {
        
     }
      /**

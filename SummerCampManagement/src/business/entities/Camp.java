@@ -223,56 +223,6 @@ public class Camp {
 		this.specialMonitor = monitor;
 	}
 
-	/**
-     * Devuelve objeto Camp.
-     *
-     * @param inputString Una cadena que representa al campamento en formato JSON.
-     * @return Objeto de la clase
-     */
-	public static Camp fromString(String inputString) {
-
-		  Pattern pattern = Pattern.compile("campID: (\\d+), start: (.+), end: (.+), educativeLevel: (.+), capacity: (\\d+), principalMonitor: (.+), specialMonitor: (.+), activities: \\[(.+)\\]");
-		  
-		  Matcher matcher = pattern.matcher(inputString);
-
-		  if(!matcher.find()) {
-		    throw new IllegalStateException("No match found");
-		  }
-
-		  int campID = Integer.parseInt(matcher.group(1));
-
-		  Date start = Utils.parseDate(matcher.group(2));
-		  Date end = Utils.parseDate(matcher.group(3));
-
-		  EducativeLevel educativeLevel = EducativeLevel.valueOf(matcher.group(4));
-
-		  int capacity = Integer.parseInt(matcher.group(5));
-
-		  String principalMonitorString = matcher.group(6);
-		  Monitor principalMonitor = principalMonitorString.equals("null") ? null : Monitor.fromString(principalMonitorString);
-
-		  String specialMonitorString = matcher.group(7);
-		  Monitor specialMonitor = specialMonitorString.equals("null") ? null : Monitor.fromString(specialMonitorString);
-
-		  List<Activity> activities = new ArrayList<>();
-		  
-		  String activitiesString = matcher.group(8);
-		  if (activitiesString != null && !activitiesString.isEmpty()) {
-			  Pattern activityPattern = Pattern.compile("activityName: '(.+)',\\s+educativeLevel:\\s+(.+),\\s+timeSlot:\\s+(.+),\\s+maxAssistants:\\s+(\\d+),\\s+neededMonitors:\\s+(\\d+),\\s+assistants:\\s*(\\[[^\\]]*\\])?\\s*,\\s*monitors:\\s*(\\[[^\\]]*\\])?\\s*}");
-			  Matcher activityMatcher = activityPattern.matcher(activitiesString);
-			  while (activityMatcher.find()) {
-				  String activityData = activityMatcher.group();
-				  Activity activity = Activity.fromString(activityData);
-				  activities.add(activity);
-			  }
-		  }
-
-		  Camp camp = new Camp(campID, start, end, educativeLevel, capacity);
-		  camp.setPrincipalMonitor(principalMonitor);
-		  camp.setSpecialMonitor(specialMonitor);
-		  camp.setActivities(activities);
-
-		  return camp;
-		}
+	
 	
 }

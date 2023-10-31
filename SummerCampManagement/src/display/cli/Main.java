@@ -23,7 +23,7 @@ import business.exceptions.inscription.MaxAssistantExcededException;
 import business.exceptions.inscription.NeedToAddAnSpecialMonitorException;
 import business.exceptions.inscription.WrongEducativeLevelException;
 import business.exceptions.repository.NotFoundException;
-import business.interfaces.IRepository;
+import business.interfaces.IDAO;
 import business.managers.AssistantsManager;
 import business.managers.CampsManager;
 import business.managers.InscriptionManager;
@@ -246,11 +246,11 @@ public class Main {
 		}
 		
 		int opcion;
-		IRepository<Camp, Integer> campRepository = new InFileSystemCampRepository(pathCampRep);
-		IRepository<Activity, String> activityRepository = new InFileSystemActivityRepository(pathActivityRep);
-		IRepository<Monitor, Integer> monitorRepository = new InFileSystemMonitorRepository(pathMonitorRep);
-		IRepository<Assistant, Integer> assistantRepository = new InFileSystemAssistantRepository(pathAssistantRep);
-		IRepository<Inscription, String> inscriptionRepository = new InFileSystemInscriptionRepository(pathInscriptionRep);
+		IDAO<Camp, Integer> campRepository = new InFileSystemCampRepository(pathCampRep);
+		IDAO<Activity, String> activityRepository = new InFileSystemActivityRepository(pathActivityRep);
+		IDAO<Monitor, Integer> monitorRepository = new InFileSystemMonitorRepository(pathMonitorRep);
+		IDAO<Assistant, Integer> assistantRepository = new InFileSystemAssistantRepository(pathAssistantRep);
+		IDAO<Inscription, String> inscriptionRepository = new InFileSystemInscriptionRepository(pathInscriptionRep);
 		AssistantsManager assistantsManager = new AssistantsManager(assistantRepository);
 		CampsManager campsManager = new CampsManager(campRepository, activityRepository, monitorRepository);
 		InscriptionManager inscriptionManager = new InscriptionManager(campRepository, activityRepository, monitorRepository,

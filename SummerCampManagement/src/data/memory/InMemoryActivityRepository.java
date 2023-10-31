@@ -8,12 +8,12 @@ import java.util.Map;
 
 import business.entities.Activity;
 import business.exceptions.repository.NotFoundException;
-import business.interfaces.IRepository;
+import business.interfaces.IDAO;
 
 /**
  * La clase InMemoryActivityRepository es una implementación en memoria de un repositorio de actividades.
  */
-public class InMemoryActivityRepository implements IRepository<Activity, String> {
+public class InMemoryActivityRepository implements IDAO<Activity, String> {
     private Map<String, Activity> mapOfActivity;
 
     /**

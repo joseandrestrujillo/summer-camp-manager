@@ -7,7 +7,7 @@ import java.util.List;
  * @param <T> El tipo de entidad que se va a manipular en el repositorio.
  * @param <I> El tipo de identificador único utilizado para buscar entidades en el repositorio.
  */
-public interface IRepository<T, I> {
+public interface IDAO<T, I> {
     /**
      * Busca una entidad en el repositorio utilizando el identificador único proporcionado.
      *

@@ -12,17 +12,17 @@ import java.util.Map;
 
 import business.entities.Monitor;
 import business.exceptions.repository.NotFoundException;
-import business.interfaces.IRepository;
+import business.interfaces.IDAO;
 /**
  * La clase InDatabaseMonitorDAO es una implementación en base de datos de un DAO de la clase monitor.
  
  */
-public class InDatabaseMonitorRepository implements IRepository<Monitor, Integer>{
+public class InDatabaseMonitorDAO implements IDAO<Monitor, Integer>{
     /**
      * Constructor de la clase InDatabaseMonitorDAO.
      * Inicializa un nuevo mapa para almacenar monitores en memoria y recibe la ruta de la tabla como parametro
      */
-    public InDatabaseMonitorRepository(String filePath) {
+    public InDatabaseMonitorDAO(String filePath) {
         
     }
     /**

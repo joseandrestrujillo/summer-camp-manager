@@ -11,7 +11,7 @@ import java.util.Map;
 
 import business.entities.Inscription;
 import business.exceptions.repository.NotFoundException;
-import business.interfaces.IRepository;
+import business.interfaces.IDAO;
 
 
 /**
@@ -19,13 +19,13 @@ import business.interfaces.IRepository;
 
  */
 
-public class InDatabaseInscriptionRepository implements IRepository<Inscription, String> {
+public class InDatabaseInscriptionDAO implements IDAO<Inscription, String> {
     /**
      * Constructor de la clase InDatabaseInscriptionDA0.
      * Inicializa un nuevo mapa para almacenar inscripciones en memoria.
      */
 
-    public InDatabaseInscriptionRepository(String filePath) {
+    public InDatabaseInscriptionDAO(String filePath) {
        
     }
 

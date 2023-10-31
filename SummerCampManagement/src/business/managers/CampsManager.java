@@ -13,15 +13,15 @@ import business.exceptions.camp.IsNotAnSpecialEducator;
 import business.exceptions.camp.NotTheSameLevelException;
 import business.exceptions.camp.SpecialMonitorAlreadyRegisterException;
 import business.exceptions.repository.NotFoundException;
-import business.interfaces.IRepository;
+import business.interfaces.IDAO;
 
 /**
  * La clase CampsManager se encarga de gestionar campamentos, actividades y monitores.
  */
 public class CampsManager {
-    private IRepository<Camp, Integer> campRepository;
-    private IRepository<Activity, String> activityRepository;
-    private IRepository<Monitor, Integer> monitorRepository;
+    private IDAO<Camp, Integer> campRepository;
+    private IDAO<Activity, String> activityRepository;
+    private IDAO<Monitor, Integer> monitorRepository;
 
     /**
      * Constructor de la clase CampsManager.
@@ -30,8 +30,8 @@ public class CampsManager {
      * @param activityRepository El repositorio de actividades.
      * @param monitorRepository  El repositorio de monitores.
      */
-    public CampsManager(IRepository<Camp, Integer> campRepository, IRepository<Activity, String> activityRepository,
-            IRepository<Monitor, Integer> monitorRepository) {
+    public CampsManager(IDAO<Camp, Integer> campRepository, IDAO<Activity, String> activityRepository,
+            IDAO<Monitor, Integer> monitorRepository) {
         this.campRepository = campRepository;
         this.activityRepository = activityRepository;
         this.monitorRepository = monitorRepository;

@@ -157,29 +157,5 @@ public class Assistant {
 				+ ", requireSpecialAttention: "
 				+ this.requireSpecialAttention + "}";
 	}
-	/**
-     * Devuelve objeto Assistant.
-     *
-     * @param assistantString Una cadena que representa al asistente en formato JSON.
-     * @return Objeto de la clase
-     */
-    public static Assistant fromString(String assistantString) {
-        int id = 0;
-        String firstName = "";
-        String lastName = "";
-        Date birthDate = null;
-        boolean requireSpecialAttention = false;
-
-        Pattern pattern = Pattern.compile("id: (\\d+), firstName: '(.+)', lastName: '(.+)', birthDate: (.+), requireSpecialAttention: (true|false)");
-        Matcher matcher = pattern.matcher(assistantString);
-        if (matcher.find()) {
-            id = Integer.parseInt(matcher.group(1));
-            firstName = matcher.group(2);
-            lastName = matcher.group(3);
-            birthDate = Utils.parseDate(matcher.group(4));
-            requireSpecialAttention = Boolean.parseBoolean(matcher.group(5));
-        }
-
-        return new Assistant(id, firstName, lastName, birthDate, requireSpecialAttention);
-    }
+	
 }

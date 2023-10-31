@@ -11,7 +11,8 @@ import java.util.Map;
 
 import business.entities.Inscription;
 import business.exceptions.repository.NotFoundException;
-import business.interfaces.IRepository;
+import business.interfaces.IDAO;
+import utilities.StringUtils;
 
 
 /**
@@ -19,7 +20,7 @@ import business.interfaces.IRepository;
 
  */
 
-public class InFileSystemInscriptionRepository implements IRepository<Inscription, String> {
+public class InFileSystemInscriptionRepository implements IDAO<Inscription, String> {
     private Map<String, Inscription> mapOfInscription;
     private String filePath;
 
@@ -127,7 +128,7 @@ public class InFileSystemInscriptionRepository implements IRepository<Inscriptio
         Map<String, Inscription> InscriptionMap = new HashMap<>();
         String[] lines = fileContent.split(System.lineSeparator());
         for (String line : lines) {
-            Inscription inscription = Inscription.fromString(line);
+            Inscription inscription = StringUtils.inscriptionFromString(line);
             if (inscription != null) {
                 InscriptionMap.put(inscription.getInscriptionIdentifier(), inscription);
             }

@@ -8,13 +8,13 @@ import java.util.Map;
 
 import business.entities.Assistant;
 import business.exceptions.repository.NotFoundException;
-import business.interfaces.IRepository;
+import business.interfaces.IDAO;
 
 /**
  * La clase InMemoryAssistantRepository es una implementación en memoria de un repositorio de asistentes.
  
  */
-public class InMemoryAssistantRepository implements IRepository<Assistant, Integer> {
+public class InMemoryAssistantRepository implements IDAO<Assistant, Integer> {
     private Map<Integer, Assistant> mapOfAssistants;
 
     /**

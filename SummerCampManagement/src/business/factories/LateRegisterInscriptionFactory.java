@@ -13,7 +13,7 @@ import business.exceptions.inscription.AfterStartTimeException;
 import business.exceptions.inscription.BeforeLateTimeException;
 import business.exceptions.repository.NotFoundException;
 import business.interfaces.AbstractInscriptionFactory;
-import business.interfaces.IRepository;
+import business.interfaces.IDAO;
 import utilities.Utils;
 
 /**
@@ -22,8 +22,8 @@ import utilities.Utils;
  * caracterizan por reglas especiales relacionadas con el tiempo y el precio.
  */
 public class LateRegisterInscriptionFactory implements AbstractInscriptionFactory {
-    private IRepository<Camp, Integer> campRepository;
-    private IRepository<Assistant, Integer> assistantRepository;
+    private IDAO<Camp, Integer> campRepository;
+    private IDAO<Assistant, Integer> assistantRepository;
 
     /**
      * Constructor para LateRegisterInscriptionFactory.
@@ -31,7 +31,7 @@ public class LateRegisterInscriptionFactory implements AbstractInscriptionFactor
      * @param campRepository        Repositorio de campamentos.
      * @param assistanRepository   Repositorio de asistentes.
      */
-    public LateRegisterInscriptionFactory(IRepository<Camp, Integer> campRepository, IRepository<Assistant, Integer> assistanRepository) {
+    public LateRegisterInscriptionFactory(IDAO<Camp, Integer> campRepository, IDAO<Assistant, Integer> assistanRepository) {
         this.campRepository = campRepository;
         this.assistantRepository = assistanRepository;
     }
