@@ -5,9 +5,11 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import business.entities.Activity;
 import business.exceptions.repository.NotFoundException;
+import business.interfaces.ICriteria;
 import business.interfaces.IDAO;
 
 /**
@@ -55,7 +57,7 @@ public class InMemoryActivityRepository implements IDAO<Activity, String> {
      * @return Una lista de actividades.
      */
     @Override
-    public List<Activity> getAll() {
+    public List<Activity> getAll(Optional<ICriteria> criteria) {
         List<Activity> allActivities = new ArrayList<>(this.mapOfActivity.values());
         return allActivities;
     }

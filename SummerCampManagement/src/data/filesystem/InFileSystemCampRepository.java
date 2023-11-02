@@ -8,9 +8,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import business.entities.Camp;
 import business.exceptions.repository.NotFoundException;
+import business.interfaces.ICriteria;
 import business.interfaces.IDAO;
 import utilities.StringUtils;
 /**
@@ -64,7 +66,7 @@ public class InFileSystemCampRepository implements IDAO<Camp, Integer> {
      */
 
     @Override
-    public List<Camp> getAll() {
+    public List<Camp> getAll(Optional<ICriteria> criteria) {
         return new ArrayList<>(mapOfCamps.values());
     }
         /**

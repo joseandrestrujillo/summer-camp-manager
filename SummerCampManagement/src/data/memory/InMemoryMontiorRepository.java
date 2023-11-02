@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import business.entities.Monitor;
 import business.exceptions.repository.NotFoundException;
+import business.interfaces.ICriteria;
 import business.interfaces.IDAO;
 
 /**
@@ -55,7 +57,7 @@ public class InMemoryMontiorRepository implements IDAO<Monitor, Integer> {
      * @return Una lista de monitores.
      */
     @Override
-    public List<Monitor> getAll() {
+    public List<Monitor> getAll(Optional<ICriteria> criteria) {
         List<Monitor> allMonitors = new ArrayList<>(this.mapOfMonitor.values());
         return allMonitors;
     }

@@ -29,6 +29,8 @@ import business.managers.CampsManager;
 import business.managers.InscriptionManager;
 import business.values.EducativeLevel;
 import business.values.TimeSlot;
+import data.database.InDatabaseActivityDAO;
+import data.database.InDatabaseAssistantDAO;
 import data.filesystem.InFileSystemActivityRepository;
 import data.filesystem.InFileSystemAssistantRepository;
 import data.filesystem.InFileSystemCampRepository;
@@ -249,7 +251,7 @@ public class Main {
 		IDAO<Camp, Integer> campRepository = new InFileSystemCampRepository(pathCampRep);
 		IDAO<Activity, String> activityRepository = new InFileSystemActivityRepository(pathActivityRep);
 		IDAO<Monitor, Integer> monitorRepository = new InFileSystemMonitorRepository(pathMonitorRep);
-		IDAO<Assistant, Integer> assistantRepository = new InFileSystemAssistantRepository(pathAssistantRep);
+		IDAO<Assistant, Integer> assistantRepository = new InDatabaseAssistantDAO();
 		IDAO<Inscription, String> inscriptionRepository = new InFileSystemInscriptionRepository(pathInscriptionRep);
 		AssistantsManager assistantsManager = new AssistantsManager(assistantRepository);
 		CampsManager campsManager = new CampsManager(campRepository, activityRepository, monitorRepository);

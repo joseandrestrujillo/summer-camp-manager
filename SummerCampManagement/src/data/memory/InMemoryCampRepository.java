@@ -5,11 +5,13 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import business.entities.Activity;
 import business.entities.Assistant;
 import business.entities.Camp;
 import business.exceptions.repository.NotFoundException;
+import business.interfaces.ICriteria;
 import business.interfaces.IDAO;
 
 /**
@@ -58,7 +60,7 @@ public class InMemoryCampRepository implements IDAO<Camp, Integer> {
      * @return Una lista de campamentos.
      */
     @Override
-    public List<Camp> getAll() {
+    public List<Camp> getAll(Optional<ICriteria> criteria) {
         List<Camp> allCamps = new ArrayList<>(this.mapOfCamp.values());
         return allCamps;
     }

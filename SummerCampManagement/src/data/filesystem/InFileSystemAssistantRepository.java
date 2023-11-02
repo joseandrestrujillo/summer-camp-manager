@@ -9,9 +9,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import business.entities.Assistant;
 import business.exceptions.repository.NotFoundException;
+import business.interfaces.ICriteria;
 import business.interfaces.IDAO;
 import utilities.StringUtils;
 
@@ -66,7 +68,7 @@ public class InFileSystemAssistantRepository implements IDAO<Assistant, Integer>
      * @return Una lista de asistentes.
      */
     @Override
-    public List<Assistant> getAll() {
+    public List<Assistant> getAll(Optional<ICriteria> criteria) {
         return new ArrayList<>(mapOfAssistants.values());
     }
     /**

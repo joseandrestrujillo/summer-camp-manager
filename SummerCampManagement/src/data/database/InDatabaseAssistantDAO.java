@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import java.util.Optional;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -22,6 +22,7 @@ import business.entities.Assistant;
 import business.exceptions.assistant.AssistantNotFoundException;
 import business.exceptions.dao.DAOTimeoutException;
 import business.exceptions.repository.NotFoundException;
+import business.interfaces.ICriteria;
 import business.interfaces.IDAO;
 
 
@@ -41,7 +42,7 @@ public class InDatabaseAssistantDAO implements IDAO<Assistant, Integer>{
      * @param password contrasena para acceder a la base de datos
      */
     public InDatabaseAssistantDAO() {
-    	this.dbConnection = new DBConnection();
+    	this.dbConnection = DBConnection.getInstance();
     }
     /**
      * Busca a un asistente por su identificador.
@@ -56,7 +57,7 @@ public class InDatabaseAssistantDAO implements IDAO<Assistant, Integer>{
 		try {
     		Connection con = this.dbConnection.getConnection();
 
-			String query = "select * from Assistant where id=?";
+			String query = this.dbConnection.getQuery("FIND_ASSISTANT_QUERY");
 			
 			PreparedStatement stmt = con.prepareStatement(query);
 			stmt.setInt(1, identifier);
@@ -81,9 +82,10 @@ public class InDatabaseAssistantDAO implements IDAO<Assistant, Integer>{
 		} catch (SQLTimeoutException e){
 			throw new DAOTimeoutException();
 		} catch (SQLException e) {
-			throw new AssistantNotFoundException();
+			throw new NotFoundException();
 		}
-		return assistant;    }
+		return assistant;    
+	}
     /**
      * Guarda a un asistente en el DAO.
      *
@@ -94,18 +96,18 @@ public class InDatabaseAssistantDAO implements IDAO<Assistant, Integer>{
     	try{
     		Connection con = this.dbConnection.getConnection();
     		PreparedStatement ps = con.prepareStatement(
-    				"replace into Assistant (id,firstName,lastName,birthDate,requireSpecialAttention) values(?,?,?,?)"
+    				this.dbConnection.getQuery("SAVE_ASSISTANT_QUERY")
 			);
     		
     		ps.setInt(1, obj.getId());
     		ps.setString(2, obj.getFirstName());
     		ps.setString(3, obj.getLastName());
-    		ps.setDate(4, (Date) obj.getBirthDate());
+    		ps.setDate(4, new Date(obj.getBirthDate().getTime()));
     		ps.setBoolean(5, obj.isRequireSpecialAttention());
     		
     		ps.executeUpdate();
     	} catch(Exception e) { 
-    		throw new DAOTimeoutException();
+    		System.out.println(e);
 		}
     }
     /**
@@ -114,12 +116,17 @@ public class InDatabaseAssistantDAO implements IDAO<Assistant, Integer>{
      * @return Una lista de asistentes.
      */
     @Override
-    public List<Assistant> getAll() {
+    public List<Assistant> getAll(Optional<ICriteria> criteria) {
     	ArrayList<Assistant> listOfAssistants = new ArrayList<Assistant>();
 		try {
     		Connection con = this.dbConnection.getConnection();
 
-			String query = "select * from Assistant";
+			String query = this.dbConnection.getQuery("GET_ALL_ASSISTANTS_QUERY");
+			
+			if (criteria.isPresent()) {
+				ICriteria criteriaObj = criteria.get();
+				query = criteriaObj.applyCriteria(query);
+			}
 			
 			PreparedStatement stmt = con.prepareStatement(query);
 			ResultSet rs = (ResultSet) stmt.executeQuery();
@@ -156,7 +163,7 @@ public class InDatabaseAssistantDAO implements IDAO<Assistant, Integer>{
     public void delete(Assistant obj) {
     	try{
     		Connection con = this.dbConnection.getConnection();
-	    	PreparedStatement ps=con.prepareStatement("delete from Assistant where id=?");
+	    	PreparedStatement ps=con.prepareStatement(this.dbConnection.getQuery("DELETE_ASSISTANT_QUERY"));
 	    	
 	    	ps.setInt(1, obj.getId());
 	    	

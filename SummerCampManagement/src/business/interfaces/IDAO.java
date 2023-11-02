@@ -1,6 +1,7 @@
 package business.interfaces;
 
 import java.util.List;
+import java.util.Optional;
 /**
  * La interfaz IRepository define operaciones básicas de persistencia para un tipo de entidad específico.
  *
@@ -31,9 +32,19 @@ public interface IDAO<T, I> {
 	public void delete(T obj);
 
 	/**
-	 * Obtiene una lista de todas las entidades del repositorio.
-	 *
-	 * @return Una lista de todas las entidades del repositorio.
-	 */
-	public List<T> getAll();
+     * Obtiene una lista de todas las entidades del repositorio.
+     *
+     * @return Una lista de todas las entidades del repositorio.
+     */
+    default List<T> getAll() {
+        return getAll(Optional.empty());
+    }
+
+    /**
+     * Obtiene una lista de todas las entidades del repositorio que cumplen con los criterios especificados.
+     *
+     * @param criteria Los criterios que se utilizarán para filtrar los resultados.
+     * @return Una lista de todas las entidades del repositorio que cumplen con los criterios especificados.
+     */
+    public List<T> getAll(Optional<ICriteria> criteria);
 }

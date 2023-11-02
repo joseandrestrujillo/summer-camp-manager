@@ -8,9 +8,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import business.entities.Camp;
 import business.exceptions.repository.NotFoundException;
+import business.interfaces.ICriteria;
 import business.interfaces.IDAO;
 /**
  * La clase InDatabaseCampDAO es una implementación en base de datos de un DAO de campamentos.
@@ -55,7 +57,7 @@ public class InDatabaseCampDAO implements IDAO<Camp, Integer> {
      */
 
     @Override
-    public List<Camp> getAll() {
+    public List<Camp> getAll(Optional<ICriteria> criteria) {
         return null;
     }
         /**

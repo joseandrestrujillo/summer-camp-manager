@@ -5,9 +5,11 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import business.entities.Assistant;
 import business.exceptions.repository.NotFoundException;
+import business.interfaces.ICriteria;
 import business.interfaces.IDAO;
 
 /**
@@ -56,7 +58,7 @@ public class InMemoryAssistantRepository implements IDAO<Assistant, Integer> {
      * @return Una lista de asistentes.
      */
     @Override
-    public List<Assistant> getAll() {
+    public List<Assistant> getAll(Optional<ICriteria> criteria) {
         List<Assistant> allAssistants = new ArrayList<>(this.mapOfAssistants.values());
         return allAssistants;
     }

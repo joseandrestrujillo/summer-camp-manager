@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import business.entities.Inscription;
 import business.exceptions.repository.NotFoundException;
+import business.interfaces.ICriteria;
 import business.interfaces.IDAO;
 
 /**
@@ -55,7 +57,7 @@ public class InMemoryInscriptionRepository implements IDAO<Inscription, String> 
      * @return Una lista de inscripciones.
      */
     @Override
-    public List<Inscription> getAll() {
+    public List<Inscription> getAll(Optional<ICriteria> criteria) {
         List<Inscription> allInscriptions = new ArrayList<>(this.mapOfInscription.values());
         return allInscriptions;
     }

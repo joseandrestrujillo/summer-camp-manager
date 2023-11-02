@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
@@ -23,8 +24,17 @@ public class DBConnection {
 	private String password;
 	Map<String, String> queries;
 	protected Connection connection = null;
-
-	public DBConnection() {
+	private static DBConnection instance;
+	
+	public static DBConnection getInstance() {
+		if (instance == null) {
+			instance = new DBConnection();
+		}
+		return instance;
+	}
+	
+	private DBConnection() {
+		this.queries = new HashMap<String, String>();
 		Properties prop = new Properties();
 		String filename = ".db-connection-properties.txt";
 		try {
@@ -48,7 +58,9 @@ public class DBConnection {
 			BufferedReader reader = new BufferedReader(new FileReader(new File(filename)));
 			prop.load(reader);
 			
-			//TODO
+			for (Object key : prop.keySet()) {
+				this.queries.put((String) key, prop.getProperty((String) key));
+			}
 			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -59,12 +71,15 @@ public class DBConnection {
 		}
 	}
 	
+	public String getQuery(String queryKey) {
+		return this.queries.get(queryKey);
+	}
+	
 	public Connection getConnection(){
 
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
 			this.connection = (Connection) DriverManager.getConnection(this.dbUrl, this.username, this.password);
-			System.out.println("Database connection successfully opened!");
 		} 
 		catch (SQLException e) {
 			System.err.println("Connection to MySQL has failed!");
@@ -81,7 +96,6 @@ public class DBConnection {
 		try {
 			if(this.connection != null && !this.connection.isClosed()) {
 				this.connection.close();
-				System.out.println("Database connection successfully closed!");
 			}
 		} catch (SQLException e) {
 			System.err.println("Error while trying to close the connection.");

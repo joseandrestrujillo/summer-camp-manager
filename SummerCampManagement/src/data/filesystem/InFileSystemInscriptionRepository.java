@@ -8,9 +8,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import business.entities.Inscription;
 import business.exceptions.repository.NotFoundException;
+import business.interfaces.ICriteria;
 import business.interfaces.IDAO;
 import utilities.StringUtils;
 
@@ -74,7 +76,7 @@ public class InFileSystemInscriptionRepository implements IDAO<Inscription, Stri
      */
 
     @Override
-    public List<Inscription> getAll() {
+    public List<Inscription> getAll(Optional<ICriteria> criteria) {
         return new ArrayList<>(mapOfInscription.values());
     }
 

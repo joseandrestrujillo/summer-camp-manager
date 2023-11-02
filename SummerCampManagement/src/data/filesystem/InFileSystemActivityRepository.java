@@ -9,9 +9,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import business.entities.Activity;
 import business.exceptions.repository.NotFoundException;
+import business.interfaces.ICriteria;
 import business.interfaces.IDAO;
 import utilities.StringUtils;
 
@@ -67,7 +69,7 @@ public class InFileSystemActivityRepository implements IDAO<Activity, String>{
      * @return Una lista de actividades.
      */
     @Override
-    public List<Activity> getAll() {
+    public List<Activity> getAll(Optional<ICriteria> criteria) {
         return new ArrayList<>(mapOfAssistants.values());
     }
 
