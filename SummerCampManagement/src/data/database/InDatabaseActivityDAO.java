@@ -103,13 +103,13 @@ public class InDatabaseActivityDAO implements IDAO<Activity, String>{
 		
 		InDatabaseAssistantDAO assistantDao = new InDatabaseAssistantDAO();
 		
-		List<Assistant> assistants = assistantDao.getAll(Optional.of(new AssistantInActivityCriteria()));
+		List<Assistant> assistants = assistantDao.getAll(Optional.of(new AssistantInActivityCriteria(identifier)));
 		
 		activity.setAssistants(assistants);
 		
 		InDatabaseMonitorDAO monitorDao = new InDatabaseMonitorDAO();
 		
-		List<Monitor> monitors = monitorDao.getAll(Optional.of(new MonitorInActivityCriteria()));
+		List<Monitor> monitors = monitorDao.getAll(Optional.of(new MonitorInActivityCriteria(identifier)));
 		
 		activity.setMonitorList(monitors);
 		
@@ -212,7 +212,7 @@ public class InDatabaseActivityDAO implements IDAO<Activity, String>{
     @Override
     public void delete(Activity obj) {
     	InDatabaseCampDAO campDAO = new InDatabaseCampDAO();
-    	List<Camp> camps = campDAO.getAll(Optional.of(new CampsRelatedWithAnActivityCriteria()));
+    	List<Camp> camps = campDAO.getAll(Optional.of(new CampsRelatedWithAnActivityCriteria(obj.getActivityName())));
     	
     	for (Camp camp : camps) {
     		try{

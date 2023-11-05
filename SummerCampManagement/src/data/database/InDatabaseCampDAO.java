@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.omg.CosNaming.NamingContextPackage.NotFound;
 
 import business.entities.Activity;
 import business.entities.Camp;
@@ -98,7 +97,7 @@ public class InDatabaseCampDAO implements IDAO<Camp, Integer> {
 		
 		InDatabaseActivityDAO activityDAO = new InDatabaseActivityDAO();
 		
-		List<Activity> activities = activityDAO.getAll(Optional.of(new ActivityInCampCriteria()));
+		List<Activity> activities = activityDAO.getAll(Optional.of(new ActivityInCampCriteria(identifier)));
 		
 		camp.setActivities(activities);
 		
@@ -210,12 +209,12 @@ public class InDatabaseCampDAO implements IDAO<Camp, Integer> {
 
 			String query = this.dbConnection.getQuery("GET_ALL_CAMP_IDS_QUERY");
 			
+			PreparedStatement stmt = con.prepareStatement(query);
+			
 			if (criteria.isPresent()) {
 				ICriteria criteriaObj = criteria.get();
-				query = criteriaObj.applyCriteria(query);
-			}
-			
-			PreparedStatement stmt = con.prepareStatement(query);
+				stmt = criteriaObj.applyCriteria(stmt);
+			} 
 			ResultSet rs = (ResultSet) stmt.executeQuery();
 
 			while (rs.next()) {
@@ -259,7 +258,7 @@ public class InDatabaseCampDAO implements IDAO<Camp, Integer> {
 		}
     	
     	InDatabaseInscriptionDAO inscriptionDAO = new InDatabaseInscriptionDAO();
-    	List<Inscription> inscriptions = inscriptionDAO.getAll(Optional.of(new InscriptionOfACampCriteria()));
+    	List<Inscription> inscriptions = inscriptionDAO.getAll(Optional.of(new InscriptionOfACampCriteria(obj.getCampID())));
     	for (Inscription inscription : inscriptions) {
     		inscriptionDAO.delete(inscription);
     	}

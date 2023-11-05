@@ -141,12 +141,12 @@ public class InDatabaseInscriptionDAO implements IDAO<Inscription, String> {
 
 			String query = this.dbConnection.getQuery("GET_ALL_INSCRIPTIONS_QUERY");
 			
+			PreparedStatement stmt = con.prepareStatement(query);
+			
 			if (criteria.isPresent()) {
 				ICriteria criteriaObj = criteria.get();
-				query = criteriaObj.applyCriteria(query);
-			}
-			
-			PreparedStatement stmt = con.prepareStatement(query);
+				stmt = criteriaObj.applyCriteria(stmt);
+			} 
 			ResultSet rs = (ResultSet) stmt.executeQuery();
 
 			while (rs.next()) {
