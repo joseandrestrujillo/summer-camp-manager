@@ -20,6 +20,7 @@ import java.util.Optional;
 
 import business.entities.Activity;
 import business.entities.Assistant;
+import business.entities.Camp;
 import business.entities.Monitor;
 import business.exceptions.assistant.AssistantNotFoundException;
 import business.exceptions.dao.DAOTimeoutException;
@@ -29,6 +30,7 @@ import business.interfaces.IDAO;
 import business.values.EducativeLevel;
 import business.values.TimeSlot;
 import data.database.SQLCriteria.AssistantInActivityCriteria;
+import data.database.SQLCriteria.CampsRelatedWithAnActivityCriteria;
 import data.database.SQLCriteria.MonitorInActivityCriteria;
 
 /**
@@ -146,6 +148,19 @@ public class InDatabaseActivityDAO implements IDAO<Activity, String>{
     	InDatabaseMonitorDAO monitorDAO = new InDatabaseMonitorDAO();
     	for (Monitor monitor : obj.getMonitorList()) {
 			monitorDAO.save(monitor);
+			try{
+	    		Connection con = this.dbConnection.getConnection();
+	    		PreparedStatement ps = con.prepareStatement(
+	    				this.dbConnection.getQuery("UPDATE_MONITOR_ACTIVITY_RELATION_QUERY")
+				);
+	    		
+	    		ps.setInt(1, monitor.getId());
+	    		ps.setString(2, obj.getActivityName());
+	    		
+	    		ps.executeUpdate();
+	    	} catch(Exception e) { 
+	    		System.out.println(e);
+			}
 		}
     }
     
@@ -192,6 +207,41 @@ public class InDatabaseActivityDAO implements IDAO<Activity, String>{
      */
     @Override
     public void delete(Activity obj) {
+    	InDatabaseCampDAO campDAO = new InDatabaseCampDAO();
+    	List<Camp> camps = campDAO.getAll(Optional.of(new CampsRelatedWithAnActivityCriteria()));
+    	
+    	for (Camp camp : camps) {
+    		try{
+	    		Connection con = this.dbConnection.getConnection();
+	    		PreparedStatement ps = con.prepareStatement(
+	    				this.dbConnection.getQuery("DELETE_ACTIVITY_CAMP_RELATION_QUERY")
+				);
+	    		
+	    		ps.setInt(1, camp.getCampID());
+	    		ps.setString(2, obj.getActivityName());
+	    		
+	    		ps.executeUpdate();
+	    	} catch(Exception e) { 
+	    		System.out.println(e);
+			}
+    	}
+    	
+    	for (Monitor monitor : obj.getMonitorList()) {
+			try{
+	    		Connection con = this.dbConnection.getConnection();
+	    		PreparedStatement ps = con.prepareStatement(
+	    				this.dbConnection.getQuery("DELETE_MONITOR_ACTIVITY_RELATION_QUERY")
+				);
+	    		
+	    		ps.setInt(1, monitor.getId());
+	    		ps.setString(2, obj.getActivityName());
+	    		
+	    		ps.executeUpdate();
+	    	} catch(Exception e) { 
+	    		System.out.println(e);
+			}
+		}
+    	
     	try{
     		Connection con = this.dbConnection.getConnection();
 	    	PreparedStatement ps=con.prepareStatement(this.dbConnection.getQuery("DELETE_ACTIVITY_QUERY"));
@@ -200,15 +250,10 @@ public class InDatabaseActivityDAO implements IDAO<Activity, String>{
 	    	
 	    	ps.executeUpdate();
 	    	
-    		ps=con.prepareStatement(this.dbConnection.getQuery("DELETE_ACTIVITY_CAMP_RELATION_QUERY"));
-	    	
-	    	ps.setString(1, obj.getActivityName());
-	    	
-	    	ps.executeUpdate();
     	} catch(SQLTimeoutException e){
     		throw new DAOTimeoutException();
 		} catch(SQLException e) {
-			throw new AssistantNotFoundException();
+			throw new NotFoundException();
 		}
     }
 

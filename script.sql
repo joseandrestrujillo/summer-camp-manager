@@ -14,14 +14,6 @@ CREATE TABLE Assistant (
     requireSpecialAttention CHAR(1)
 );
 
-CREATE TABLE AssistantCamp (
-    assistantId NUMBER,
-    campId NUMBER,
-    PRIMARY KEY (assistantId, campId),
-    FOREIGN KEY (assistantId) REFERENCES Assistant(id),
-    FOREIGN KEY (campId) REFERENCES Camp(campID)
-);
-
 CREATE TABLE Camp (
     campID NUMBER PRIMARY KEY,
     start DATE,

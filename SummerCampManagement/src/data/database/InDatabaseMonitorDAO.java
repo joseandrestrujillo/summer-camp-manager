@@ -161,7 +161,7 @@ public class InDatabaseMonitorDAO implements IDAO<Monitor, Integer>{
     	} catch(SQLTimeoutException e){
     		throw new DAOTimeoutException();
 		} catch(SQLException e) {
-			throw new AssistantNotFoundException();
+			throw new NotFoundException();
 		}
     }
 }

@@ -6,15 +6,34 @@ DELETE_ASSISTANT_QUERY=delete from Assistant where id=?
 
 # ACTIVITY
 FIND_ACTIVITY_QUERY=select * from Activity where activityName=?
-GET_ASSISTANTS_OF_AN_ACTIVITY_QUERY=
-GET_MONITORS_OF_AN_ACTIVITY_QUERY=
-SAVE_ACTIVITY_QUERY=
-GET_ALL_ACTIVITY_NAMES_QUERY=
-DELETE_ACTIVITY_QUERY=
-DELETE_ACTIVITY_CAMP_RELATION_QUERY=
+GET_ASSISTANTS_OF_AN_ACTIVITY_QUERY=select assistantId, firstName, lastName from Inscription, Assistant where activityName=? and Inscription.assistantId=Assistant.id
+GET_MONITORS_OF_AN_ACTIVITY_QUERY=select monitorId, firstName, lastName from MonitorActivity, Monitor where activityName=? and MonitorActivity.monitorId=Monitor.id
+SAVE_ACTIVITY_QUERY=replace into Activity (activityName,educativeLevel,timeSlot,maxAssistants,neededMonitors) values(?,?,?,?,?)
+UPDATE_MONITOR_ACTIVITY_RELATION_QUERY=replace into MonitorActivity (monitorId, activityName) values(?,?)
+GET_ALL_ACTIVITY_NAMES_QUERY=select activityName from Activity
+DELETE_ACTIVITY_QUERY=delete from Activity where activityName=?
+DELETE_ACTIVITY_CAMP_RELATION_QUERY=delete from CampActivity where activityName=?
+GET_CAMPS_RELATED_WITH_AN_ACTIVITY_QUERY=select campId, start, end, educativeLevel, capacity, principalMonitorId, specialMonitorId from Camp, CampActivity where CampActivity.activityName=? and Camp.campID=CampActivity.campId
+DELETE_MONITOR_ACTIVITY_RELATION_QUERY=delete from MonitorActivity where activityName=?
 
 # MONITOR
-FIND_MONITOR_QUERY=
-SAVE_MONITOR_QUERY=
-GET_ALL_MONITORS_QUERY=
-DELETE_MONITOR_QUERY=
+FIND_MONITOR_QUERY=select * from Monitor where id=?
+SAVE_MONITOR_QUERY=replace into Monitor (id,firstName,lastName,specialEducator) values(?,?,?,?)
+GET_ALL_MONITORS_QUERY=select * from Monitor
+DELETE_MONITOR_QUERY=delete from Monitor where id=?
+
+# INSCRIPTION
+FIND_INSCRIPTION_QUERY=select * from Inscription where assistantId=? and campId=?
+SAVE_INSCRIPTION_QUERY=replace into Inscription (assistantId, campId, inscriptionDate, price, canBeCanceled) values(?,?,?,?,?)
+GET_ALL_INSCRIPTIONS_QUERY=select * from Inscription
+DELETE_INSCRIPTION_QUERY=delete from Inscription where assistantId=? and campId=?
+
+# CAMP
+FIND_CAMP_QUERY=select * from Camp where campID=?
+GET_ACTIVITIES_OF_A_CAMP_QUERY=select activityName, educativeLevel, timeSlot, maxAssistants, neededMonitors from CampActivity, Activity where CampActivity.campId=? and CampActivity.activityName=Activity.activityName
+SAVE_CAMP_QUERY=replace into Camp (campID,start,end,educativeLevel,capacity,principalMonitorId,specialMonitorId) values(?,?,?,?,?,?,?)
+UPDATE_ACTIVITY_CAMP_RELATION_QUERY=replace into CampActivity (campId, activityName) values(?,?)
+GET_ALL_CAMP_IDS_QUERY=select campID from Camp
+DELETE_ACTIVITY_CAMP_RELATION_QUERY=delete from CampActivity where campId=?
+GET_INSCRIPTIONS_OF_A_CAMP_QUERY=select assistantId, firstName, lastName from Inscription, Assistant where campId=? and Inscription.assistantId=Assistant.id
+DELETE_CAMP_QUERY=delete from Camp where campID=?

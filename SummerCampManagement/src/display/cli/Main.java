@@ -31,6 +31,9 @@ import business.values.EducativeLevel;
 import business.values.TimeSlot;
 import data.database.InDatabaseActivityDAO;
 import data.database.InDatabaseAssistantDAO;
+import data.database.InDatabaseCampDAO;
+import data.database.InDatabaseInscriptionDAO;
+import data.database.InDatabaseMonitorDAO;
 import data.filesystem.InFileSystemActivityRepository;
 import data.filesystem.InFileSystemAssistantRepository;
 import data.filesystem.InFileSystemCampRepository;
@@ -248,11 +251,11 @@ public class Main {
 		}
 		
 		int opcion;
-		IDAO<Camp, Integer> campRepository = new InFileSystemCampRepository(pathCampRep);
-		IDAO<Activity, String> activityRepository = new InFileSystemActivityRepository(pathActivityRep);
-		IDAO<Monitor, Integer> monitorRepository = new InFileSystemMonitorRepository(pathMonitorRep);
+		IDAO<Camp, Integer> campRepository = new InDatabaseCampDAO();
+		IDAO<Activity, String> activityRepository = new InDatabaseActivityDAO();
+		IDAO<Monitor, Integer> monitorRepository = new InDatabaseMonitorDAO();
 		IDAO<Assistant, Integer> assistantRepository = new InDatabaseAssistantDAO();
-		IDAO<Inscription, String> inscriptionRepository = new InFileSystemInscriptionRepository(pathInscriptionRep);
+		IDAO<Inscription, String> inscriptionRepository = new InDatabaseInscriptionDAO();
 		AssistantsManager assistantsManager = new AssistantsManager(assistantRepository);
 		CampsManager campsManager = new CampsManager(campRepository, activityRepository, monitorRepository);
 		InscriptionManager inscriptionManager = new InscriptionManager(campRepository, activityRepository, monitorRepository,
