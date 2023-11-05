@@ -1,4 +1,4 @@
-package data.database.SQLCriteria;
+package data.database.sqlcriteria;
 
 import business.interfaces.ICriteria;
 import data.database.DBConnection;

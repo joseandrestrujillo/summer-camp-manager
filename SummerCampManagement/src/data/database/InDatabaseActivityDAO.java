@@ -29,9 +29,9 @@ import business.interfaces.ICriteria;
 import business.interfaces.IDAO;
 import business.values.EducativeLevel;
 import business.values.TimeSlot;
-import data.database.SQLCriteria.AssistantInActivityCriteria;
-import data.database.SQLCriteria.CampsRelatedWithAnActivityCriteria;
-import data.database.SQLCriteria.MonitorInActivityCriteria;
+import data.database.sqlcriteria.AssistantInActivityCriteria;
+import data.database.sqlcriteria.CampsRelatedWithAnActivityCriteria;
+import data.database.sqlcriteria.MonitorInActivityCriteria;
 
 /**
  * La clase InDatabaseActivityDAO es una implementación en base de datos de un DAO de actividades.

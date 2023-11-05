@@ -1,9 +1,5 @@
 package data.database;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -11,26 +7,20 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLTimeoutException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import business.entities.Activity;
-import business.entities.Assistant;
 import business.entities.Camp;
 import business.entities.Inscription;
-import business.entities.Monitor;
 import business.exceptions.dao.DAOTimeoutException;
 import business.exceptions.repository.NotFoundException;
 import business.interfaces.ICriteria;
 import business.interfaces.IDAO;
 import business.values.EducativeLevel;
-import business.values.TimeSlot;
-import data.database.SQLCriteria.ActivityInCampCriteria;
-import data.database.SQLCriteria.AssistantInActivityCriteria;
-import data.database.SQLCriteria.InscriptionOfACampCriteria;
-import data.database.SQLCriteria.MonitorInActivityCriteria;
+import data.database.sqlcriteria.ActivityInCampCriteria;
+import data.database.sqlcriteria.InscriptionOfACampCriteria;
+
 /**
  * La clase InDatabaseCampDAO es una implementación en base de datos de un DAO de campamentos.
  
