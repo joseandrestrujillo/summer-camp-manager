@@ -186,6 +186,7 @@ public class InDatabaseActivityDAO implements IDAO<Activity, String>{
 			
 			
 			ResultSet rs = (ResultSet) stmt.executeQuery();
+			
 
 			while (rs.next()) {
 				String activityName = rs.getString("activityName");
