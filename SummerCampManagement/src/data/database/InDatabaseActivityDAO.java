@@ -67,7 +67,8 @@ public class InDatabaseActivityDAO implements IDAO<Activity, String>{
 			PreparedStatement stmt = con.prepareStatement(query);
 			stmt.setString(1, identifier);
 			ResultSet rs = (ResultSet) stmt.executeQuery();
-			
+			rs.next();
+
 			String activityName = rs.getString("activityName");
 			String educativeLevelString = rs.getString("educativeLevel");
 			EducativeLevel educativeLevel =  educativeLevelString == "PRESCHOOL"

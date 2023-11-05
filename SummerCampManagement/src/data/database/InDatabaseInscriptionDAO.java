@@ -72,7 +72,8 @@ public class InDatabaseInscriptionDAO implements IDAO<Inscription, String> {
 			stmt.setInt(1, assistantId);
 			stmt.setInt(2, campId);
 			ResultSet rs = (ResultSet) stmt.executeQuery();
-			
+			rs.next();
+
 			Date inscriptionDate = rs.getDate("inscriptionDate");
 			float price = rs.getFloat("price");
 			Boolean canBeCanceled = rs.getBoolean("canBeCanceled");

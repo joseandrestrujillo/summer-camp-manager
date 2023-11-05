@@ -63,6 +63,7 @@ public class InDatabaseAssistantDAO implements IDAO<Assistant, Integer>{
 			stmt.setInt(1, identifier);
 			ResultSet rs = (ResultSet) stmt.executeQuery();
 			
+			rs.next();
 			int id = rs.getInt("id");
 			String firstName = rs.getString("firstName");
 			String lastName = rs.getString("lastName");

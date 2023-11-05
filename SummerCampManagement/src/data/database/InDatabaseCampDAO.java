@@ -65,6 +65,7 @@ public class InDatabaseCampDAO implements IDAO<Camp, Integer> {
 			stmt.setInt(1, identifier);
 			ResultSet rs = (ResultSet) stmt.executeQuery();
 			
+			rs.next();
 			int campID = rs.getInt("campID");
 			Date start = rs.getDate("start");
 			Date end = rs.getDate("end");

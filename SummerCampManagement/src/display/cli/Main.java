@@ -325,10 +325,9 @@ public class Main {
 									System.out.println("Opción invalida\n");
 									break;
 								}
-								
 								assistantsManager.updateAssistant(
 										getDataForAssistant(
-												listOfRegisteredAssistants.get(opcion-1).getId(), 
+												listOfRegisteredAssistants.get(optionSelected-1).getId(),
 												sc
 										)
 								);
