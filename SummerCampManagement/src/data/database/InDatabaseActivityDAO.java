@@ -177,13 +177,14 @@ public class InDatabaseActivityDAO implements IDAO<Activity, String>{
     		Connection con = this.dbConnection.getConnection();
 
 			String query = this.dbConnection.getQuery("GET_ALL_ACTIVITY_NAMES_QUERY");
+			PreparedStatement stmt = con.prepareStatement(query);
 			
 			if (criteria.isPresent()) {
 				ICriteria criteriaObj = criteria.get();
-				query = criteriaObj.applyCriteria(query);
+				stmt = criteriaObj.applyCriteria(stmt);
 			}
 			
-			PreparedStatement stmt = con.prepareStatement(query);
+			
 			ResultSet rs = (ResultSet) stmt.executeQuery();
 
 			while (rs.next()) {
@@ -195,7 +196,9 @@ public class InDatabaseActivityDAO implements IDAO<Activity, String>{
 				stmt.close(); 
 			}
 			dbConnection.closeConnection();
-		} catch (Exception e){
+			
+		} catch (SQLException e){
+			System.out.println(e);
 			throw new DAOTimeoutException();
 		}
 		return listOfActivitiess;

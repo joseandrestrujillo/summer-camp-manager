@@ -20,8 +20,8 @@ CREATE TABLE Camp (
     end DATE,
     educativeLevel VARCHAR2(50),
     capacity NUMBER,
-    principalMonitorId NUMBER,
-    specialMonitorId NUMBER,
+    principalMonitorId NUMBER NULL,
+    specialMonitorId NUMBER NULL,
     FOREIGN KEY (principalMonitorId) REFERENCES Monitor(id),
     FOREIGN KEY (specialMonitorId) REFERENCES Monitor(id)
 );

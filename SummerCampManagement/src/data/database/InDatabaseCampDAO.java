@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.omg.CosNaming.NamingContextPackage.NotFound;
+
 import business.entities.Activity;
 import business.entities.Camp;
 import business.entities.Inscription;
@@ -79,9 +81,11 @@ public class InDatabaseCampDAO implements IDAO<Camp, Integer> {
 			
 			InDatabaseMonitorDAO monitorDao = new InDatabaseMonitorDAO();
 			
-			camp.setPrincipalMonitor(monitorDao.find(principalMonitorId));
-			camp.setSpecialMonitor(monitorDao.find(specialMonitorId));
-
+			try{
+				camp.setPrincipalMonitor(monitorDao.find(principalMonitorId));
+				camp.setSpecialMonitor(monitorDao.find(specialMonitorId));
+			}catch (NotFoundException e){}
+			
 			if (stmt != null){ 
 				stmt.close(); 
 			}
@@ -113,20 +117,64 @@ public class InDatabaseCampDAO implements IDAO<Camp, Integer> {
     public void save(Camp obj) {
     	try{
     		Connection con = this.dbConnection.getConnection();
-    		PreparedStatement ps = con.prepareStatement(
-    				this.dbConnection.getQuery("SAVE_CAMP_QUERY")
-			);
+    		PreparedStatement ps = null ;
+    		if((obj.getPrincipalMonitor()==null) && (obj.getSpecialMonitor()== null) ) 
+    		{
+	    			
+	    		ps = con.prepareStatement(
+	    				this.dbConnection.getQuery("SAVE_CAMP_QUERY")
+				);
     		
-    		ps.setInt(1, obj.getCampID());
-    		ps.setDate(2, new Date(obj.getStart().getTime()));
-    		ps.setDate(3, new Date(obj.getEnd().getTime()));
-    		ps.setString(4, obj.getEducativeLevel().name());
-    		ps.setInt(5, obj.getCapacity());
-    		ps.setInt(6, obj.getPrincipalMonitor() != null ? obj.getPrincipalMonitor().getId() : null);
-    		ps.setInt(7, obj.getSpecialMonitor() != null ? obj.getSpecialMonitor().getId() : null);
+	    		ps.setInt(1, obj.getCampID());
+	    		ps.setDate(2, new Date(obj.getStart().getTime()));
+	    		ps.setDate(3, new Date(obj.getEnd().getTime()));
+	    		ps.setString(4, obj.getEducativeLevel().name());
+	    		ps.setInt(5, obj.getCapacity());
+    		}
+    		else if ((obj.getPrincipalMonitor()!=null) && (obj.getSpecialMonitor()!= null)) 
+    		{
+    			ps = con.prepareStatement(
+	    				this.dbConnection.getQuery("SAVE_CAMP_QUERY_WITH_BOTH_MONITORS")
+				);
+    		
+	    		ps.setInt(1, obj.getCampID());
+	    		ps.setDate(2, new Date(obj.getStart().getTime()));
+	    		ps.setDate(3, new Date(obj.getEnd().getTime()));
+	    		ps.setString(4, obj.getEducativeLevel().name());
+	    		ps.setInt(5, obj.getCapacity());
+	    		ps.setInt(6, obj.getPrincipalMonitor() != null ? obj.getPrincipalMonitor().getId() : null);
+	    		ps.setInt(7, obj.getSpecialMonitor() != null ? obj.getSpecialMonitor().getId() : null);
+    		}
+    		else if (obj.getPrincipalMonitor()!=null) 
+    		{
+    			ps = con.prepareStatement(
+	    				this.dbConnection.getQuery("SAVE_CAMP_QUERY_WITH_PRINCIPAL_MONITOR")
+				);
+    		
+	    		ps.setInt(1, obj.getCampID());
+	    		ps.setDate(2, new Date(obj.getStart().getTime()));
+	    		ps.setDate(3, new Date(obj.getEnd().getTime()));
+	    		ps.setString(4, obj.getEducativeLevel().name());
+	    		ps.setInt(5, obj.getCapacity());
+	    		ps.setInt(6, obj.getPrincipalMonitor() != null ? obj.getPrincipalMonitor().getId() : null);
+    		}
+    		else 
+    		{
+    			ps = con.prepareStatement(
+	    				this.dbConnection.getQuery("SAVE_CAMP_QUERY_WITH_SPECIAL_MONITOR")
+				);
+    		
+	    		ps.setInt(1, obj.getCampID());
+	    		ps.setDate(2, new Date(obj.getStart().getTime()));
+	    		ps.setDate(3, new Date(obj.getEnd().getTime()));
+	    		ps.setString(4, obj.getEducativeLevel().name());
+	    		ps.setInt(5, obj.getCapacity());
+	    		ps.setInt(6, obj.getSpecialMonitor() != null ? obj.getSpecialMonitor().getId() : null);
+    		}
+    		
     		
     		ps.executeUpdate();
-    	} catch(Exception e) { 
+    	} catch(SQLException e) { 
     		System.out.println(e);
 		}
     	
@@ -179,7 +227,7 @@ public class InDatabaseCampDAO implements IDAO<Camp, Integer> {
 				stmt.close(); 
 			}
 			dbConnection.closeConnection();
-		} catch (Exception e){
+		} catch (SQLException e){
 			throw new DAOTimeoutException();
 		}
 		return listOfCamps;
