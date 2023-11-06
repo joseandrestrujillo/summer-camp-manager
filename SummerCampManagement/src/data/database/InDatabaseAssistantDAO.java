@@ -151,7 +151,8 @@ public class InDatabaseAssistantDAO implements IDAO<Assistant, Integer>{
 				stmt.close(); 
 			}
 			dbConnection.closeConnection();
-		} catch (Exception e){
+		} catch (SQLException e){
+			System.out.println(e);
 			throw new DAOTimeoutException();
 		}
 		return listOfAssistants;

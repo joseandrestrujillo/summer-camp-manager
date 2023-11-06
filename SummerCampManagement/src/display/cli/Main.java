@@ -16,6 +16,7 @@ import business.entities.Monitor;
 import business.exceptions.activity.MaxMonitorsAddedException;
 import business.exceptions.camp.IsNotAnSpecialEducator;
 import business.exceptions.camp.NotTheSameLevelException;
+import business.exceptions.camp.SpecialMonitorAlreadyRegisterException;
 import business.exceptions.inscription.AfterLateTimeException;
 import business.exceptions.inscription.AfterStartTimeException;
 import business.exceptions.inscription.AssistantAlreadyEnrolledException;
@@ -144,7 +145,7 @@ public class Main {
 		
 		System.out.println("¿Es un monitor de atencion especial? (s/n)\n");
 		String response = sc.next();
-		boolean specialAttentionMonitor = response == "s" ? true : false;
+		boolean specialAttentionMonitor = response.toLowerCase().equals("s");
 		
 		return new Monitor(
 				id,
@@ -578,7 +579,6 @@ public class Main {
 											Monitor monitor;
 											try {
 												monitor = monitorRepository.find(monitorId);
-												break;
 											} catch (NotFoundException e) {
 												System.out.println("El monitor no existe, introduzca sus datos para registrarlo \n");
 												monitor = getDataForMonitor(monitorId, sc);
@@ -589,6 +589,10 @@ public class Main {
 											} catch (IsNotAnSpecialEducator e) {
 												clearConsole();
 												System.out.println("No se puede agregar como monitor especial a un monitor que no es un educador especial. \n");
+												break;
+											} catch (SpecialMonitorAlreadyRegisterException e) {
+												clearConsole();
+												System.out.println("No se puede agregar como monitor especial a un monitor que ya es monitor de una actividad del campamento. \n");
 												break;
 											}
 											

@@ -71,15 +71,9 @@ public class InDatabaseActivityDAO implements IDAO<Activity, String>{
 
 			String activityName = rs.getString("activityName");
 			String educativeLevelString = rs.getString("educativeLevel");
-			EducativeLevel educativeLevel =  educativeLevelString == "PRESCHOOL"
-											? EducativeLevel.PRESCHOOL
-											: educativeLevelString == "ELEMENTARY"
-												? EducativeLevel.ELEMENTARY
-												: EducativeLevel.TEENAGER;
+			EducativeLevel educativeLevel = EducativeLevel.valueOf(educativeLevelString);
 			String timeSlotString = rs.getString("timeSlot");
-			TimeSlot timeSlot =  timeSlotString == "MORNING"
-											? TimeSlot.MORNING
-											: TimeSlot.AFTERNOON;
+			TimeSlot timeSlot =  TimeSlot.valueOf(timeSlotString);
 			int maxAssistants = rs.getInt("maxAssistants");
 			int neededMonitors = rs.getInt("neededMonitors");
 			

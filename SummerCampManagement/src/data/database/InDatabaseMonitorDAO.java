@@ -95,10 +95,10 @@ public class InDatabaseMonitorDAO implements IDAO<Monitor, Integer>{
     		ps.setInt(1, obj.getId());
     		ps.setString(2, obj.getFirstName());
     		ps.setString(3, obj.getLastName());
-    		ps.setBoolean(5, obj.isSpecialEducator());
+    		ps.setBoolean(4, obj.isSpecialEducator());
     		
     		ps.executeUpdate();
-    	} catch(Exception e) { 
+    	} catch(SQLException e) { 
     		System.out.println(e);
 		}
     }
@@ -139,7 +139,8 @@ public class InDatabaseMonitorDAO implements IDAO<Monitor, Integer>{
 				stmt.close(); 
 			}
 			dbConnection.closeConnection();
-		} catch (Exception e){
+		} catch (SQLException e){
+			System.out.println(e);
 			throw new DAOTimeoutException();
 		}
 		return listOfMonitors;

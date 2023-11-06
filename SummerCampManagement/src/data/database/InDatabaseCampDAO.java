@@ -61,11 +61,7 @@ public class InDatabaseCampDAO implements IDAO<Camp, Integer> {
 			Date start = rs.getDate("start");
 			Date end = rs.getDate("end");
 			String educativeLevelString = rs.getString("educativeLevel");
-			EducativeLevel educativeLevel =  educativeLevelString == "PRESCHOOL"
-											? EducativeLevel.PRESCHOOL
-											: educativeLevelString == "ELEMENTARY"
-												? EducativeLevel.ELEMENTARY
-												: EducativeLevel.TEENAGER;
+			EducativeLevel educativeLevel =  EducativeLevel.valueOf(educativeLevelString);
 			int capacity = rs.getInt("capacity");
 			int principalMonitorId = rs.getInt("principalMonitorId");
 			int specialMonitorId = rs.getInt("specialMonitorId");
@@ -82,9 +78,10 @@ public class InDatabaseCampDAO implements IDAO<Camp, Integer> {
 			
 			try{
 				camp.setPrincipalMonitor(monitorDao.find(principalMonitorId));
+			}catch (NotFoundException e){}
+			try{
 				camp.setSpecialMonitor(monitorDao.find(specialMonitorId));
 			}catch (NotFoundException e){}
-			
 			if (stmt != null){ 
 				stmt.close(); 
 			}

@@ -6,8 +6,8 @@ DELETE_ASSISTANT_QUERY=delete from Assistant where id=?
 
 # ACTIVITY
 FIND_ACTIVITY_QUERY=select * from Activity where activityName=?
-GET_ASSISTANTS_OF_AN_ACTIVITY_QUERY=select assistantId, firstName, lastName from Inscription, Assistant where activityName=? and Inscription.assistantId=Assistant.id
-GET_MONITORS_OF_AN_ACTIVITY_QUERY=select monitorId, firstName, lastName from MonitorActivity, Monitor where activityName=? and MonitorActivity.monitorId=Monitor.id
+GET_ASSISTANTS_OF_AN_ACTIVITY_QUERY=select assistantId, firstName, lastName from Inscription, Assistant, CampActivity where CampActivity.activityName=? and Inscription.assistantId=Assistant.id and Inscription.campId=CampActivity.campId
+GET_MONITORS_OF_AN_ACTIVITY_QUERY=select id, firstName, lastName, specialEducator from MonitorActivity, Monitor where MonitorActivity.activityName=? and MonitorActivity.monitorId=Monitor.id
 SAVE_ACTIVITY_QUERY=replace into Activity (activityName,educativeLevel,timeSlot,maxAssistants,neededMonitors) values(?,?,?,?,?)
 UPDATE_MONITOR_ACTIVITY_RELATION_QUERY=replace into MonitorActivity (monitorId, activityName) values(?,?)
 GET_ALL_ACTIVITY_NAMES_QUERY=select activityName from Activity
@@ -31,10 +31,12 @@ DELETE_INSCRIPTION_QUERY=delete from Inscription where assistantId=? and campId=
 # CAMP
 FIND_CAMP_QUERY=select * from Camp where campID=?
 GET_ACTIVITIES_OF_A_CAMP_QUERY=select Activity.activityName, educativeLevel, timeSlot, maxAssistants, neededMonitors from CampActivity, Activity where CampActivity.campId=? and CampActivity.activityName=Activity.activityName
+
 SAVE_CAMP_QUERY=replace into Camp (campID,start,end,educativeLevel,capacity) values(?,?,?,?,?)
 SAVE_CAMP_QUERY_WITH_PRINCIPAL_MONITOR=replace into Camp (campID,start,end,educativeLevel,capacity,principalMonitorId) values(?,?,?,?,?,?)
 SAVE_CAMP_QUERY_WITH_SPECIAL_MONITOR=replace into Camp (campID,start,end,educativeLevel,capacity,specialMonitorId) values(?,?,?,?,?,?)
 SAVE_CAMP_QUERY_WITH_BOTH_MONITORS=replace into Camp (campID,start,end,educativeLevel,capacity,principalMonitorId,specialMonitorId) values(?,?,?,?,?,?,?)
+
 UPDATE_ACTIVITY_CAMP_RELATION_QUERY=replace into CampActivity (campId, activityName) values(?,?)
 GET_ALL_CAMP_IDS_QUERY=select campID from Camp
 DELETE_ACTIVITY_CAMP_RELATION_QUERY=delete from CampActivity where campId=?
