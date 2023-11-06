@@ -58,8 +58,8 @@ public class InDatabaseCampDAO implements IDAO<Camp, Integer> {
 			
 			rs.next();
 			int campID = rs.getInt("campID");
-			Date start = rs.getDate("start");
-			Date end = rs.getDate("end");
+			java.util.Date start = new java.util.Date(rs.getDate("start").getTime());
+			java.util.Date end = new java.util.Date(rs.getDate("end").getTime());
 			String educativeLevelString = rs.getString("educativeLevel");
 			EducativeLevel educativeLevel =  EducativeLevel.valueOf(educativeLevelString);
 			int capacity = rs.getInt("capacity");

@@ -72,24 +72,31 @@ public class InDatabaseInscriptionDAO implements IDAO<Inscription, String> {
 			stmt.setInt(1, assistantId);
 			stmt.setInt(2, campId);
 			ResultSet rs = (ResultSet) stmt.executeQuery();
-			rs.next();
+			if (rs.next())
+			{
 
-			Date inscriptionDate = rs.getDate("inscriptionDate");
-			float price = rs.getFloat("price");
-			Boolean canBeCanceled = rs.getBoolean("canBeCanceled");
-			
-			inscription = new Inscription(
-					assistantId,
-					campId,
-					inscriptionDate,
-					price,
-					canBeCanceled
-			);
-
-			if (stmt != null){ 
-				stmt.close(); 
+				java.util.Date inscriptionDate = new java.util.Date(rs.getDate("inscriptionDate").getTime());
+				float price = rs.getFloat("price");
+				Boolean canBeCanceled = rs.getBoolean("canBeCanceled");
+				
+				inscription = new Inscription(
+						assistantId,
+						campId,
+						inscriptionDate,
+						price,
+						canBeCanceled
+				);
+	
+				if (stmt != null){ 
+					stmt.close(); 
+				}
+				dbConnection.closeConnection();		
 			}
-			dbConnection.closeConnection();
+			else 
+			{
+				throw new NotFoundException();
+				
+			}
 		} catch (SQLTimeoutException e){
 			throw new DAOTimeoutException();
 		} catch (SQLException e) {

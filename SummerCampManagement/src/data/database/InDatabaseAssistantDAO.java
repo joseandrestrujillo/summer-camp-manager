@@ -67,7 +67,7 @@ public class InDatabaseAssistantDAO implements IDAO<Assistant, Integer>{
 			int id = rs.getInt("id");
 			String firstName = rs.getString("firstName");
 			String lastName = rs.getString("lastName");
-			Date birthDate = rs.getDate("birthDate");
+			java.util.Date birthDate = new java.util.Date(rs.getDate("birthDate").getTime());
 			Boolean requiredSpecialAttention = rs.getBoolean("requireSpecialAttention");
 			assistant = new Assistant(
 					id,
