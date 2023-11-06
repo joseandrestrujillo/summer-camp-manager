@@ -125,7 +125,7 @@ public class Main {
 		
 		System.out.println("Introduzca si el asistente necesita atención especial (s/n)\n");
 		String response = sc.next();
-		boolean requireSpecialAttention = response == "s" ? true : false;
+		boolean requireSpecialAttention = response.toLowerCase().equals("s");
 		
 		return new Assistant(
 				id,
