@@ -8,15 +8,19 @@ import java.util.Map;
 import java.util.Optional;
 
 import business.dtos.ActivityDTO;
+import business.dtos.AssistantDTO;
+import business.dtos.CampDTO;
 import business.exceptions.repository.NotFoundException;
+import business.interfaces.IActivityDAO;
 import business.interfaces.ICriteria;
 import business.interfaces.IDAO;
 
 /**
  * La clase InMemoryActivityRepository es una implementación en memoria de un repositorio de actividades.
  */
-public class InMemoryActivityRepository implements IDAO<ActivityDTO, String> {
+public class InMemoryActivityRepository implements IActivityDAO {
     private Map<String, ActivityDTO> mapOfActivity;
+    private Map<Integer, List<ActivityDTO>> mapOfActivityCamp;
 
     /**
      * Constructor de la clase InMemoryActivityRepository.
@@ -24,6 +28,7 @@ public class InMemoryActivityRepository implements IDAO<ActivityDTO, String> {
      */
     public InMemoryActivityRepository() {
         this.mapOfActivity = new HashMap<String, ActivityDTO>();
+        this.mapOfActivityCamp = new HashMap<Integer, List<ActivityDTO>>();
     }
 
     /**
@@ -70,5 +75,33 @@ public class InMemoryActivityRepository implements IDAO<ActivityDTO, String> {
     @Override
     public void delete(ActivityDTO obj) {
         this.mapOfActivity.remove(obj.getActivityName());
+        for (int key : this.mapOfActivityCamp.keySet()) {
+        	List<ActivityDTO> activities = new ArrayList<ActivityDTO>();
+        	for (ActivityDTO iterable_element : this.mapOfActivityCamp.get(key)) {
+				if (iterable_element.getActivityName() != obj.getActivityName()) {
+					activities.add(iterable_element);
+				}
+			}
+        	this.mapOfActivityCamp.put(key, activities);
+        }
+        
     }
+
+	@Override
+	public List<ActivityDTO> getActivitiesInACamp(CampDTO camp) {
+		if (this.mapOfActivityCamp.get(camp.getCampID()) == null) {
+            this.mapOfActivityCamp.put(camp.getCampID(), new ArrayList<ActivityDTO>());
+        }
+		return this.mapOfActivityCamp.get(camp.getCampID());
+	}
+
+	@Override
+	public void saveAndRelateWithACamp(ActivityDTO activity, CampDTO camp) {
+		save(activity);
+		if (this.mapOfActivityCamp.get(camp.getCampID()) == null) {
+            this.mapOfActivityCamp.put(camp.getCampID(), new ArrayList<ActivityDTO>());
+        }
+		
+		this.mapOfActivityCamp.get(camp.getCampID()).add(activity);
+	}
 }

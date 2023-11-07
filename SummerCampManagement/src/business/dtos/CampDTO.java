@@ -19,7 +19,6 @@ public class CampDTO {
     private Date end;
     private EducativeLevel educativeLevel;
     private int capacity;
-    private List<ActivityDTO> activities;
     private MonitorDTO principalMonitor;
     private MonitorDTO specialMonitor;
     /**
@@ -48,18 +47,7 @@ public class CampDTO {
         this.end = end;
         this.educativeLevel = educativeLevel;
         this.capacity = capacity;
-        this.activities = new ArrayList<ActivityDTO>();
     }
-
-    /**
-     * Verifica si una actividad está registrada en el campamento.
-     *
-     * @param activity La actividad que se quiere verificar.
-     * @return true si la actividad está registrada en el campamento, false en caso contrario.
-     */
-	public boolean activityIsRegistered(ActivityDTO activity) {
-		return this.activities.contains(activity);
-	}
 
 	/**
      * Obtiene el monitor principal del campamento.
@@ -168,24 +156,6 @@ public class CampDTO {
     public void setCapacity(int capacity) {
         this.capacity = capacity;
     }
-
-    /**
-     * Obtiene las actividades registradas en el campamento.
-     *
-     * @return Las actividades registradas en el campamento.
-     */
-    public List<ActivityDTO> getActivities() {
-        return activities;
-    }
-
-    /**
-     * Establece las actividades registradas en el campamento.
-     *
-     * @param activities Las nuevas actividades registradas en el campamento.
-     */
-    public void setActivities(List<ActivityDTO> activities) {
-        this.activities = activities;
-    }
     
     /**
      * Devuelve una representación en formato de cadena del objeto Camp.
@@ -201,7 +171,6 @@ public class CampDTO {
         		+ ", capacity: " + this.capacity 
         		+ ", principalMonitor: " + (this.principalMonitor == null ? "null" : this.principalMonitor.toString())
 				+ ", specialMonitor: " + (this.principalMonitor == null ? "null" : this.specialMonitor.toString())
-        		+ ", activities: " + this.activities.toString() 
         		+  "}";
     }
 

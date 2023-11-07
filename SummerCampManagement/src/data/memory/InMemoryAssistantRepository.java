@@ -7,8 +7,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import business.dtos.ActivityDTO;
 import business.dtos.AssistantDTO;
+import business.dtos.CampDTO;
+import business.dtos.InscriptionDTO;
 import business.exceptions.repository.NotFoundException;
+import business.interfaces.IAssistantDAO;
 import business.interfaces.ICriteria;
 import business.interfaces.IDAO;
 
@@ -16,7 +20,7 @@ import business.interfaces.IDAO;
  * La clase InMemoryAssistantRepository es una implementación en memoria de un repositorio de asistentes.
  
  */
-public class InMemoryAssistantRepository implements IDAO<AssistantDTO, Integer> {
+public class InMemoryAssistantRepository implements IAssistantDAO {
     private Map<Integer, AssistantDTO> mapOfAssistants;
 
     /**
@@ -72,4 +76,39 @@ public class InMemoryAssistantRepository implements IDAO<AssistantDTO, Integer> 
     public void delete(AssistantDTO obj) {
         this.mapOfAssistants.remove(obj.getId());
     }
+
+	@Override
+	public List<AssistantDTO> getAssistantsInACamp(CampDTO camp) {
+		InMemoryInscriptionRepository inscriptionRepository = new InMemoryInscriptionRepository();
+		List<InscriptionDTO> inscriptions = inscriptionRepository.getAll();
+		
+		List<AssistantDTO> assistants = new ArrayList<AssistantDTO>();
+		for (InscriptionDTO inscriptionDTO : inscriptions) {
+			if(inscriptionDTO.getCampId() == camp.getCampID()) {
+				assistants.add(find(inscriptionDTO.getAssistantId()));
+			}
+		}
+		return assistants;
+	}
+
+	@Override
+	public List<AssistantDTO> getAssistantsInAnActivity(ActivityDTO activity) {
+		InMemoryInscriptionRepository inscriptionRepository = new InMemoryInscriptionRepository();
+		InMemoryActivityRepository activityRepository = new InMemoryActivityRepository();
+		InMemoryCampRepository campRepository = new InMemoryCampRepository();
+		List<InscriptionDTO> inscriptions = inscriptionRepository.getAll();
+		
+		List<AssistantDTO> assistants = new ArrayList<AssistantDTO>();
+		for (InscriptionDTO inscriptionDTO : inscriptions) {
+			CampDTO camp = campRepository.find(inscriptionDTO.getCampId());
+			List<ActivityDTO> activities = activityRepository.getActivitiesInACamp(camp);
+			for (ActivityDTO activityi: activities) {				
+				if(activityi.getActivityName() == activity.getActivityName()) {
+					assistants.add(find(inscriptionDTO.getAssistantId()));
+				}
+			}
+			
+		}
+		return assistants;
+	}
 }

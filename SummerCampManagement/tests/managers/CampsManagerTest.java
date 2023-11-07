@@ -48,7 +48,7 @@ class CampsManagerTest {
 		
 		campsManager.registerCamp(camp);
 		
-		assertEquals(true, campsManager.isRegistered(camp));
+		assertEquals(true, campsManager.isRegisteredCamp(camp));
 	}
 	
 	@Test
@@ -108,11 +108,12 @@ class CampsManagerTest {
 		
 		CampsManager campManager = new CampsManager(campRepository, activityRepository, monitorRepository);
 		
-		camp = campManager.registerActivity(camp, activity);
+		campManager.registerCamp(camp);
+		camp = campManager.registerActivityInACamp(camp, activity);
 		
-		assertEquals(true, camp.activityIsRegistered(activity));
+		assertEquals(true, campManager.getActivitiesOfACamp(camp).contains(activity));
 		assertEquals(activity, activityRepository.find(activity.getActivityName()));
-		assertEquals(true, campRepository.find(camp.getCampID()).activityIsRegistered(activity));
+		assertEquals(true, campManager.getActivitiesOfACamp(campRepository.find(camp.getCampID())).contains(activity));
 	}
 	
 	@Test
@@ -146,7 +147,7 @@ class CampsManagerTest {
 		CampsManager campManager = new CampsManager(campRepository, activityRepository, monitorRepository);
 		
 		assertThrows(NotTheSameLevelException.class,
-				() -> campManager.registerActivity(camp, activity)
+				() -> campManager.registerActivityInACamp(camp, activity)
 		);
 	}
 	
@@ -179,7 +180,8 @@ class CampsManagerTest {
 				"Quesada",
 				false
 		);
-		activity.registerMonitor(monitor);
+		
+		
 		
 		InMemoryCampRepository campRepository = new InMemoryCampRepository();
 		InMemoryActivityRepository activityRepository = new InMemoryActivityRepository();
@@ -187,7 +189,9 @@ class CampsManagerTest {
 		
 		CampsManager campManager = new CampsManager(campRepository, activityRepository, monitorRepository);
 		
-		camp = campManager.registerActivity(camp, activity);
+		campManager.registerMonitorInActivity(activity, monitor);
+		
+		camp = campManager.registerActivityInACamp(camp, activity);
 		
 		camp = campManager.setPrincipalMonitor(camp, monitor);
 		
@@ -232,7 +236,7 @@ class CampsManagerTest {
 		
 		CampsManager campManager = new CampsManager(campRepository, activityRepository, monitorRepository);
 		
-		CampDTO modifiedCamp = campManager.registerActivity(camp, activity);
+		CampDTO modifiedCamp = campManager.registerActivityInACamp(camp, activity);
 		
 		
 		assertThrows(MonitorIsNotInActivityException.class,
@@ -270,15 +274,14 @@ class CampsManagerTest {
 				"Quesada",
 				false
 		);
-		activity.registerMonitor(monitor);
 		
 		InMemoryCampRepository campRepository = new InMemoryCampRepository();
 		InMemoryActivityRepository activityRepository = new InMemoryActivityRepository();
 		InMemoryMontiorRepository monitorRepository = new InMemoryMontiorRepository();
 		
 		CampsManager campManager = new CampsManager(campRepository, activityRepository, monitorRepository);
-		
-		CampDTO modifiedCamp = campManager.registerActivity(camp, activity);
+		campManager.registerMonitorInActivity(activity, monitor);
+		CampDTO modifiedCamp = campManager.registerActivityInACamp(camp, activity);
 				
 		assertThrows(SpecialMonitorAlreadyRegisterException.class,
 				() -> campManager.setSpecialMonitor(modifiedCamp, monitor)
@@ -321,7 +324,7 @@ class CampsManagerTest {
 		
 		CampsManager campManager = new CampsManager(campRepository, activityRepository, monitorRepository);
 
-		camp = campManager.registerActivity(camp, activity);
+		camp = campManager.registerActivityInACamp(camp, activity);
 		
 		camp = campManager.setSpecialMonitor(camp, monitor);
 		
@@ -366,13 +369,15 @@ class CampsManagerTest {
 		
 		CampsManager campManager = new CampsManager(campRepository, activityRepository, monitorRepository);
 		
-		camp = campManager.registerActivity(camp, activity);
+		campManager.registerCamp(camp);
 		
-		camp = campManager.deleteActivity(camp, activity);
+		camp = campManager.registerActivityInACamp(camp, activity);
 		
-		assertEquals(false, camp.activityIsRegistered(activity));
+		camp = campManager.deleteAnActivityOfACamp(camp, activity);
+		
+		assertEquals(false, campManager.getActivitiesOfACamp(camp).contains(activity));
 		assertThrows(NotFoundException.class, () -> activityRepository.find(activity.getActivityName()));
-		assertEquals(false, campRepository.find(camp.getCampID()).activityIsRegistered(activity));
+		assertEquals(false, campManager.getActivitiesOfACamp(campRepository.find(camp.getCampID())).contains(activity));
 	}
 	
 	@Test
@@ -413,7 +418,7 @@ class CampsManagerTest {
 		
 				
 		assertThrows(ActivityNotFoundException.class, 
-				() -> campManager.deleteActivity(camp, activity)
+				() -> campManager.deleteAnActivityOfACamp(camp, activity)
 		);
 	}
 	
@@ -453,12 +458,13 @@ class CampsManagerTest {
 		
 		CampsManager campManager = new CampsManager(campRepository, activityRepository, monitorRepository);
 		
-		activity.registerMonitor(monitor);
-		camp = campManager.registerActivity(camp, activity);
-		CampDTO modifiedCamp = campManager.setPrincipalMonitor(camp, monitor);
+		campManager.registerMonitorInActivity(activity, monitor);
 		
+		camp = campManager.registerActivityInACamp(camp, activity);
+		CampDTO modifiedCamp = campManager.setPrincipalMonitor(camp, monitor);
+		campManager.registerMonitorInActivity(activity, monitor);
 		assertThrows(MonitorIsNotInActivityException.class, 
-				() -> campManager.deleteActivity(modifiedCamp, activity)
+				() -> campManager.deleteAnActivityOfACamp(modifiedCamp, activity)
 		);
 	}
 }

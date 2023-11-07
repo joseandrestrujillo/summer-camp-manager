@@ -9,17 +9,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import business.dtos.ActivityDTO;
 import business.dtos.MonitorDTO;
 import business.exceptions.dao.DAOTimeoutException;
 import business.exceptions.repository.NotFoundException;
 import business.interfaces.ICriteria;
 import business.interfaces.IDAO;
+import business.interfaces.IMonitorDAO;
 import data.database.DBManager;
+import data.database.criteria.MonitorInActivityCriteria;
 /**
  * La clase InDatabaseMonitorDAO es una implementación en base de datos de un DAO de la clase monitor.
  
  */
-public class InDatabaseMonitorDAO implements IDAO<MonitorDTO, Integer>{
+public class InDatabaseMonitorDAO implements IMonitorDAO{
 	private DBManager dbConnection;
 	/**
      * Constructor de la clase InDatabaseMonitorDAO.
@@ -157,4 +160,36 @@ public class InDatabaseMonitorDAO implements IDAO<MonitorDTO, Integer>{
 			throw new NotFoundException();
 		}
     }
+    /**
+     * Obtiene una lista de todos los monitores relacionados con la actividad.
+     *
+     * @return Lista de todos los monitores relacionados con la actividad.
+     */
+	@Override
+	public List<MonitorDTO> getMonitorsInAnActivity(ActivityDTO activity) {
+		return getAll(Optional.of(new MonitorInActivityCriteria(activity.getActivityName())));
+	}
+	/**
+     * Guarda un monitor y lo relaciona con una actividad.
+     *
+     * @param monitor El monitor que se va a guardar.
+     * @param activity La actividad con la que estará relacionado el monitor.
+     */
+	@Override
+	public void saveAndRelateWithAnActivity(MonitorDTO monitor, ActivityDTO activity) {
+		save(monitor);
+		try{
+    		Connection con = this.dbConnection.getConnection();
+    		PreparedStatement ps = con.prepareStatement(
+    				this.dbConnection.getQuery("UPDATE_MONITOR_ACTIVITY_RELATION_QUERY")
+			);
+    		
+    		ps.setInt(1, monitor.getId());
+    		ps.setString(2, activity.getActivityName());
+    		
+    		ps.executeUpdate();
+    	} catch(Exception e) { 
+    		System.out.println(e);
+		}		
+	}
 }

@@ -26,7 +26,7 @@ public class InscriptionDTO {
      * @param price           El precio total de la inscripción.
      * @param canBeCanceled   Indica si la inscripción se puede cancelar o no.
      */
-	public InscriptionDTO( int assistantId, int campId, Date inscriptionDate, float price, boolean canBeCanceled) {
+	public InscriptionDTO(int assistantId, int campId, Date inscriptionDate, float price, boolean canBeCanceled) {
 		this.assistantId = assistantId;
 		this.campId = campId;
 		this.inscriptionDate = inscriptionDate;
@@ -46,7 +46,6 @@ public class InscriptionDTO {
 		}else {
 			this.inscriptionIdentifier = this.assistantId + "-" + this.campId;
 		}
-		
 	}
 	/**
  	* Constructor predeterminado para crear un objeto Inscription vacío con valores predeterminados.

@@ -41,7 +41,6 @@ class CampTest {
 		assertEquals(end, camp.getEnd());
 		assertEquals(educativeLevel, camp.getEducativeLevel());
 		assertEquals(capacity, camp.getCapacity());
-		assert(camp.getActivities().isEmpty());
 	}
 	
 	@Test
@@ -59,7 +58,6 @@ class CampTest {
 		assertEquals(end, camp.getEnd());
 		assertEquals(educativeLevel, camp.getEducativeLevel());
 		assertEquals(capacity, camp.getCapacity());
-		assertEquals(null, camp.getActivities());
 	}
 
 	@Test
@@ -78,14 +76,12 @@ class CampTest {
 		camp.setEnd(end);
 		camp.setEducativeLevel(educativeLevel);
 		camp.setCapacity(capacity);
-		camp.setActivities(activities);
 		
 		assertEquals(campID, camp.getCampID());
 		assertEquals(start, camp.getStart());
 		assertEquals(end, camp.getEnd());
 		assertEquals(educativeLevel, camp.getEducativeLevel());
 		assertEquals(capacity, camp.getCapacity());
-		assertEquals(activities, camp.getActivities());
 
 	}
 	
@@ -125,7 +121,6 @@ class CampTest {
 				capacity				
 		);
 
-		camp.setActivities(activities);
 
         String expectedToString = ""
         		+ "{campID: 1, "
@@ -134,11 +129,7 @@ class CampTest {
         		+ "educativeLevel: PRESCHOOL, "
         		+ "capacity: 10, "
 				+ "principalMonitor: null, "
-				+ "specialMonitor: null, "
-        		+ "activities: ["
-        		+ "{activityName: 'Actividad', educativeLevel: PRESCHOOL, timeSlot: AFTERNOON, maxAssistants: 10, neededMonitors: 3, assistants: [], monitors: []}, "
-        		+ "{activityName: 'Actividad 2', educativeLevel: PRESCHOOL, timeSlot: AFTERNOON, maxAssistants: 10, neededMonitors: 3, assistants: [], monitors: []}"
-        		+ "]"
+				+ "specialMonitor: null"
         		+ "}";
         assertEquals(expectedToString, camp.toString());
     }
@@ -165,8 +156,8 @@ class CampTest {
 	        		+ "educativeLevel: PRESCHOOL, "
 	        		+ "capacity: 10, "
 	        		+ "principalMonitor: null, "
-					+ "specialMonitor: null, "
-	        		+ "activities: []}";
+					+ "specialMonitor: null"
+	        		+ "}";
 		assertEquals(expectedToString, camp.toString());
     }
 

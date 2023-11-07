@@ -1,4 +1,4 @@
-package data.database.sqlcriteria;
+package data.database.criteria;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -8,12 +8,11 @@ import com.mysql.jdbc.Connection;
 import business.interfaces.ICriteria;
 import data.database.DBManager;
 
-public class AssistantInActivityCriteria implements ICriteria{
-	private String activityName;
-	public AssistantInActivityCriteria(String activityName) {
-		this.activityName = activityName;
+public class AssistantInCampCriteria implements ICriteria{
+	private int campId;
+	public AssistantInCampCriteria(int campId) {
+		this.campId = campId;
 	}
-	
 	@Override
 	public <T> T applyCriteria(T obj) {
 		DBManager dbConnection = DBManager.getInstance();
@@ -21,10 +20,10 @@ public class AssistantInActivityCriteria implements ICriteria{
 		try {
 			Connection con = (Connection) ((PreparedStatement) obj).getConnection();
 			
-			String query = dbConnection.getQuery("GET_ASSISTANTS_OF_AN_ACTIVITY_QUERY");
+			String query = dbConnection.getQuery("GET_ASSISTANTS_OF_AN_CAMP_QUERY");
 			stmt = con.prepareStatement(query);
 			
-			stmt.setString(1, activityName);
+			stmt.setInt(1, campId);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

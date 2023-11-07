@@ -10,19 +10,23 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLTimeoutException;
 
+import business.dtos.ActivityDTO;
 import business.dtos.AssistantDTO;
+import business.dtos.CampDTO;
 import business.exceptions.dao.DAOTimeoutException;
 import business.exceptions.repository.NotFoundException;
+import business.interfaces.IAssistantDAO;
 import business.interfaces.ICriteria;
-import business.interfaces.IDAO;
 import data.database.DBManager;
+import data.database.criteria.AssistantInActivityCriteria;
+import data.database.criteria.AssistantInCampCriteria;
 
 
 /**
  * La clase InDatabaseAssistantDAO es una implementación en base de datos de un DAO de asistentes.
  
  */
-public class InDatabaseAssistantDAO implements IDAO<AssistantDTO, Integer>{
+public class InDatabaseAssistantDAO implements IAssistantDAO{
 
 	private DBManager dbConnection;
     /**
@@ -169,5 +173,14 @@ public class InDatabaseAssistantDAO implements IDAO<AssistantDTO, Integer>{
 			throw new NotFoundException();
 		}
     }
+	
+	@Override
+	public List<AssistantDTO> getAssistantsInACamp(CampDTO camp) {
+		return getAll(Optional.of(new AssistantInCampCriteria(camp.getCampID())));
+	}
+	@Override
+	public List<AssistantDTO> getAssistantsInAnActivity(ActivityDTO activity) {
+		return getAll(Optional.of(new AssistantInActivityCriteria(activity.getActivityName())));
+	}
 
 }

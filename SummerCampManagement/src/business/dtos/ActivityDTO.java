@@ -22,8 +22,6 @@ public class ActivityDTO {
     private TimeSlot timeSlot;
     private int maxAssistants;
     private int neededMonitors;
-    private List<AssistantDTO> assistantList;
-    private List<MonitorDTO> monitorList;
 
     /**
      * Constructor de la clase Activity.
@@ -41,8 +39,6 @@ public class ActivityDTO {
         this.timeSlot = timeSlot;
         this.maxAssistants = maxAssistants;
         this.neededMonitors = neededMonitors;
-        this.monitorList = new ArrayList<MonitorDTO>(this.neededMonitors);
-        this.assistantList = new ArrayList<AssistantDTO>(this.maxAssistants);
     }
 
     /**
@@ -54,27 +50,8 @@ public class ActivityDTO {
         this.timeSlot = null;
         this.maxAssistants = -1;
         this.neededMonitors = -1;
-        this.monitorList = null;
-        this.assistantList = null;
     }
 
-    /**
-     * Obtiene la lista de asistentes registrados en la actividad.
-     * 
-     * @return La lista de asistentes.
-     */
-    public List<AssistantDTO> getAssistants() {
-        return assistantList;
-    }
-
-    /**
-     * Establece la lista de asistentes de la actividad.
-     * 
-     * @param assistants La lista de asistentes a establecer.
-     */
-    public void setAssistants(List<AssistantDTO> assistants) {
-        this.assistantList = assistants;
-    }
 
     /**
      * Obtiene el nombre de la actividad.
@@ -167,24 +144,6 @@ public class ActivityDTO {
     }
 
     /**
-     * Obtiene la lista de monitores registrados en la actividad.
-     * 
-     * @return La lista de monitores.
-     */
-    public List<MonitorDTO> getMonitorList() {
-        return monitorList;
-    }
-
-    /**
-     * Establece la lista de monitores de la actividad.
-     * 
-     * @param monitorList La lista de monitores a establecer.
-     */
-    public void setMonitorList(List<MonitorDTO> monitorList) {
-        this.monitorList = monitorList;
-    }
-
-    /**
      * Representa la actividad como una cadena de texto en formato JSON.
      * 
      * @return Una cadena de texto que representa la actividad en formato JSON.
@@ -194,33 +153,9 @@ public class ActivityDTO {
         		+ "educativeLevel: " + this.educativeLevel + ", "
 				+ "timeSlot: " + this.timeSlot + ", "
 				+ "maxAssistants: " + this.maxAssistants + ", "
-				+ "neededMonitors: " + this.neededMonitors + ", "
-				+ "assistants: " + this.assistantList.toString() + ", "
-				+ "monitors: " + this.monitorList.toString() + "}";
+				+ "neededMonitors: " + this.neededMonitors + "}";
     }
 
-    /**
-     * Registra un monitor en la actividad.
-     * 
-     * @param monitor El monitor a registrar.
-     * @throws MaxMonitorsAddedException Si se alcanza el límite de monitores registrados.
-     */
-    public void registerMonitor(MonitorDTO monitor) {
-        if (monitorList.size() == this.neededMonitors) {
-            throw new MaxMonitorsAddedException();
-        }
-        monitorList.add(monitor);
-    }
-
-    /**
-     * Comprueba si un monitor está registrado en la actividad.
-     * 
-     * @param monitor El monitor a comprobar.
-     * @return true si el monitor está registrado, false en caso contrario.
-     */
-    public boolean monitorIsRegistered(MonitorDTO monitor){
-		return this.monitorList.contains(monitor);	
-	}
     
     
     

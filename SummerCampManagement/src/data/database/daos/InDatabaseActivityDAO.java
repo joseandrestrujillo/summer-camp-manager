@@ -16,19 +16,21 @@ import business.dtos.CampDTO;
 import business.dtos.MonitorDTO;
 import business.exceptions.dao.DAOTimeoutException;
 import business.exceptions.repository.NotFoundException;
+import business.interfaces.IActivityDAO;
 import business.interfaces.ICriteria;
 import business.interfaces.IDAO;
 import business.values.EducativeLevel;
 import business.values.TimeSlot;
 import data.database.DBManager;
-import data.database.sqlcriteria.AssistantInActivityCriteria;
-import data.database.sqlcriteria.CampsRelatedWithAnActivityCriteria;
-import data.database.sqlcriteria.MonitorInActivityCriteria;
+import data.database.criteria.ActivityInCampCriteria;
+import data.database.criteria.AssistantInActivityCriteria;
+import data.database.criteria.CampsRelatedWithAnActivityCriteria;
+import data.database.criteria.MonitorInActivityCriteria;
 
 /**
  * La clase InDatabaseActivityDAO es una implementación en base de datos de un DAO de actividades.
  */
-public class InDatabaseActivityDAO implements IDAO<ActivityDTO, String>{
+public class InDatabaseActivityDAO implements IActivityDAO{
 	private DBManager dbConnection;
     /**
      * Constructor de la clase InDatabaseActivityDAO.
@@ -87,18 +89,6 @@ public class InDatabaseActivityDAO implements IDAO<ActivityDTO, String>{
 			throw new NotFoundException();
 		}
 		
-		InDatabaseAssistantDAO assistantDao = new InDatabaseAssistantDAO();
-		
-		List<AssistantDTO> assistants = assistantDao.getAll(Optional.of(new AssistantInActivityCriteria(identifier)));
-		
-		activity.setAssistants(assistants);
-		
-		InDatabaseMonitorDAO monitorDao = new InDatabaseMonitorDAO();
-		
-		List<MonitorDTO> monitors = monitorDao.getAll(Optional.of(new MonitorInActivityCriteria(identifier)));
-		
-		activity.setMonitorList(monitors);
-		
 		
 		return activity;       
 	}
@@ -125,29 +115,6 @@ public class InDatabaseActivityDAO implements IDAO<ActivityDTO, String>{
     		ps.executeUpdate();
     	} catch(Exception e) { 
     		System.out.println(e);
-		}
-    	
-    	InDatabaseAssistantDAO assistantDAO = new InDatabaseAssistantDAO();
-    	for (AssistantDTO assistant : obj.getAssistants()) {
-			assistantDAO.save(assistant);
-		}
-    	
-    	InDatabaseMonitorDAO monitorDAO = new InDatabaseMonitorDAO();
-    	for (MonitorDTO monitor : obj.getMonitorList()) {
-			monitorDAO.save(monitor);
-			try{
-	    		Connection con = this.dbConnection.getConnection();
-	    		PreparedStatement ps = con.prepareStatement(
-	    				this.dbConnection.getQuery("UPDATE_MONITOR_ACTIVITY_RELATION_QUERY")
-				);
-	    		
-	    		ps.setInt(1, monitor.getId());
-	    		ps.setString(2, obj.getActivityName());
-	    		
-	    		ps.executeUpdate();
-	    	} catch(Exception e) { 
-	    		System.out.println(e);
-			}
 		}
     }
     
@@ -217,7 +184,9 @@ public class InDatabaseActivityDAO implements IDAO<ActivityDTO, String>{
 			}
     	}
     	
-    	for (MonitorDTO monitor : obj.getMonitorList()) {
+    	InDatabaseMonitorDAO monitorDao = new InDatabaseMonitorDAO();
+    	List<MonitorDTO> monitors = monitorDao.getAll(Optional.of(new MonitorInActivityCriteria(obj.getActivityName())));
+    	for (MonitorDTO monitor : monitors) {
 			try{
 	    		Connection con = this.dbConnection.getConnection();
 	    		PreparedStatement ps = con.prepareStatement(
@@ -247,5 +216,39 @@ public class InDatabaseActivityDAO implements IDAO<ActivityDTO, String>{
 			throw new NotFoundException();
 		}
     }
+
+    /**
+     * Obtiene una lista de todas las actividades relacionadas con el campamento.
+     *
+     * @return Lista de todas las actividades relacionadas con el campamento.
+     */
+	@Override
+	public List<ActivityDTO> getActivitiesInACamp(CampDTO camp) {
+		return getAll(Optional.of(new ActivityInCampCriteria(camp.getCampID())));
+	}
+	
+	/**
+     * Guarda una actividad y la relaciona con un campamento.
+     *
+     * @param activity La actividad a guardar en la base de datos.
+     * @param camp El campamento con el que estará relacionada la actividad.
+     */
+	@Override
+	public void saveAndRelateWithACamp(ActivityDTO activity, CampDTO camp) {
+		save(activity);
+		try{
+    		Connection con = this.dbConnection.getConnection();
+    		PreparedStatement ps = con.prepareStatement(
+    				this.dbConnection.getQuery("UPDATE_ACTIVITY_CAMP_RELATION_QUERY")
+			);
+    		
+    		ps.setInt(1, camp.getCampID());
+    		ps.setString(2, activity.getActivityName());
+    		
+    		ps.executeUpdate();
+    	} catch(Exception e) { 
+    		System.out.println(e);
+		}
+	}
 
 }

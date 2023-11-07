@@ -39,6 +39,7 @@ class InscriptionManagerTest {
 	private InMemoryInscriptionRepository inscriptionRepository;
 	private InscriptionManager inscriptionManager;
 	private CampsManager campsManager;
+	private AssistantsManager assistantManager;
 
 	private void performCampAndActivitiesSetup(int assistantId, int campID, int numActivities) {
 		Date start = Utils.parseDate("15/01/2024");
@@ -73,7 +74,7 @@ class InscriptionManagerTest {
 						10,
 						3
 				);
-				campsManager.registerActivity(camp, activity);
+				campsManager.registerActivityInACamp(camp, activity);
 			}
 		}
 	}
@@ -88,6 +89,7 @@ class InscriptionManagerTest {
 		this.inscriptionRepository = new InMemoryInscriptionRepository();
 		this.inscriptionManager = new InscriptionManager(campRepository, activityRepository, monitorRepository, assistantRepository, inscriptionRepository);
 		this.campsManager = new CampsManager(campRepository, activityRepository, monitorRepository);
+		this.assistantManager = new AssistantsManager(assistantRepository);
 	}
 
 	@Test
@@ -436,11 +438,11 @@ class InscriptionManagerTest {
 		assistantRepository.save(assistant);
 		
 		
-		campsManager.registerActivity(camp, activity);
-		campsManager.registerActivity(camp, activity2);
-		campsManager.registerActivity(camp, activity3);
-		campsManager.registerActivity(camp, activity4);
-		campsManager.registerActivity(camp, activity5);
+		campsManager.registerActivityInACamp(camp, activity);
+		campsManager.registerActivityInACamp(camp, activity2);
+		campsManager.registerActivityInACamp(camp, activity3);
+		campsManager.registerActivityInACamp(camp, activity4);
+		campsManager.registerActivityInACamp(camp, activity5);
 		
 		
 		
@@ -687,12 +689,13 @@ class InscriptionManagerTest {
 		Date inscriptionDate = Utils.parseDate("10/01/2024");
 		
 		;
-		campRepository.save(camp);
-		assistantRepository.save(assistant);
+
+		assistantManager.registerAssistant(assistant);
+		campsManager.registerCamp(camp);
 		
 		
-		campsManager.registerActivity(camp, activity);
-		campsManager.registerActivity(camp, activity2);
+		campsManager.registerActivityInACamp(camp, activity);
+		campsManager.registerActivityInACamp(camp, activity2);
 		
 		
 		
@@ -702,13 +705,9 @@ class InscriptionManagerTest {
 				inscriptionDate, 
 				false, 
 				false);
-				
-		
-		ActivityDTO activityPersisted = activityRepository.find(activity.getActivityName());
-		ActivityDTO activity2Persisted = activityRepository.find(activity2.getActivityName());
-				
-		assertEquals(true, activityPersisted.getAssistants().contains(assistant));
-		assertEquals(true, activity2Persisted.getAssistants().contains(assistant));
+					
+		assertEquals(true, this.assistantRepository.getAssistantsInAnActivity(activity).contains(assistant));
+		assertEquals(true, this.assistantRepository.getAssistantsInAnActivity(activity2).contains(assistant));
 	}
 	
 	@Test
@@ -765,8 +764,8 @@ class InscriptionManagerTest {
 		
 		
 		
-		campsManager.registerActivity(camp, activity);
-		campsManager.registerActivity(camp, activity2);
+		campsManager.registerActivityInACamp(camp, activity);
+		campsManager.registerActivityInACamp(camp, activity2);
 		
 		
 		
@@ -839,8 +838,8 @@ class InscriptionManagerTest {
 		assistantRepository.save(assistant2);
 		
 		
-		campsManager.registerActivity(camp, activity);
-		campsManager.registerActivity(camp, activity2);
+		campsManager.registerActivityInACamp(camp, activity);
+		campsManager.registerActivityInACamp(camp, activity2);
 		
 		
 		inscriptionManager.enroll(
@@ -862,8 +861,9 @@ class InscriptionManagerTest {
 		ActivityDTO activityPersisted = activityRepository.find(activity.getActivityName());
 		ActivityDTO activity2Persisted = activityRepository.find(activity2.getActivityName());
 				
-		assertEquals(true, activityPersisted.getAssistants().contains(assistant));
-		assertEquals(false, activity2Persisted.getAssistants().contains(assistant));
+		
+		assertEquals(true, this.assistantRepository.getAssistantsInAnActivity(activityPersisted).contains(assistant));
+		assertEquals(false, this.assistantRepository.getAssistantsInAnActivity(activity2Persisted).contains(assistant));
 	}
 	
 	@Test
@@ -920,8 +920,8 @@ class InscriptionManagerTest {
 		
 		
 		
-		campsManager.registerActivity(camp, activity);
-		campsManager.registerActivity(camp, activity2);
+		campsManager.registerActivityInACamp(camp, activity);
+		campsManager.registerActivityInACamp(camp, activity2);
 		
 		
 		

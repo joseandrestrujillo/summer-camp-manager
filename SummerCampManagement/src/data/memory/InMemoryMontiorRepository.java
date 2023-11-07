@@ -6,17 +6,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import business.dtos.ActivityDTO;
 import business.dtos.MonitorDTO;
 import business.exceptions.repository.NotFoundException;
 import business.interfaces.ICriteria;
 import business.interfaces.IDAO;
+import business.interfaces.IMonitorDAO;
 
 /**
  * La clase InMemoryMontiorRepository es una implementación en memoria de un repositorio de monitores.
  
  */
-public class InMemoryMontiorRepository implements IDAO<MonitorDTO, Integer> {
+public class InMemoryMontiorRepository implements IMonitorDAO {
     private Map<Integer, MonitorDTO> mapOfMonitor;
+    private Map<String, List<MonitorDTO>> mapOfMonitorActivity;
 
     /**
      * Constructor de la clase InMemoryMontiorRepository.
@@ -24,6 +27,7 @@ public class InMemoryMontiorRepository implements IDAO<MonitorDTO, Integer> {
      */
     public InMemoryMontiorRepository() {
         this.mapOfMonitor = new HashMap<Integer, MonitorDTO>();
+        this.mapOfMonitorActivity = new HashMap<String, List<MonitorDTO>>();
     }
 
     /**
@@ -71,4 +75,21 @@ public class InMemoryMontiorRepository implements IDAO<MonitorDTO, Integer> {
     public void delete(MonitorDTO obj) {
         this.mapOfMonitor.remove(obj.getId());
     }
+
+	@Override
+	public List<MonitorDTO> getMonitorsInAnActivity(ActivityDTO activity) {
+		if (this.mapOfMonitorActivity.get(activity.getActivityName()) == null) {
+            this.mapOfMonitorActivity.put(activity.getActivityName(), new ArrayList<MonitorDTO>());
+        }
+		return this.mapOfMonitorActivity.get(activity.getActivityName());
+	}
+
+	@Override
+	public void saveAndRelateWithAnActivity(MonitorDTO monitor, ActivityDTO activity) {
+		if (this.mapOfMonitorActivity.get(activity.getActivityName()) == null) {
+            this.mapOfMonitorActivity.put(activity.getActivityName(), new ArrayList<MonitorDTO>());
+        }
+		
+		this.mapOfMonitorActivity.get(activity.getActivityName()).add(monitor);
+	}
 }

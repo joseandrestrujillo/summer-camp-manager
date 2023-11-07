@@ -19,8 +19,8 @@ import business.interfaces.ICriteria;
 import business.interfaces.IDAO;
 import business.values.EducativeLevel;
 import data.database.DBManager;
-import data.database.sqlcriteria.ActivityInCampCriteria;
-import data.database.sqlcriteria.InscriptionOfACampCriteria;
+import data.database.criteria.ActivityInCampCriteria;
+import data.database.criteria.InscriptionOfACampCriteria;
 
 /**
  * La clase InDatabaseCampDAO es una implementación en base de datos de un DAO de campamentos.
@@ -91,12 +91,6 @@ public class InDatabaseCampDAO implements IDAO<CampDTO, Integer> {
 		} catch (SQLException e) {
 			throw new NotFoundException();
 		}
-		
-		InDatabaseActivityDAO activityDAO = new InDatabaseActivityDAO();
-		
-		List<ActivityDTO> activities = activityDAO.getAll(Optional.of(new ActivityInCampCriteria(identifier)));
-		
-		camp.setActivities(activities);
 		
 		
 		
@@ -175,7 +169,8 @@ public class InDatabaseCampDAO implements IDAO<CampDTO, Integer> {
 		}
     	
 		InDatabaseActivityDAO activityDAO = new InDatabaseActivityDAO();
-    	for (ActivityDTO activity : obj.getActivities()) {
+    	List<ActivityDTO> activities = activityDAO.getAll(Optional.of(new ActivityInCampCriteria(obj.getCampID())));
+		for (ActivityDTO activity : activities) {
     		activityDAO.save(activity);
     		try{
 	    		Connection con = this.dbConnection.getConnection();
@@ -237,7 +232,8 @@ public class InDatabaseCampDAO implements IDAO<CampDTO, Integer> {
     @Override
     public void delete(CampDTO obj) {
     	InDatabaseActivityDAO activityDAO = new InDatabaseActivityDAO();
-    	for (ActivityDTO activity : obj.getActivities()) {
+    	List<ActivityDTO> activities = activityDAO.getAll(Optional.of(new ActivityInCampCriteria(obj.getCampID())));
+    	for (ActivityDTO activity : activities) {
     		activityDAO.save(activity);
     		try{
 	    		Connection con = this.dbConnection.getConnection();

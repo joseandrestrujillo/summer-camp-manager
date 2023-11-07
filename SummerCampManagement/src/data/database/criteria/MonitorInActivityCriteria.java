@@ -1,4 +1,4 @@
-package data.database.sqlcriteria;
+package data.database.criteria;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;

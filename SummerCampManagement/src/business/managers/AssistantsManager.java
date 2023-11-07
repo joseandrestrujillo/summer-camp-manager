@@ -6,23 +6,25 @@ import business.dtos.AssistantDTO;
 import business.exceptions.assistant.AssistantAlreadyRegisteredException;
 import business.exceptions.assistant.AssistantNotFoundException;
 import business.exceptions.repository.NotFoundException;
+import business.interfaces.IAssistantDAO;
 import business.interfaces.IDAO;
 
 /**
  * La clase AssistantsManager se encarga de gestionar el registro, actualización y consulta de asistentes.
  */
 public class AssistantsManager {
-    private IDAO<AssistantDTO, Integer> assistantRepository;
+    private IAssistantDAO assistantRepository;
 
     /**
      * Constructor de la clase AssistantsManager.
      * 
      * @param assistantRepository El repositorio de asistentes con el que se va a trabajar.
      */
-    public AssistantsManager(IDAO<AssistantDTO, Integer> assistantRepository) {
+    public AssistantsManager(IAssistantDAO assistantRepository) {
         this.assistantRepository = assistantRepository;
     }
-
+    
+    
     /**
      * Registra un asistente en el repositorio.
      * 

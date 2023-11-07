@@ -88,8 +88,7 @@ public class StringUtils {
         }
 
         ActivityDTO activity = new ActivityDTO(activityName, educativeLevel, timeSlot, maxAssistants, neededMonitors);
-        activity.setAssistants(assistantList);
-        activity.setMonitorList(monitorList);
+
 
         return activity;
 
@@ -167,7 +166,6 @@ public class StringUtils {
 		  CampDTO camp = new CampDTO(campID, start, end, educativeLevel, capacity);
 		  camp.setPrincipalMonitor(principalMonitor);
 		  camp.setSpecialMonitor(specialMonitor);
-		  camp.setActivities(activities);
 
 		  return camp;
 	}

@@ -1,8 +1,6 @@
 package display.cli;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
@@ -13,7 +11,10 @@ import business.dtos.AssistantDTO;
 import business.dtos.CampDTO;
 import business.dtos.InscriptionDTO;
 import business.dtos.MonitorDTO;
+import business.exceptions.activity.ActivityAlreadyExistException;
 import business.exceptions.activity.MaxMonitorsAddedException;
+import business.exceptions.activity.MonitorIsNotInActivityException;
+import business.exceptions.camp.CampAlreadyRegisteredException;
 import business.exceptions.camp.IsNotAnSpecialEducator;
 import business.exceptions.camp.NotTheSameLevelException;
 import business.exceptions.camp.SpecialMonitorAlreadyRegisterException;
@@ -23,26 +24,22 @@ import business.exceptions.inscription.AssistantAlreadyEnrolledException;
 import business.exceptions.inscription.MaxAssistantExcededException;
 import business.exceptions.inscription.NeedToAddAnSpecialMonitorException;
 import business.exceptions.inscription.WrongEducativeLevelException;
-import business.exceptions.repository.NotFoundException;
+import business.interfaces.IActivityDAO;
+import business.interfaces.IAssistantDAO;
 import business.interfaces.IDAO;
+import business.interfaces.IMonitorDAO;
 import business.managers.AssistantsManager;
 import business.managers.CampsManager;
 import business.managers.InscriptionManager;
 import business.values.EducativeLevel;
 import business.values.TimeSlot;
+
 import data.database.daos.InDatabaseActivityDAO;
 import data.database.daos.InDatabaseAssistantDAO;
 import data.database.daos.InDatabaseCampDAO;
 import data.database.daos.InDatabaseInscriptionDAO;
 import data.database.daos.InDatabaseMonitorDAO;
-import data.filesystem.InFileSystemActivityRepository;
-import data.filesystem.InFileSystemAssistantRepository;
-import data.filesystem.InFileSystemCampRepository;
-import data.filesystem.InFileSystemInscriptionRepository;
-import data.filesystem.InFileSystemMonitorRepository;
 
-import java.util.Properties;
-import java.io.File;
 
 import utilities.Utils;
 
@@ -226,36 +223,11 @@ public class Main {
 	}
 	
 	public static void main(String[] args) {
-		Properties prop = new Properties();
-		String filename = ".properties.txt";
-		String pathActivityRep = null;
-		String pathAssistantRep = null;
-		String pathCampRep = null;
-		String pathInscriptionRep = null;
-		String pathMonitorRep = null;
-		try {
-			BufferedReader reader = new BufferedReader(new FileReader(new File(filename)));
-			prop.load(reader);
-			
-			pathActivityRep = prop.getProperty("pathActivityRep");
-			pathAssistantRep = prop.getProperty("pathAssistantRep");
-			pathCampRep = prop.getProperty("pathCampRep");
-			pathInscriptionRep = prop.getProperty("pathInscriptionRep");
-			pathMonitorRep = prop.getProperty("pathMonitorRep");
-			
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			System.exit(-1);
-		} catch (IOException e) {
-			e.printStackTrace();
-			System.exit(-1);
-		}
-		
 		int opcion;
 		IDAO<CampDTO, Integer> campRepository = new InDatabaseCampDAO();
-		IDAO<ActivityDTO, String> activityRepository = new InDatabaseActivityDAO();
-		IDAO<MonitorDTO, Integer> monitorRepository = new InDatabaseMonitorDAO();
-		IDAO<AssistantDTO, Integer> assistantRepository = new InDatabaseAssistantDAO();
+		IActivityDAO activityRepository = new InDatabaseActivityDAO();
+		IMonitorDAO monitorRepository = new InDatabaseMonitorDAO();
+		IAssistantDAO assistantRepository = new InDatabaseAssistantDAO();
 		IDAO<InscriptionDTO, String> inscriptionRepository = new InDatabaseInscriptionDAO();
 		AssistantsManager assistantsManager = new AssistantsManager(assistantRepository);
 		CampsManager campsManager = new CampsManager(campRepository, activityRepository, monitorRepository);
@@ -290,20 +262,16 @@ public class Main {
 						
 						switch (optionAssistantsManager) {
 							case 1: { 
-								System.out.println("Introduzca su DNI (sin letra)\n");
+								System.out.println("Introduzca el DNI (sin letra) del asistente\n");
 								int assistantId = sc.nextInt();
-								
-								AssistantDTO assistant = new AssistantDTO(assistantId, "", "", null, false);
-								boolean isRegistered = assistantsManager.isRegistered(assistant);
-								if(isRegistered == true ){
+								AssistantDTO assistant = getDataForAssistant(assistantId, sc);
+								try {									
+									assistantsManager.registerAssistant(assistant);
+								} catch (AssistantAlreadyEnrolledException e) {
 									clearConsole();
 									System.out.println("Este DNI ya ha sido registrado en nuestro sistema\n");
 									break;
 								}
-								
-								assistantsManager.registerAssistant(
-										getDataForAssistant(assistantId, sc)
-								);
 								
 								clearConsole();
 								System.out.println("Asistente dado de alta correctamente\n");	
@@ -368,20 +336,74 @@ public class Main {
 					do {
 						System.out.println("1. Dar de alta un nuevo campamento\n");
 						System.out.println("2. Registrar nueva actividad\n");
-						System.out.println("3. Asociar un monitor a una actividad\n");
-						System.out.println("4. Gestionar un campamento\n");
-						System.out.println("5. Volver\n");
+						System.out.println("3. Registrar nuevo monitor\n");
+						System.out.println("4. Asociar un monitor a una actividad\n");
+						System.out.println("5. Gestionar un campamento\n");
+						System.out.println("6. Volver\n");
 						optionCampManager = sc.nextInt();
 						clearConsole();
 						switch (optionCampManager) {
 							case 1: {
-								int idCamp = campRepository.getAll().size() + 1;
+								int idCamp = campsManager.listOfCamps().size() + 1;
 								
 								System.out.println("Creando campamento con id: #" + idCamp);
+								CampDTO camp = getDataForCamp(idCamp, sc);
 								
-								campsManager.registerCamp(
-										getDataForCamp(idCamp, sc)
-								);
+								List<ActivityDTO> listOfActivities = campsManager.listOfActivities();
+								System.out.println("Lista de actividades en el sistema:");
+
+								showActivities(listOfActivities, true);
+								
+								System.out.println("Debe seleccionar alguna actividad para crear el campamento\n");
+								int optionSelected = sc.nextInt();
+								
+								if(optionSelected == listOfActivities.size() + 1) {
+									clearConsole();
+									break;
+								} else if (optionSelected > listOfActivities.size() + 1) {
+									clearConsole();
+									System.out.println("Opción invalida\n");
+									break;
+								}
+								
+								ActivityDTO selectedActivity = listOfActivities.get(optionSelected - 1);
+								
+								
+								List<MonitorDTO> monitorsOfTheActivity = campsManager.getMonitorsOfAnActivity(selectedActivity);
+								System.out.println("Lista de monitores de la actividad:");
+								showMonitors(monitorsOfTheActivity, true);
+								
+								System.out.println("Debe seleccionar el monitor principal del campamento\n");
+								optionSelected = sc.nextInt();
+								
+								if(optionSelected == monitorsOfTheActivity.size() + 1) {
+									clearConsole();
+									break;
+								} else if (optionSelected > monitorsOfTheActivity.size() + 1) {
+									clearConsole();
+									System.out.println("Opción invalida\n");
+									break;
+								}
+								
+								MonitorDTO selectedMonitor = monitorsOfTheActivity.get(optionSelected - 1);
+								
+								try {
+									campsManager.registerActivityInACamp(camp, selectedActivity);									
+									campsManager.setPrincipalMonitor(camp, selectedMonitor);
+									campsManager.registerCamp(camp);
+								} catch (NotTheSameLevelException e) {
+									clearConsole();
+									System.out.println("La actividad y el campamento deben de ser del mismo nivel educativo. \n");
+									break;								
+								} catch (MonitorIsNotInActivityException e) {
+									clearConsole();
+									System.out.println("El monitor principal no pertenece a ninguna actividad del campamento. \n");
+									break;								
+								} catch (CampAlreadyRegisteredException e) {
+									clearConsole();
+									System.out.println("El campamento ya existe \n");
+									break;								
+								}
 			
 								clearConsole();
 								System.out.println("Campamento #" + idCamp + " creado exitosamente. \n");
@@ -390,23 +412,38 @@ public class Main {
 							case 2: {
 								System.out.println("Introduzca el nombre de la actividad\n");
 								String activityName = sc.next();
-								
+								ActivityDTO activity = getDataForActivity(activityName, sc);
 								try {
-									activityRepository.find(activityName);
+									campsManager.registerActivity(activity);
+								} catch (ActivityAlreadyExistException e) {
 									clearConsole();
 									System.out.println("Ya existe una actividad con ese nombre\n");
-									break;
-								} catch (NotFoundException e) {}
+									break;									
+								}
 								
-								activityRepository.save(getDataForActivity(activityName, sc));
-
 								clearConsole();
 								System.out.println("Actividad \"" + activityName + "\" registrada correctamente \n");
 								
 								break;
 							}
 							case 3: {
-								List<ActivityDTO> listOfActivities = activityRepository.getAll();
+								System.out.println("Introduzca el DNI (sin letra) del monitor\n");
+								int monitorId = sc.nextInt();
+								MonitorDTO monitor = getDataForMonitor(monitorId, sc);
+								try {									
+									campsManager.registerMonitor(monitor);
+								} catch (AssistantAlreadyEnrolledException e) {
+									clearConsole();
+									System.out.println("Este DNI ya ha sido registrado en nuestro sistema\n");
+									break;
+								}
+								
+								clearConsole();
+								System.out.println("Asistente dado de alta correctamente\n");	
+								break;
+							}
+							case 4: {
+								List<ActivityDTO> listOfActivities = campsManager.listOfActivities();
 								System.out.println("Lista de actividades en el sistema:");
 
 								showActivities(listOfActivities, true);
@@ -425,35 +462,38 @@ public class Main {
 								
 								ActivityDTO selectedActivity = listOfActivities.get(optionSelected-1);
 								
-								System.out.println("Introduzca el DNI (sin letra) del monitor\n");
-								int monitorId = sc.nextInt();
+								List<MonitorDTO> monitors = campsManager.listOfMonitors();
 								
-								try {
-									monitorRepository.find(monitorId);
+								showMonitors(monitors, true);
+								
+								System.out.println("Seleccione un monitor\n");
+								optionSelected = sc.nextInt();
+								
+								if(optionSelected == monitors.size() + 1) {
 									clearConsole();
-									System.out.println("Ya existe un monitor con ese DNI\n");
 									break;
-								} catch (NotFoundException e) {}
+								} else if (optionSelected > monitors.size() + 1) {
+									clearConsole();
+									System.out.println("Opción invalida\n");
+									break;
+								}
 								
-								MonitorDTO monitorCreated = getDataForMonitor(monitorId, sc);
+								MonitorDTO monitorSelected = monitors.get(optionSelected-1);
 								
 								try {
-									selectedActivity.registerMonitor(monitorCreated);
+									campsManager.registerMonitorInActivity(selectedActivity, monitorSelected);
 								} catch (MaxMonitorsAddedException e) {
 									clearConsole();
 									System.out.println("No se pueden añadir más monitores a esta actividad.\n");
 									break;
 								}
 								
-								monitorRepository.save(monitorCreated);
-								activityRepository.save(selectedActivity);
-								
 								clearConsole();
-								System.out.println("Monitor con DNI " + monitorCreated.getId() + " creado y agregado a la actividad \"" + selectedActivity.getActivityName() + "\" correctamente.\n");
+								System.out.println("Monitor con DNI " + monitorSelected.getId() + " creado y agregado a la actividad \"" + selectedActivity.getActivityName() + "\" correctamente.\n");
  								break;
 							}
-							case 4: {
-								List<CampDTO> listAvailableCamps = campRepository.getAll();
+							case 5: {
+								List<CampDTO> listAvailableCamps = campsManager.listOfCamps();
 								System.out.println("Lista de campamentos en el sistema:");
 
 								showCamps(listAvailableCamps, true);
@@ -492,7 +532,7 @@ public class Main {
 									
 									switch (optionSelectedCampManager) {
 										case 1: { 
-											List<ActivityDTO> listOfActivities = activityRepository.getAll();
+											List<ActivityDTO> listOfActivities = campsManager.listOfActivities();
 											System.out.println("Lista de actividades en el sistema:");
 
 											showActivities(listOfActivities, true);
@@ -512,7 +552,7 @@ public class Main {
 											ActivityDTO selectedActivity = listOfActivities.get(optionSelected -1);
 
 											try {
-												campsManager.registerActivity(selectedCamp, selectedActivity);
+												campsManager.registerActivityInACamp(selectedCamp, selectedActivity);
 											} catch (NotTheSameLevelException e) {
 												clearConsole();
 												System.out.println("La actividad y el campamento deben de ser del mismo nivel educativo. \n");
@@ -524,7 +564,7 @@ public class Main {
 											break;
 										}
 										case 2: {
-											List<ActivityDTO> listOfActivitiesOfTheSelectedCamp = selectedCamp.getActivities();
+											List<ActivityDTO> listOfActivitiesOfTheSelectedCamp = campsManager.getActivitiesOfACamp(selectedCamp);
 											System.out.println("Lista de actividades del campamento:");
 
 											showActivities(listOfActivitiesOfTheSelectedCamp, true);
@@ -548,7 +588,7 @@ public class Main {
 											System.out.println("Actividad seleccionada: \n");
 											System.out.println("Actividad \"" + selectedActivity.getActivityName() + "\" \n\n");
 											
-											List<MonitorDTO> listOfMonitorsOfTheSelectedActivity = selectedActivity.getMonitorList();
+											List<MonitorDTO> listOfMonitorsOfTheSelectedActivity = campsManager.getMonitorsOfAnActivity(selectedActivity);
 											System.out.println("Lista de monitores de la actividad:");
 
 											showMonitors(listOfMonitorsOfTheSelectedActivity, true);
@@ -564,28 +604,43 @@ public class Main {
 												System.out.println("Opción invalida\n");
 												break;
 											}
+											
 											MonitorDTO selectedMonitor = listOfMonitorsOfTheSelectedActivity.get(optionSelected - 1);
 											
-											campsManager.setPrincipalMonitor(selectedCamp, selectedMonitor);
 											
+											try {
+												campsManager.setPrincipalMonitor(selectedCamp, selectedMonitor);												
+											} catch (MonitorIsNotInActivityException e) {
+												clearConsole();
+												System.out.println("El monitor principal no pertenece a ninguna actividad del campamento. \n");
+												break;
+											}
 											clearConsole();
 											System.out.println("Monitor con DNI " + selectedMonitor.getId() + " asignado como monitor principal para el campamento #" + selectedCamp.getCampID() + " correctamente.\n");
 			 								break;
 										}
 										case 3: {
-											System.out.println("Introduzca el DNI (sin letra) del monitor\n");
-											int monitorId = sc.nextInt();
+											List<MonitorDTO> monitors = campsManager.listOfMonitors();
+											System.out.println("Lista de monitores del sistema\n");
 											
-											MonitorDTO monitor;
-											try {
-												monitor = monitorRepository.find(monitorId);
-											} catch (NotFoundException e) {
-												System.out.println("El monitor no existe, introduzca sus datos para registrarlo \n");
-												monitor = getDataForMonitor(monitorId, sc);
+											showMonitors(monitors, true);
+											
+											System.out.println("Seleccione un monitor\n");
+											int optionSelected = sc.nextInt();
+											
+											if(optionSelected == monitors.size() + 1) {
+												clearConsole();
+												break;
+											} else if (optionSelected > monitors.size() + 1) {
+												clearConsole();
+												System.out.println("Opción invalida\n");
+												break;
 											}
 											
+											MonitorDTO monitorSelected = monitors.get(optionSelected-1);
+											
 											try {
-												campsManager.setSpecialMonitor(selectedCamp, monitor);
+												campsManager.setSpecialMonitor(selectedCamp, monitorSelected);
 											} catch (IsNotAnSpecialEducator e) {
 												clearConsole();
 												System.out.println("No se puede agregar como monitor especial a un monitor que no es un educador especial. \n");
@@ -597,7 +652,7 @@ public class Main {
 											}
 											
 											clearConsole();
-											System.out.println("Monitor con DNI " + monitor.getId() + " asignado como monitor especial para el campamento #" + selectedCamp.getCampID() + " correctamente.\n");
+											System.out.println("Monitor con DNI " + monitorSelected.getId() + " asignado como monitor especial para el campamento #" + selectedCamp.getCampID() + " correctamente.\n");
 			 								break;
 										}
 										case 4:
@@ -612,7 +667,7 @@ public class Main {
 								
 								break;
 							}
-							case 5:
+							case 6:
 								clearConsole();
 							break;
 
@@ -636,7 +691,7 @@ public class Main {
 						clearConsole();
 						switch (optionInscriptionManager) {
 							case 1: {
-								List<AssistantDTO> listOfAssistants = assistantRepository.getAll();
+								List<AssistantDTO> listOfAssistants = assistantsManager.getListOfRegisteredAssistant();
 								System.out.println("Lista de asistentes en el sistema:");
 
 								showAssistants(listOfAssistants, true);

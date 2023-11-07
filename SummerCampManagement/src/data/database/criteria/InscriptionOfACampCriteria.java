@@ -1,18 +1,18 @@
-package data.database.sqlcriteria;
+package data.database.criteria;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+
 import com.mysql.jdbc.Connection;
 
 import business.interfaces.ICriteria;
 import data.database.DBManager;
 
-public class ActivityInCampCriteria implements ICriteria{
+public class InscriptionOfACampCriteria implements ICriteria {
 	private int campID;
-	public ActivityInCampCriteria(int campID) {
+	public InscriptionOfACampCriteria(int campID) {
 		 this.campID=campID;
 	}
-	
 	@Override
 	public <T> T applyCriteria(T obj) {
 		DBManager dbConnection = DBManager.getInstance();
@@ -20,7 +20,7 @@ public class ActivityInCampCriteria implements ICriteria{
 		try {
 			Connection con = (Connection) ((PreparedStatement) obj).getConnection();
 			
-			String query = dbConnection.getQuery("GET_ACTIVITIES_OF_A_CAMP_QUERY");
+			String query = dbConnection.getQuery("GET_INSCRIPTIONS_OF_A_CAMP_QUERY");
 			stmt = con.prepareStatement(query);
 			
 			stmt.setInt(1, campID);
@@ -34,6 +34,4 @@ public class ActivityInCampCriteria implements ICriteria{
 		
 		return criteriaApplied;
 	}
-
 }
- 

@@ -3,6 +3,7 @@ package business.managers;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import business.dtos.ActivityDTO;
 import business.dtos.AssistantDTO;
@@ -18,9 +19,12 @@ import business.exceptions.repository.NotFoundException;
 import business.factories.EarlyRegisterInscriptionFactory;
 import business.factories.LateRegisterInscriptionFactory;
 import business.interfaces.AbstractInscriptionFactory;
+import business.interfaces.IAssistantDAO;
 import business.interfaces.IDAO;
 import business.values.EducativeLevel;
 import business.values.TimeSlot;
+import data.database.criteria.ActivityInCampCriteria;
+import data.database.criteria.AssistantInActivityCriteria;
 import utilities.Utils;
 
 /**
@@ -31,7 +35,7 @@ public class InscriptionManager {
 	private IDAO<CampDTO, Integer> campRepository;
 	private IDAO<ActivityDTO, String> activityRepository;
 	private IDAO<MonitorDTO, Integer> monitorRepository;
-	private IDAO<AssistantDTO, Integer> assitantRepository;
+	private IAssistantDAO assitantRepository;
 	private IDAO<InscriptionDTO, String> inscriptionRepository;
 
 	  /**
@@ -44,7 +48,7 @@ public class InscriptionManager {
      * @param inscriptionRepository Repositorio de inscripciones.
 	 */
 
-	public InscriptionManager(IDAO<CampDTO, Integer> campRepository, IDAO<ActivityDTO, String> activityRepository, IDAO<MonitorDTO, Integer> monitorRepository, IDAO<AssistantDTO, Integer> assitantRepository, IDAO<InscriptionDTO, String> inscriptionRepository) {
+	public InscriptionManager(IDAO<CampDTO, Integer> campRepository, IDAO<ActivityDTO, String> activityRepository, IDAO<MonitorDTO, Integer> monitorRepository, IAssistantDAO assitantRepository, IDAO<InscriptionDTO, String> inscriptionRepository) {
 		this.campRepository = campRepository;
 		this.activityRepository = activityRepository;
 		this.monitorRepository = monitorRepository;
@@ -83,7 +87,6 @@ public class InscriptionManager {
 		}
 		
 		
-		this.addAssistantToActivities(assistantId, campId, isPartial);
 		this.inscriptionRepository.save(inscription);
 		return inscription;
 	}
@@ -109,38 +112,6 @@ public class InscriptionManager {
 			inscription = factory.createPartial(assistantId, campId, inscriptionDate, price);
 		}
 		return inscription;
-	}
-	
-	/**
-	 * Agrega al asistente a las actividades del campamento.
-	 *
-	 * @param assistantId   ID del asistente.
-	 * @param campId        ID del campamento.
-	 * @param isPartial     Indica si la inscripción es parcial.
-	 */
-
-	private void addAssistantToActivities(int assistantId, int campId, boolean isPartial) {
-		CampDTO camp = this.campRepository.find(campId);
-		AssistantDTO assistant = this.assitantRepository.find(assistantId);
-		
-		List<ActivityDTO> activities = camp.getActivities();
-		for (int i = 0; i < activities.size(); i++) {
-			ActivityDTO activity = activities.get(i);
-			TimeSlot timeSlot = activity.getTimeSlot();
-			List<AssistantDTO> assistants = activity.getAssistants();
-			
-			if (isPartial) {
-				if ((! assistants.contains(assistant)) && (timeSlot == TimeSlot.MORNING)) {
-					assistants.add(assistant);
-				}
-			} else {			
-				if (! assistants.contains(assistant)) {
-					assistants.add(assistant);
-				}
-			}
-			
-			this.activityRepository.save(activity);
-		}
 	}
 	
 	/**
@@ -216,8 +187,8 @@ public class InscriptionManager {
 
 	private float calculatePrice(int campId, boolean isPartial) {
 		CampDTO camp = this.campRepository.find(campId);
-		
-		int nActivities =camp.getActivities().size();
+        List<ActivityDTO> activities = this.activityRepository.getAll(Optional.of(new ActivityInCampCriteria(camp.getCampID())));;
+		int nActivities =activities.size();
 		float basePrice = isPartial ? 100 : 300;
 		
 		return basePrice + 20*nActivities;
@@ -233,10 +204,10 @@ public class InscriptionManager {
 
 	private void ensureAnyActivityIsFully(int campId, boolean isPartial) {
 		CampDTO camp = this.campRepository.find(campId);
-		List<ActivityDTO> activities = camp.getActivities();
+        List<ActivityDTO> activities = this.activityRepository.getAll(Optional.of(new ActivityInCampCriteria(camp.getCampID())));;
 		for (int i = 0; i < activities.size(); i++) {
 			ActivityDTO activity = activities.get(i);
-			List<AssistantDTO> assistants = activity.getAssistants();
+			List<AssistantDTO> assistants = this.assitantRepository.getAssistantsInAnActivity(activity);
 			TimeSlot timeSlot = activity.getTimeSlot();
 			if (isPartial) {
 				if ((assistants.size() == activity.getMaxAssistants()) && (timeSlot == TimeSlot.MORNING)) {
