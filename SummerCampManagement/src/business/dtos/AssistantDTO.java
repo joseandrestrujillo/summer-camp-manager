@@ -1,4 +1,4 @@
-package business.entities;
+package business.dtos;
 
 import java.lang.reflect.Constructor;
 import java.util.Date;
@@ -10,7 +10,7 @@ import utilities.Utils;
 /**
  * La clase Assistant representa a un asistente con su información básica.
  */
-public class Assistant {
+public class AssistantDTO {
 	private int id;
 	private String firstName;
 	private String lastName;
@@ -27,7 +27,7 @@ public class Assistant {
      * @param birthDate              La fecha de nacimiento del asistente.
      * @param requireSpecialAttention Indica si el asistente requiere atención especial.
      */
-	public Assistant(int id, String firstName, String lastName, Date birthDate, boolean requireSpecialAttention) {
+	public AssistantDTO(int id, String firstName, String lastName, Date birthDate, boolean requireSpecialAttention) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -39,7 +39,7 @@ public class Assistant {
 	/**
      * Constructor predeterminado para crear un objeto Assistant vacío.
      */
-	public Assistant() {
+	public AssistantDTO() {
 		this.id = 0;
 		this.firstName = "";
 		this.lastName = "";

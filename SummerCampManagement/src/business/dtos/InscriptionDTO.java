@@ -1,4 +1,4 @@
-package business.entities;
+package business.dtos;
 
 import java.util.Date;
 import java.util.regex.Matcher;
@@ -9,7 +9,7 @@ import utilities.Utils;
 /**
  * La clase Inscription representa una inscripción para un asistente en un campamento.
  */
-public class Inscription {
+public class InscriptionDTO {
 	private String inscriptionIdentifier;
 	private int assistantId;
 	private int campId;
@@ -26,7 +26,7 @@ public class Inscription {
      * @param price           El precio total de la inscripción.
      * @param canBeCanceled   Indica si la inscripción se puede cancelar o no.
      */
-	public Inscription( int assistantId, int campId, Date inscriptionDate, float price, boolean canBeCanceled) {
+	public InscriptionDTO( int assistantId, int campId, Date inscriptionDate, float price, boolean canBeCanceled) {
 		this.assistantId = assistantId;
 		this.campId = campId;
 		this.inscriptionDate = inscriptionDate;
@@ -54,7 +54,7 @@ public class Inscription {
  	* la fecha de la inscripción se inicializa como null, el precio se inicializa como -1,
  	* y el identificador de la inscripción se recarga utilizando los valores iniciales.
  	*/
-	public Inscription() {
+	public InscriptionDTO() {
 		this.assistantId = -1;
 		this.campId = -1;
 		this.inscriptionDate = null;

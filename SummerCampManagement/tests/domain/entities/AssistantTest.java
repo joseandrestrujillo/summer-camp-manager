@@ -6,7 +6,7 @@ import java.util.Date;
 
 import org.junit.jupiter.api.Test;
 
-import business.entities.Assistant;
+import business.dtos.AssistantDTO;
 import utilities.Utils;
 
 class AssistantTest {
@@ -19,7 +19,7 @@ class AssistantTest {
 		Date birthDate = Utils.parseDate("26/01/2001");
 		boolean requireSpecialAttention = true;
 		
-		Assistant assistant = new Assistant(
+		AssistantDTO assistant = new AssistantDTO(
 				id,
 				firstName,
 				lastName,
@@ -42,7 +42,7 @@ class AssistantTest {
 		Date birthDate = null;
 		boolean requireSpecialAttention = false;
 		
-		Assistant assistant = new Assistant();
+		AssistantDTO assistant = new AssistantDTO();
 		
 		assertEquals(id, assistant.getId());
         assertEquals(firstName, assistant.getFirstName());
@@ -53,7 +53,7 @@ class AssistantTest {
 
 	@Test
 	void testSetters() {
-		Assistant assistant = new Assistant();
+		AssistantDTO assistant = new AssistantDTO();
 		int id = 1;
 		String firstName = "José";
 		String lastName = "Trujillo";
@@ -81,7 +81,7 @@ class AssistantTest {
 		Date birthDate = Utils.parseDate("26/01/2001");
 		boolean requireSpecialAttention = true;
 		
-		Assistant assistant = new Assistant(
+		AssistantDTO assistant = new AssistantDTO(
 				id,
 				firstName,
 				lastName,

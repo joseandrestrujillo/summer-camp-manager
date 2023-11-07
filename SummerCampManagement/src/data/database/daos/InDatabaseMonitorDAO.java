@@ -1,41 +1,32 @@
-package data.database;
+package data.database.daos;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLTimeoutException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
-import business.entities.Assistant;
-import business.entities.Monitor;
-import business.exceptions.assistant.AssistantNotFoundException;
+import business.dtos.MonitorDTO;
 import business.exceptions.dao.DAOTimeoutException;
 import business.exceptions.repository.NotFoundException;
 import business.interfaces.ICriteria;
 import business.interfaces.IDAO;
+import data.database.DBManager;
 /**
  * La clase InDatabaseMonitorDAO es una implementación en base de datos de un DAO de la clase monitor.
  
  */
-public class InDatabaseMonitorDAO implements IDAO<Monitor, Integer>{
-	private DBConnection dbConnection;
+public class InDatabaseMonitorDAO implements IDAO<MonitorDTO, Integer>{
+	private DBManager dbConnection;
 	/**
      * Constructor de la clase InDatabaseMonitorDAO.
      * Inicializa un nuevo mapa para almacenar monitores en memoria y recibe la ruta de la tabla como parametro
      */
     public InDatabaseMonitorDAO() {
-        this.dbConnection = DBConnection.getInstance();
+        this.dbConnection = DBManager.getInstance();
     }
     /**
      * Busca un monitor por su identificador.
@@ -45,8 +36,8 @@ public class InDatabaseMonitorDAO implements IDAO<Monitor, Integer>{
      * @throws NotFoundException Si el monitor no se encuentra en el DAO.
      */
     @Override
-    public Monitor find(Integer identifier) {
-    	Monitor monitor;
+    public MonitorDTO find(Integer identifier) {
+    	MonitorDTO monitor;
 		try {
     		Connection con = this.dbConnection.getConnection();
 
@@ -62,7 +53,7 @@ public class InDatabaseMonitorDAO implements IDAO<Monitor, Integer>{
 			String lastName = rs.getString("lastName");
 			Boolean isSpecialEducator = rs.getBoolean("specialEducator");
 			
-			monitor = new Monitor(
+			monitor = new MonitorDTO(
 					id,
 					firstName,
 					lastName,
@@ -85,7 +76,7 @@ public class InDatabaseMonitorDAO implements IDAO<Monitor, Integer>{
      * @param obj El monitor a guardar en el  DAO.
      */
     @Override
-    public void save(Monitor obj) {
+    public void save(MonitorDTO obj) {
     	try{
     		Connection con = this.dbConnection.getConnection();
     		PreparedStatement ps = con.prepareStatement(
@@ -108,8 +99,8 @@ public class InDatabaseMonitorDAO implements IDAO<Monitor, Integer>{
      * @return Una lista de monitores.
      */
     @Override
-    public List<Monitor> getAll(Optional<ICriteria> criteria) {
-    	ArrayList<Monitor> listOfMonitors = new ArrayList<Monitor>();
+    public List<MonitorDTO> getAll(Optional<ICriteria> criteria) {
+    	ArrayList<MonitorDTO> listOfMonitors = new ArrayList<MonitorDTO>();
 		try {
     		Connection con = this.dbConnection.getConnection();
 
@@ -128,7 +119,7 @@ public class InDatabaseMonitorDAO implements IDAO<Monitor, Integer>{
 				String firstName = rs.getString("firstName");
 				String lastName = rs.getString("lastName");
 				Boolean isSpecialEducator = rs.getBoolean("specialEducator");
-				listOfMonitors.add(new Monitor(
+				listOfMonitors.add(new MonitorDTO(
 						id,
 						firstName,
 						lastName,
@@ -152,7 +143,7 @@ public class InDatabaseMonitorDAO implements IDAO<Monitor, Integer>{
      * @param obj El monitor a eliminar del DAO.
      */
     @Override
-    public void delete(Monitor obj) {
+    public void delete(MonitorDTO obj) {
     	try{
     		Connection con = this.dbConnection.getConnection();
 	    	PreparedStatement ps=con.prepareStatement(this.dbConnection.getQuery("DELETE_MONITOR_QUERY"));

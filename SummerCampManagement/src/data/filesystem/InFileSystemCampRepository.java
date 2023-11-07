@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import business.entities.Camp;
+import business.dtos.CampDTO;
 import business.exceptions.repository.NotFoundException;
 import business.interfaces.ICriteria;
 import business.interfaces.IDAO;
@@ -19,8 +19,8 @@ import utilities.StringUtils;
  * La clase InFileSystemCampRepository es una implementación en sistema de ficheros de un repositorio de campamentos.
  
  */
-public class InFileSystemCampRepository implements IDAO<Camp, Integer> {
-    private Map<Integer, Camp> mapOfCamps;
+public class InFileSystemCampRepository implements IDAO<CampDTO, Integer> {
+    private Map<Integer, CampDTO> mapOfCamps;
     private String filePath;
      /**
      * Constructor de la clase InFileSystemCampRepository.
@@ -29,7 +29,7 @@ public class InFileSystemCampRepository implements IDAO<Camp, Integer> {
 
     public InFileSystemCampRepository(String filePath) {
         this.filePath = filePath;
-        this.mapOfCamps = new HashMap<Integer, Camp>();
+        this.mapOfCamps = new HashMap<Integer, CampDTO>();
         loadFromFile();
     }
      /**
@@ -41,7 +41,7 @@ public class InFileSystemCampRepository implements IDAO<Camp, Integer> {
      */
 
     @Override
-    public Camp find(Integer identifier) {
+    public CampDTO find(Integer identifier) {
         if (!mapOfCamps.containsKey(identifier)) {
             throw new NotFoundException();
         }
@@ -55,7 +55,7 @@ public class InFileSystemCampRepository implements IDAO<Camp, Integer> {
      */
 
     @Override
-    public void save(Camp obj) {
+    public void save(CampDTO obj) {
         mapOfCamps.put(obj.getCampID(), obj);
         saveToFile();
     }
@@ -66,7 +66,7 @@ public class InFileSystemCampRepository implements IDAO<Camp, Integer> {
      */
 
     @Override
-    public List<Camp> getAll(Optional<ICriteria> criteria) {
+    public List<CampDTO> getAll(Optional<ICriteria> criteria) {
         return new ArrayList<>(mapOfCamps.values());
     }
         /**
@@ -76,7 +76,7 @@ public class InFileSystemCampRepository implements IDAO<Camp, Integer> {
      */
 
     @Override
-    public void delete(Camp obj) {
+    public void delete(CampDTO obj) {
         mapOfCamps.remove(obj.getCampID());
         saveToFile();
     }
@@ -107,19 +107,19 @@ public class InFileSystemCampRepository implements IDAO<Camp, Integer> {
         }
     }
 
-    private String InscriptionMapToString(Map<Integer, Camp> InscriptionMap) {
+    private String InscriptionMapToString(Map<Integer, CampDTO> InscriptionMap) {
         StringBuilder sb = new StringBuilder();
-        for (Camp inscription : InscriptionMap.values()) {
+        for (CampDTO inscription : InscriptionMap.values()) {
             sb.append(inscription.toString()).append(System.lineSeparator());
         }
         return sb.toString();
     }
 
-    private Map<Integer, Camp> InscriptionMapFromString(String fileContent) {
-        Map<Integer, Camp> CampMap = new HashMap<>();
+    private Map<Integer, CampDTO> InscriptionMapFromString(String fileContent) {
+        Map<Integer, CampDTO> CampMap = new HashMap<>();
         String[] lines = fileContent.split(System.lineSeparator());
         for (String line : lines) {
-            Camp camp = StringUtils.campFromString(line);
+            CampDTO camp = StringUtils.campFromString(line);
             if (camp != null) {
                 CampMap.put(camp.getCampID(), camp);
             }

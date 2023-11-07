@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import business.entities.Monitor;
+import business.dtos.MonitorDTO;
 import business.exceptions.repository.NotFoundException;
 import business.interfaces.ICriteria;
 import business.interfaces.IDAO;
@@ -15,15 +15,15 @@ import business.interfaces.IDAO;
  * La clase InMemoryMontiorRepository es una implementación en memoria de un repositorio de monitores.
  
  */
-public class InMemoryMontiorRepository implements IDAO<Monitor, Integer> {
-    private Map<Integer, Monitor> mapOfMonitor;
+public class InMemoryMontiorRepository implements IDAO<MonitorDTO, Integer> {
+    private Map<Integer, MonitorDTO> mapOfMonitor;
 
     /**
      * Constructor de la clase InMemoryMontiorRepository.
      * Inicializa un nuevo mapa para almacenar monitores en memoria.
      */
     public InMemoryMontiorRepository() {
-        this.mapOfMonitor = new HashMap<Integer, Monitor>();
+        this.mapOfMonitor = new HashMap<Integer, MonitorDTO>();
     }
 
     /**
@@ -34,7 +34,7 @@ public class InMemoryMontiorRepository implements IDAO<Monitor, Integer> {
      * @throws NotFoundException Si el monitor no se encuentra en el repositorio.
      */
     @Override
-    public Monitor find(Integer identifier) {
+    public MonitorDTO find(Integer identifier) {
         if (this.mapOfMonitor.get(identifier) == null) {
             throw new NotFoundException();
         }
@@ -47,7 +47,7 @@ public class InMemoryMontiorRepository implements IDAO<Monitor, Integer> {
      * @param obj El monitor a guardar en el repositorio.
      */
     @Override
-    public void save(Monitor obj) {
+    public void save(MonitorDTO obj) {
         this.mapOfMonitor.put(obj.getId(), obj);
     }
 
@@ -57,8 +57,8 @@ public class InMemoryMontiorRepository implements IDAO<Monitor, Integer> {
      * @return Una lista de monitores.
      */
     @Override
-    public List<Monitor> getAll(Optional<ICriteria> criteria) {
-        List<Monitor> allMonitors = new ArrayList<>(this.mapOfMonitor.values());
+    public List<MonitorDTO> getAll(Optional<ICriteria> criteria) {
+        List<MonitorDTO> allMonitors = new ArrayList<>(this.mapOfMonitor.values());
         return allMonitors;
     }
 
@@ -68,7 +68,7 @@ public class InMemoryMontiorRepository implements IDAO<Monitor, Integer> {
      * @param obj El monitor a eliminar del repositorio.
      */
     @Override
-    public void delete(Monitor obj) {
+    public void delete(MonitorDTO obj) {
         this.mapOfMonitor.remove(obj.getId());
     }
 }

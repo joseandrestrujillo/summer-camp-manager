@@ -8,11 +8,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
-import business.entities.Activity;
-import business.entities.Assistant;
-import business.entities.Camp;
-import business.entities.Inscription;
-import business.entities.Monitor;
+import business.dtos.ActivityDTO;
+import business.dtos.AssistantDTO;
+import business.dtos.CampDTO;
+import business.dtos.InscriptionDTO;
+import business.dtos.MonitorDTO;
 import business.exceptions.activity.MaxMonitorsAddedException;
 import business.exceptions.camp.IsNotAnSpecialEducator;
 import business.exceptions.camp.NotTheSameLevelException;
@@ -30,11 +30,11 @@ import business.managers.CampsManager;
 import business.managers.InscriptionManager;
 import business.values.EducativeLevel;
 import business.values.TimeSlot;
-import data.database.InDatabaseActivityDAO;
-import data.database.InDatabaseAssistantDAO;
-import data.database.InDatabaseCampDAO;
-import data.database.InDatabaseInscriptionDAO;
-import data.database.InDatabaseMonitorDAO;
+import data.database.daos.InDatabaseActivityDAO;
+import data.database.daos.InDatabaseAssistantDAO;
+import data.database.daos.InDatabaseCampDAO;
+import data.database.daos.InDatabaseInscriptionDAO;
+import data.database.daos.InDatabaseMonitorDAO;
 import data.filesystem.InFileSystemActivityRepository;
 import data.filesystem.InFileSystemAssistantRepository;
 import data.filesystem.InFileSystemCampRepository;
@@ -61,9 +61,9 @@ public class Main {
         }
     }
 
-	private static void showAssistants(List<Assistant> listOfAssistants, boolean returnOption) {
+	private static void showAssistants(List<AssistantDTO> listOfAssistants, boolean returnOption) {
         for (int i = 0; i < listOfAssistants.size(); i++) {
-        	Assistant iterableAssistant = listOfAssistants.get(i);
+        	AssistantDTO iterableAssistant = listOfAssistants.get(i);
             System.out.println((i + 1) + ". DNI:" + iterableAssistant.getId() 
             							+ ", Nombre:" + iterableAssistant.getFirstName() + " " + iterableAssistant.getLastName()
             							+ ", Atención Especial: " + (iterableAssistant.isRequireSpecialAttention() ? "Si" : "No"));
@@ -73,9 +73,9 @@ public class Main {
         } 
 	}
 	
-	private static void showMonitors(List<Monitor> listOfMonitors, boolean returnOption) {
+	private static void showMonitors(List<MonitorDTO> listOfMonitors, boolean returnOption) {
         for (int i = 0; i < listOfMonitors.size(); i++) {
-        	Monitor iterableMonitor = listOfMonitors.get(i);
+        	MonitorDTO iterableMonitor = listOfMonitors.get(i);
         	System.out.println((i + 1) + ". DNI:" + iterableMonitor.getId() 
 				+ ", Nombre:" + iterableMonitor.getFirstName() + " " + iterableMonitor.getLastName()
 				+ ", Educador Especial: " + (iterableMonitor.isSpecialEducator() ? "Si" : "No"));
@@ -86,9 +86,9 @@ public class Main {
 	}
 	
 	
-	private static void showActivities(List<Activity> listOfActivities, boolean returnOption) {
+	private static void showActivities(List<ActivityDTO> listOfActivities, boolean returnOption) {
         for (int i = 0; i < listOfActivities.size(); i++) {
-        	Activity iterableActivity = listOfActivities.get(i);
+        	ActivityDTO iterableActivity = listOfActivities.get(i);
             System.out.println((i + 1) + ". " + iterableActivity.getActivityName());
         }
         if(returnOption) {
@@ -96,9 +96,9 @@ public class Main {
         }  
 	}
 	
-	private static void showCamps(List<Camp> listOfCamps, boolean returnOption) {
+	private static void showCamps(List<CampDTO> listOfCamps, boolean returnOption) {
         for (int i = 0; i < listOfCamps.size(); i++) {
-        	Camp iterableCamp = listOfCamps.get(i);
+        	CampDTO iterableCamp = listOfCamps.get(i);
             System.out.println((i + 1) + ". Campamento #" + iterableCamp.getCampID() 
         						+ ": Inicio " + Utils.getStringDate(iterableCamp.getStart()) 
         						+ ".\n");
@@ -108,7 +108,7 @@ public class Main {
         }  
 	}
 	
-	private static Assistant getDataForAssistant(int id, Scanner sc) {
+	private static AssistantDTO getDataForAssistant(int id, Scanner sc) {
 		System.out.println("Introduzca el nombre del asisitente\n");
 		String firstName = sc.next();
 		
@@ -127,7 +127,7 @@ public class Main {
 		String response = sc.next();
 		boolean requireSpecialAttention = response.toLowerCase().equals("s");
 		
-		return new Assistant(
+		return new AssistantDTO(
 				id,
 				firstName,
 				lastName,
@@ -136,7 +136,7 @@ public class Main {
 		);
 	}
 	
-	private static Monitor getDataForMonitor(int id, Scanner sc) {
+	private static MonitorDTO getDataForMonitor(int id, Scanner sc) {
 		System.out.println("Introduzca el nombre del monitor\n");
 		String firstName = sc.next();
 		
@@ -147,7 +147,7 @@ public class Main {
 		String response = sc.next();
 		boolean specialAttentionMonitor = response.toLowerCase().equals("s");
 		
-		return new Monitor(
+		return new MonitorDTO(
 				id,
 				firstName,
 				lastName,
@@ -155,7 +155,7 @@ public class Main {
 		);
 	}
 	
-	private static Camp getDataForCamp(int id, Scanner sc) {
+	private static CampDTO getDataForCamp(int id, Scanner sc) {
 		
 		System.out.println("Introduzca la fecha inicio del campamento en formato (dd/mm/yyyy)\n");
 		Date startDate = Utils.parseDate(sc.next());
@@ -184,7 +184,7 @@ public class Main {
 		System.out.println("Introduzca la capacidad del campamento\n");
 		int capacity = sc.nextInt();
 		
-		return new Camp(
+		return new CampDTO(
 				id,
 				startDate,
 				endDate,
@@ -193,7 +193,7 @@ public class Main {
 		);
 	}
 	
-	private static Activity getDataForActivity(String activityName, Scanner sc) {
+	private static ActivityDTO getDataForActivity(String activityName, Scanner sc) {
 		
 		System.out.println("Introduzca el nivel educativo (1: infantil, 2: juvenil, 3: adolescente)\n");
 		int educativeLevelOption = sc.nextInt();
@@ -216,7 +216,7 @@ public class Main {
 		System.out.println("Introduzca el número de monitores necesarios\n");
 		int nMonitorsNeeded = sc.nextInt();
 		
-		return new Activity(
+		return new ActivityDTO(
 				activityName,
 				educativeLevel,
 				timeSlot,
@@ -252,11 +252,11 @@ public class Main {
 		}
 		
 		int opcion;
-		IDAO<Camp, Integer> campRepository = new InDatabaseCampDAO();
-		IDAO<Activity, String> activityRepository = new InDatabaseActivityDAO();
-		IDAO<Monitor, Integer> monitorRepository = new InDatabaseMonitorDAO();
-		IDAO<Assistant, Integer> assistantRepository = new InDatabaseAssistantDAO();
-		IDAO<Inscription, String> inscriptionRepository = new InDatabaseInscriptionDAO();
+		IDAO<CampDTO, Integer> campRepository = new InDatabaseCampDAO();
+		IDAO<ActivityDTO, String> activityRepository = new InDatabaseActivityDAO();
+		IDAO<MonitorDTO, Integer> monitorRepository = new InDatabaseMonitorDAO();
+		IDAO<AssistantDTO, Integer> assistantRepository = new InDatabaseAssistantDAO();
+		IDAO<InscriptionDTO, String> inscriptionRepository = new InDatabaseInscriptionDAO();
 		AssistantsManager assistantsManager = new AssistantsManager(assistantRepository);
 		CampsManager campsManager = new CampsManager(campRepository, activityRepository, monitorRepository);
 		InscriptionManager inscriptionManager = new InscriptionManager(campRepository, activityRepository, monitorRepository,
@@ -293,7 +293,7 @@ public class Main {
 								System.out.println("Introduzca su DNI (sin letra)\n");
 								int assistantId = sc.nextInt();
 								
-								Assistant assistant = new Assistant(assistantId, "", "", null, false);
+								AssistantDTO assistant = new AssistantDTO(assistantId, "", "", null, false);
 								boolean isRegistered = assistantsManager.isRegistered(assistant);
 								if(isRegistered == true ){
 									clearConsole();
@@ -310,7 +310,7 @@ public class Main {
 								break;
 							}
 							case 2: {
-								List<Assistant> listOfRegisteredAssistants = assistantsManager.getListOfRegisteredAssistant();
+								List<AssistantDTO> listOfRegisteredAssistants = assistantsManager.getListOfRegisteredAssistant();
 								System.out.println("Lista de asistentes:");
 
 								showAssistants(listOfRegisteredAssistants, true);
@@ -338,7 +338,7 @@ public class Main {
 								break;
 							}
 							case 3: {
-								List<Assistant> listOfRegisteredAssistants = assistantsManager.getListOfRegisteredAssistant();
+								List<AssistantDTO> listOfRegisteredAssistants = assistantsManager.getListOfRegisteredAssistant();
 								System.out.println("Lista de asistentes:");
 
 								showAssistants(listOfRegisteredAssistants, false);
@@ -406,7 +406,7 @@ public class Main {
 								break;
 							}
 							case 3: {
-								List<Activity> listOfActivities = activityRepository.getAll();
+								List<ActivityDTO> listOfActivities = activityRepository.getAll();
 								System.out.println("Lista de actividades en el sistema:");
 
 								showActivities(listOfActivities, true);
@@ -423,7 +423,7 @@ public class Main {
 									break;
 								}
 								
-								Activity selectedActivity = listOfActivities.get(optionSelected-1);
+								ActivityDTO selectedActivity = listOfActivities.get(optionSelected-1);
 								
 								System.out.println("Introduzca el DNI (sin letra) del monitor\n");
 								int monitorId = sc.nextInt();
@@ -435,7 +435,7 @@ public class Main {
 									break;
 								} catch (NotFoundException e) {}
 								
-								Monitor monitorCreated = getDataForMonitor(monitorId, sc);
+								MonitorDTO monitorCreated = getDataForMonitor(monitorId, sc);
 								
 								try {
 									selectedActivity.registerMonitor(monitorCreated);
@@ -453,7 +453,7 @@ public class Main {
  								break;
 							}
 							case 4: {
-								List<Camp> listAvailableCamps = campRepository.getAll();
+								List<CampDTO> listAvailableCamps = campRepository.getAll();
 								System.out.println("Lista de campamentos en el sistema:");
 
 								showCamps(listAvailableCamps, true);
@@ -470,7 +470,7 @@ public class Main {
 									break;
 								}
 								
-								Camp selectedCamp = listAvailableCamps.get(optionSelectedCamp -1 );
+								CampDTO selectedCamp = listAvailableCamps.get(optionSelectedCamp -1 );
 								
 								clearConsole();								
 								
@@ -492,7 +492,7 @@ public class Main {
 									
 									switch (optionSelectedCampManager) {
 										case 1: { 
-											List<Activity> listOfActivities = activityRepository.getAll();
+											List<ActivityDTO> listOfActivities = activityRepository.getAll();
 											System.out.println("Lista de actividades en el sistema:");
 
 											showActivities(listOfActivities, true);
@@ -509,7 +509,7 @@ public class Main {
 												break;
 											}
 											
-											Activity selectedActivity = listOfActivities.get(optionSelected -1);
+											ActivityDTO selectedActivity = listOfActivities.get(optionSelected -1);
 
 											try {
 												campsManager.registerActivity(selectedCamp, selectedActivity);
@@ -524,7 +524,7 @@ public class Main {
 											break;
 										}
 										case 2: {
-											List<Activity> listOfActivitiesOfTheSelectedCamp = selectedCamp.getActivities();
+											List<ActivityDTO> listOfActivitiesOfTheSelectedCamp = selectedCamp.getActivities();
 											System.out.println("Lista de actividades del campamento:");
 
 											showActivities(listOfActivitiesOfTheSelectedCamp, true);
@@ -540,7 +540,7 @@ public class Main {
 												System.out.println("Opción invalida\n");
 												break;
 											}
-											Activity selectedActivity = listOfActivitiesOfTheSelectedCamp.get(optionSelected - 1);
+											ActivityDTO selectedActivity = listOfActivitiesOfTheSelectedCamp.get(optionSelected - 1);
 
 											clearConsole();
 											System.out.println("Campamento seleccionado: \n");
@@ -548,7 +548,7 @@ public class Main {
 											System.out.println("Actividad seleccionada: \n");
 											System.out.println("Actividad \"" + selectedActivity.getActivityName() + "\" \n\n");
 											
-											List<Monitor> listOfMonitorsOfTheSelectedActivity = selectedActivity.getMonitorList();
+											List<MonitorDTO> listOfMonitorsOfTheSelectedActivity = selectedActivity.getMonitorList();
 											System.out.println("Lista de monitores de la actividad:");
 
 											showMonitors(listOfMonitorsOfTheSelectedActivity, true);
@@ -564,7 +564,7 @@ public class Main {
 												System.out.println("Opción invalida\n");
 												break;
 											}
-											Monitor selectedMonitor = listOfMonitorsOfTheSelectedActivity.get(optionSelected - 1);
+											MonitorDTO selectedMonitor = listOfMonitorsOfTheSelectedActivity.get(optionSelected - 1);
 											
 											campsManager.setPrincipalMonitor(selectedCamp, selectedMonitor);
 											
@@ -576,7 +576,7 @@ public class Main {
 											System.out.println("Introduzca el DNI (sin letra) del monitor\n");
 											int monitorId = sc.nextInt();
 											
-											Monitor monitor;
+											MonitorDTO monitor;
 											try {
 												monitor = monitorRepository.find(monitorId);
 											} catch (NotFoundException e) {
@@ -636,7 +636,7 @@ public class Main {
 						clearConsole();
 						switch (optionInscriptionManager) {
 							case 1: {
-								List<Assistant> listOfAssistants = assistantRepository.getAll();
+								List<AssistantDTO> listOfAssistants = assistantRepository.getAll();
 								System.out.println("Lista de asistentes en el sistema:");
 
 								showAssistants(listOfAssistants, true);
@@ -653,13 +653,13 @@ public class Main {
 									break;
 								}
 								
-								Assistant selectedAssistant = listOfAssistants.get(optionSelected - 1);
+								AssistantDTO selectedAssistant = listOfAssistants.get(optionSelected - 1);
 								
 								clearConsole();
 								System.out.println("Asistente seleccionado: \n");
 								System.out.println("DNI: " + selectedAssistant.getId() + " Nombre: " + selectedAssistant.getFirstName() + " " + selectedAssistant.getLastName() + " \n\n");
 								
-								List<Camp> listAvailableCamps = inscriptionManager.avaliableCamps(Utils.getCurrentDate());
+								List<CampDTO> listAvailableCamps = inscriptionManager.avaliableCamps(Utils.getCurrentDate());
 								System.out.println("Lista de campamentos disponibles:");
 
 								showCamps(listAvailableCamps, true);
@@ -676,7 +676,7 @@ public class Main {
 									break;
 								}
 								
-								Camp selectedCamp = listAvailableCamps.get(optionSelected - 1);
+								CampDTO selectedCamp = listAvailableCamps.get(optionSelected - 1);
 								
 								clearConsole();
 								System.out.println("Asistente seleccionado: \n");
@@ -690,7 +690,7 @@ public class Main {
 										? true
 										: false;
 								
-								Inscription inscription;
+								InscriptionDTO inscription;
 								try {
 									inscription = inscriptionManager.enroll(
 											selectedAssistant.getId(),
@@ -730,7 +730,7 @@ public class Main {
 								
 								break;
 							}case 2: {
-								List<Camp> listAvailableCamps = inscriptionManager.avaliableCamps(Utils.getCurrentDate());
+								List<CampDTO> listAvailableCamps = inscriptionManager.avaliableCamps(Utils.getCurrentDate());
 								System.out.println("Lista de campamentos disponibles:");
 
 								showCamps(listAvailableCamps, false);

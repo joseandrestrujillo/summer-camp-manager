@@ -6,11 +6,11 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import business.entities.Activity;
-import business.entities.Assistant;
-import business.entities.Camp;
-import business.entities.Inscription;
-import business.entities.Monitor;
+import business.dtos.ActivityDTO;
+import business.dtos.AssistantDTO;
+import business.dtos.CampDTO;
+import business.dtos.InscriptionDTO;
+import business.dtos.MonitorDTO;
 import business.values.EducativeLevel;
 import business.values.TimeSlot;
 
@@ -21,7 +21,7 @@ public class StringUtils {
      * @param inputString Una cadena que representa a la actividad en formato JSON.
      * @return Objeto de la clase
      */
-    public static Activity activityFromString(String inputString) {
+    public static ActivityDTO activityFromString(String inputString) {
 
     	Pattern pattern = Pattern.compile("activityName: '(.+)',\\s+educativeLevel:\\s+(.+),\\s+timeSlot:\\s+(.+),\\s+maxAssistants:\\s+(\\d+),\\s+neededMonitors:\\s+(\\d+),\\s+assistants:\\s*(\\[[^\\]]*\\])?\\s*,\\s*monitors:\\s*(\\[[^\\]]*\\])?");
     	Matcher matcher = pattern.matcher(inputString);
@@ -59,7 +59,7 @@ public class StringUtils {
         }
         int neededMonitors = Integer.parseInt(neededMonitorsStr);
 
-        List<Assistant> assistantList = new ArrayList<>();
+        List<AssistantDTO> assistantList = new ArrayList<>();
         String assistantString = matcher.group(6);
         if(assistantString != null && !assistantString.isEmpty()) {
         	if (!assistantString.isEmpty()) {
@@ -67,13 +67,13 @@ public class StringUtils {
                 Matcher assistantMatcher = assistantPattern.matcher(assistantString);
                 while (assistantMatcher.find()) {
                     String assistantData = assistantMatcher.group(1);
-                    Assistant assistant = StringUtils.assistantFromString(assistantData);
+                    AssistantDTO assistant = StringUtils.assistantFromString(assistantData);
                     assistantList.add(assistant);
                 }
             }
         }
 
-        List<Monitor> monitorList = new ArrayList<>();
+        List<MonitorDTO> monitorList = new ArrayList<>();
         String monitorString = matcher.group(7);
         if(monitorString != null && !monitorString.isEmpty()) {
         	if (!monitorString.isEmpty()) {
@@ -81,13 +81,13 @@ public class StringUtils {
                 Matcher monitorMatcher = monitorPattern.matcher(monitorString);
                 while (monitorMatcher.find()) {
                     String monitorData = monitorMatcher.group(1);
-                    Monitor monitor = StringUtils.monitorFromString(monitorData);
+                    MonitorDTO monitor = StringUtils.monitorFromString(monitorData);
                     monitorList.add(monitor);
                 }
             }
         }
 
-        Activity activity = new Activity(activityName, educativeLevel, timeSlot, maxAssistants, neededMonitors);
+        ActivityDTO activity = new ActivityDTO(activityName, educativeLevel, timeSlot, maxAssistants, neededMonitors);
         activity.setAssistants(assistantList);
         activity.setMonitorList(monitorList);
 
@@ -101,7 +101,7 @@ public class StringUtils {
      * @param assistantString Una cadena que representa al asistente en formato JSON.
      * @return Objeto de la clase
      */
-    public static Assistant assistantFromString(String assistantString) {
+    public static AssistantDTO assistantFromString(String assistantString) {
         int id = 0;
         String firstName = "";
         String lastName = "";
@@ -118,7 +118,7 @@ public class StringUtils {
             requireSpecialAttention = Boolean.parseBoolean(matcher.group(5));
         }
 
-        return new Assistant(id, firstName, lastName, birthDate, requireSpecialAttention);
+        return new AssistantDTO(id, firstName, lastName, birthDate, requireSpecialAttention);
     }
     /**
      * Devuelve objeto Camp.
@@ -126,7 +126,7 @@ public class StringUtils {
      * @param inputString Una cadena que representa al campamento en formato JSON.
      * @return Objeto de la clase
      */
-	public static Camp campFromString(String inputString) {
+	public static CampDTO campFromString(String inputString) {
 
 		  Pattern pattern = Pattern.compile("campID: (\\d+), start: (.+), end: (.+), educativeLevel: (.+), capacity: (\\d+), principalMonitor: (.+), specialMonitor: (.+), activities: \\[(.+)\\]");
 		  
@@ -146,12 +146,12 @@ public class StringUtils {
 		  int capacity = Integer.parseInt(matcher.group(5));
 
 		  String principalMonitorString = matcher.group(6);
-		  Monitor principalMonitor = principalMonitorString.equals("null") ? null : StringUtils.monitorFromString(principalMonitorString);
+		  MonitorDTO principalMonitor = principalMonitorString.equals("null") ? null : StringUtils.monitorFromString(principalMonitorString);
 
 		  String specialMonitorString = matcher.group(7);
-		  Monitor specialMonitor = specialMonitorString.equals("null") ? null : StringUtils.monitorFromString(specialMonitorString);
+		  MonitorDTO specialMonitor = specialMonitorString.equals("null") ? null : StringUtils.monitorFromString(specialMonitorString);
 
-		  List<Activity> activities = new ArrayList<>();
+		  List<ActivityDTO> activities = new ArrayList<>();
 		  
 		  String activitiesString = matcher.group(8);
 		  if (activitiesString != null && !activitiesString.isEmpty()) {
@@ -159,12 +159,12 @@ public class StringUtils {
 			  Matcher activityMatcher = activityPattern.matcher(activitiesString);
 			  while (activityMatcher.find()) {
 				  String activityData = activityMatcher.group();
-				  Activity activity = StringUtils.activityFromString(activityData);
+				  ActivityDTO activity = StringUtils.activityFromString(activityData);
 				  activities.add(activity);
 			  }
 		  }
 
-		  Camp camp = new Camp(campID, start, end, educativeLevel, capacity);
+		  CampDTO camp = new CampDTO(campID, start, end, educativeLevel, capacity);
 		  camp.setPrincipalMonitor(principalMonitor);
 		  camp.setSpecialMonitor(specialMonitor);
 		  camp.setActivities(activities);
@@ -177,7 +177,7 @@ public class StringUtils {
      * @param inputString Una cadena que representa la inscripcion en formato JSON.
      * @return Objeto de la clase
      */
-	public static Inscription inscriptionFromString(String inputString) {
+	public static InscriptionDTO inscriptionFromString(String inputString) {
 	    int assistantId = -1;
 	    int campId = -1;
 	    Date inscriptionDate = null;
@@ -194,7 +194,7 @@ public class StringUtils {
 	        canBeCanceled = Boolean.parseBoolean(matcher.group(5));
 	    }
 
-	    return new Inscription(assistantId, campId, inscriptionDate, price, canBeCanceled);
+	    return new InscriptionDTO(assistantId, campId, inscriptionDate, price, canBeCanceled);
 	}
 	
 	/**
@@ -203,7 +203,7 @@ public class StringUtils {
      * @param monitorString Una cadena que representa al monitor en formato JSON.
      * @return Objeto de la clase
      */
-    public static Monitor monitorFromString(String monitorString) {
+    public static MonitorDTO monitorFromString(String monitorString) {
         int id = 0;
         String firstName = "";
         String lastName = "";
@@ -218,7 +218,7 @@ public class StringUtils {
             specialEducator = Boolean.parseBoolean(matcher.group(4));
         }
 
-        return new Monitor(id, firstName, lastName, specialEducator);
+        return new MonitorDTO(id, firstName, lastName, specialEducator);
     }
 	
 }

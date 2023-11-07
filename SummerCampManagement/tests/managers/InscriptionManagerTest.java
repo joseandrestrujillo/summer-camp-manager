@@ -9,11 +9,11 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import business.entities.Activity;
-import business.entities.Assistant;
-import business.entities.Camp;
-import business.entities.CompleteInscription;
-import business.entities.Inscription;
+import business.dtos.ActivityDTO;
+import business.dtos.AssistantDTO;
+import business.dtos.CampDTO;
+import business.dtos.CompleteInscriptionDTO;
+import business.dtos.InscriptionDTO;
 import business.exceptions.inscription.AssistantAlreadyEnrolledException;
 import business.exceptions.inscription.MaxAssistantExcededException;
 import business.exceptions.inscription.NeedToAddAnSpecialMonitorException;
@@ -46,14 +46,14 @@ class InscriptionManagerTest {
 		EducativeLevel educativeLevel = EducativeLevel.ELEMENTARY;
 		int capacity = 10;
 
-		Assistant assistant = new Assistant(
+		AssistantDTO assistant = new AssistantDTO(
 				assistantId,
 				"José",
 				"Trujillo",
 				Utils.parseDate("26/01/2019"),
 				true
 		);
-		Camp camp = new Camp(
+		CampDTO camp = new CampDTO(
 				campID,
 				start,
 				end,
@@ -66,7 +66,7 @@ class InscriptionManagerTest {
 
 		if (numActivities >= 1) {
 			for (int i = 1; i <= numActivities; i++) {
-				Activity activity = new Activity(
+				ActivityDTO activity = new ActivityDTO(
 						"Actividad" + i,
 						educativeLevel,
 						TimeSlot.AFTERNOON,
@@ -97,7 +97,7 @@ class InscriptionManagerTest {
 		performCampAndActivitiesSetup(1, 1, 0);
 		
 		Date inscriptionDate = Utils.parseDate("25/12/2023");
-		Inscription inscription = inscriptionManager.enroll(
+		InscriptionDTO inscription = inscriptionManager.enroll(
 				1, 
 				campID, 
 				inscriptionDate, 
@@ -105,7 +105,7 @@ class InscriptionManagerTest {
 				false);
 				
 		
-		assertInstanceOf(CompleteInscription.class, inscription);
+		assertInstanceOf(CompleteInscriptionDTO.class, inscription);
 		assertEquals(1, inscription.getAssistantId());
 		assertEquals(campID, inscription.getCampId());
 		assertEquals(inscriptionDate, inscription.getInscriptionDate());
@@ -120,7 +120,7 @@ class InscriptionManagerTest {
 		
 		Date inscriptionDate = Utils.parseDate("10/01/2024");
 		
-		Inscription inscription = inscriptionManager.enroll(
+		InscriptionDTO inscription = inscriptionManager.enroll(
 				1, 
 				campID, 
 				inscriptionDate, 
@@ -128,7 +128,7 @@ class InscriptionManagerTest {
 				false);
 				
 		
-		assertInstanceOf(CompleteInscription.class, inscription);
+		assertInstanceOf(CompleteInscriptionDTO.class, inscription);
 		assertEquals(1, inscription.getAssistantId());
 		assertEquals(campID, inscription.getCampId());
 		assertEquals(inscriptionDate, inscription.getInscriptionDate());
@@ -165,7 +165,7 @@ class InscriptionManagerTest {
 		
 		Date inscriptionDate = Utils.parseDate("25/12/2023");
 		
-		Inscription inscription = inscriptionManager.enroll(
+		InscriptionDTO inscription = inscriptionManager.enroll(
 				1, 
 				campID, 
 				inscriptionDate, 
@@ -184,7 +184,7 @@ class InscriptionManagerTest {
 		
 		Date inscriptionDate = Utils.parseDate("25/12/2023");
 		
-		Inscription inscription = inscriptionManager.enroll(
+		InscriptionDTO inscription = inscriptionManager.enroll(
 				1, 
 				campID, 
 				inscriptionDate, 
@@ -202,7 +202,7 @@ class InscriptionManagerTest {
 		performCampAndActivitiesSetup(1, 1, 1);
 		
 		Date inscriptionDate = Utils.parseDate("25/12/2023");
-		Inscription inscription = inscriptionManager.enroll(
+		InscriptionDTO inscription = inscriptionManager.enroll(
 				1, 
 				campID, 
 				inscriptionDate, 
@@ -221,7 +221,7 @@ class InscriptionManagerTest {
 		performCampAndActivitiesSetup(1, 1, 1);
 		
 		Date inscriptionDate = Utils.parseDate("25/12/2023");
-		Inscription inscription = inscriptionManager.enroll(
+		InscriptionDTO inscription = inscriptionManager.enroll(
 				1, 
 				campID, 
 				inscriptionDate, 
@@ -242,7 +242,7 @@ class InscriptionManagerTest {
 		Date inscriptionDate = Utils.parseDate("25/12/2023");
 		
 		
-		Inscription inscription = inscriptionManager.enroll(
+		InscriptionDTO inscription = inscriptionManager.enroll(
 				1, 
 				campID, 
 				inscriptionDate, 
@@ -263,7 +263,7 @@ class InscriptionManagerTest {
 		Date inscriptionDate = Utils.parseDate("25/12/2023");
 		
 		
-		Inscription inscription = inscriptionManager.enroll(
+		InscriptionDTO inscription = inscriptionManager.enroll(
 				1, 
 				campID, 
 				inscriptionDate, 
@@ -283,7 +283,7 @@ class InscriptionManagerTest {
 		
 		Date inscriptionDate = Utils.parseDate("10/01/2024");
 		
-		Inscription inscription = inscriptionManager.enroll(
+		InscriptionDTO inscription = inscriptionManager.enroll(
 				1, 
 				campID, 
 				inscriptionDate, 
@@ -302,7 +302,7 @@ class InscriptionManagerTest {
 		
 		Date inscriptionDate = Utils.parseDate("10/01/2024");
 		
-		Inscription inscription = inscriptionManager.enroll(
+		InscriptionDTO inscription = inscriptionManager.enroll(
 				1, 
 				campID, 
 				inscriptionDate, 
@@ -320,7 +320,7 @@ class InscriptionManagerTest {
 		performCampAndActivitiesSetup(1, 1, 1);
 		
 		Date inscriptionDate = Utils.parseDate("10/01/2024");
-		Inscription inscription = inscriptionManager.enroll(
+		InscriptionDTO inscription = inscriptionManager.enroll(
 				1, 
 				campID, 
 				inscriptionDate, 
@@ -339,7 +339,7 @@ class InscriptionManagerTest {
 		performCampAndActivitiesSetup(1, 1, 1);
 		
 		Date inscriptionDate = Utils.parseDate("10/01/2024");
-		Inscription inscription = inscriptionManager.enroll(
+		InscriptionDTO inscription = inscriptionManager.enroll(
 				1, 
 				campID, 
 				inscriptionDate, 
@@ -360,7 +360,7 @@ class InscriptionManagerTest {
 		Date inscriptionDate = Utils.parseDate("10/01/2024");
 		
 		
-		Inscription inscription = inscriptionManager.enroll(
+		InscriptionDTO inscription = inscriptionManager.enroll(
 				1, 
 				campID, 
 				inscriptionDate, 
@@ -380,49 +380,49 @@ class InscriptionManagerTest {
 		EducativeLevel educativeLevel = EducativeLevel.ELEMENTARY;
 		int capacity = 10;
 
-		Assistant assistant = new Assistant(
+		AssistantDTO assistant = new AssistantDTO(
 				1,
 				"José",
 				"Trujillo",
 				Utils.parseDate("26/01/2019"),
 				true
 				);
-		Camp camp = new Camp(
+		CampDTO camp = new CampDTO(
 				campID,
 				start,
 				end,
 				educativeLevel,
 				capacity				
 		);
-		Activity activity = new Activity(
+		ActivityDTO activity = new ActivityDTO(
 				"Actividad",
 				educativeLevel,
 				TimeSlot.AFTERNOON,
 				10,
 				3
 		);
-		Activity activity2 = new Activity(
+		ActivityDTO activity2 = new ActivityDTO(
 				"Actividad2",
 				educativeLevel,
 				TimeSlot.AFTERNOON,
 				10,
 				3
 		);
-		Activity activity3 = new Activity(
+		ActivityDTO activity3 = new ActivityDTO(
 				"Actividad3",
 				educativeLevel,
 				TimeSlot.AFTERNOON,
 				10,
 				3
 		);
-		Activity activity4 = new Activity(
+		ActivityDTO activity4 = new ActivityDTO(
 				"Actividad4",
 				educativeLevel,
 				TimeSlot.AFTERNOON,
 				10,
 				3
 		);
-		Activity activity5 = new Activity(
+		ActivityDTO activity5 = new ActivityDTO(
 				"Actividad5",
 				educativeLevel,
 				TimeSlot.AFTERNOON,
@@ -444,7 +444,7 @@ class InscriptionManagerTest {
 		
 		
 		
-		Inscription inscription = inscriptionManager.enroll(
+		InscriptionDTO inscription = inscriptionManager.enroll(
 				1, 
 				campID, 
 				inscriptionDate, 
@@ -480,14 +480,14 @@ class InscriptionManagerTest {
 		EducativeLevel educativeLevel = EducativeLevel.ELEMENTARY;
 		int capacity = 10;
 
-		Assistant assistant = new Assistant(
+		AssistantDTO assistant = new AssistantDTO(
 				1,
 				"José",
 				"Trujillo",
 				Utils.parseDate("26/01/2019"),
 				true
 				);
-		Camp camp = new Camp(
+		CampDTO camp = new CampDTO(
 				campID,
 				start,
 				end,
@@ -495,7 +495,7 @@ class InscriptionManagerTest {
 				capacity				
 		);
 		
-		Camp camp1 = new Camp(
+		CampDTO camp1 = new CampDTO(
 				2,
 				start,
 				end,
@@ -503,7 +503,7 @@ class InscriptionManagerTest {
 				capacity				
 		);
 		
-		Camp camp2 = new Camp(
+		CampDTO camp2 = new CampDTO(
 				3,
 				start,
 				end,
@@ -522,7 +522,7 @@ class InscriptionManagerTest {
 		campManager.registerCamp(camp1);
 		campManager.registerCamp(camp2);
 		
-		List<Camp> expectedResult = new ArrayList<Camp>();
+		List<CampDTO> expectedResult = new ArrayList<CampDTO>();
 		expectedResult.add(camp);
 		expectedResult.add(camp1);
 		expectedResult.add(camp2);
@@ -538,14 +538,14 @@ class InscriptionManagerTest {
 		EducativeLevel educativeLevel = EducativeLevel.ELEMENTARY;
 		int capacity = 10;
 
-		Assistant assistant = new Assistant(
+		AssistantDTO assistant = new AssistantDTO(
 				1,
 				"José",
 				"Trujillo",
 				Utils.parseDate("26/01/2019"),
 				true
 				);
-		Camp camp = new Camp(
+		CampDTO camp = new CampDTO(
 				campID,
 				start,
 				end,
@@ -553,7 +553,7 @@ class InscriptionManagerTest {
 				capacity				
 		);
 		
-		Camp camp1 = new Camp(
+		CampDTO camp1 = new CampDTO(
 				2,
 				start,
 				end,
@@ -561,7 +561,7 @@ class InscriptionManagerTest {
 				capacity				
 		);
 		
-		Camp camp2 = new Camp(
+		CampDTO camp2 = new CampDTO(
 				3,
 				Utils.parseDate("09/01/2024"),
 				end,
@@ -580,7 +580,7 @@ class InscriptionManagerTest {
 		campManager.registerCamp(camp1);
 		campManager.registerCamp(camp2);
 		
-		List<Camp> expectedResult = new ArrayList<Camp>();
+		List<CampDTO> expectedResult = new ArrayList<CampDTO>();
 		expectedResult.add(camp);
 		expectedResult.add(camp1);
 		
@@ -595,14 +595,14 @@ class InscriptionManagerTest {
 		EducativeLevel educativeLevel = EducativeLevel.ELEMENTARY;
 		int capacity = 10;
 
-		Assistant assistant = new Assistant(
+		AssistantDTO assistant = new AssistantDTO(
 				1,
 				"José",
 				"Trujillo",
 				Utils.parseDate("26/01/2019"),
 				true
 				);
-		Camp camp = new Camp(
+		CampDTO camp = new CampDTO(
 				campID,
 				start,
 				end,
@@ -610,7 +610,7 @@ class InscriptionManagerTest {
 				capacity				
 		);
 		
-		Camp camp1 = new Camp(
+		CampDTO camp1 = new CampDTO(
 				2,
 				start,
 				end,
@@ -618,7 +618,7 @@ class InscriptionManagerTest {
 				capacity				
 		);
 		
-		Camp camp2 = new Camp(
+		CampDTO camp2 = new CampDTO(
 				3,
 				start,
 				end,
@@ -640,7 +640,7 @@ class InscriptionManagerTest {
 		campManager.registerCamp(camp2);
 		inscriptionManager.enroll(assistant.getId(), 3, inscriptionDate, false, false);
 		
-		List<Camp> expectedResult = new ArrayList<Camp>();
+		List<CampDTO> expectedResult = new ArrayList<CampDTO>();
 		expectedResult.add(camp);
 		expectedResult.add(camp1);
 		
@@ -655,28 +655,28 @@ class InscriptionManagerTest {
 		EducativeLevel educativeLevel = EducativeLevel.ELEMENTARY;
 		int capacity = 10;
 
-		Assistant assistant = new Assistant(
+		AssistantDTO assistant = new AssistantDTO(
 				1,
 				"José",
 				"Trujillo",
 				Utils.parseDate("26/01/2019"),
 				true
 				);
-		Camp camp = new Camp(
+		CampDTO camp = new CampDTO(
 				campID,
 				start,
 				end,
 				educativeLevel,
 				capacity				
 		);
-		Activity activity = new Activity(
+		ActivityDTO activity = new ActivityDTO(
 				"Actividad",
 				educativeLevel,
 				TimeSlot.AFTERNOON,
 				10,
 				3
 		);
-		Activity activity2 = new Activity(
+		ActivityDTO activity2 = new ActivityDTO(
 				"Actividad2",
 				educativeLevel,
 				TimeSlot.AFTERNOON,
@@ -696,7 +696,7 @@ class InscriptionManagerTest {
 		
 		
 		
-		Inscription inscription = inscriptionManager.enroll(
+		InscriptionDTO inscription = inscriptionManager.enroll(
 				1, 
 				campID, 
 				inscriptionDate, 
@@ -704,8 +704,8 @@ class InscriptionManagerTest {
 				false);
 				
 		
-		Activity activityPersisted = activityRepository.find(activity.getActivityName());
-		Activity activity2Persisted = activityRepository.find(activity2.getActivityName());
+		ActivityDTO activityPersisted = activityRepository.find(activity.getActivityName());
+		ActivityDTO activity2Persisted = activityRepository.find(activity2.getActivityName());
 				
 		assertEquals(true, activityPersisted.getAssistants().contains(assistant));
 		assertEquals(true, activity2Persisted.getAssistants().contains(assistant));
@@ -719,7 +719,7 @@ class InscriptionManagerTest {
 		EducativeLevel educativeLevel = EducativeLevel.ELEMENTARY;
 		int capacity = 10;
 
-		Assistant assistant = new Assistant(
+		AssistantDTO assistant = new AssistantDTO(
 				1,
 				"José",
 				"Trujillo",
@@ -727,28 +727,28 @@ class InscriptionManagerTest {
 				true
 				);
 		
-		Assistant assistant2 = new Assistant(
+		AssistantDTO assistant2 = new AssistantDTO(
 				2,
 				"José",
 				"Trujillo",
 				Utils.parseDate("26/01/2019"),
 				true
 				);
-		Camp camp = new Camp(
+		CampDTO camp = new CampDTO(
 				campID,
 				start,
 				end,
 				educativeLevel,
 				capacity				
 		);
-		Activity activity = new Activity(
+		ActivityDTO activity = new ActivityDTO(
 				"Actividad",
 				educativeLevel,
 				TimeSlot.AFTERNOON,
 				10,
 				3
 		);
-		Activity activity2 = new Activity(
+		ActivityDTO activity2 = new ActivityDTO(
 				"Actividad2",
 				educativeLevel,
 				TimeSlot.AFTERNOON,
@@ -770,7 +770,7 @@ class InscriptionManagerTest {
 		
 		
 		
-		Inscription inscription = inscriptionManager.enroll(
+		InscriptionDTO inscription = inscriptionManager.enroll(
 				1, 
 				campID, 
 				inscriptionDate, 
@@ -791,7 +791,7 @@ class InscriptionManagerTest {
 		EducativeLevel educativeLevel = EducativeLevel.ELEMENTARY;
 		int capacity = 10;
 
-		Assistant assistant = new Assistant(
+		AssistantDTO assistant = new AssistantDTO(
 				1,
 				"José",
 				"Trujillo",
@@ -799,7 +799,7 @@ class InscriptionManagerTest {
 				true
 				);
 		
-		Assistant assistant2 = new Assistant(
+		AssistantDTO assistant2 = new AssistantDTO(
 				2,
 				"José",
 				"Trujillo",
@@ -807,7 +807,7 @@ class InscriptionManagerTest {
 				true
 				);
 		
-		Camp camp = new Camp(
+		CampDTO camp = new CampDTO(
 				campID,
 				start,
 				end,
@@ -815,7 +815,7 @@ class InscriptionManagerTest {
 				capacity				
 		);
 		
-		Activity activity = new Activity(
+		ActivityDTO activity = new ActivityDTO(
 				"Actividad",
 				educativeLevel,
 				TimeSlot.MORNING,
@@ -823,7 +823,7 @@ class InscriptionManagerTest {
 				3
 		);
 		
-		Activity activity2 = new Activity(
+		ActivityDTO activity2 = new ActivityDTO(
 				"Actividad2",
 				educativeLevel,
 				TimeSlot.AFTERNOON,
@@ -859,8 +859,8 @@ class InscriptionManagerTest {
 		
 				
 		
-		Activity activityPersisted = activityRepository.find(activity.getActivityName());
-		Activity activity2Persisted = activityRepository.find(activity2.getActivityName());
+		ActivityDTO activityPersisted = activityRepository.find(activity.getActivityName());
+		ActivityDTO activity2Persisted = activityRepository.find(activity2.getActivityName());
 				
 		assertEquals(true, activityPersisted.getAssistants().contains(assistant));
 		assertEquals(false, activity2Persisted.getAssistants().contains(assistant));
@@ -874,7 +874,7 @@ class InscriptionManagerTest {
 		EducativeLevel educativeLevel = EducativeLevel.ELEMENTARY;
 		int capacity = 10;
 
-		Assistant assistant = new Assistant(
+		AssistantDTO assistant = new AssistantDTO(
 				1,
 				"José",
 				"Trujillo",
@@ -882,28 +882,28 @@ class InscriptionManagerTest {
 				true
 				);
 		
-		Assistant assistant2 = new Assistant(
+		AssistantDTO assistant2 = new AssistantDTO(
 				2,
 				"José",
 				"Trujillo",
 				Utils.parseDate("26/01/2019"),
 				true
 				);
-		Camp camp = new Camp(
+		CampDTO camp = new CampDTO(
 				campID,
 				start,
 				end,
 				educativeLevel,
 				capacity				
 		);
-		Activity activity = new Activity(
+		ActivityDTO activity = new ActivityDTO(
 				"Actividad",
 				educativeLevel,
 				TimeSlot.AFTERNOON,
 				10,
 				3
 		);
-		Activity activity2 = new Activity(
+		ActivityDTO activity2 = new ActivityDTO(
 				"Actividad2",
 				educativeLevel,
 				TimeSlot.MORNING,
@@ -925,7 +925,7 @@ class InscriptionManagerTest {
 		
 		
 		
-		Inscription inscription = inscriptionManager.enroll(
+		InscriptionDTO inscription = inscriptionManager.enroll(
 				1, 
 				campID, 
 				inscriptionDate, 
@@ -946,14 +946,14 @@ class InscriptionManagerTest {
 		EducativeLevel educativeLevel = EducativeLevel.TEENAGER;
 		int capacity = 10;
 
-		Assistant assistant = new Assistant(
+		AssistantDTO assistant = new AssistantDTO(
 				1,
 				"José",
 				"Trujillo",
 				Utils.parseDate("26/01/2019"),
 				true
 				);
-		Camp camp = new Camp(
+		CampDTO camp = new CampDTO(
 				campID,
 				start,
 				end,
@@ -983,14 +983,14 @@ class InscriptionManagerTest {
 		EducativeLevel educativeLevel = EducativeLevel.ELEMENTARY;
 		int capacity = 10;
 
-		Assistant assistant = new Assistant(
+		AssistantDTO assistant = new AssistantDTO(
 				1,
 				"José",
 				"Trujillo",
 				Utils.parseDate("26/01/2015"),
 				true
 				);
-		Camp camp = new Camp(
+		CampDTO camp = new CampDTO(
 				campID,
 				start,
 				end,
@@ -1020,14 +1020,14 @@ class InscriptionManagerTest {
 		EducativeLevel educativeLevel = EducativeLevel.ELEMENTARY;
 		int capacity = 10;
 
-		Assistant assistant = new Assistant(
+		AssistantDTO assistant = new AssistantDTO(
 				1,
 				"José",
 				"Trujillo",
 				Utils.parseDate("26/01/2010"),
 				true
 				);
-		Camp camp = new Camp(
+		CampDTO camp = new CampDTO(
 				campID,
 				start,
 				end,

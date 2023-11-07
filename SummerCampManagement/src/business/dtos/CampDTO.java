@@ -1,4 +1,4 @@
-package business.entities;
+package business.dtos;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,19 +13,19 @@ import utilities.Utils;
 /**
  * La clase Camp representa un campamento educativo con su información básica y actividades asociadas.
  */
-public class Camp {
+public class CampDTO {
     private int campID;
     private Date start;
     private Date end;
     private EducativeLevel educativeLevel;
     private int capacity;
-    private List<Activity> activities;
-    private Monitor principalMonitor;
-    private Monitor specialMonitor;
+    private List<ActivityDTO> activities;
+    private MonitorDTO principalMonitor;
+    private MonitorDTO specialMonitor;
     /**
      * Constructor predeterminado para crear un objeto Camp vacío.
      */
-    public Camp(){
+    public CampDTO(){
         this.campID = -1;
         this.start = null;
         this.end = null;
@@ -42,13 +42,13 @@ public class Camp {
      * @param educativeLevel El nivel educativo del campamento.
      * @param capacity      La capacidad máxima de participantes del campamento.
      */
-    public Camp(int campID, Date start, Date end, EducativeLevel educativeLevel, int capacity){
+    public CampDTO(int campID, Date start, Date end, EducativeLevel educativeLevel, int capacity){
         this.campID = campID;
         this.start = start;
         this.end = end;
         this.educativeLevel = educativeLevel;
         this.capacity = capacity;
-        this.activities = new ArrayList<Activity>();
+        this.activities = new ArrayList<ActivityDTO>();
     }
 
     /**
@@ -57,7 +57,7 @@ public class Camp {
      * @param activity La actividad que se quiere verificar.
      * @return true si la actividad está registrada en el campamento, false en caso contrario.
      */
-	public boolean activityIsRegistered(Activity activity) {
+	public boolean activityIsRegistered(ActivityDTO activity) {
 		return this.activities.contains(activity);
 	}
 
@@ -66,7 +66,7 @@ public class Camp {
      *
      * @return El monitor principal del campamento.
      */
-	public Monitor getPrincipalMonitor() {
+	public MonitorDTO getPrincipalMonitor() {
 		return this.principalMonitor;
 	}
 
@@ -75,7 +75,7 @@ public class Camp {
      *
      * @return El monitor especial del campamento.
      */
-	public Monitor getSpecialMonitor() {
+	public MonitorDTO getSpecialMonitor() {
 		return this.specialMonitor;
 	}
 
@@ -174,7 +174,7 @@ public class Camp {
      *
      * @return Las actividades registradas en el campamento.
      */
-    public List<Activity> getActivities() {
+    public List<ActivityDTO> getActivities() {
         return activities;
     }
 
@@ -183,7 +183,7 @@ public class Camp {
      *
      * @param activities Las nuevas actividades registradas en el campamento.
      */
-    public void setActivities(List<Activity> activities) {
+    public void setActivities(List<ActivityDTO> activities) {
         this.activities = activities;
     }
     
@@ -210,7 +210,7 @@ public class Camp {
      *
      * @param monitor El nuevo monitor principal del campamento.
      */
-	public void setPrincipalMonitor(Monitor monitor) {
+	public void setPrincipalMonitor(MonitorDTO monitor) {
 		this.principalMonitor = monitor;
 	}
 
@@ -219,7 +219,7 @@ public class Camp {
      *
      * @param monitor El nuevo monitor especial del campamento.
      */
-	public void setSpecialMonitor(Monitor monitor) {
+	public void setSpecialMonitor(MonitorDTO monitor) {
 		this.specialMonitor = monitor;
 	}
 

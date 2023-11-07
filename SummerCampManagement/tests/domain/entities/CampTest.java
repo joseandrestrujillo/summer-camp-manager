@@ -8,9 +8,9 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import business.entities.Activity;
-import business.entities.Camp;
-import business.entities.Monitor;
+import business.dtos.ActivityDTO;
+import business.dtos.CampDTO;
+import business.dtos.MonitorDTO;
 import business.exceptions.camp.NotTheSameLevelException;
 import business.exceptions.camp.SpecialMonitorAlreadyRegisterException;
 import business.exceptions.monitor.MonitorNotFoundException;
@@ -29,7 +29,7 @@ class CampTest {
 		int capacity = 10;	
 		
 
-		Camp camp = new Camp(
+		CampDTO camp = new CampDTO(
 				campID,
 				start,
 				end,
@@ -52,7 +52,7 @@ class CampTest {
         EducativeLevel educativeLevel = null;
         int capacity = -1;
 
-		Camp camp = new Camp();
+		CampDTO camp = new CampDTO();
 
 		assertEquals(campID, camp.getCampID());
 		assertEquals(start, camp.getStart());
@@ -64,13 +64,13 @@ class CampTest {
 
 	@Test
 	void testSetters() {
-		Camp camp = new Camp();
+		CampDTO camp = new CampDTO();
 		int campID = 1;
 		Date start = Utils.parseDate("15/01/2024");
 		Date end = Utils.parseDate("25/01/2024");
 		EducativeLevel educativeLevel = EducativeLevel.PRESCHOOL;
 		int capacity = 10;
-		List<Activity> activities = new ArrayList<>();
+		List<ActivityDTO> activities = new ArrayList<>();
 
 
 		camp.setCampID(campID);
@@ -97,8 +97,8 @@ class CampTest {
 		EducativeLevel educativeLevel = EducativeLevel.PRESCHOOL;
 		int capacity = 10;
 
-		List<Activity> activities = new ArrayList<Activity>();
-		Activity activity = new Activity(
+		List<ActivityDTO> activities = new ArrayList<ActivityDTO>();
+		ActivityDTO activity = new ActivityDTO(
 				"Actividad",
 				educativeLevel,
 				TimeSlot.AFTERNOON,
@@ -106,7 +106,7 @@ class CampTest {
 				3
 		);
 		
-		Activity activity2 = new Activity(
+		ActivityDTO activity2 = new ActivityDTO(
 				"Actividad 2",
 				educativeLevel,
 				TimeSlot.AFTERNOON,
@@ -117,7 +117,7 @@ class CampTest {
 		activities.add(activity);
 		activities.add(activity2);
 
-		Camp camp = new Camp(
+		CampDTO camp = new CampDTO(
 				campID,
 				start,
 				end,
@@ -151,7 +151,7 @@ class CampTest {
 		Date end = Utils.parseDate("25/01/2024");
 		EducativeLevel educativeLevel = EducativeLevel.PRESCHOOL;
 		int capacity = 10;
-		Camp camp = new Camp(
+		CampDTO camp = new CampDTO(
 				campID,
 				start,
 				end,

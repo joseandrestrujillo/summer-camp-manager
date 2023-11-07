@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import business.entities.Monitor;
+import business.dtos.MonitorDTO;
 import business.exceptions.repository.NotFoundException;
 import business.interfaces.ICriteria;
 import business.interfaces.IDAO;
@@ -20,9 +20,9 @@ import utilities.StringUtils;
  * La clase InFileSystemMonitorRepository es una implementación en memoria de un sistema de ficheros de la clase monitor.
  
  */
-public class InFileSystemMonitorRepository implements IDAO<Monitor, Integer>{
+public class InFileSystemMonitorRepository implements IDAO<MonitorDTO, Integer>{
     private String filePath;
-    private Map<Integer, Monitor> mapOfMonitors;
+    private Map<Integer, MonitorDTO> mapOfMonitors;
     /**
      * Constructor de la clase InFileSystemMonitorRepository.
      * Inicializa un nuevo mapa para almacenar monitores en memoria y recibe la ruta de fichero como parametro
@@ -40,7 +40,7 @@ public class InFileSystemMonitorRepository implements IDAO<Monitor, Integer>{
      * @throws NotFoundException Si el monitor no se encuentra en el sistema de archivos.
      */
     @Override
-    public Monitor find(Integer identifier) {
+    public MonitorDTO find(Integer identifier) {
         if (!mapOfMonitors.containsKey(identifier)) {
             throw new NotFoundException();
         }
@@ -52,7 +52,7 @@ public class InFileSystemMonitorRepository implements IDAO<Monitor, Integer>{
      * @param obj El monitor a guardar en el  sistema de archivos.
      */
     @Override
-    public void save(Monitor obj) {
+    public void save(MonitorDTO obj) {
         mapOfMonitors.put(obj.getId(), obj);
         saveToFile();
     }
@@ -62,7 +62,7 @@ public class InFileSystemMonitorRepository implements IDAO<Monitor, Integer>{
      * @return Una lista de monitores.
      */
     @Override
-    public List<Monitor> getAll(Optional<ICriteria> criteria) {
+    public List<MonitorDTO> getAll(Optional<ICriteria> criteria) {
         return new ArrayList<>(mapOfMonitors.values());
     }
 
@@ -72,7 +72,7 @@ public class InFileSystemMonitorRepository implements IDAO<Monitor, Integer>{
      * @param obj El monitor a eliminar del sistema de archivos.
      */
     @Override
-    public void delete(Monitor obj) {
+    public void delete(MonitorDTO obj) {
         mapOfMonitors.remove(obj.getId());
         saveToFile();
     }
@@ -103,19 +103,19 @@ public class InFileSystemMonitorRepository implements IDAO<Monitor, Integer>{
         }
     }
 
-    private String monitorMapToString(Map<Integer, Monitor> assistantMap) {
+    private String monitorMapToString(Map<Integer, MonitorDTO> assistantMap) {
         StringBuilder sb = new StringBuilder();
-        for (Monitor assistant : assistantMap.values()) {
+        for (MonitorDTO assistant : assistantMap.values()) {
             sb.append(assistant.toString()).append(System.lineSeparator());
         }
         return sb.toString();
     }
 
-    private Map<Integer, Monitor> monitorMapFromString(String fileContent) {
-        Map<Integer, Monitor> assistantMap = new HashMap<>();
+    private Map<Integer, MonitorDTO> monitorMapFromString(String fileContent) {
+        Map<Integer, MonitorDTO> assistantMap = new HashMap<>();
         String[] lines = fileContent.split(System.lineSeparator());
         for (String line : lines) {
-            Monitor assistant = StringUtils.monitorFromString(line);
+            MonitorDTO assistant = StringUtils.monitorFromString(line);
             if (assistant != null) {
                 assistantMap.put(assistant.getId(), assistant);
             }

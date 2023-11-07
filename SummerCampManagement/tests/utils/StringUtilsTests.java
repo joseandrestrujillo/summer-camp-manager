@@ -8,11 +8,11 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import business.entities.Activity;
-import business.entities.Assistant;
-import business.entities.Camp;
-import business.entities.Inscription;
-import business.entities.Monitor;
+import business.dtos.ActivityDTO;
+import business.dtos.AssistantDTO;
+import business.dtos.CampDTO;
+import business.dtos.InscriptionDTO;
+import business.dtos.MonitorDTO;
 import business.values.EducativeLevel;
 import business.values.TimeSlot;
 import utilities.StringUtils;
@@ -26,13 +26,13 @@ public class StringUtilsTests {
         TimeSlot timeSlot = TimeSlot.AFTERNOON;
         int maxAssistants = 10;
         int neededMonitors = 3;
-        List<Monitor> monitors = new ArrayList<Monitor>();
-        monitors.add(new Monitor(1, "juan", "perez", true));
-        monitors.add(new Monitor(2, "juana", "perez", false));
+        List<MonitorDTO> monitors = new ArrayList<MonitorDTO>();
+        monitors.add(new MonitorDTO(1, "juan", "perez", true));
+        monitors.add(new MonitorDTO(2, "juana", "perez", false));
         
-        List<Assistant> assistants = new ArrayList<Assistant>();
-        assistants.add(new Assistant(1, "juan", "perez", Utils.parseDate("26/01/2001"), true));
-        assistants.add(new Assistant(2, "juana", "perez", Utils.parseDate("26/01/2001"), false));
+        List<AssistantDTO> assistants = new ArrayList<AssistantDTO>();
+        assistants.add(new AssistantDTO(1, "juan", "perez", Utils.parseDate("26/01/2001"), true));
+        assistants.add(new AssistantDTO(2, "juana", "perez", Utils.parseDate("26/01/2001"), false));
 		
 
         String inputString = "{activityName: 'Activity', "
@@ -50,7 +50,7 @@ public class StringUtilsTests {
         		+ "]"
         		+ "}";
         
-        Activity activity = StringUtils.activityFromString(inputString);
+        ActivityDTO activity = StringUtils.activityFromString(inputString);
         assertEquals(activityName, activity.getActivityName());
         assertEquals(educativeLevel, activity.getEducativeLevel());
         assertEquals(maxAssistants, activity.getMaxAssistants());
@@ -69,7 +69,7 @@ public class StringUtilsTests {
 		
 
         String inputString = "{id: 1, firstName: 'José', lastName: 'Trujillo', birthDate: 26/01/2001, requireSpecialAttention: true}";
-        Assistant assistant = StringUtils.assistantFromString(inputString);
+        AssistantDTO assistant = StringUtils.assistantFromString(inputString);
         
         assertEquals(id, assistant.getId());
         assertEquals(firstName, assistant.getFirstName());
@@ -87,8 +87,8 @@ public class StringUtilsTests {
 		EducativeLevel educativeLevel = EducativeLevel.PRESCHOOL;
 		int capacity = 10;
 
-		List<Activity> activities = new ArrayList<Activity>();
-		Activity activity = new Activity(
+		List<ActivityDTO> activities = new ArrayList<ActivityDTO>();
+		ActivityDTO activity = new ActivityDTO(
 				"Actividad",
 				educativeLevel,
 				TimeSlot.AFTERNOON,
@@ -96,7 +96,7 @@ public class StringUtilsTests {
 				3
 		);
 		
-		Activity activity2 = new Activity(
+		ActivityDTO activity2 = new ActivityDTO(
 				"Actividad 2",
 				educativeLevel,
 				TimeSlot.AFTERNOON,
@@ -107,7 +107,7 @@ public class StringUtilsTests {
 		activities.add(activity);
 		activities.add(activity2);
 
-		Camp camp = new Camp(
+		CampDTO camp = new CampDTO(
 				campID,
 				start,
 				end,
@@ -130,7 +130,7 @@ public class StringUtilsTests {
         		+ "{activityName: 'Actividad 2', educativeLevel: PRESCHOOL, timeSlot: AFTERNOON, maxAssistants: 10, neededMonitors: 3, assistants: [], monitors: []}"
         		+ "]"
         		+ "}";
-        Camp campcreated = StringUtils.campFromString(inputString);
+        CampDTO campcreated = StringUtils.campFromString(inputString);
         
         assertEquals(campID, campcreated.getCampID());
         assertEquals(start, campcreated.getStart());
@@ -150,7 +150,7 @@ public class StringUtilsTests {
 		
 		String inputString = "{campID: 1, start: 10/11/2024, end: 17/11/2024, educativeLevel: TEENAGER, capacity: 5, principalMonitor: null, specialMonitor: null, activities: [{activityName: 'Act1', educativeLevel: TEENAGER, timeSlot: MORNING, maxAssistants: 5, neededMonitors: 1, assistants: [], monitors: [{id: 5, firstName: 'Pepe', lastName: 'Meñique', isSpecialEducator: false}]}]}";
 		String activities = "[{activityName: 'Act1', educativeLevel: TEENAGER, timeSlot: MORNING, maxAssistants: 5, neededMonitors: 1, assistants: [], monitors: [{id: 5, firstName: 'Pepe', lastName: 'Meñique', isSpecialEducator: false}]}]";
-		Camp campcreated = StringUtils.campFromString(inputString);
+		CampDTO campcreated = StringUtils.campFromString(inputString);
 		
 		assertEquals(1, campcreated.getCampID());
         assertEquals(start, campcreated.getStart());
@@ -171,7 +171,7 @@ public class StringUtilsTests {
 
         String inputString = "{AssistantId: 1, CampId: 1, InscriptionDate: '12/01/2024', Price: 100.0, canBeCancelled: true}";
 
-        Inscription inscription = StringUtils.inscriptionFromString(inputString);
+        InscriptionDTO inscription = StringUtils.inscriptionFromString(inputString);
         
         assertEquals(assistantId, inscription.getAssistantId());
         assertEquals(campId, inscription.getCampId());
@@ -190,7 +190,7 @@ public class StringUtilsTests {
 		
 
         String inputString = "{id: 1, firstName: 'José', lastName: 'Trujillo', isSpecialEducator: true}";
-        Monitor monitor = StringUtils.monitorFromString(inputString);
+        MonitorDTO monitor = StringUtils.monitorFromString(inputString);
         
         assertEquals(id, monitor.getId());
         assertEquals(firstName, monitor.getFirstName());

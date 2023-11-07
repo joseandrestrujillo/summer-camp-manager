@@ -6,10 +6,10 @@ import java.util.Date;
 
 import org.junit.jupiter.api.Test;
 
-import business.entities.Activity;
-import business.entities.Assistant;
-import business.entities.Camp;
-import business.entities.Monitor;
+import business.dtos.ActivityDTO;
+import business.dtos.AssistantDTO;
+import business.dtos.CampDTO;
+import business.dtos.MonitorDTO;
 import business.exceptions.activity.ActivityNotFoundException;
 import business.exceptions.activity.MonitorIsNotInActivityException;
 import business.exceptions.assistant.AssistantAlreadyRegisteredException;
@@ -38,7 +38,7 @@ class CampsManagerTest {
 		Date end = Utils.parseDate("25/01/2024");
 		EducativeLevel educativeLevel = EducativeLevel.PRESCHOOL;
 		int capacity = 10;
-		Camp camp = new Camp(
+		CampDTO camp = new CampDTO(
 				campID,
 				start,
 				end,
@@ -58,7 +58,7 @@ class CampsManagerTest {
 		Date end = Utils.parseDate("25/01/2024");
 		EducativeLevel educativeLevel = EducativeLevel.PRESCHOOL;
 		int capacity = 10;
-		Camp camp = new Camp(
+		CampDTO camp = new CampDTO(
 				campID,
 				start,
 				end,
@@ -86,7 +86,7 @@ class CampsManagerTest {
 		EducativeLevel educativeLevel = EducativeLevel.PRESCHOOL;
 		int capacity = 10;
 
-		Activity activity = new Activity(
+		ActivityDTO activity = new ActivityDTO(
 				"Actividad",
 				educativeLevel,
 				TimeSlot.AFTERNOON,
@@ -94,7 +94,7 @@ class CampsManagerTest {
 				3
 		);
 
-		Camp camp = new Camp(
+		CampDTO camp = new CampDTO(
 				campID,
 				start,
 				end,
@@ -123,7 +123,7 @@ class CampsManagerTest {
 		EducativeLevel educativeLevel = EducativeLevel.ELEMENTARY;
 		int capacity = 10;
 
-		Activity activity = new Activity(
+		ActivityDTO activity = new ActivityDTO(
 				"Actividad",
 				EducativeLevel.PRESCHOOL,
 				TimeSlot.AFTERNOON,
@@ -131,7 +131,7 @@ class CampsManagerTest {
 				3
 		);
 
-		Camp camp = new Camp(
+		CampDTO camp = new CampDTO(
 				campID,
 				start,
 				end,
@@ -157,7 +157,7 @@ class CampsManagerTest {
 		Date end = Utils.parseDate("25/01/2024");
 		EducativeLevel educativeLevel = EducativeLevel.PRESCHOOL;
 		int capacity = 10;
-		Camp camp = new Camp(
+		CampDTO camp = new CampDTO(
 				campID,
 				start,
 				end,
@@ -165,7 +165,7 @@ class CampsManagerTest {
 				capacity				
 		);
 		
-		Activity activity = new Activity(
+		ActivityDTO activity = new ActivityDTO(
 				"Actividad",
 				EducativeLevel.PRESCHOOL,
 				TimeSlot.AFTERNOON,
@@ -173,7 +173,7 @@ class CampsManagerTest {
 				3
 		);
 
-		Monitor monitor = new Monitor(
+		MonitorDTO monitor = new MonitorDTO(
 				1,
 				"Alberto",
 				"Quesada",
@@ -203,7 +203,7 @@ class CampsManagerTest {
 		Date end = Utils.parseDate("25/01/2024");
 		EducativeLevel educativeLevel = EducativeLevel.PRESCHOOL;
 		int capacity = 10;
-		Camp camp = new Camp(
+		CampDTO camp = new CampDTO(
 				campID,
 				start,
 				end,
@@ -211,7 +211,7 @@ class CampsManagerTest {
 				capacity				
 		);
 		
-		Activity activity = new Activity(
+		ActivityDTO activity = new ActivityDTO(
 				"Actividad",
 				EducativeLevel.PRESCHOOL,
 				TimeSlot.AFTERNOON,
@@ -219,7 +219,7 @@ class CampsManagerTest {
 				3
 		);
 
-		Monitor monitor = new Monitor(
+		MonitorDTO monitor = new MonitorDTO(
 				1,
 				"Alberto",
 				"Quesada",
@@ -232,7 +232,7 @@ class CampsManagerTest {
 		
 		CampsManager campManager = new CampsManager(campRepository, activityRepository, monitorRepository);
 		
-		Camp modifiedCamp = campManager.registerActivity(camp, activity);
+		CampDTO modifiedCamp = campManager.registerActivity(camp, activity);
 		
 		
 		assertThrows(MonitorIsNotInActivityException.class,
@@ -248,7 +248,7 @@ class CampsManagerTest {
 		Date end = Utils.parseDate("25/01/2024");
 		EducativeLevel educativeLevel = EducativeLevel.PRESCHOOL;
 		int capacity = 10;
-		Camp camp = new Camp(
+		CampDTO camp = new CampDTO(
 				campID,
 				start,
 				end,
@@ -256,7 +256,7 @@ class CampsManagerTest {
 				capacity				
 		);
 		
-		Activity activity = new Activity(
+		ActivityDTO activity = new ActivityDTO(
 				"Actividad",
 				EducativeLevel.PRESCHOOL,
 				TimeSlot.AFTERNOON,
@@ -264,7 +264,7 @@ class CampsManagerTest {
 				3
 		);
 
-		Monitor monitor = new Monitor(
+		MonitorDTO monitor = new MonitorDTO(
 				1,
 				"Alberto",
 				"Quesada",
@@ -278,7 +278,7 @@ class CampsManagerTest {
 		
 		CampsManager campManager = new CampsManager(campRepository, activityRepository, monitorRepository);
 		
-		Camp modifiedCamp = campManager.registerActivity(camp, activity);
+		CampDTO modifiedCamp = campManager.registerActivity(camp, activity);
 				
 		assertThrows(SpecialMonitorAlreadyRegisterException.class,
 				() -> campManager.setSpecialMonitor(modifiedCamp, monitor)
@@ -292,7 +292,7 @@ class CampsManagerTest {
 		Date end = Utils.parseDate("25/01/2024");
 		EducativeLevel educativeLevel = EducativeLevel.PRESCHOOL;
 		int capacity = 10;
-		Camp camp = new Camp(
+		CampDTO camp = new CampDTO(
 				campID,
 				start,
 				end,
@@ -300,7 +300,7 @@ class CampsManagerTest {
 				capacity				
 		);
 		
-		Activity activity = new Activity(
+		ActivityDTO activity = new ActivityDTO(
 				"Actividad",
 				EducativeLevel.PRESCHOOL,
 				TimeSlot.AFTERNOON,
@@ -308,7 +308,7 @@ class CampsManagerTest {
 				3
 		);
 
-		Monitor monitor = new Monitor(
+		MonitorDTO monitor = new MonitorDTO(
 				1,
 				"Alberto",
 				"Quesada",
@@ -337,7 +337,7 @@ class CampsManagerTest {
 		Date end = Utils.parseDate("25/01/2024");
 		EducativeLevel educativeLevel = EducativeLevel.PRESCHOOL;
 		int capacity = 10;
-		Camp camp = new Camp(
+		CampDTO camp = new CampDTO(
 				campID,
 				start,
 				end,
@@ -345,7 +345,7 @@ class CampsManagerTest {
 				capacity				
 		);
 		
-		Activity activity = new Activity(
+		ActivityDTO activity = new ActivityDTO(
 				"Actividad",
 				EducativeLevel.PRESCHOOL,
 				TimeSlot.AFTERNOON,
@@ -353,7 +353,7 @@ class CampsManagerTest {
 				3
 		);
 
-		Monitor monitor = new Monitor(
+		MonitorDTO monitor = new MonitorDTO(
 				1,
 				"Alberto",
 				"Quesada",
@@ -382,7 +382,7 @@ class CampsManagerTest {
 		Date end = Utils.parseDate("25/01/2024");
 		EducativeLevel educativeLevel = EducativeLevel.PRESCHOOL;
 		int capacity = 10;
-		Camp camp = new Camp(
+		CampDTO camp = new CampDTO(
 				campID,
 				start,
 				end,
@@ -390,7 +390,7 @@ class CampsManagerTest {
 				capacity				
 		);
 		
-		Activity activity = new Activity(
+		ActivityDTO activity = new ActivityDTO(
 				"Actividad",
 				EducativeLevel.PRESCHOOL,
 				TimeSlot.AFTERNOON,
@@ -398,7 +398,7 @@ class CampsManagerTest {
 				3
 		);
 
-		Monitor monitor = new Monitor(
+		MonitorDTO monitor = new MonitorDTO(
 				1,
 				"Alberto",
 				"Quesada",
@@ -424,7 +424,7 @@ class CampsManagerTest {
 		Date end = Utils.parseDate("25/01/2024");
 		EducativeLevel educativeLevel = EducativeLevel.PRESCHOOL;
 		int capacity = 10;
-		Camp camp = new Camp(
+		CampDTO camp = new CampDTO(
 				campID,
 				start,
 				end,
@@ -432,7 +432,7 @@ class CampsManagerTest {
 				capacity				
 		);
 		
-		Activity activity = new Activity(
+		ActivityDTO activity = new ActivityDTO(
 				"Actividad",
 				EducativeLevel.PRESCHOOL,
 				TimeSlot.AFTERNOON,
@@ -440,7 +440,7 @@ class CampsManagerTest {
 				3
 		);
 
-		Monitor monitor = new Monitor(
+		MonitorDTO monitor = new MonitorDTO(
 				1,
 				"Alberto",
 				"Quesada",
@@ -455,7 +455,7 @@ class CampsManagerTest {
 		
 		activity.registerMonitor(monitor);
 		camp = campManager.registerActivity(camp, activity);
-		Camp modifiedCamp = campManager.setPrincipalMonitor(camp, monitor);
+		CampDTO modifiedCamp = campManager.setPrincipalMonitor(camp, monitor);
 		
 		assertThrows(MonitorIsNotInActivityException.class, 
 				() -> campManager.deleteActivity(modifiedCamp, activity)

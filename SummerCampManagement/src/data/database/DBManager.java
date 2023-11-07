@@ -18,25 +18,25 @@ import java.util.Set;
  * Clase para realizar las conexiones a base de datos
  * */
 
-public class DBConnection {
+public class DBManager {
 	private String dbUrl;
 	private String username;
 	private String password;
 	Map<String, String> queries;
 	protected Connection connection = null;
-	private static DBConnection instance;
+	private static DBManager instance;
 	
-	public static DBConnection getInstance() {
+	public static DBManager getInstance() {
 		if (instance == null) {
-			instance = new DBConnection();
+			instance = new DBManager();
 		}
 		return instance;
 	}
 	
-	private DBConnection() {
+	private DBManager() {
 		this.queries = new HashMap<String, String>();
 		Properties prop = new Properties();
-		String filename = ".db-connection-properties.txt";
+		String filename = "config.properties";
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader(new File(filename)));
 			prop.load(reader);
@@ -53,7 +53,7 @@ public class DBConnection {
 			System.exit(-1);
 		}
 		
-		filename = ".queries.txt";
+		filename = "sql.properties";
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader(new File(filename)));
 			prop.load(reader);

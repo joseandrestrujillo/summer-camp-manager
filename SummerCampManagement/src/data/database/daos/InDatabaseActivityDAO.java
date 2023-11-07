@@ -1,34 +1,26 @@
-package data.database;
+package data.database.daos;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLTimeoutException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
-import business.entities.Activity;
-import business.entities.Assistant;
-import business.entities.Camp;
-import business.entities.Monitor;
-import business.exceptions.assistant.AssistantNotFoundException;
+import business.dtos.ActivityDTO;
+import business.dtos.AssistantDTO;
+import business.dtos.CampDTO;
+import business.dtos.MonitorDTO;
 import business.exceptions.dao.DAOTimeoutException;
 import business.exceptions.repository.NotFoundException;
 import business.interfaces.ICriteria;
 import business.interfaces.IDAO;
 import business.values.EducativeLevel;
 import business.values.TimeSlot;
+import data.database.DBManager;
 import data.database.sqlcriteria.AssistantInActivityCriteria;
 import data.database.sqlcriteria.CampsRelatedWithAnActivityCriteria;
 import data.database.sqlcriteria.MonitorInActivityCriteria;
@@ -36,8 +28,8 @@ import data.database.sqlcriteria.MonitorInActivityCriteria;
 /**
  * La clase InDatabaseActivityDAO es una implementación en base de datos de un DAO de actividades.
  */
-public class InDatabaseActivityDAO implements IDAO<Activity, String>{
-	private DBConnection dbConnection;
+public class InDatabaseActivityDAO implements IDAO<ActivityDTO, String>{
+	private DBManager dbConnection;
     /**
      * Constructor de la clase InDatabaseActivityDAO.
      * Inicializa un nuevo mapa para almacenar actividades en memoria y carga las actividades almacenadas en la base de datos
@@ -45,7 +37,7 @@ public class InDatabaseActivityDAO implements IDAO<Activity, String>{
      * @param filePath path a la tabla de actividades
      */
     public InDatabaseActivityDAO() {
-    	this.dbConnection = DBConnection.getInstance();
+    	this.dbConnection = DBManager.getInstance();
     }
     
     /**
@@ -56,9 +48,9 @@ public class InDatabaseActivityDAO implements IDAO<Activity, String>{
      * @throws NotFoundException Si la actividad no se encuentra en el DAO.
      */
     @Override
-    public Activity find(String identifier) {
+    public ActivityDTO find(String identifier) {
 
-    	Activity activity;
+    	ActivityDTO activity;
 		try {
     		Connection con = this.dbConnection.getConnection();
 
@@ -77,7 +69,7 @@ public class InDatabaseActivityDAO implements IDAO<Activity, String>{
 			int maxAssistants = rs.getInt("maxAssistants");
 			int neededMonitors = rs.getInt("neededMonitors");
 			
-			activity = new Activity(
+			activity = new ActivityDTO(
 					activityName,
 					educativeLevel,
 					timeSlot,
@@ -97,13 +89,13 @@ public class InDatabaseActivityDAO implements IDAO<Activity, String>{
 		
 		InDatabaseAssistantDAO assistantDao = new InDatabaseAssistantDAO();
 		
-		List<Assistant> assistants = assistantDao.getAll(Optional.of(new AssistantInActivityCriteria(identifier)));
+		List<AssistantDTO> assistants = assistantDao.getAll(Optional.of(new AssistantInActivityCriteria(identifier)));
 		
 		activity.setAssistants(assistants);
 		
 		InDatabaseMonitorDAO monitorDao = new InDatabaseMonitorDAO();
 		
-		List<Monitor> monitors = monitorDao.getAll(Optional.of(new MonitorInActivityCriteria(identifier)));
+		List<MonitorDTO> monitors = monitorDao.getAll(Optional.of(new MonitorInActivityCriteria(identifier)));
 		
 		activity.setMonitorList(monitors);
 		
@@ -117,7 +109,7 @@ public class InDatabaseActivityDAO implements IDAO<Activity, String>{
      * @param obj La actividad a guardar en el DAO.
      */
     @Override
-    public void save(Activity obj) {
+    public void save(ActivityDTO obj) {
     	try{
     		Connection con = this.dbConnection.getConnection();
     		PreparedStatement ps = con.prepareStatement(
@@ -136,12 +128,12 @@ public class InDatabaseActivityDAO implements IDAO<Activity, String>{
 		}
     	
     	InDatabaseAssistantDAO assistantDAO = new InDatabaseAssistantDAO();
-    	for (Assistant assistant : obj.getAssistants()) {
+    	for (AssistantDTO assistant : obj.getAssistants()) {
 			assistantDAO.save(assistant);
 		}
     	
     	InDatabaseMonitorDAO monitorDAO = new InDatabaseMonitorDAO();
-    	for (Monitor monitor : obj.getMonitorList()) {
+    	for (MonitorDTO monitor : obj.getMonitorList()) {
 			monitorDAO.save(monitor);
 			try{
 	    		Connection con = this.dbConnection.getConnection();
@@ -165,8 +157,8 @@ public class InDatabaseActivityDAO implements IDAO<Activity, String>{
      * @return Una lista de actividades.
      */
     @Override
-    public List<Activity> getAll(Optional<ICriteria> criteria) {
-    	ArrayList<Activity> listOfActivitiess = new ArrayList<Activity>();
+    public List<ActivityDTO> getAll(Optional<ICriteria> criteria) {
+    	ArrayList<ActivityDTO> listOfActivitiess = new ArrayList<ActivityDTO>();
 		try {
     		Connection con = this.dbConnection.getConnection();
 
@@ -205,11 +197,11 @@ public class InDatabaseActivityDAO implements IDAO<Activity, String>{
      * @param obj La actividad a eliminar del DAO.
      */
     @Override
-    public void delete(Activity obj) {
+    public void delete(ActivityDTO obj) {
     	InDatabaseCampDAO campDAO = new InDatabaseCampDAO();
-    	List<Camp> camps = campDAO.getAll(Optional.of(new CampsRelatedWithAnActivityCriteria(obj.getActivityName())));
+    	List<CampDTO> camps = campDAO.getAll(Optional.of(new CampsRelatedWithAnActivityCriteria(obj.getActivityName())));
     	
-    	for (Camp camp : camps) {
+    	for (CampDTO camp : camps) {
     		try{
 	    		Connection con = this.dbConnection.getConnection();
 	    		PreparedStatement ps = con.prepareStatement(
@@ -225,7 +217,7 @@ public class InDatabaseActivityDAO implements IDAO<Activity, String>{
 			}
     	}
     	
-    	for (Monitor monitor : obj.getMonitorList()) {
+    	for (MonitorDTO monitor : obj.getMonitorList()) {
 			try{
 	    		Connection con = this.dbConnection.getConnection();
 	    		PreparedStatement ps = con.prepareStatement(

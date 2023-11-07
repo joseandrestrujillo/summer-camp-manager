@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import com.mysql.jdbc.Connection;
 
 import business.interfaces.ICriteria;
-import data.database.DBConnection;
+import data.database.DBManager;
 
 public class ActivityInCampCriteria implements ICriteria{
 	private int campID;
@@ -15,7 +15,7 @@ public class ActivityInCampCriteria implements ICriteria{
 	
 	@Override
 	public <T> T applyCriteria(T obj) {
-		DBConnection dbConnection = DBConnection.getInstance();
+		DBManager dbConnection = DBManager.getInstance();
 		PreparedStatement stmt = null;
 		try {
 			Connection con = (Connection) ((PreparedStatement) obj).getConnection();

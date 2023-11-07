@@ -1,14 +1,7 @@
-package data.database;
+package data.database.daos;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.sql.Connection;
 import java.sql.Date;
@@ -16,23 +9,22 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLTimeoutException;
-import java.sql.Statement;
 
-import business.entities.Assistant;
-import business.exceptions.assistant.AssistantNotFoundException;
+import business.dtos.AssistantDTO;
 import business.exceptions.dao.DAOTimeoutException;
 import business.exceptions.repository.NotFoundException;
 import business.interfaces.ICriteria;
 import business.interfaces.IDAO;
+import data.database.DBManager;
 
 
 /**
  * La clase InDatabaseAssistantDAO es una implementación en base de datos de un DAO de asistentes.
  
  */
-public class InDatabaseAssistantDAO implements IDAO<Assistant, Integer>{
+public class InDatabaseAssistantDAO implements IDAO<AssistantDTO, Integer>{
 
-	private DBConnection dbConnection;
+	private DBManager dbConnection;
     /**
      * Constructor de la clase InDatabaseAssistantDAO.
      * Inicializa un nuevo mapa para almacenar asistentes en memoria y carga los asistentes almacenados en el DAO
@@ -42,7 +34,7 @@ public class InDatabaseAssistantDAO implements IDAO<Assistant, Integer>{
      * @param password contrasena para acceder a la base de datos
      */
     public InDatabaseAssistantDAO() {
-    	this.dbConnection = DBConnection.getInstance();
+    	this.dbConnection = DBManager.getInstance();
     }
     /**
      * Busca a un asistente por su identificador.
@@ -52,8 +44,8 @@ public class InDatabaseAssistantDAO implements IDAO<Assistant, Integer>{
      * @throws NotFoundException Si el asistente no se encuentra en el DAO.
      */
     @Override
-    public Assistant find(Integer identifier) {
-    	Assistant assistant;
+    public AssistantDTO find(Integer identifier) {
+    	AssistantDTO assistant;
 		try {
     		Connection con = this.dbConnection.getConnection();
 
@@ -69,7 +61,7 @@ public class InDatabaseAssistantDAO implements IDAO<Assistant, Integer>{
 			String lastName = rs.getString("lastName");
 			java.util.Date birthDate = new java.util.Date(rs.getDate("birthDate").getTime());
 			Boolean requiredSpecialAttention = rs.getBoolean("requireSpecialAttention");
-			assistant = new Assistant(
+			assistant = new AssistantDTO(
 					id,
 					firstName,
 					lastName,
@@ -93,7 +85,7 @@ public class InDatabaseAssistantDAO implements IDAO<Assistant, Integer>{
      * @param obj El asistente a guardar en el DAO.
      */
     @Override
-    public void save(Assistant obj) {
+    public void save(AssistantDTO obj) {
     	try{
     		Connection con = this.dbConnection.getConnection();
     		PreparedStatement ps = con.prepareStatement(
@@ -117,8 +109,8 @@ public class InDatabaseAssistantDAO implements IDAO<Assistant, Integer>{
      * @return Una lista de asistentes.
      */
     @Override
-    public List<Assistant> getAll(Optional<ICriteria> criteria) {
-    	ArrayList<Assistant> listOfAssistants = new ArrayList<Assistant>();
+    public List<AssistantDTO> getAll(Optional<ICriteria> criteria) {
+    	ArrayList<AssistantDTO> listOfAssistants = new ArrayList<AssistantDTO>();
 		try {
     		Connection con = this.dbConnection.getConnection();
 
@@ -139,7 +131,7 @@ public class InDatabaseAssistantDAO implements IDAO<Assistant, Integer>{
 				String lastName = rs.getString("lastName");
 				Date birthDate = rs.getDate("birthDate");
 				Boolean requiredSpecialAttention = rs.getBoolean("requireSpecialAttention");
-				listOfAssistants.add(new Assistant(
+				listOfAssistants.add(new AssistantDTO(
 						id,
 						firstName,
 						lastName,
@@ -163,7 +155,7 @@ public class InDatabaseAssistantDAO implements IDAO<Assistant, Integer>{
      * @param obj El asistente a eliminar del DAO.
      */
     @Override
-    public void delete(Assistant obj) {
+    public void delete(AssistantDTO obj) {
     	try{
     		Connection con = this.dbConnection.getConnection();
 	    	PreparedStatement ps=con.prepareStatement(this.dbConnection.getQuery("DELETE_ASSISTANT_QUERY"));

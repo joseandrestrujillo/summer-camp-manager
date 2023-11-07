@@ -1,4 +1,4 @@
-package business.entities;
+package business.dtos;
 
 import java.util.Date;
 
@@ -6,7 +6,7 @@ import java.util.Date;
  * La clase CompleteInscription representa una inscripción completa para un asistente en un campamento.
  * Es una subclase de Inscription.
  */
-public class CompleteInscription extends Inscription{
+public class CompleteInscriptionDTO extends InscriptionDTO{
 	/**
      * Constructor para crear un objeto CompleteInscription con la información proporcionada.
      *
@@ -16,7 +16,7 @@ public class CompleteInscription extends Inscription{
      * @param price             El precio de la inscripción
      * @param canBeCanceled     Puede o no ser cancelada la inscrioción
      */
-	public CompleteInscription(int assistantId, int campId, Date inscriptionDate, float price, boolean canBeCanceled) {
+	public CompleteInscriptionDTO(int assistantId, int campId, Date inscriptionDate, float price, boolean canBeCanceled) {
 		super(assistantId, campId, inscriptionDate, price, canBeCanceled);
 	}
 }

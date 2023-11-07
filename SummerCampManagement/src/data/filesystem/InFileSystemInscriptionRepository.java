@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import business.entities.Inscription;
+import business.dtos.InscriptionDTO;
 import business.exceptions.repository.NotFoundException;
 import business.interfaces.ICriteria;
 import business.interfaces.IDAO;
@@ -22,8 +22,8 @@ import utilities.StringUtils;
 
  */
 
-public class InFileSystemInscriptionRepository implements IDAO<Inscription, String> {
-    private Map<String, Inscription> mapOfInscription;
+public class InFileSystemInscriptionRepository implements IDAO<InscriptionDTO, String> {
+    private Map<String, InscriptionDTO> mapOfInscription;
     private String filePath;
 
 
@@ -34,7 +34,7 @@ public class InFileSystemInscriptionRepository implements IDAO<Inscription, Stri
 
     public InFileSystemInscriptionRepository(String filePath) {
         this.filePath = filePath;
-        this.mapOfInscription = new HashMap<String, Inscription>();
+        this.mapOfInscription = new HashMap<String, InscriptionDTO>();
         loadFromFile();
     }
 
@@ -48,7 +48,7 @@ public class InFileSystemInscriptionRepository implements IDAO<Inscription, Stri
      */
 
     @Override
-    public Inscription find(String identifier) {
+    public InscriptionDTO find(String identifier) {
         if (!mapOfInscription.containsKey(identifier)) {
             throw new NotFoundException();
         }
@@ -63,7 +63,7 @@ public class InFileSystemInscriptionRepository implements IDAO<Inscription, Stri
      */
 
     @Override
-    public void save(Inscription obj) {
+    public void save(InscriptionDTO obj) {
         mapOfInscription.put(obj.getInscriptionIdentifier(), obj);
         saveToFile();
     }
@@ -76,7 +76,7 @@ public class InFileSystemInscriptionRepository implements IDAO<Inscription, Stri
      */
 
     @Override
-    public List<Inscription> getAll(Optional<ICriteria> criteria) {
+    public List<InscriptionDTO> getAll(Optional<ICriteria> criteria) {
         return new ArrayList<>(mapOfInscription.values());
     }
 
@@ -87,7 +87,7 @@ public class InFileSystemInscriptionRepository implements IDAO<Inscription, Stri
      */ 
 
     @Override
-    public void delete(Inscription obj) {
+    public void delete(InscriptionDTO obj) {
         mapOfInscription.remove(obj.getInscriptionIdentifier());
         saveToFile();
     }
@@ -118,19 +118,19 @@ public class InFileSystemInscriptionRepository implements IDAO<Inscription, Stri
         }
     }
 
-    private String InscriptionMapToString(Map<String, Inscription> InscriptionMap) {
+    private String InscriptionMapToString(Map<String, InscriptionDTO> InscriptionMap) {
         StringBuilder sb = new StringBuilder();
-        for (Inscription inscription : InscriptionMap.values()) {
+        for (InscriptionDTO inscription : InscriptionMap.values()) {
             sb.append(inscription.toString()).append(System.lineSeparator());
         }
         return sb.toString();
     }
 
-    private Map<String, Inscription> InscriptionMapFromString(String fileContent) {
-        Map<String, Inscription> InscriptionMap = new HashMap<>();
+    private Map<String, InscriptionDTO> InscriptionMapFromString(String fileContent) {
+        Map<String, InscriptionDTO> InscriptionMap = new HashMap<>();
         String[] lines = fileContent.split(System.lineSeparator());
         for (String line : lines) {
-            Inscription inscription = StringUtils.inscriptionFromString(line);
+            InscriptionDTO inscription = StringUtils.inscriptionFromString(line);
             if (inscription != null) {
                 InscriptionMap.put(inscription.getInscriptionIdentifier(), inscription);
             }

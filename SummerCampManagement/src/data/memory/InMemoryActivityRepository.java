@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import business.entities.Activity;
+import business.dtos.ActivityDTO;
 import business.exceptions.repository.NotFoundException;
 import business.interfaces.ICriteria;
 import business.interfaces.IDAO;
@@ -15,15 +15,15 @@ import business.interfaces.IDAO;
 /**
  * La clase InMemoryActivityRepository es una implementación en memoria de un repositorio de actividades.
  */
-public class InMemoryActivityRepository implements IDAO<Activity, String> {
-    private Map<String, Activity> mapOfActivity;
+public class InMemoryActivityRepository implements IDAO<ActivityDTO, String> {
+    private Map<String, ActivityDTO> mapOfActivity;
 
     /**
      * Constructor de la clase InMemoryActivityRepository.
      * Inicializa un nuevo mapa para almacenar actividades en memoria.
      */
     public InMemoryActivityRepository() {
-        this.mapOfActivity = new HashMap<String, Activity>();
+        this.mapOfActivity = new HashMap<String, ActivityDTO>();
     }
 
     /**
@@ -34,7 +34,7 @@ public class InMemoryActivityRepository implements IDAO<Activity, String> {
      * @throws NotFoundException Si la actividad no se encuentra en el repositorio.
      */
     @Override
-    public Activity find(String activityName) {
+    public ActivityDTO find(String activityName) {
         if (this.mapOfActivity.get(activityName) == null) {
             throw new NotFoundException();
         }
@@ -47,7 +47,7 @@ public class InMemoryActivityRepository implements IDAO<Activity, String> {
      * @param activity La actividad a guardar en el repositorio.
      */
     @Override
-    public void save(Activity activity) {
+    public void save(ActivityDTO activity) {
         this.mapOfActivity.put(activity.getActivityName(), activity);
     }
 
@@ -57,8 +57,8 @@ public class InMemoryActivityRepository implements IDAO<Activity, String> {
      * @return Una lista de actividades.
      */
     @Override
-    public List<Activity> getAll(Optional<ICriteria> criteria) {
-        List<Activity> allActivities = new ArrayList<>(this.mapOfActivity.values());
+    public List<ActivityDTO> getAll(Optional<ICriteria> criteria) {
+        List<ActivityDTO> allActivities = new ArrayList<>(this.mapOfActivity.values());
         return allActivities;
     }
 
@@ -68,7 +68,7 @@ public class InMemoryActivityRepository implements IDAO<Activity, String> {
      * @param obj La actividad a eliminar del repositorio.
      */
     @Override
-    public void delete(Activity obj) {
+    public void delete(ActivityDTO obj) {
         this.mapOfActivity.remove(obj.getActivityName());
     }
 }

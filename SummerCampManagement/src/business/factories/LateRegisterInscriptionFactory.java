@@ -2,10 +2,10 @@ package business.factories;
 
 import java.util.Date;
 
-import business.entities.Assistant;
-import business.entities.Camp;
-import business.entities.CompleteInscription;
-import business.entities.PartialInscription;
+import business.dtos.AssistantDTO;
+import business.dtos.CampDTO;
+import business.dtos.CompleteInscriptionDTO;
+import business.dtos.PartialInscriptionDTO;
 import business.exceptions.assistant.AssistantNotFoundException;
 import business.exceptions.camp.CampNotFoundException;
 import business.exceptions.inscription.AfterLateTimeException;
@@ -22,8 +22,8 @@ import utilities.Utils;
  * caracterizan por reglas especiales relacionadas con el tiempo y el precio.
  */
 public class LateRegisterInscriptionFactory implements AbstractInscriptionFactory {
-    private IDAO<Camp, Integer> campRepository;
-    private IDAO<Assistant, Integer> assistantRepository;
+    private IDAO<CampDTO, Integer> campRepository;
+    private IDAO<AssistantDTO, Integer> assistantRepository;
 
     /**
      * Constructor para LateRegisterInscriptionFactory.
@@ -31,7 +31,7 @@ public class LateRegisterInscriptionFactory implements AbstractInscriptionFactor
      * @param campRepository        Repositorio de campamentos.
      * @param assistanRepository   Repositorio de asistentes.
      */
-    public LateRegisterInscriptionFactory(IDAO<Camp, Integer> campRepository, IDAO<Assistant, Integer> assistanRepository) {
+    public LateRegisterInscriptionFactory(IDAO<CampDTO, Integer> campRepository, IDAO<AssistantDTO, Integer> assistanRepository) {
         this.campRepository = campRepository;
         this.assistantRepository = assistanRepository;
     }
@@ -51,7 +51,7 @@ public class LateRegisterInscriptionFactory implements AbstractInscriptionFactor
      * @throws AfterLateTimeException      Si la inscripción se realiza después de un cierto tiempo de late registration.
      */
     @Override
-    public PartialInscription createPartial(int assistantId, int campId, Date inscriptionDate, float price) {
+    public PartialInscriptionDTO createPartial(int assistantId, int campId, Date inscriptionDate, float price) {
         try {
             this.assistantRepository.find(assistantId);
         } catch (NotFoundException e) {
@@ -59,7 +59,7 @@ public class LateRegisterInscriptionFactory implements AbstractInscriptionFactor
         }
 
         try {
-            Camp camp = this.campRepository.find(campId);
+            CampDTO camp = this.campRepository.find(campId);
 
             long daysDifference = Utils.daysBetween(camp.getStart(), inscriptionDate);
 
@@ -71,7 +71,7 @@ public class LateRegisterInscriptionFactory implements AbstractInscriptionFactor
                 throw new AfterLateTimeException();
             }
 
-            return new PartialInscription(assistantId, campId, inscriptionDate, price, false);
+            return new PartialInscriptionDTO(assistantId, campId, inscriptionDate, price, false);
 
         } catch (NotFoundException e) {
             throw new CampNotFoundException();
@@ -93,7 +93,7 @@ public class LateRegisterInscriptionFactory implements AbstractInscriptionFactor
      * @throws AfterLateTimeException      Si la inscripción se realiza después de un cierto tiempo de late registration.
      */
     @Override
-    public CompleteInscription createComplete(int assistantId, int campId, Date inscriptionDate, float price) {
+    public CompleteInscriptionDTO createComplete(int assistantId, int campId, Date inscriptionDate, float price) {
         try {
             this.assistantRepository.find(assistantId);
         } catch (NotFoundException e) {
@@ -101,7 +101,7 @@ public class LateRegisterInscriptionFactory implements AbstractInscriptionFactor
         }
 
         try {
-            Camp camp = this.campRepository.find(campId);
+            CampDTO camp = this.campRepository.find(campId);
 
             long daysDifference = Utils.daysBetween(camp.getStart(), inscriptionDate);
 
@@ -113,7 +113,7 @@ public class LateRegisterInscriptionFactory implements AbstractInscriptionFactor
                 throw new AfterLateTimeException();
             }
 
-            return new CompleteInscription(assistantId, campId, inscriptionDate, price, false);
+            return new CompleteInscriptionDTO(assistantId, campId, inscriptionDate, price, false);
 
         } catch (NotFoundException e) {
             throw new CampNotFoundException();

@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import business.entities.Assistant;
+import business.dtos.AssistantDTO;
 import business.exceptions.repository.NotFoundException;
 import business.interfaces.ICriteria;
 import business.interfaces.IDAO;
@@ -16,15 +16,15 @@ import business.interfaces.IDAO;
  * La clase InMemoryAssistantRepository es una implementación en memoria de un repositorio de asistentes.
  
  */
-public class InMemoryAssistantRepository implements IDAO<Assistant, Integer> {
-    private Map<Integer, Assistant> mapOfAssistants;
+public class InMemoryAssistantRepository implements IDAO<AssistantDTO, Integer> {
+    private Map<Integer, AssistantDTO> mapOfAssistants;
 
     /**
      * Constructor de la clase InMemoryAssistantRepository.
      * Inicializa un nuevo mapa para almacenar asistentes en memoria.
      */
     public InMemoryAssistantRepository() {
-        this.mapOfAssistants = new HashMap<Integer, Assistant>();
+        this.mapOfAssistants = new HashMap<Integer, AssistantDTO>();
     }
 
     /**
@@ -35,7 +35,7 @@ public class InMemoryAssistantRepository implements IDAO<Assistant, Integer> {
      * @throws NotFoundException Si el asistente no se encuentra en el repositorio.
      */
     @Override
-    public Assistant find(Integer identifier) {
+    public AssistantDTO find(Integer identifier) {
         if (this.mapOfAssistants.get(identifier) == null) {
             throw new NotFoundException();
         }
@@ -48,7 +48,7 @@ public class InMemoryAssistantRepository implements IDAO<Assistant, Integer> {
      * @param obj El asistente a guardar en el repositorio.
      */
     @Override
-    public void save(Assistant obj) {
+    public void save(AssistantDTO obj) {
         this.mapOfAssistants.put(obj.getId(), obj);
     }
 
@@ -58,8 +58,8 @@ public class InMemoryAssistantRepository implements IDAO<Assistant, Integer> {
      * @return Una lista de asistentes.
      */
     @Override
-    public List<Assistant> getAll(Optional<ICriteria> criteria) {
-        List<Assistant> allAssistants = new ArrayList<>(this.mapOfAssistants.values());
+    public List<AssistantDTO> getAll(Optional<ICriteria> criteria) {
+        List<AssistantDTO> allAssistants = new ArrayList<>(this.mapOfAssistants.values());
         return allAssistants;
     }
 
@@ -69,7 +69,7 @@ public class InMemoryAssistantRepository implements IDAO<Assistant, Integer> {
      * @param obj El asistente a eliminar del repositorio.
      */
     @Override
-    public void delete(Assistant obj) {
+    public void delete(AssistantDTO obj) {
         this.mapOfAssistants.remove(obj.getId());
     }
 }

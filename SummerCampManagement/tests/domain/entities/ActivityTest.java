@@ -8,9 +8,9 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import business.entities.Activity;
-import business.entities.Assistant;
-import business.entities.Monitor;
+import business.dtos.ActivityDTO;
+import business.dtos.AssistantDTO;
+import business.dtos.MonitorDTO;
 import business.exceptions.activity.MaxMonitorsAddedException;
 import business.values.EducativeLevel;
 import business.values.TimeSlot;
@@ -26,7 +26,7 @@ class ActivityTest {
 		int maxAssistants = 15;
 		int neededMonitors = 2;
 		
-		Activity activity = new Activity(
+		ActivityDTO activity = new ActivityDTO(
 				activityName,
 				educativeLevel,
 				timeSlot,
@@ -50,7 +50,7 @@ class ActivityTest {
 		int maxAssistants = -1;
 		int neededMonitors = -1;
 		
-		Activity activity = new Activity();
+		ActivityDTO activity = new ActivityDTO();
 		
 		assertEquals(activityName, activity.getActivityName());
         assertEquals(educativeLevel, activity.getEducativeLevel());
@@ -62,13 +62,13 @@ class ActivityTest {
 	
 	@Test
 	void testSetters() {
-		Activity activity = new Activity();
+		ActivityDTO activity = new ActivityDTO();
 		String activityName = "Activity";
 		EducativeLevel educativeLevel = EducativeLevel.ELEMENTARY;
 		TimeSlot timeSlot = TimeSlot.AFTERNOON;
 		int maxAssistants = 15;
 		int neededMonitors = 2;
-		List<Monitor> monitors = new ArrayList<Monitor>(neededMonitors);
+		List<MonitorDTO> monitors = new ArrayList<MonitorDTO>(neededMonitors);
 		
 		activity.setActivityName(activityName);
 		activity.setEducativeLevel(educativeLevel);
@@ -94,7 +94,7 @@ class ActivityTest {
         int maxAssistants = 10;
         int neededMonitors = 3;
 
-        Activity activity = new Activity(
+        ActivityDTO activity = new ActivityDTO(
                 activityName,
                 educativeLevel,
                 timeSlot,
@@ -102,15 +102,15 @@ class ActivityTest {
                 neededMonitors
         );
 
-        List<Monitor> monitors = new ArrayList<Monitor>();
-        monitors.add(new Monitor(1, "juan", "perez", true));
-        monitors.add(new Monitor(2, "juana", "perez", false));
+        List<MonitorDTO> monitors = new ArrayList<MonitorDTO>();
+        monitors.add(new MonitorDTO(1, "juan", "perez", true));
+        monitors.add(new MonitorDTO(2, "juana", "perez", false));
         
         activity.setMonitorList(monitors);
         
-        List<Assistant> assistants = new ArrayList<Assistant>();
-        assistants.add(new Assistant(1, "juan", "perez", Utils.parseDate("26/01/2001"), true));
-        assistants.add(new Assistant(2, "juana", "perez", Utils.parseDate("26/01/2001"), false));
+        List<AssistantDTO> assistants = new ArrayList<AssistantDTO>();
+        assistants.add(new AssistantDTO(1, "juan", "perez", Utils.parseDate("26/01/2001"), true));
+        assistants.add(new AssistantDTO(2, "juana", "perez", Utils.parseDate("26/01/2001"), false));
         
         activity.setAssistants(assistants);
         
@@ -135,14 +135,14 @@ class ActivityTest {
 	
 	@Test
 	public void testAddMonitor(){
-		Monitor monitor = new Monitor(
+		MonitorDTO monitor = new MonitorDTO(
 				1,
 				"Alberto",
 				"Quesada",
 				true
 		);
 
-		Monitor monitor2 = new Monitor(
+		MonitorDTO monitor2 = new MonitorDTO(
 				2,
 				"Francisco",
 				"Ruíz",
@@ -155,7 +155,7 @@ class ActivityTest {
         int maxAssistants = 10;
         int neededMonitors = 3;
 
-        Activity activity = new Activity(
+        ActivityDTO activity = new ActivityDTO(
                 activityName,
                 educativeLevel,
                 timeSlot,
@@ -174,14 +174,14 @@ class ActivityTest {
 	
 	@Test
 	public void testAddMonitor_throwAnException_WhenNumberOfNeededMonitorsIsExceded(){
-		Monitor monitor = new Monitor(
+		MonitorDTO monitor = new MonitorDTO(
 				1,
 				"Alberto",
 				"Quesada",
 				true
 		);
 
-		Monitor monitor2 = new Monitor(
+		MonitorDTO monitor2 = new MonitorDTO(
 				2,
 				"Francisco",
 				"Ruíz",
@@ -189,7 +189,7 @@ class ActivityTest {
 		);
 
 		
-		Monitor monitor3 = new Monitor(
+		MonitorDTO monitor3 = new MonitorDTO(
 				3,
 				"Jose",
 				"Trujillo",
@@ -202,7 +202,7 @@ class ActivityTest {
         int maxAssistants = 10;
         int neededMonitors = 2;
 
-        Activity activity = new Activity(
+        ActivityDTO activity = new ActivityDTO(
                 activityName,
                 educativeLevel,
                 timeSlot,

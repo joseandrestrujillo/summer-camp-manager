@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import business.entities.Assistant;
+import business.dtos.AssistantDTO;
 import business.exceptions.assistant.AssistantAlreadyRegisteredException;
 import business.exceptions.assistant.AssistantNotFoundException;
 import business.managers.AssistantsManager;
@@ -20,7 +20,7 @@ class AssistantsManagerTest {
 	void registerAssistant_whenAssistantIsNotRegistered_thenRegisterTheAssistant(){
 		InMemoryAssistantRepository assistantRepository = new InMemoryAssistantRepository();
 		AssistantsManager assistantsManager = new AssistantsManager(assistantRepository);		
-		Assistant assistant = new Assistant(
+		AssistantDTO assistant = new AssistantDTO(
 				1,
 				"José",
 				"Trujillo",
@@ -35,7 +35,7 @@ class AssistantsManagerTest {
 	
 	@Test
 	void registerAssistant_whenAssistantIsRegistered_throwsAssitantisAlreadyRegisteredException(){
-		Assistant assistant = new Assistant(
+		AssistantDTO assistant = new AssistantDTO(
 				1,
 				"José",
 				"Trujillo",
@@ -55,7 +55,7 @@ class AssistantsManagerTest {
 	
 	@Test
 	void updateAssistant_whenAssistantIsRegistered_thenUpdateTheAssistant(){
-		Assistant assistant = new Assistant(
+		AssistantDTO assistant = new AssistantDTO(
 				1,
 				"José",
 				"Trujillo",
@@ -67,7 +67,7 @@ class AssistantsManagerTest {
 		AssistantsManager assistantsManager = new AssistantsManager(assistantRepository);
 		
 		
-		assistantsManager.updateAssistant(new Assistant(
+		assistantsManager.updateAssistant(new AssistantDTO(
 				1,
 				"José",
 				"Trujillo",
@@ -86,7 +86,7 @@ class AssistantsManagerTest {
 		InMemoryAssistantRepository assistantRepository = new InMemoryAssistantRepository();
 		AssistantsManager assistantsManager = new AssistantsManager(assistantRepository);		
 		
-		Assistant assistant = new Assistant(
+		AssistantDTO assistant = new AssistantDTO(
 				1,
 				"José",
 				"Trujillo",
@@ -103,7 +103,7 @@ class AssistantsManagerTest {
 	void getListOfRegisteredAssistant_returnListRegisteredAssitant(){
 		InMemoryAssistantRepository assistantRepository = new InMemoryAssistantRepository();
 		AssistantsManager assistantsManager = new AssistantsManager(assistantRepository);		
-		Assistant assistant = new Assistant(
+		AssistantDTO assistant = new AssistantDTO(
 				1,
 				"José",
 				"Trujillo",
@@ -112,7 +112,7 @@ class AssistantsManagerTest {
 				);
 		
 		assistantsManager.registerAssistant(assistant);
-		List<Assistant> list = new ArrayList<Assistant>();
+		List<AssistantDTO> list = new ArrayList<AssistantDTO>();
 		list.add(assistant);
 		assertEquals(list, assistantsManager.getListOfRegisteredAssistant());
 	}

@@ -2,9 +2,9 @@ package business.managers;
 
 import java.util.List;
 
-import business.entities.Activity;
-import business.entities.Camp;
-import business.entities.Monitor;
+import business.dtos.ActivityDTO;
+import business.dtos.CampDTO;
+import business.dtos.MonitorDTO;
 import business.exceptions.activity.ActivityNotFoundException;
 import business.exceptions.activity.MonitorIsNotInActivityException;
 import business.exceptions.assistant.AssistantAlreadyRegisteredException;
@@ -19,9 +19,9 @@ import business.interfaces.IDAO;
  * La clase CampsManager se encarga de gestionar campamentos, actividades y monitores.
  */
 public class CampsManager {
-    private IDAO<Camp, Integer> campRepository;
-    private IDAO<Activity, String> activityRepository;
-    private IDAO<Monitor, Integer> monitorRepository;
+    private IDAO<CampDTO, Integer> campRepository;
+    private IDAO<ActivityDTO, String> activityRepository;
+    private IDAO<MonitorDTO, Integer> monitorRepository;
 
     /**
      * Constructor de la clase CampsManager.
@@ -30,8 +30,8 @@ public class CampsManager {
      * @param activityRepository El repositorio de actividades.
      * @param monitorRepository  El repositorio de monitores.
      */
-    public CampsManager(IDAO<Camp, Integer> campRepository, IDAO<Activity, String> activityRepository,
-            IDAO<Monitor, Integer> monitorRepository) {
+    public CampsManager(IDAO<CampDTO, Integer> campRepository, IDAO<ActivityDTO, String> activityRepository,
+            IDAO<MonitorDTO, Integer> monitorRepository) {
         this.campRepository = campRepository;
         this.activityRepository = activityRepository;
         this.monitorRepository = monitorRepository;
@@ -45,12 +45,12 @@ public class CampsManager {
      * @return El campamento con la actividad registrada.
      * @throws NotTheSameLevelException Si la actividad y el campamento no tienen el mismo nivel educativo.
      */
-    public Camp registerActivity(Camp camp, Activity activity) {
+    public CampDTO registerActivity(CampDTO camp, ActivityDTO activity) {
         if (activity.getEducativeLevel() != camp.getEducativeLevel()) {
             throw new NotTheSameLevelException();
         }
 
-        List<Activity> activities = camp.getActivities();
+        List<ActivityDTO> activities = camp.getActivities();
         activities.add(activity);
 
         camp.setActivities(activities);
@@ -67,12 +67,12 @@ public class CampsManager {
      * @param monitor El monitor a buscar.
      * @return true si el monitor está asignado a alguna actividad, false en caso contrario.
      */
-    public boolean isMonitorInSomeActivity(Camp camp, Monitor monitor) {
+    public boolean isMonitorInSomeActivity(CampDTO camp, MonitorDTO monitor) {
         boolean founded = false;
 
-        List<Activity> activities = camp.getActivities();
+        List<ActivityDTO> activities = camp.getActivities();
         for (int i = 0; i < activities.size(); i++) {
-            Activity activity = activities.get(i);
+            ActivityDTO activity = activities.get(i);
             if (activity.monitorIsRegistered(monitor)) {
                 founded = true;
             }
@@ -88,7 +88,7 @@ public class CampsManager {
      * @return El campamento actualizado con el monitor principal.
      * @throws MonitorIsNotInActivityException Si el monitor no está asignado a ninguna actividad en el campamento.
      */
-    public Camp setPrincipalMonitor(Camp camp, Monitor monitor) {
+    public CampDTO setPrincipalMonitor(CampDTO camp, MonitorDTO monitor) {
         boolean founded = isMonitorInSomeActivity(camp, monitor);
 
         if (!founded) {
@@ -111,7 +111,7 @@ public class CampsManager {
      * @throws IsNotAnSpecialEducator Si el monitor no es un monitor especial.
 	 *
      */
-    public Camp setSpecialMonitor(Camp camp, Monitor monitor) {
+    public CampDTO setSpecialMonitor(CampDTO camp, MonitorDTO monitor) {
         boolean founded = isMonitorInSomeActivity(camp, monitor);
 
         if (founded) {
@@ -138,18 +138,18 @@ public class CampsManager {
      * @throws ActivityNotFoundException         Si la actividad no se encuentra en el campamento.
      * @throws MonitorIsNotInActivityException Si el monitor principal no está asignado a alguna actividad en el campamento.
      */
-    public Camp deleteActivity(Camp camp, Activity activity) {
-        List<Activity> activities = camp.getActivities();
+    public CampDTO deleteActivity(CampDTO camp, ActivityDTO activity) {
+        List<ActivityDTO> activities = camp.getActivities();
         if (!activities.contains(activity)) {
             throw new ActivityNotFoundException();
         }
 
         activities.remove(activity);
 
-        Camp auxCamp = camp;
+        CampDTO auxCamp = camp;
         auxCamp.setActivities(activities);
 
-        Monitor principalMonitor = auxCamp.getPrincipalMonitor();
+        MonitorDTO principalMonitor = auxCamp.getPrincipalMonitor();
         if (principalMonitor != null) {
             if (!isMonitorInSomeActivity(auxCamp, principalMonitor)) {
                 throw new MonitorIsNotInActivityException();
@@ -169,7 +169,7 @@ public class CampsManager {
      * @param camp El campamento a verificar.
      * @return true si el campamento está registrado, false en caso contrario.
      */
-    public boolean isRegistered(Camp camp) {
+    public boolean isRegistered(CampDTO camp) {
         try {
             this.campRepository.find(camp.getCampID());
             return true;
@@ -184,7 +184,7 @@ public class CampsManager {
      * @param camp El campamento a registrar.
      * @throws CampAlreadyRegisteredException Si el campamento ya está registrado.
      */
-    public void registerCamp(Camp camp) {
+    public void registerCamp(CampDTO camp) {
         if (isRegistered(camp)) {
             throw new CampAlreadyRegisteredException();
         }

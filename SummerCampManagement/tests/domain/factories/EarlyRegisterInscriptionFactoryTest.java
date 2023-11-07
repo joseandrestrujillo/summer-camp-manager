@@ -6,9 +6,9 @@ import java.util.Date;
 
 import org.junit.jupiter.api.Test;
 
-import business.entities.Assistant;
-import business.entities.Camp;
-import business.entities.Inscription;
+import business.dtos.AssistantDTO;
+import business.dtos.CampDTO;
+import business.dtos.InscriptionDTO;
 import business.exceptions.assistant.AssistantNotFoundException;
 import business.exceptions.camp.CampNotFoundException;
 import business.exceptions.inscription.AfterEarlyTimeException;
@@ -29,8 +29,8 @@ class EarlyRegisterInscriptionFactoryTest  {
 		Date inscriptionDate = Utils.parseDate("24/12/2023");
 		float price = 100;
 		
-		IDAO<Camp, Integer> campRepository = new InMemoryCampRepository();
-		campRepository.save(new Camp(
+		IDAO<CampDTO, Integer> campRepository = new InMemoryCampRepository();
+		campRepository.save(new CampDTO(
 					campId, 
 					Utils.parseDate("15/01/2024"),
 					Utils.parseDate("20/01/2024"),
@@ -38,8 +38,8 @@ class EarlyRegisterInscriptionFactoryTest  {
 					10
 					));
 		
-		IDAO<Assistant, Integer> assistantIRepository = new InMemoryAssistantRepository();
-		assistantIRepository.save(new Assistant(
+		IDAO<AssistantDTO, Integer> assistantIRepository = new InMemoryAssistantRepository();
+		assistantIRepository.save(new AssistantDTO(
 				assistantId,
 				"José",
 				"Trujillo",
@@ -48,7 +48,7 @@ class EarlyRegisterInscriptionFactoryTest  {
 				));
 		
 		EarlyRegisterInscriptionFactory factory = new EarlyRegisterInscriptionFactory(campRepository, assistantIRepository);
-		Inscription inscription = factory.createPartial(assistantId, campId, inscriptionDate, price);
+		InscriptionDTO inscription = factory.createPartial(assistantId, campId, inscriptionDate, price);
 
 		assertEquals(true, inscription.canBeCanceled());
 	}
@@ -61,8 +61,8 @@ class EarlyRegisterInscriptionFactoryTest  {
 		Date inscriptionDate = Utils.parseDate("12/01/2024");
 		float price = 100;
 		
-		IDAO<Camp, Integer> campRepository = new InMemoryCampRepository();
-		campRepository.save(new Camp(
+		IDAO<CampDTO, Integer> campRepository = new InMemoryCampRepository();
+		campRepository.save(new CampDTO(
 					campId, 
 					Utils.parseDate("15/01/2024"),
 					Utils.parseDate("20/01/2024"),
@@ -70,8 +70,8 @@ class EarlyRegisterInscriptionFactoryTest  {
 					10
 					));
 		
-		IDAO<Assistant, Integer> assistantIRepository = new InMemoryAssistantRepository();
-		assistantIRepository.save(new Assistant(
+		IDAO<AssistantDTO, Integer> assistantIRepository = new InMemoryAssistantRepository();
+		assistantIRepository.save(new AssistantDTO(
 				assistantId,
 				"José",
 				"Trujillo",
@@ -93,8 +93,8 @@ class EarlyRegisterInscriptionFactoryTest  {
 		Date inscriptionDate = Utils.parseDate("16/01/2024");
 		float price = 100;
 		
-		IDAO<Camp, Integer> campRepository = new InMemoryCampRepository();
-		campRepository.save(new Camp(
+		IDAO<CampDTO, Integer> campRepository = new InMemoryCampRepository();
+		campRepository.save(new CampDTO(
 					campId, 
 					Utils.parseDate("15/01/2024"),
 					Utils.parseDate("20/01/2024"),
@@ -102,8 +102,8 @@ class EarlyRegisterInscriptionFactoryTest  {
 					10
 					));
 		
-		IDAO<Assistant, Integer> assistantIRepository = new InMemoryAssistantRepository();
-		assistantIRepository.save(new Assistant(
+		IDAO<AssistantDTO, Integer> assistantIRepository = new InMemoryAssistantRepository();
+		assistantIRepository.save(new AssistantDTO(
 				assistantId,
 				"José",
 				"Trujillo",
@@ -125,8 +125,8 @@ class EarlyRegisterInscriptionFactoryTest  {
 		Date inscriptionDate = Utils.parseDate("12/01/2024");
 		float price = 100;
 		
-		IDAO<Camp, Integer> campRepository = new InMemoryCampRepository();
-		campRepository.save(new Camp(
+		IDAO<CampDTO, Integer> campRepository = new InMemoryCampRepository();
+		campRepository.save(new CampDTO(
 					campId, 
 					Utils.parseDate("15/01/2024"),
 					Utils.parseDate("20/01/2024"),
@@ -148,8 +148,8 @@ class EarlyRegisterInscriptionFactoryTest  {
 		Date inscriptionDate = Utils.parseDate("12/01/2024");
 		float price = 100;
 		
-		IDAO<Assistant, Integer> assistantIRepository = new InMemoryAssistantRepository();
-		assistantIRepository.save(new Assistant(
+		IDAO<AssistantDTO, Integer> assistantIRepository = new InMemoryAssistantRepository();
+		assistantIRepository.save(new AssistantDTO(
 				assistantId,
 				"José",
 				"Trujillo",
@@ -171,8 +171,8 @@ class EarlyRegisterInscriptionFactoryTest  {
 		Date inscriptionDate = Utils.parseDate("24/12/2023");
 		float price = 100;
 		
-		IDAO<Camp, Integer> campRepository = new InMemoryCampRepository();
-		campRepository.save(new Camp(
+		IDAO<CampDTO, Integer> campRepository = new InMemoryCampRepository();
+		campRepository.save(new CampDTO(
 					campId, 
 					Utils.parseDate("15/01/2024"),
 					Utils.parseDate("20/01/2024"),
@@ -180,8 +180,8 @@ class EarlyRegisterInscriptionFactoryTest  {
 					10
 					));
 		
-		IDAO<Assistant, Integer> assistantIRepository = new InMemoryAssistantRepository();
-		assistantIRepository.save(new Assistant(
+		IDAO<AssistantDTO, Integer> assistantIRepository = new InMemoryAssistantRepository();
+		assistantIRepository.save(new AssistantDTO(
 				assistantId,
 				"José",
 				"Trujillo",
@@ -190,7 +190,7 @@ class EarlyRegisterInscriptionFactoryTest  {
 				));
 		
 		EarlyRegisterInscriptionFactory factory = new EarlyRegisterInscriptionFactory(campRepository, assistantIRepository);
-		Inscription inscription = factory.createComplete(assistantId, campId, inscriptionDate, price);
+		InscriptionDTO inscription = factory.createComplete(assistantId, campId, inscriptionDate, price);
 
 		assertEquals(true, inscription.canBeCanceled());
 	}
@@ -203,8 +203,8 @@ class EarlyRegisterInscriptionFactoryTest  {
 		Date inscriptionDate = Utils.parseDate("12/01/2024");
 		float price = 100;
 		
-		IDAO<Camp, Integer> campRepository = new InMemoryCampRepository();
-		campRepository.save(new Camp(
+		IDAO<CampDTO, Integer> campRepository = new InMemoryCampRepository();
+		campRepository.save(new CampDTO(
 					campId, 
 					Utils.parseDate("15/01/2024"),
 					Utils.parseDate("20/01/2024"),
@@ -212,8 +212,8 @@ class EarlyRegisterInscriptionFactoryTest  {
 					10
 					));
 		
-		IDAO<Assistant, Integer> assistantIRepository = new InMemoryAssistantRepository();
-		assistantIRepository.save(new Assistant(
+		IDAO<AssistantDTO, Integer> assistantIRepository = new InMemoryAssistantRepository();
+		assistantIRepository.save(new AssistantDTO(
 				assistantId,
 				"José",
 				"Trujillo",
@@ -235,8 +235,8 @@ class EarlyRegisterInscriptionFactoryTest  {
 		Date inscriptionDate = Utils.parseDate("16/01/2024");
 		float price = 100;
 		
-		IDAO<Camp, Integer> campRepository = new InMemoryCampRepository();
-		campRepository.save(new Camp(
+		IDAO<CampDTO, Integer> campRepository = new InMemoryCampRepository();
+		campRepository.save(new CampDTO(
 					campId, 
 					Utils.parseDate("15/01/2024"),
 					Utils.parseDate("20/01/2024"),
@@ -244,8 +244,8 @@ class EarlyRegisterInscriptionFactoryTest  {
 					10
 					));
 		
-		IDAO<Assistant, Integer> assistantIRepository = new InMemoryAssistantRepository();
-		assistantIRepository.save(new Assistant(
+		IDAO<AssistantDTO, Integer> assistantIRepository = new InMemoryAssistantRepository();
+		assistantIRepository.save(new AssistantDTO(
 				assistantId,
 				"José",
 				"Trujillo",
@@ -267,8 +267,8 @@ class EarlyRegisterInscriptionFactoryTest  {
 		Date inscriptionDate = Utils.parseDate("12/01/2024");
 		float price = 100;
 		
-		IDAO<Camp, Integer> campRepository = new InMemoryCampRepository();
-		campRepository.save(new Camp(
+		IDAO<CampDTO, Integer> campRepository = new InMemoryCampRepository();
+		campRepository.save(new CampDTO(
 					campId, 
 					Utils.parseDate("15/01/2024"),
 					Utils.parseDate("20/01/2024"),
@@ -290,8 +290,8 @@ class EarlyRegisterInscriptionFactoryTest  {
 		Date inscriptionDate = Utils.parseDate("12/01/2024");
 		float price = 100;
 		
-		IDAO<Assistant, Integer> assistantIRepository = new InMemoryAssistantRepository();
-		assistantIRepository.save(new Assistant(
+		IDAO<AssistantDTO, Integer> assistantIRepository = new InMemoryAssistantRepository();
+		assistantIRepository.save(new AssistantDTO(
 				assistantId,
 				"José",
 				"Trujillo",

@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import business.entities.Activity;
-import business.entities.Assistant;
-import business.entities.Camp;
-import business.entities.Inscription;
-import business.entities.Monitor;
+import business.dtos.ActivityDTO;
+import business.dtos.AssistantDTO;
+import business.dtos.CampDTO;
+import business.dtos.InscriptionDTO;
+import business.dtos.MonitorDTO;
 import business.exceptions.inscription.AfterEarlyTimeException;
 import business.exceptions.inscription.AssistantAlreadyEnrolledException;
 import business.exceptions.inscription.MaxAssistantExcededException;
@@ -28,11 +28,11 @@ import utilities.Utils;
  */
 
 public class InscriptionManager {
-	private IDAO<Camp, Integer> campRepository;
-	private IDAO<Activity, String> activityRepository;
-	private IDAO<Monitor, Integer> monitorRepository;
-	private IDAO<Assistant, Integer> assitantRepository;
-	private IDAO<Inscription, String> inscriptionRepository;
+	private IDAO<CampDTO, Integer> campRepository;
+	private IDAO<ActivityDTO, String> activityRepository;
+	private IDAO<MonitorDTO, Integer> monitorRepository;
+	private IDAO<AssistantDTO, Integer> assitantRepository;
+	private IDAO<InscriptionDTO, String> inscriptionRepository;
 
 	  /**
      * Constructor de InscriptionManager.
@@ -44,7 +44,7 @@ public class InscriptionManager {
      * @param inscriptionRepository Repositorio de inscripciones.
 	 */
 
-	public InscriptionManager(IDAO<Camp, Integer> campRepository, IDAO<Activity, String> activityRepository, IDAO<Monitor, Integer> monitorRepository, IDAO<Assistant, Integer> assitantRepository, IDAO<Inscription, String> inscriptionRepository) {
+	public InscriptionManager(IDAO<CampDTO, Integer> campRepository, IDAO<ActivityDTO, String> activityRepository, IDAO<MonitorDTO, Integer> monitorRepository, IDAO<AssistantDTO, Integer> assitantRepository, IDAO<InscriptionDTO, String> inscriptionRepository) {
 		this.campRepository = campRepository;
 		this.activityRepository = activityRepository;
 		this.monitorRepository = monitorRepository;
@@ -63,7 +63,7 @@ public class InscriptionManager {
      * @return La inscripción creada.
      */
 
-	public Inscription enroll(int assistantId, int campId, Date inscriptionDate, 
+	public InscriptionDTO enroll(int assistantId, int campId, Date inscriptionDate, 
 			boolean isPartial, boolean needSpecialAttention) 
 	{
 		this.ensureEducativeLevelIsCorrect(assistantId, campId, inscriptionDate);
@@ -73,7 +73,7 @@ public class InscriptionManager {
 		
 		float price = this.calculatePrice(campId, isPartial);
 		
-		Inscription inscription;
+		InscriptionDTO inscription;
 		try {
 			EarlyRegisterInscriptionFactory factory = new EarlyRegisterInscriptionFactory(campRepository, assitantRepository);
 			inscription = create(factory, assistantId, campId, inscriptionDate, isPartial, price);
@@ -100,9 +100,9 @@ public class InscriptionManager {
 	 * @return La inscripción creada.
 	 */
 
-	private Inscription create(AbstractInscriptionFactory factory, int assistantId, int campId, 
+	private InscriptionDTO create(AbstractInscriptionFactory factory, int assistantId, int campId, 
 			Date inscriptionDate, boolean isPartial, float price ) {
-		Inscription inscription;
+		InscriptionDTO inscription;
 		if (! isPartial) {
 			inscription = factory.createComplete(assistantId, campId, inscriptionDate, price);
 		} else {
@@ -120,14 +120,14 @@ public class InscriptionManager {
 	 */
 
 	private void addAssistantToActivities(int assistantId, int campId, boolean isPartial) {
-		Camp camp = this.campRepository.find(campId);
-		Assistant assistant = this.assitantRepository.find(assistantId);
+		CampDTO camp = this.campRepository.find(campId);
+		AssistantDTO assistant = this.assitantRepository.find(assistantId);
 		
-		List<Activity> activities = camp.getActivities();
+		List<ActivityDTO> activities = camp.getActivities();
 		for (int i = 0; i < activities.size(); i++) {
-			Activity activity = activities.get(i);
+			ActivityDTO activity = activities.get(i);
 			TimeSlot timeSlot = activity.getTimeSlot();
-			List<Assistant> assistants = activity.getAssistants();
+			List<AssistantDTO> assistants = activity.getAssistants();
 			
 			if (isPartial) {
 				if ((! assistants.contains(assistant)) && (timeSlot == TimeSlot.MORNING)) {
@@ -153,8 +153,8 @@ public class InscriptionManager {
 	 */
 
 	private void ensureEducativeLevelIsCorrect(int assistantId, int campId, Date inscriptionDate) {
-		Assistant assistant = this.assitantRepository.find(assistantId);
-		Camp camp = this.campRepository.find(campId);
+		AssistantDTO assistant = this.assitantRepository.find(assistantId);
+		CampDTO camp = this.campRepository.find(campId);
 		
 		EducativeLevel campLevel = camp.getEducativeLevel();
 		
@@ -184,7 +184,7 @@ public class InscriptionManager {
 	 */
 
 	private void ensureIfThereAreAnSpecialMonitorIfIsNecessary(int campId, boolean needSpecialAttention) {
-		Camp camp = campRepository.find(campId);
+		CampDTO camp = campRepository.find(campId);
 		if ((needSpecialAttention)&&(camp.getSpecialMonitor()== null)) {
 			throw new NeedToAddAnSpecialMonitorException();
 		}
@@ -215,7 +215,7 @@ public class InscriptionManager {
 	 */
 
 	private float calculatePrice(int campId, boolean isPartial) {
-		Camp camp = this.campRepository.find(campId);
+		CampDTO camp = this.campRepository.find(campId);
 		
 		int nActivities =camp.getActivities().size();
 		float basePrice = isPartial ? 100 : 300;
@@ -232,11 +232,11 @@ public class InscriptionManager {
 	 */
 
 	private void ensureAnyActivityIsFully(int campId, boolean isPartial) {
-		Camp camp = this.campRepository.find(campId);
-		List<Activity> activities = camp.getActivities();
+		CampDTO camp = this.campRepository.find(campId);
+		List<ActivityDTO> activities = camp.getActivities();
 		for (int i = 0; i < activities.size(); i++) {
-			Activity activity = activities.get(i);
-			List<Assistant> assistants = activity.getAssistants();
+			ActivityDTO activity = activities.get(i);
+			List<AssistantDTO> assistants = activity.getAssistants();
 			TimeSlot timeSlot = activity.getTimeSlot();
 			if (isPartial) {
 				if ((assistants.size() == activity.getMaxAssistants()) && (timeSlot == TimeSlot.MORNING)) {
@@ -257,14 +257,14 @@ public class InscriptionManager {
  * @return La lista de asistentes del campamento.
  */
 
-	private List<Assistant> getAssistantsOfACamp(Camp camp) {
-		List<Inscription> allInscriptions = this.inscriptionRepository.getAll();
-		List<Assistant> assistantsOfCamp = new ArrayList<Assistant>();
+	private List<AssistantDTO> getAssistantsOfACamp(CampDTO camp) {
+		List<InscriptionDTO> allInscriptions = this.inscriptionRepository.getAll();
+		List<AssistantDTO> assistantsOfCamp = new ArrayList<AssistantDTO>();
 		
 		for (int i = 0; i < allInscriptions.size(); i++) {
-			Inscription inscription = allInscriptions.get(i);
+			InscriptionDTO inscription = allInscriptions.get(i);
 			if (inscription.getCampId() == camp.getCampID()) {
-				Assistant assistant = this.assitantRepository.find(inscription.getAssistantId());
+				AssistantDTO assistant = this.assitantRepository.find(inscription.getAssistantId());
 				assistantsOfCamp.add(assistant);
 			}
 			
@@ -280,13 +280,13 @@ public class InscriptionManager {
 	 * @return La lista de campamentos disponibles.
 	 */
 
-	public List<Camp> avaliableCamps(Date actualDate){
-		List<Camp> allCamps = this.campRepository.getAll();
-		List<Camp> avaliableCamps = new ArrayList<Camp>();
+	public List<CampDTO> avaliableCamps(Date actualDate){
+		List<CampDTO> allCamps = this.campRepository.getAll();
+		List<CampDTO> avaliableCamps = new ArrayList<CampDTO>();
 		
 		for (int i = 0; i < allCamps.size(); i++) {
-			Camp camp = allCamps.get(i);
-			List<Assistant> assistants = getAssistantsOfACamp(camp);
+			CampDTO camp = allCamps.get(i);
+			List<AssistantDTO> assistants = getAssistantsOfACamp(camp);
 			
 			if (camp.getStart().after(actualDate) && (assistants.size() < camp.getCapacity())) {
 				avaliableCamps.add(camp);

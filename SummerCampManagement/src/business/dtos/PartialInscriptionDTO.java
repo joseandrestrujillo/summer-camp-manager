@@ -1,4 +1,4 @@
-package business.entities;
+package business.dtos;
 
 import java.util.Date;
 
@@ -7,7 +7,7 @@ import java.util.Date;
  * Esta clase hereda de la clase Inscription y proporciona
  * información específica sobre inscripciones parciales.
  */
-public class PartialInscription extends Inscription {
+public class PartialInscriptionDTO extends InscriptionDTO {
 
     /**
      * Constructor de la clase PartialInscription.
@@ -18,7 +18,7 @@ public class PartialInscription extends Inscription {
      * @param price           Precio de la inscripción parcial.
      * @param canBeCanceled   Indica si la inscripción parcial puede ser cancelada.
      */
-    public PartialInscription(int assistantId, int campId, Date inscriptionDate, float price, boolean canBeCanceled) {
+    public PartialInscriptionDTO(int assistantId, int campId, Date inscriptionDate, float price, boolean canBeCanceled) {
         super(assistantId, campId, inscriptionDate, price, canBeCanceled);
     }
 }

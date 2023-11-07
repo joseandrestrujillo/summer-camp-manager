@@ -1,6 +1,6 @@
 
 
-package business.entities;
+package business.dtos;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,14 +16,14 @@ import utilities.Utils;
  * La clase Activity representa una actividad educativa que se lleva a cabo en un horario específico
  * y se asocia con un nivel educativo, un nombre y un límite de asistentes y monitores.
  */
-public class Activity {
+public class ActivityDTO {
     private String activityName;
     private EducativeLevel educativeLevel;
     private TimeSlot timeSlot;
     private int maxAssistants;
     private int neededMonitors;
-    private List<Assistant> assistantList;
-    private List<Monitor> monitorList;
+    private List<AssistantDTO> assistantList;
+    private List<MonitorDTO> monitorList;
 
     /**
      * Constructor de la clase Activity.
@@ -34,21 +34,21 @@ public class Activity {
      * @param maxAssistants  El número máximo de asistentes permitidos.
      * @param neededMonitors El número de monitores necesarios para la actividad.
      */
-    public Activity(String activityName, EducativeLevel educativeLevel, TimeSlot timeSlot, int maxAssistants,
+    public ActivityDTO(String activityName, EducativeLevel educativeLevel, TimeSlot timeSlot, int maxAssistants,
             int neededMonitors) {
         this.activityName = activityName;
         this.educativeLevel = educativeLevel;
         this.timeSlot = timeSlot;
         this.maxAssistants = maxAssistants;
         this.neededMonitors = neededMonitors;
-        this.monitorList = new ArrayList<Monitor>(this.neededMonitors);
-        this.assistantList = new ArrayList<Assistant>(this.maxAssistants);
+        this.monitorList = new ArrayList<MonitorDTO>(this.neededMonitors);
+        this.assistantList = new ArrayList<AssistantDTO>(this.maxAssistants);
     }
 
     /**
      * Constructor vacío de la clase Activity.
      */
-    public Activity() {
+    public ActivityDTO() {
         this.activityName = null;
         this.educativeLevel = null;
         this.timeSlot = null;
@@ -63,7 +63,7 @@ public class Activity {
      * 
      * @return La lista de asistentes.
      */
-    public List<Assistant> getAssistants() {
+    public List<AssistantDTO> getAssistants() {
         return assistantList;
     }
 
@@ -72,7 +72,7 @@ public class Activity {
      * 
      * @param assistants La lista de asistentes a establecer.
      */
-    public void setAssistants(List<Assistant> assistants) {
+    public void setAssistants(List<AssistantDTO> assistants) {
         this.assistantList = assistants;
     }
 
@@ -171,7 +171,7 @@ public class Activity {
      * 
      * @return La lista de monitores.
      */
-    public List<Monitor> getMonitorList() {
+    public List<MonitorDTO> getMonitorList() {
         return monitorList;
     }
 
@@ -180,7 +180,7 @@ public class Activity {
      * 
      * @param monitorList La lista de monitores a establecer.
      */
-    public void setMonitorList(List<Monitor> monitorList) {
+    public void setMonitorList(List<MonitorDTO> monitorList) {
         this.monitorList = monitorList;
     }
 
@@ -205,7 +205,7 @@ public class Activity {
      * @param monitor El monitor a registrar.
      * @throws MaxMonitorsAddedException Si se alcanza el límite de monitores registrados.
      */
-    public void registerMonitor(Monitor monitor) {
+    public void registerMonitor(MonitorDTO monitor) {
         if (monitorList.size() == this.neededMonitors) {
             throw new MaxMonitorsAddedException();
         }
@@ -218,7 +218,7 @@ public class Activity {
      * @param monitor El monitor a comprobar.
      * @return true si el monitor está registrado, false en caso contrario.
      */
-    public boolean monitorIsRegistered(Monitor monitor){
+    public boolean monitorIsRegistered(MonitorDTO monitor){
 		return this.monitorList.contains(monitor);	
 	}
     

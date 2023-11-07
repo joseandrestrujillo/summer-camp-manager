@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import business.entities.Assistant;
+import business.dtos.AssistantDTO;
 import business.exceptions.repository.NotFoundException;
 import business.interfaces.ICriteria;
 import business.interfaces.IDAO;
@@ -22,9 +22,9 @@ import utilities.StringUtils;
  * La clase InFileSystemAssistantRepository es una implementación en sistema de ficheros de un repositorio de asistentes.
  
  */
-public class InFileSystemAssistantRepository implements IDAO<Assistant, Integer>{
+public class InFileSystemAssistantRepository implements IDAO<AssistantDTO, Integer>{
     private String filePath;
-    private Map<Integer, Assistant> mapOfAssistants;
+    private Map<Integer, AssistantDTO> mapOfAssistants;
 
     
     /**
@@ -46,7 +46,7 @@ public class InFileSystemAssistantRepository implements IDAO<Assistant, Integer>
      * @throws NotFoundException Si el asistente no se encuentra en el repositorio.
      */
     @Override
-    public Assistant find(Integer identifier) {
+    public AssistantDTO find(Integer identifier) {
         if (!mapOfAssistants.containsKey(identifier)) {
             throw new NotFoundException();
         }
@@ -58,7 +58,7 @@ public class InFileSystemAssistantRepository implements IDAO<Assistant, Integer>
      * @param obj El asistente a guardar en el repositorio.
      */
     @Override
-    public void save(Assistant obj) {
+    public void save(AssistantDTO obj) {
         mapOfAssistants.put(obj.getId(), obj);
         saveToFile();
     }
@@ -68,7 +68,7 @@ public class InFileSystemAssistantRepository implements IDAO<Assistant, Integer>
      * @return Una lista de asistentes.
      */
     @Override
-    public List<Assistant> getAll(Optional<ICriteria> criteria) {
+    public List<AssistantDTO> getAll(Optional<ICriteria> criteria) {
         return new ArrayList<>(mapOfAssistants.values());
     }
     /**
@@ -77,7 +77,7 @@ public class InFileSystemAssistantRepository implements IDAO<Assistant, Integer>
      * @param obj El asistente a eliminar del repositorio.
      */
     @Override
-    public void delete(Assistant obj) {
+    public void delete(AssistantDTO obj) {
         mapOfAssistants.remove(obj.getId());
         saveToFile();
     }
@@ -108,19 +108,19 @@ public class InFileSystemAssistantRepository implements IDAO<Assistant, Integer>
         }
     }
 
-    private String AssistantMapToString(Map<Integer, Assistant> assistantMap) {
+    private String AssistantMapToString(Map<Integer, AssistantDTO> assistantMap) {
         StringBuilder sb = new StringBuilder();
-        for (Assistant assistant : assistantMap.values()) {
+        for (AssistantDTO assistant : assistantMap.values()) {
             sb.append(assistant.toString()).append(System.lineSeparator());
         }
         return sb.toString();
     }
 
-    private Map<Integer, Assistant> AssistantMapFromString(String fileContent) {
-        Map<Integer, Assistant> assistantMap = new HashMap<>();
+    private Map<Integer, AssistantDTO> AssistantMapFromString(String fileContent) {
+        Map<Integer, AssistantDTO> assistantMap = new HashMap<>();
         String[] lines = fileContent.split(System.lineSeparator());
         for (String line : lines) {
-            Assistant assistant = StringUtils.assistantFromString(line);
+            AssistantDTO assistant = StringUtils.assistantFromString(line);
             if (assistant != null) {
                 assistantMap.put(assistant.getId(), assistant);
             }

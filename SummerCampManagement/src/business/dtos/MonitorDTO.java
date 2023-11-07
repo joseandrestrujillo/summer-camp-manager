@@ -1,4 +1,4 @@
-package business.entities;
+package business.dtos;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 /**
  * La clase Monitor representa a un monitor en un sistema educativo.
  */
-public class Monitor {
+public class MonitorDTO {
     private int id;             
     private String firstName;   
     private String lastName;    
@@ -16,7 +16,7 @@ public class Monitor {
      * Constructor predeterminado de la clase Monitor.
      * Inicializa los campos con valores predeterminados.
      */
-    public Monitor() {
+    public MonitorDTO() {
         this.id = 0;
         this.firstName = "";
         this.lastName = "";
@@ -31,7 +31,7 @@ public class Monitor {
      * @param lastName El apellido del monitor.
      * @param SpecialEducator Indica si el monitor es educador especial.
      */
-    public Monitor(int id, String firstName, String lastName, boolean SpecialEducator) {
+    public MonitorDTO(int id, String firstName, String lastName, boolean SpecialEducator) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;

@@ -6,7 +6,7 @@ DELETE_ASSISTANT_QUERY=delete from Assistant where id=?
 
 # ACTIVITY
 FIND_ACTIVITY_QUERY=select * from Activity where activityName=?
-GET_ASSISTANTS_OF_AN_ACTIVITY_QUERY=select assistantId, firstName, lastName from Inscription, Assistant, CampActivity where CampActivity.activityName=? and Inscription.assistantId=Assistant.id and Inscription.campId=CampActivity.campId
+GET_ASSISTANTS_OF_AN_ACTIVITY_QUERY=select Assistant.id, firstName, lastName, birthDate, requireSpecialAttention from Inscription, Assistant, CampActivity where CampActivity.activityName=? and Inscription.assistantId=Assistant.id and Inscription.campId=CampActivity.campId
 GET_MONITORS_OF_AN_ACTIVITY_QUERY=select id, firstName, lastName, specialEducator from MonitorActivity, Monitor where MonitorActivity.activityName=? and MonitorActivity.monitorId=Monitor.id
 SAVE_ACTIVITY_QUERY=replace into Activity (activityName,educativeLevel,timeSlot,maxAssistants,neededMonitors) values(?,?,?,?,?)
 UPDATE_MONITOR_ACTIVITY_RELATION_QUERY=replace into MonitorActivity (monitorId, activityName) values(?,?)

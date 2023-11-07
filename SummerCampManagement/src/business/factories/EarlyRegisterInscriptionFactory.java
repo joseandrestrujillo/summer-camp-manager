@@ -2,10 +2,10 @@ package business.factories;
 
 import java.util.Date;
 
-import business.entities.Assistant;
-import business.entities.Camp;
-import business.entities.CompleteInscription;
-import business.entities.PartialInscription;
+import business.dtos.AssistantDTO;
+import business.dtos.CampDTO;
+import business.dtos.CompleteInscriptionDTO;
+import business.dtos.PartialInscriptionDTO;
 import business.exceptions.assistant.AssistantNotFoundException;
 import business.exceptions.camp.CampNotFoundException;
 import business.exceptions.inscription.AfterEarlyTimeException;
@@ -21,8 +21,8 @@ import utilities.Utils;
  * caracterizan por reglas especiales relacionadas con el tiempo y el precio.
  */
 public class EarlyRegisterInscriptionFactory implements AbstractInscriptionFactory {
-    private IDAO<Camp, Integer> campRepository;
-    private IDAO<Assistant, Integer> assistantRepository;
+    private IDAO<CampDTO, Integer> campRepository;
+    private IDAO<AssistantDTO, Integer> assistantRepository;
 
     /**
      * Constructor para EarlyRegisterInscriptionFactory.
@@ -30,7 +30,7 @@ public class EarlyRegisterInscriptionFactory implements AbstractInscriptionFacto
      * @param campRepository       Repositorio de campamentos.
      * @param assistantRepository  Repositorio de asistentes.
      */
-    public EarlyRegisterInscriptionFactory(IDAO<Camp, Integer> campRepository, IDAO<Assistant, Integer> assistantRepository) {
+    public EarlyRegisterInscriptionFactory(IDAO<CampDTO, Integer> campRepository, IDAO<AssistantDTO, Integer> assistantRepository) {
         this.campRepository = campRepository;
         this.assistantRepository = assistantRepository;
     }
@@ -49,7 +49,7 @@ public class EarlyRegisterInscriptionFactory implements AbstractInscriptionFacto
      * @throws AfterStartTimeException      Si la inscripción se realiza después del inicio del campamento.
      */
     @Override
-    public PartialInscription createPartial(int assistantId, int campId, Date inscriptionDate, float price) {
+    public PartialInscriptionDTO createPartial(int assistantId, int campId, Date inscriptionDate, float price) {
         try {
             this.assistantRepository.find(assistantId);
         } catch (NotFoundException e) {
@@ -57,7 +57,7 @@ public class EarlyRegisterInscriptionFactory implements AbstractInscriptionFacto
         }
 
         try {
-            Camp camp = this.campRepository.find(campId);
+            CampDTO camp = this.campRepository.find(campId);
 
             long daysDifference = Utils.daysBetween(camp.getStart(), inscriptionDate);
 
@@ -67,7 +67,7 @@ public class EarlyRegisterInscriptionFactory implements AbstractInscriptionFacto
                 throw new AfterStartTimeException();
             }
 
-            return new PartialInscription(assistantId, campId, inscriptionDate, price, true);
+            return new PartialInscriptionDTO(assistantId, campId, inscriptionDate, price, true);
 
         } catch (NotFoundException e) {
             throw new CampNotFoundException();
@@ -88,7 +88,7 @@ public class EarlyRegisterInscriptionFactory implements AbstractInscriptionFacto
      * @throws AfterStartTimeException      Si la inscripción se realiza después del inicio del campamento.
      */
     @Override
-    public CompleteInscription createComplete(int assistantId, int campId, Date inscriptionDate, float price) {
+    public CompleteInscriptionDTO createComplete(int assistantId, int campId, Date inscriptionDate, float price) {
         try {
             this.assistantRepository.find(assistantId);
         } catch (NotFoundException e) {
@@ -96,7 +96,7 @@ public class EarlyRegisterInscriptionFactory implements AbstractInscriptionFacto
         }
 
         try {
-            Camp camp = this.campRepository.find(campId);
+            CampDTO camp = this.campRepository.find(campId);
 
             long daysDifference = Utils.daysBetween(camp.getStart(), inscriptionDate);
 
@@ -106,7 +106,7 @@ public class EarlyRegisterInscriptionFactory implements AbstractInscriptionFacto
                 throw new AfterStartTimeException();
             }
 
-            return new CompleteInscription(assistantId, campId, inscriptionDate, price, true);
+            return new CompleteInscriptionDTO(assistantId, campId, inscriptionDate, price, true);
 
         } catch (NotFoundException e) {
             throw new CampNotFoundException();

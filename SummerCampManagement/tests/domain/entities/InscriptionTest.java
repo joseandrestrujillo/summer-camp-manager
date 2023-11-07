@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import business.entities.Inscription;
+import business.dtos.InscriptionDTO;
 import business.values.EducativeLevel;
 import business.values.InscriptionType;
 import business.values.TimeSlot;
@@ -24,7 +24,7 @@ class InscriptionTest {
 		float price = -1;
 		
 
-		Inscription inscription = new Inscription();
+		InscriptionDTO inscription = new InscriptionDTO();
 		
 		assertEquals(assistantId, inscription.getAssistantId());
         assertEquals(campId, inscription.getCampId());
@@ -34,7 +34,7 @@ class InscriptionTest {
 
 	@Test
 	void testSetters() {
-		Inscription inscription = new Inscription();
+		InscriptionDTO inscription = new InscriptionDTO();
 		int assistantId = 1;
 		int campId = 4;
 		Date inscriptionDate = Utils.parseDate("12/01/2024");
@@ -61,7 +61,7 @@ class InscriptionTest {
 		
 		
 		
-		Inscription inscription = new Inscription(assistantId, campId, inscriptionDate, price, true);
+		InscriptionDTO inscription = new InscriptionDTO(assistantId, campId, inscriptionDate, price, true);
 		
 		assertEquals(assistantId, inscription.getAssistantId());
 		assertEquals(campId, inscription.getCampId());
@@ -78,7 +78,7 @@ class InscriptionTest {
 		Date inscriptionDate = Utils.parseDate("12/01/2024");
 		float price = 100;
 		
-		Inscription inscription = new Inscription(assistantId,campId,inscriptionDate,price, true);
+		InscriptionDTO inscription = new InscriptionDTO(assistantId,campId,inscriptionDate,price, true);
 
         String expectedToString = "{AssistantId: 1, CampId: 1, InscriptionDate: '12/01/2024', Price: 100.0, canBeCancelled: true}";
         assertEquals(expectedToString, inscription.toString());

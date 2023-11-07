@@ -1,4 +1,4 @@
-package data.database;
+package data.database.daos;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -10,15 +10,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-
-import business.entities.Activity;
-import business.entities.Camp;
-import business.entities.Inscription;
+import business.dtos.ActivityDTO;
+import business.dtos.CampDTO;
+import business.dtos.InscriptionDTO;
 import business.exceptions.dao.DAOTimeoutException;
 import business.exceptions.repository.NotFoundException;
 import business.interfaces.ICriteria;
 import business.interfaces.IDAO;
 import business.values.EducativeLevel;
+import data.database.DBManager;
 import data.database.sqlcriteria.ActivityInCampCriteria;
 import data.database.sqlcriteria.InscriptionOfACampCriteria;
 
@@ -26,15 +26,15 @@ import data.database.sqlcriteria.InscriptionOfACampCriteria;
  * La clase InDatabaseCampDAO es una implementación en base de datos de un DAO de campamentos.
  
  */
-public class InDatabaseCampDAO implements IDAO<Camp, Integer> {
-	private DBConnection dbConnection;
+public class InDatabaseCampDAO implements IDAO<CampDTO, Integer> {
+	private DBManager dbConnection;
 	/**
      * Constructor de la clase InDatabaseCampDAO.
      * @param filePath La ruta de la tabla
      */
 
     public InDatabaseCampDAO() {
-    	this.dbConnection = DBConnection.getInstance();
+    	this.dbConnection = DBManager.getInstance();
     }
      /**
      * Busca un campamento por su identificador.
@@ -45,8 +45,8 @@ public class InDatabaseCampDAO implements IDAO<Camp, Integer> {
      */
 
     @Override
-    public Camp find(Integer identifier) {
-    	Camp camp;
+    public CampDTO find(Integer identifier) {
+    	CampDTO camp;
 		try {
     		Connection con = this.dbConnection.getConnection();
 
@@ -66,7 +66,7 @@ public class InDatabaseCampDAO implements IDAO<Camp, Integer> {
 			int principalMonitorId = rs.getInt("principalMonitorId");
 			int specialMonitorId = rs.getInt("specialMonitorId");
 			
-			camp = new Camp(
+			camp = new CampDTO(
 					campID,
 					start,
 					end,
@@ -94,7 +94,7 @@ public class InDatabaseCampDAO implements IDAO<Camp, Integer> {
 		
 		InDatabaseActivityDAO activityDAO = new InDatabaseActivityDAO();
 		
-		List<Activity> activities = activityDAO.getAll(Optional.of(new ActivityInCampCriteria(identifier)));
+		List<ActivityDTO> activities = activityDAO.getAll(Optional.of(new ActivityInCampCriteria(identifier)));
 		
 		camp.setActivities(activities);
 		
@@ -110,7 +110,7 @@ public class InDatabaseCampDAO implements IDAO<Camp, Integer> {
      */
 
     @Override
-    public void save(Camp obj) {
+    public void save(CampDTO obj) {
     	try{
     		Connection con = this.dbConnection.getConnection();
     		PreparedStatement ps = null ;
@@ -175,7 +175,7 @@ public class InDatabaseCampDAO implements IDAO<Camp, Integer> {
 		}
     	
 		InDatabaseActivityDAO activityDAO = new InDatabaseActivityDAO();
-    	for (Activity activity : obj.getActivities()) {
+    	for (ActivityDTO activity : obj.getActivities()) {
     		activityDAO.save(activity);
     		try{
 	    		Connection con = this.dbConnection.getConnection();
@@ -199,8 +199,8 @@ public class InDatabaseCampDAO implements IDAO<Camp, Integer> {
      */
 
     @Override
-    public List<Camp> getAll(Optional<ICriteria> criteria) {
-    	ArrayList<Camp> listOfCamps = new ArrayList<Camp>();
+    public List<CampDTO> getAll(Optional<ICriteria> criteria) {
+    	ArrayList<CampDTO> listOfCamps = new ArrayList<CampDTO>();
 		try {
     		Connection con = this.dbConnection.getConnection();
 
@@ -235,9 +235,9 @@ public class InDatabaseCampDAO implements IDAO<Camp, Integer> {
      */
 
     @Override
-    public void delete(Camp obj) {
+    public void delete(CampDTO obj) {
     	InDatabaseActivityDAO activityDAO = new InDatabaseActivityDAO();
-    	for (Activity activity : obj.getActivities()) {
+    	for (ActivityDTO activity : obj.getActivities()) {
     		activityDAO.save(activity);
     		try{
 	    		Connection con = this.dbConnection.getConnection();
@@ -255,8 +255,8 @@ public class InDatabaseCampDAO implements IDAO<Camp, Integer> {
 		}
     	
     	InDatabaseInscriptionDAO inscriptionDAO = new InDatabaseInscriptionDAO();
-    	List<Inscription> inscriptions = inscriptionDAO.getAll(Optional.of(new InscriptionOfACampCriteria(obj.getCampID())));
-    	for (Inscription inscription : inscriptions) {
+    	List<InscriptionDTO> inscriptions = inscriptionDAO.getAll(Optional.of(new InscriptionOfACampCriteria(obj.getCampID())));
+    	for (InscriptionDTO inscription : inscriptions) {
     		inscriptionDAO.delete(inscription);
     	}
     	

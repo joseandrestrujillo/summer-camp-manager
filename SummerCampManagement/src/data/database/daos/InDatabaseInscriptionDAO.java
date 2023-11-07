@@ -1,9 +1,4 @@
-package data.database;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+package data.database.daos;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -11,24 +6,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLTimeoutException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
-import business.entities.Activity;
-import business.entities.Assistant;
-import business.entities.Inscription;
-import business.entities.Monitor;
-import business.exceptions.assistant.AssistantNotFoundException;
+import business.dtos.InscriptionDTO;
 import business.exceptions.dao.DAOTimeoutException;
 import business.exceptions.repository.NotFoundException;
 import business.interfaces.ICriteria;
 import business.interfaces.IDAO;
-import business.values.EducativeLevel;
-import business.values.TimeSlot;
-import data.database.sqlcriteria.AssistantInActivityCriteria;
-import data.database.sqlcriteria.MonitorInActivityCriteria;
+import data.database.DBManager;
 
 
 /**
@@ -36,15 +22,15 @@ import data.database.sqlcriteria.MonitorInActivityCriteria;
 
  */
 
-public class InDatabaseInscriptionDAO implements IDAO<Inscription, String> {
-	private DBConnection dbConnection;
+public class InDatabaseInscriptionDAO implements IDAO<InscriptionDTO, String> {
+	private DBManager dbConnection;
 	
 	/**
      * Constructor de la clase InDatabaseInscriptionDA0.
      */
 
     public InDatabaseInscriptionDAO() {
-       this.dbConnection = DBConnection.getInstance();
+       this.dbConnection = DBManager.getInstance();
     }
 
 
@@ -57,12 +43,12 @@ public class InDatabaseInscriptionDAO implements IDAO<Inscription, String> {
      */
 
     @Override
-    public Inscription find(String identifier) {
+    public InscriptionDTO find(String identifier) {
     	String[] parts = identifier.split("-");
     	int assistantId = Integer.parseInt(parts[0]);
     	int campId = Integer.parseInt(parts[1]);
     	
-    	Inscription inscription;
+    	InscriptionDTO inscription;
 		try {
     		Connection con = this.dbConnection.getConnection();
 
@@ -79,7 +65,7 @@ public class InDatabaseInscriptionDAO implements IDAO<Inscription, String> {
 				float price = rs.getFloat("price");
 				Boolean canBeCanceled = rs.getBoolean("canBeCanceled");
 				
-				inscription = new Inscription(
+				inscription = new InscriptionDTO(
 						assistantId,
 						campId,
 						inscriptionDate,
@@ -114,7 +100,7 @@ public class InDatabaseInscriptionDAO implements IDAO<Inscription, String> {
      */
 
     @Override
-    public void save(Inscription obj) {
+    public void save(InscriptionDTO obj) {
     	try{
     		Connection con = this.dbConnection.getConnection();
     		PreparedStatement ps = con.prepareStatement(
@@ -141,8 +127,8 @@ public class InDatabaseInscriptionDAO implements IDAO<Inscription, String> {
      */
 
     @Override
-    public List<Inscription> getAll(Optional<ICriteria> criteria) {
-    	ArrayList<Inscription> listOfInscriptions = new ArrayList<Inscription>();
+    public List<InscriptionDTO> getAll(Optional<ICriteria> criteria) {
+    	ArrayList<InscriptionDTO> listOfInscriptions = new ArrayList<InscriptionDTO>();
 		try {
     		Connection con = this.dbConnection.getConnection();
 
@@ -162,7 +148,7 @@ public class InDatabaseInscriptionDAO implements IDAO<Inscription, String> {
 				Date inscriptionDate = rs.getDate("inscriptionDate");
 				float price = rs.getFloat("price");
 				Boolean canBeCanceled = rs.getBoolean("canBeCanceled");
-				listOfInscriptions.add(new Inscription(
+				listOfInscriptions.add(new InscriptionDTO(
 						assistantId,
 						campId,
 						inscriptionDate,
@@ -188,7 +174,7 @@ public class InDatabaseInscriptionDAO implements IDAO<Inscription, String> {
      */ 
 
     @Override
-    public void delete(Inscription obj) {
+    public void delete(InscriptionDTO obj) {
     	try{
     		Connection con = this.dbConnection.getConnection();
 	    	PreparedStatement ps=con.prepareStatement(this.dbConnection.getQuery("DELETE_INSCRIPTION_QUERY"));

@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import business.entities.Activity;
+import business.dtos.ActivityDTO;
 import business.exceptions.repository.NotFoundException;
 import business.interfaces.ICriteria;
 import business.interfaces.IDAO;
@@ -20,9 +20,9 @@ import utilities.StringUtils;
 /**
  * La clase InFileSystemActivityRepository es una implementación en sistema de ficheros de un repositorio de actividades.
  */
-public class InFileSystemActivityRepository implements IDAO<Activity, String>{
+public class InFileSystemActivityRepository implements IDAO<ActivityDTO, String>{
     private String filePath;
-    private Map<String, Activity> mapOfAssistants;
+    private Map<String, ActivityDTO> mapOfAssistants;
 
     
     /**
@@ -45,7 +45,7 @@ public class InFileSystemActivityRepository implements IDAO<Activity, String>{
      * @throws NotFoundException Si la actividad no se encuentra en el repositorio.
      */
     @Override
-    public Activity find(String identifier) {
+    public ActivityDTO find(String identifier) {
         if (!mapOfAssistants.containsKey(identifier)) {
             throw new NotFoundException();
         }
@@ -58,7 +58,7 @@ public class InFileSystemActivityRepository implements IDAO<Activity, String>{
      * @param obj La actividad a guardar en el repositorio.
      */
     @Override
-    public void save(Activity obj) {
+    public void save(ActivityDTO obj) {
         mapOfAssistants.put(obj.getActivityName(), obj);
         saveToFile();
     }
@@ -69,7 +69,7 @@ public class InFileSystemActivityRepository implements IDAO<Activity, String>{
      * @return Una lista de actividades.
      */
     @Override
-    public List<Activity> getAll(Optional<ICriteria> criteria) {
+    public List<ActivityDTO> getAll(Optional<ICriteria> criteria) {
         return new ArrayList<>(mapOfAssistants.values());
     }
 
@@ -79,7 +79,7 @@ public class InFileSystemActivityRepository implements IDAO<Activity, String>{
      * @param obj La actividad a eliminar del repositorio.
      */
     @Override
-    public void delete(Activity obj) {
+    public void delete(ActivityDTO obj) {
         mapOfAssistants.remove(obj.getActivityName());
         saveToFile();
     }
@@ -110,19 +110,19 @@ public class InFileSystemActivityRepository implements IDAO<Activity, String>{
         }
     }
 
-    private String AssistantMapToString(Map<String, Activity> assistantMap) {
+    private String AssistantMapToString(Map<String, ActivityDTO> assistantMap) {
         StringBuilder sb = new StringBuilder();
-        for (Activity assistant : assistantMap.values()) {
+        for (ActivityDTO assistant : assistantMap.values()) {
             sb.append(assistant.toString()).append(System.lineSeparator());
         }
         return sb.toString();
     }
 
-    private Map<String, Activity> AssistantMapFromString(String fileContent) {
-        Map<String, Activity> assistantMap = new HashMap<>();
+    private Map<String, ActivityDTO> AssistantMapFromString(String fileContent) {
+        Map<String, ActivityDTO> assistantMap = new HashMap<>();
         String[] lines = fileContent.split(System.lineSeparator());
         for (String line : lines) {
-            Activity assistant = StringUtils.activityFromString(line);
+            ActivityDTO assistant = StringUtils.activityFromString(line);
             if (assistant != null) {
                 assistantMap.put(assistant.getActivityName(), assistant);
             }

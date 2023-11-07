@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import business.entities.Activity;
-import business.entities.Assistant;
-import business.entities.Camp;
+import business.dtos.ActivityDTO;
+import business.dtos.AssistantDTO;
+import business.dtos.CampDTO;
 import business.exceptions.repository.NotFoundException;
 import business.interfaces.ICriteria;
 import business.interfaces.IDAO;
@@ -18,15 +18,15 @@ import business.interfaces.IDAO;
  * La clase InMemoryCampRepository es una implementación en memoria de un repositorio de campamentos.
  
  */
-public class InMemoryCampRepository implements IDAO<Camp, Integer> {
-    private Map<Integer, Camp> mapOfCamp;
+public class InMemoryCampRepository implements IDAO<CampDTO, Integer> {
+    private Map<Integer, CampDTO> mapOfCamp;
 
     /**
      * Constructor de la clase InMemoryCampRepository.
      * Inicializa un nuevo mapa para almacenar campamentos en memoria.
      */
     public InMemoryCampRepository() {
-        this.mapOfCamp = new HashMap<Integer, Camp>();
+        this.mapOfCamp = new HashMap<Integer, CampDTO>();
     }
 
     /**
@@ -37,7 +37,7 @@ public class InMemoryCampRepository implements IDAO<Camp, Integer> {
      * @throws NotFoundException Si el campamento no se encuentra en el repositorio.
      */
     @Override
-    public Camp find(Integer identifier) {
+    public CampDTO find(Integer identifier) {
         if (this.mapOfCamp.get(identifier) == null) {
             throw new NotFoundException();
         }
@@ -50,7 +50,7 @@ public class InMemoryCampRepository implements IDAO<Camp, Integer> {
      * @param obj El campamento a guardar en el repositorio.
      */
     @Override
-    public void save(Camp obj) {
+    public void save(CampDTO obj) {
         this.mapOfCamp.put(obj.getCampID(), obj);
     }
 
@@ -60,8 +60,8 @@ public class InMemoryCampRepository implements IDAO<Camp, Integer> {
      * @return Una lista de campamentos.
      */
     @Override
-    public List<Camp> getAll(Optional<ICriteria> criteria) {
-        List<Camp> allCamps = new ArrayList<>(this.mapOfCamp.values());
+    public List<CampDTO> getAll(Optional<ICriteria> criteria) {
+        List<CampDTO> allCamps = new ArrayList<>(this.mapOfCamp.values());
         return allCamps;
     }
 
@@ -71,7 +71,7 @@ public class InMemoryCampRepository implements IDAO<Camp, Integer> {
      * @param obj El campamento a eliminar del repositorio.
      */
     @Override
-    public void delete(Camp obj) {
+    public void delete(CampDTO obj) {
         this.mapOfCamp.remove(obj.getCampID());
     }
 }

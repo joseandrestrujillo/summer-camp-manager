@@ -6,7 +6,7 @@ import java.util.Date;
 
 import org.junit.jupiter.api.Test;
 
-import business.entities.Monitor;
+import business.dtos.MonitorDTO;
 import utilities.Utils;
 
 class MonitorTest {
@@ -18,7 +18,7 @@ class MonitorTest {
 		String lastName = "Quesada";
 		boolean specialEducator = true;
 		
-		Monitor monitor = new Monitor(
+		MonitorDTO monitor = new MonitorDTO(
 				id,
 				firstName,
 				lastName,
@@ -38,7 +38,7 @@ class MonitorTest {
 		String lastName = "";
 		boolean specialEducator = false;
 		
-		Monitor monitor = new Monitor();
+		MonitorDTO monitor = new MonitorDTO();
 		
 		assertEquals(id, monitor.getId());
         assertEquals(firstName, monitor.getFirstName());
@@ -49,7 +49,7 @@ class MonitorTest {
 	
 	@Test
 	void testSetters() {
-		Monitor monitor = new Monitor();
+		MonitorDTO monitor = new MonitorDTO();
 		int id = 1;
 		String firstName = "Alberto";
 		String lastName = "Quesada";
@@ -73,7 +73,7 @@ class MonitorTest {
 		String lastName = "Quesada";
 		boolean specialEducator = true;
 		
-		Monitor monitor = new Monitor(
+		MonitorDTO monitor = new MonitorDTO(
 				id,
 				firstName,
 				lastName,
