@@ -14,7 +14,6 @@ import business.dtos.MonitorDTO;
 import business.exceptions.dao.DAOTimeoutException;
 import business.exceptions.repository.NotFoundException;
 import business.interfaces.ICriteria;
-import business.interfaces.IDAO;
 import business.interfaces.IMonitorDAO;
 import data.database.DBManager;
 import data.database.criteria.MonitorInActivityCriteria;

@@ -192,7 +192,7 @@ public class StringUtils {
 	        canBeCanceled = Boolean.parseBoolean(matcher.group(5));
 	    }
 
-	    return new InscriptionDTO(assistantId, campId, inscriptionDate, price, canBeCanceled);
+	    return new InscriptionDTO(assistantId, campId, inscriptionDate, price, canBeCanceled, false);
 	}
 	
 	/**

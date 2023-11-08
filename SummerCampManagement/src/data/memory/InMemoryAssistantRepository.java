@@ -15,20 +15,21 @@ import business.exceptions.repository.NotFoundException;
 import business.interfaces.IAssistantDAO;
 import business.interfaces.ICriteria;
 import business.interfaces.IDAO;
+import business.values.TimeSlot;
 
 /**
  * La clase InMemoryAssistantRepository es una implementación en memoria de un repositorio de asistentes.
  
  */
 public class InMemoryAssistantRepository implements IAssistantDAO {
-    private Map<Integer, AssistantDTO> mapOfAssistants;
+    private MapsManager mapsManager;
 
     /**
      * Constructor de la clase InMemoryAssistantRepository.
      * Inicializa un nuevo mapa para almacenar asistentes en memoria.
      */
     public InMemoryAssistantRepository() {
-        this.mapOfAssistants = new HashMap<Integer, AssistantDTO>();
+        this.mapsManager = MapsManager.getInstance();
     }
 
     /**
@@ -40,10 +41,10 @@ public class InMemoryAssistantRepository implements IAssistantDAO {
      */
     @Override
     public AssistantDTO find(Integer identifier) {
-        if (this.mapOfAssistants.get(identifier) == null) {
+        if (this.mapsManager.getMapOfAssistants().get(identifier) == null) {
             throw new NotFoundException();
         }
-        return this.mapOfAssistants.get(identifier);
+        return this.mapsManager.getMapOfAssistants().get(identifier);
     }
 
     /**
@@ -53,7 +54,7 @@ public class InMemoryAssistantRepository implements IAssistantDAO {
      */
     @Override
     public void save(AssistantDTO obj) {
-        this.mapOfAssistants.put(obj.getId(), obj);
+        this.mapsManager.getMapOfAssistants().put(obj.getId(), obj);
     }
 
     /**
@@ -63,7 +64,7 @@ public class InMemoryAssistantRepository implements IAssistantDAO {
      */
     @Override
     public List<AssistantDTO> getAll(Optional<ICriteria> criteria) {
-        List<AssistantDTO> allAssistants = new ArrayList<>(this.mapOfAssistants.values());
+        List<AssistantDTO> allAssistants = new ArrayList<>(this.mapsManager.getMapOfAssistants().values());
         return allAssistants;
     }
 
@@ -74,7 +75,7 @@ public class InMemoryAssistantRepository implements IAssistantDAO {
      */
     @Override
     public void delete(AssistantDTO obj) {
-        this.mapOfAssistants.remove(obj.getId());
+        this.mapsManager.getMapOfAssistants().remove(obj.getId());
     }
 
 	@Override
@@ -104,7 +105,14 @@ public class InMemoryAssistantRepository implements IAssistantDAO {
 			List<ActivityDTO> activities = activityRepository.getActivitiesInACamp(camp);
 			for (ActivityDTO activityi: activities) {				
 				if(activityi.getActivityName() == activity.getActivityName()) {
-					assistants.add(find(inscriptionDTO.getAssistantId()));
+					if (inscriptionDTO.isPartial()) {
+						if (activity.getTimeSlot() == TimeSlot.MORNING) {
+							assistants.add(find(inscriptionDTO.getAssistantId()));
+						}
+					}else {
+						assistants.add(find(inscriptionDTO.getAssistantId()));
+					}
+					
 				}
 			}
 			

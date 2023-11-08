@@ -16,14 +16,14 @@ import business.interfaces.IDAO;
 
  */
 public class InMemoryInscriptionRepository implements IDAO<InscriptionDTO, String> {
-    private Map<String, InscriptionDTO> mapOfInscription;
+    private MapsManager mapsManager;
 
     /**
      * Constructor de la clase InMemoryInscriptionRepository.
      * Inicializa un nuevo mapa para almacenar inscripciones en memoria.
      */
     public InMemoryInscriptionRepository() {
-        this.mapOfInscription = new HashMap<String, InscriptionDTO>();
+        this.mapsManager = MapsManager.getInstance();
     }
 
     /**
@@ -35,10 +35,10 @@ public class InMemoryInscriptionRepository implements IDAO<InscriptionDTO, Strin
      */
     @Override
     public InscriptionDTO find(String inscriptionName) {
-        if (this.mapOfInscription.get(inscriptionName) == null) {
+        if (this.mapsManager.getMapOfInscription().get(inscriptionName) == null) {
             throw new NotFoundException();
         }
-        return this.mapOfInscription.get(inscriptionName);
+        return this.mapsManager.getMapOfInscription().get(inscriptionName);
     }
 
     /**
@@ -48,7 +48,7 @@ public class InMemoryInscriptionRepository implements IDAO<InscriptionDTO, Strin
      */
     @Override
     public void save(InscriptionDTO activity) {
-        this.mapOfInscription.put(activity.getInscriptionIdentifier(), activity);
+        this.mapsManager.getMapOfInscription().put(activity.getInscriptionIdentifier(), activity);
     }
 
     /**
@@ -58,7 +58,7 @@ public class InMemoryInscriptionRepository implements IDAO<InscriptionDTO, Strin
      */
     @Override
     public List<InscriptionDTO> getAll(Optional<ICriteria> criteria) {
-        List<InscriptionDTO> allInscriptions = new ArrayList<>(this.mapOfInscription.values());
+        List<InscriptionDTO> allInscriptions = new ArrayList<>(this.mapsManager.getMapOfInscription().values());
         return allInscriptions;
     }
 
@@ -69,6 +69,6 @@ public class InMemoryInscriptionRepository implements IDAO<InscriptionDTO, Strin
      */
     @Override
     public void delete(InscriptionDTO obj) {
-        this.mapOfInscription.remove(obj.getInscriptionIdentifier());
+        this.mapsManager.getMapOfInscription().remove(obj.getInscriptionIdentifier());
     }
 }

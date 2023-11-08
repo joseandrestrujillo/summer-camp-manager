@@ -18,7 +18,6 @@ import business.exceptions.inscription.AssistantAlreadyEnrolledException;
 import business.exceptions.inscription.MaxAssistantExcededException;
 import business.exceptions.inscription.NeedToAddAnSpecialMonitorException;
 import business.exceptions.inscription.WrongEducativeLevelException;
-import business.factories.EarlyRegisterInscriptionFactory;
 import business.managers.AssistantsManager;
 import business.managers.CampsManager;
 import business.managers.InscriptionManager;
@@ -29,6 +28,7 @@ import data.memory.InMemoryAssistantRepository;
 import data.memory.InMemoryCampRepository;
 import data.memory.InMemoryInscriptionRepository;
 import data.memory.InMemoryMontiorRepository;
+import data.memory.MapsManager;
 import utilities.Utils;
 
 class InscriptionManagerTest {
@@ -82,6 +82,7 @@ class InscriptionManagerTest {
 
 	@BeforeEach
 	void SetUp() {
+		MapsManager.resetInstance();
 		this.campRepository = new InMemoryCampRepository();
 		this.activityRepository = new InMemoryActivityRepository();
 		this.monitorRepository = new InMemoryMontiorRepository();
@@ -699,13 +700,13 @@ class InscriptionManagerTest {
 		
 		
 		
-		InscriptionDTO inscription = inscriptionManager.enroll(
+		inscriptionManager.enroll(
 				1, 
 				campID, 
 				inscriptionDate, 
 				false, 
 				false);
-					
+		
 		assertEquals(true, this.assistantRepository.getAssistantsInAnActivity(activity).contains(assistant));
 		assertEquals(true, this.assistantRepository.getAssistantsInAnActivity(activity2).contains(assistant));
 	}
@@ -769,7 +770,7 @@ class InscriptionManagerTest {
 		
 		
 		
-		InscriptionDTO inscription = inscriptionManager.enroll(
+		inscriptionManager.enroll(
 				1, 
 				campID, 
 				inscriptionDate, 
@@ -925,7 +926,7 @@ class InscriptionManagerTest {
 		
 		
 		
-		InscriptionDTO inscription = inscriptionManager.enroll(
+		inscriptionManager.enroll(
 				1, 
 				campID, 
 				inscriptionDate, 

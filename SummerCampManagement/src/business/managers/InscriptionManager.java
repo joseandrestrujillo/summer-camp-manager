@@ -24,7 +24,6 @@ import business.interfaces.IDAO;
 import business.values.EducativeLevel;
 import business.values.TimeSlot;
 import data.database.criteria.ActivityInCampCriteria;
-import data.database.criteria.AssistantInActivityCriteria;
 import utilities.Utils;
 
 /**

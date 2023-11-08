@@ -11,19 +11,16 @@ import java.util.List;
 import java.util.Optional;
 
 import business.dtos.ActivityDTO;
-import business.dtos.AssistantDTO;
 import business.dtos.CampDTO;
 import business.dtos.MonitorDTO;
 import business.exceptions.dao.DAOTimeoutException;
 import business.exceptions.repository.NotFoundException;
 import business.interfaces.IActivityDAO;
 import business.interfaces.ICriteria;
-import business.interfaces.IDAO;
 import business.values.EducativeLevel;
 import business.values.TimeSlot;
 import data.database.DBManager;
 import data.database.criteria.ActivityInCampCriteria;
-import data.database.criteria.AssistantInActivityCriteria;
 import data.database.criteria.CampsRelatedWithAnActivityCriteria;
 import data.database.criteria.MonitorInActivityCriteria;
 

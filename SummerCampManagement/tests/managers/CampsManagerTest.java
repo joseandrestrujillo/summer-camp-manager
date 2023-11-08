@@ -4,15 +4,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Date;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import business.dtos.ActivityDTO;
-import business.dtos.AssistantDTO;
 import business.dtos.CampDTO;
 import business.dtos.MonitorDTO;
 import business.exceptions.activity.ActivityNotFoundException;
 import business.exceptions.activity.MonitorIsNotInActivityException;
-import business.exceptions.assistant.AssistantAlreadyRegisteredException;
 import business.exceptions.camp.CampAlreadyRegisteredException;
 import business.exceptions.camp.NotTheSameLevelException;
 import business.exceptions.camp.SpecialMonitorAlreadyRegisterException;
@@ -21,12 +20,17 @@ import business.managers.CampsManager;
 import business.values.EducativeLevel;
 import business.values.TimeSlot;
 import data.memory.InMemoryActivityRepository;
-import data.memory.InMemoryAssistantRepository;
 import data.memory.InMemoryCampRepository;
 import data.memory.InMemoryMontiorRepository;
+import data.memory.MapsManager;
 import utilities.Utils;
 
 class CampsManagerTest {
+	@BeforeEach
+	void setUp() {
+		MapsManager.resetInstance();
+	}
+	
 	@Test
 	void registerCamp_whenCampIsNotRegistered_thenRegisterTheCamp(){
 		InMemoryCampRepository campRepository = new InMemoryCampRepository();
@@ -356,12 +360,6 @@ class CampsManagerTest {
 				3
 		);
 
-		MonitorDTO monitor = new MonitorDTO(
-				1,
-				"Alberto",
-				"Quesada",
-				false
-		);
 		
 		InMemoryCampRepository campRepository = new InMemoryCampRepository();
 		InMemoryActivityRepository activityRepository = new InMemoryActivityRepository();
@@ -403,12 +401,6 @@ class CampsManagerTest {
 				3
 		);
 
-		MonitorDTO monitor = new MonitorDTO(
-				1,
-				"Alberto",
-				"Quesada",
-				false
-		);
 		
 		InMemoryCampRepository campRepository = new InMemoryCampRepository();
 		InMemoryActivityRepository activityRepository = new InMemoryActivityRepository();

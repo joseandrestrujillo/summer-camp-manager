@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Date;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import business.dtos.AssistantDTO;
@@ -14,17 +15,21 @@ import business.exceptions.camp.CampNotFoundException;
 import business.exceptions.inscription.AfterLateTimeException;
 import business.exceptions.inscription.AfterStartTimeException;
 import business.exceptions.inscription.BeforeLateTimeException;
-import business.factories.EarlyRegisterInscriptionFactory;
 import business.factories.LateRegisterInscriptionFactory;
 import business.interfaces.IDAO;
 import business.values.EducativeLevel;
-import business.values.InscriptionType;
 import data.memory.InMemoryAssistantRepository;
 import data.memory.InMemoryCampRepository;
+import data.memory.MapsManager;
 import utilities.Utils;
 
 class LateRegisterInscriptionFactoryTest  {
 
+	@BeforeEach
+	void setUp() {
+		MapsManager.resetInstance();
+	}
+	
 	@Test
 	void createPartial_whenTheDateIsInTime_createsAnInscriptionThatCanNotBeCancelled() {
 		int assistantId = 1;

@@ -17,6 +17,6 @@ public class CompleteInscriptionDTO extends InscriptionDTO{
      * @param canBeCanceled     Puede o no ser cancelada la inscrioción
      */
 	public CompleteInscriptionDTO(int assistantId, int campId, Date inscriptionDate, float price, boolean canBeCanceled) {
-		super(assistantId, campId, inscriptionDate, price, canBeCanceled);
+		super(assistantId, campId, inscriptionDate, price, canBeCanceled, false);
 	}
 }

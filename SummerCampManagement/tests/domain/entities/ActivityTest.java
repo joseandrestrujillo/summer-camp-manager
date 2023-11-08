@@ -3,18 +3,14 @@ package domain.entities;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
 import business.dtos.ActivityDTO;
-import business.dtos.AssistantDTO;
 import business.dtos.MonitorDTO;
-import business.exceptions.activity.MaxMonitorsAddedException;
 import business.values.EducativeLevel;
 import business.values.TimeSlot;
-import utilities.Utils;
 
 class ActivityTest {
 	
@@ -66,7 +62,6 @@ class ActivityTest {
 		TimeSlot timeSlot = TimeSlot.AFTERNOON;
 		int maxAssistants = 15;
 		int neededMonitors = 2;
-		List<MonitorDTO> monitors = new ArrayList<MonitorDTO>(neededMonitors);
 		
 		activity.setActivityName(activityName);
 		activity.setEducativeLevel(educativeLevel);

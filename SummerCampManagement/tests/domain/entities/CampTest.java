@@ -10,10 +10,6 @@ import org.junit.jupiter.api.Test;
 
 import business.dtos.ActivityDTO;
 import business.dtos.CampDTO;
-import business.dtos.MonitorDTO;
-import business.exceptions.camp.NotTheSameLevelException;
-import business.exceptions.camp.SpecialMonitorAlreadyRegisterException;
-import business.exceptions.monitor.MonitorNotFoundException;
 import business.values.EducativeLevel;
 import business.values.TimeSlot;
 import utilities.Utils;
@@ -68,7 +64,6 @@ class CampTest {
 		Date end = Utils.parseDate("25/01/2024");
 		EducativeLevel educativeLevel = EducativeLevel.PRESCHOOL;
 		int capacity = 10;
-		List<ActivityDTO> activities = new ArrayList<>();
 
 
 		camp.setCampID(campID);

@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import business.dtos.AssistantDTO;
@@ -12,10 +13,16 @@ import business.exceptions.assistant.AssistantAlreadyRegisteredException;
 import business.exceptions.assistant.AssistantNotFoundException;
 import business.managers.AssistantsManager;
 import data.memory.InMemoryAssistantRepository;
+import data.memory.MapsManager;
 import utilities.Utils;
 
 class AssistantsManagerTest {
 
+	@BeforeEach
+	void setUp() {
+		MapsManager.resetInstance();
+	}
+	
 	@Test
 	void registerAssistant_whenAssistantIsNotRegistered_thenRegisterTheAssistant(){
 		InMemoryAssistantRepository assistantRepository = new InMemoryAssistantRepository();

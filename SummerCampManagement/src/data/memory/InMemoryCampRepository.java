@@ -19,14 +19,14 @@ import business.interfaces.IDAO;
  
  */
 public class InMemoryCampRepository implements IDAO<CampDTO, Integer> {
-    private Map<Integer, CampDTO> mapOfCamp;
+    private MapsManager mapsManager;
 
     /**
      * Constructor de la clase InMemoryCampRepository.
      * Inicializa un nuevo mapa para almacenar campamentos en memoria.
      */
     public InMemoryCampRepository() {
-        this.mapOfCamp = new HashMap<Integer, CampDTO>();
+        this.mapsManager = MapsManager.getInstance();
     }
 
     /**
@@ -38,10 +38,10 @@ public class InMemoryCampRepository implements IDAO<CampDTO, Integer> {
      */
     @Override
     public CampDTO find(Integer identifier) {
-        if (this.mapOfCamp.get(identifier) == null) {
+        if (this.mapsManager.getMapOfCamp().get(identifier) == null) {
             throw new NotFoundException();
         }
-        return this.mapOfCamp.get(identifier);
+        return this.mapsManager.getMapOfCamp().get(identifier);
     }
 
     /**
@@ -51,7 +51,7 @@ public class InMemoryCampRepository implements IDAO<CampDTO, Integer> {
      */
     @Override
     public void save(CampDTO obj) {
-        this.mapOfCamp.put(obj.getCampID(), obj);
+        this.mapsManager.getMapOfCamp().put(obj.getCampID(), obj);
     }
 
     /**
@@ -61,7 +61,7 @@ public class InMemoryCampRepository implements IDAO<CampDTO, Integer> {
      */
     @Override
     public List<CampDTO> getAll(Optional<ICriteria> criteria) {
-        List<CampDTO> allCamps = new ArrayList<>(this.mapOfCamp.values());
+        List<CampDTO> allCamps = new ArrayList<>(this.mapsManager.getMapOfCamp().values());
         return allCamps;
     }
 
@@ -72,6 +72,6 @@ public class InMemoryCampRepository implements IDAO<CampDTO, Integer> {
      */
     @Override
     public void delete(CampDTO obj) {
-        this.mapOfCamp.remove(obj.getCampID());
+        this.mapsManager.getMapOfCamp().remove(obj.getCampID());
     }
 }

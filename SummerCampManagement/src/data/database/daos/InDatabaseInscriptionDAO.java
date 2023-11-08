@@ -64,13 +64,14 @@ public class InDatabaseInscriptionDAO implements IDAO<InscriptionDTO, String> {
 				java.util.Date inscriptionDate = new java.util.Date(rs.getDate("inscriptionDate").getTime());
 				float price = rs.getFloat("price");
 				Boolean canBeCanceled = rs.getBoolean("canBeCanceled");
-				
+				Boolean isPartial = rs.getBoolean("isPartial");
 				inscription = new InscriptionDTO(
 						assistantId,
 						campId,
 						inscriptionDate,
 						price,
-						canBeCanceled
+						canBeCanceled,
+						isPartial
 				);
 	
 				if (stmt != null){ 
@@ -112,6 +113,7 @@ public class InDatabaseInscriptionDAO implements IDAO<InscriptionDTO, String> {
     		ps.setDate(3, new Date(obj.getInscriptionDate().getTime()));
     		ps.setFloat(4, obj.getPrice());
     		ps.setBoolean(5, obj.canBeCanceled());
+    		ps.setBoolean(6, obj.isPartial());
     		
     		ps.executeUpdate();
     	} catch(Exception e) { 
@@ -148,12 +150,14 @@ public class InDatabaseInscriptionDAO implements IDAO<InscriptionDTO, String> {
 				Date inscriptionDate = rs.getDate("inscriptionDate");
 				float price = rs.getFloat("price");
 				Boolean canBeCanceled = rs.getBoolean("canBeCanceled");
+				Boolean isPartial = rs.getBoolean("isPartial");
 				listOfInscriptions.add(new InscriptionDTO(
 						assistantId,
 						campId,
 						inscriptionDate,
 						price,
-						canBeCanceled
+						canBeCanceled,
+						isPartial
 				));
 			}
 

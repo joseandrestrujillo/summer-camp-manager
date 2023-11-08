@@ -19,16 +19,14 @@ import business.interfaces.IDAO;
  * La clase InMemoryActivityRepository es una implementación en memoria de un repositorio de actividades.
  */
 public class InMemoryActivityRepository implements IActivityDAO {
-    private Map<String, ActivityDTO> mapOfActivity;
-    private Map<Integer, List<ActivityDTO>> mapOfActivityCamp;
+    private MapsManager mapsManager;
 
     /**
      * Constructor de la clase InMemoryActivityRepository.
      * Inicializa un nuevo mapa para almacenar actividades en memoria.
      */
     public InMemoryActivityRepository() {
-        this.mapOfActivity = new HashMap<String, ActivityDTO>();
-        this.mapOfActivityCamp = new HashMap<Integer, List<ActivityDTO>>();
+        this.mapsManager = MapsManager.getInstance();
     }
 
     /**
@@ -40,10 +38,10 @@ public class InMemoryActivityRepository implements IActivityDAO {
      */
     @Override
     public ActivityDTO find(String activityName) {
-        if (this.mapOfActivity.get(activityName) == null) {
+        if (this.mapsManager.getMapOfActivity().get(activityName) == null) {
             throw new NotFoundException();
         }
-        return this.mapOfActivity.get(activityName);
+        return this.mapsManager.getMapOfActivity().get(activityName);
     }
 
     /**
@@ -53,7 +51,7 @@ public class InMemoryActivityRepository implements IActivityDAO {
      */
     @Override
     public void save(ActivityDTO activity) {
-        this.mapOfActivity.put(activity.getActivityName(), activity);
+        this.mapsManager.getMapOfActivity().put(activity.getActivityName(), activity);
     }
 
     /**
@@ -63,7 +61,7 @@ public class InMemoryActivityRepository implements IActivityDAO {
      */
     @Override
     public List<ActivityDTO> getAll(Optional<ICriteria> criteria) {
-        List<ActivityDTO> allActivities = new ArrayList<>(this.mapOfActivity.values());
+        List<ActivityDTO> allActivities = new ArrayList<>(this.mapsManager.getMapOfActivity().values());
         return allActivities;
     }
 
@@ -74,34 +72,34 @@ public class InMemoryActivityRepository implements IActivityDAO {
      */
     @Override
     public void delete(ActivityDTO obj) {
-        this.mapOfActivity.remove(obj.getActivityName());
-        for (int key : this.mapOfActivityCamp.keySet()) {
+        this.mapsManager.getMapOfActivity().remove(obj.getActivityName());
+        for (int key : this.mapsManager.getMapOfActivityCamp().keySet()) {
         	List<ActivityDTO> activities = new ArrayList<ActivityDTO>();
-        	for (ActivityDTO iterable_element : this.mapOfActivityCamp.get(key)) {
+        	for (ActivityDTO iterable_element : this.mapsManager.getMapOfActivityCamp().get(key)) {
 				if (iterable_element.getActivityName() != obj.getActivityName()) {
 					activities.add(iterable_element);
 				}
 			}
-        	this.mapOfActivityCamp.put(key, activities);
+        	this.mapsManager.getMapOfActivityCamp().put(key, activities);
         }
         
     }
 
 	@Override
 	public List<ActivityDTO> getActivitiesInACamp(CampDTO camp) {
-		if (this.mapOfActivityCamp.get(camp.getCampID()) == null) {
-            this.mapOfActivityCamp.put(camp.getCampID(), new ArrayList<ActivityDTO>());
+		if (this.mapsManager.getMapOfActivityCamp().get(camp.getCampID()) == null) {
+            this.mapsManager.getMapOfActivityCamp().put(camp.getCampID(), new ArrayList<ActivityDTO>());
         }
-		return this.mapOfActivityCamp.get(camp.getCampID());
+		return this.mapsManager.getMapOfActivityCamp().get(camp.getCampID());
 	}
 
 	@Override
 	public void saveAndRelateWithACamp(ActivityDTO activity, CampDTO camp) {
 		save(activity);
-		if (this.mapOfActivityCamp.get(camp.getCampID()) == null) {
-            this.mapOfActivityCamp.put(camp.getCampID(), new ArrayList<ActivityDTO>());
+		if (this.mapsManager.getMapOfActivityCamp().get(camp.getCampID()) == null) {
+            this.mapsManager.getMapOfActivityCamp().put(camp.getCampID(), new ArrayList<ActivityDTO>());
         }
 		
-		this.mapOfActivityCamp.get(camp.getCampID()).add(activity);
+		this.mapsManager.getMapOfActivityCamp().get(camp.getCampID()).add(activity);
 	}
 }

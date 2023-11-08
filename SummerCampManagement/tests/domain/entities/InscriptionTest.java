@@ -2,16 +2,11 @@ package domain.entities;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
 import business.dtos.InscriptionDTO;
-import business.values.EducativeLevel;
-import business.values.InscriptionType;
-import business.values.TimeSlot;
 import utilities.Utils;
 
 class InscriptionTest {
@@ -61,7 +56,7 @@ class InscriptionTest {
 		
 		
 		
-		InscriptionDTO inscription = new InscriptionDTO(assistantId, campId, inscriptionDate, price, true);
+		InscriptionDTO inscription = new InscriptionDTO(assistantId, campId, inscriptionDate, price, true, false);
 		
 		assertEquals(assistantId, inscription.getAssistantId());
 		assertEquals(campId, inscription.getCampId());
@@ -78,7 +73,7 @@ class InscriptionTest {
 		Date inscriptionDate = Utils.parseDate("12/01/2024");
 		float price = 100;
 		
-		InscriptionDTO inscription = new InscriptionDTO(assistantId,campId,inscriptionDate,price, true);
+		InscriptionDTO inscription = new InscriptionDTO(assistantId,campId,inscriptionDate,price, true, false);
 
         String expectedToString = "{AssistantId: 1, CampId: 1, InscriptionDate: '12/01/2024', Price: 100.0, canBeCancelled: true}";
         assertEquals(expectedToString, inscription.toString());

@@ -18,16 +18,14 @@ import business.interfaces.IMonitorDAO;
  
  */
 public class InMemoryMontiorRepository implements IMonitorDAO {
-    private Map<Integer, MonitorDTO> mapOfMonitor;
-    private Map<String, List<MonitorDTO>> mapOfMonitorActivity;
+    private MapsManager mapsManager;
 
     /**
      * Constructor de la clase InMemoryMontiorRepository.
      * Inicializa un nuevo mapa para almacenar monitores en memoria.
      */
     public InMemoryMontiorRepository() {
-        this.mapOfMonitor = new HashMap<Integer, MonitorDTO>();
-        this.mapOfMonitorActivity = new HashMap<String, List<MonitorDTO>>();
+        this.mapsManager = MapsManager.getInstance();
     }
 
     /**
@@ -39,10 +37,10 @@ public class InMemoryMontiorRepository implements IMonitorDAO {
      */
     @Override
     public MonitorDTO find(Integer identifier) {
-        if (this.mapOfMonitor.get(identifier) == null) {
+        if (this.mapsManager.getMapOfMonitor().get(identifier) == null) {
             throw new NotFoundException();
         }
-        return this.mapOfMonitor.get(identifier);
+        return this.mapsManager.getMapOfMonitor().get(identifier);
     }
 
     /**
@@ -52,7 +50,7 @@ public class InMemoryMontiorRepository implements IMonitorDAO {
      */
     @Override
     public void save(MonitorDTO obj) {
-        this.mapOfMonitor.put(obj.getId(), obj);
+        this.mapsManager.getMapOfMonitor().put(obj.getId(), obj);
     }
 
     /**
@@ -62,7 +60,7 @@ public class InMemoryMontiorRepository implements IMonitorDAO {
      */
     @Override
     public List<MonitorDTO> getAll(Optional<ICriteria> criteria) {
-        List<MonitorDTO> allMonitors = new ArrayList<>(this.mapOfMonitor.values());
+        List<MonitorDTO> allMonitors = new ArrayList<>(this.mapsManager.getMapOfMonitor().values());
         return allMonitors;
     }
 
@@ -73,23 +71,23 @@ public class InMemoryMontiorRepository implements IMonitorDAO {
      */
     @Override
     public void delete(MonitorDTO obj) {
-        this.mapOfMonitor.remove(obj.getId());
+        this.mapsManager.getMapOfMonitor().remove(obj.getId());
     }
 
 	@Override
 	public List<MonitorDTO> getMonitorsInAnActivity(ActivityDTO activity) {
-		if (this.mapOfMonitorActivity.get(activity.getActivityName()) == null) {
-            this.mapOfMonitorActivity.put(activity.getActivityName(), new ArrayList<MonitorDTO>());
+		if (this.mapsManager.getMapOfMonitorActivity().get(activity.getActivityName()) == null) {
+            this.mapsManager.getMapOfMonitorActivity().put(activity.getActivityName(), new ArrayList<MonitorDTO>());
         }
-		return this.mapOfMonitorActivity.get(activity.getActivityName());
+		return this.mapsManager.getMapOfMonitorActivity().get(activity.getActivityName());
 	}
 
 	@Override
 	public void saveAndRelateWithAnActivity(MonitorDTO monitor, ActivityDTO activity) {
-		if (this.mapOfMonitorActivity.get(activity.getActivityName()) == null) {
-            this.mapOfMonitorActivity.put(activity.getActivityName(), new ArrayList<MonitorDTO>());
+		if (this.mapsManager.getMapOfMonitorActivity().get(activity.getActivityName()) == null) {
+            this.mapsManager.getMapOfMonitorActivity().put(activity.getActivityName(), new ArrayList<MonitorDTO>());
         }
 		
-		this.mapOfMonitorActivity.get(activity.getActivityName()).add(monitor);
+		this.mapsManager.getMapOfMonitorActivity().get(activity.getActivityName()).add(monitor);
 	}
 }

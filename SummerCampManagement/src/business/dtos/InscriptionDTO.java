@@ -16,6 +16,7 @@ public class InscriptionDTO {
 	private Date inscriptionDate;
 	private float price;
 	private boolean canBeCanceled;
+	private boolean partial;
 
 	 /**
      * Constructor para crear un objeto Inscription con la información proporcionada.
@@ -26,12 +27,13 @@ public class InscriptionDTO {
      * @param price           El precio total de la inscripción.
      * @param canBeCanceled   Indica si la inscripción se puede cancelar o no.
      */
-	public InscriptionDTO(int assistantId, int campId, Date inscriptionDate, float price, boolean canBeCanceled) {
+	public InscriptionDTO(int assistantId, int campId, Date inscriptionDate, float price, boolean canBeCanceled, boolean partial) {
 		this.assistantId = assistantId;
 		this.campId = campId;
 		this.inscriptionDate = inscriptionDate;
 		this.price = price;
 		this.canBeCanceled = canBeCanceled;
+		this.partial = partial;
 		this.reloadIdentifier();
 	}
 	
@@ -160,7 +162,14 @@ public class InscriptionDTO {
 				+ "canBeCancelled: " + this.canBeCanceled + "}";
 		
 	}
-
+	/**
+ 	* Indica si la inscripción es parcial o no
+ 	*
+ 	* @return true si la inscripción es parcial, false en caso contrario.
+ 	*/
+	public boolean isPartial() {
+		return partial;
+	}
 	/**
  	* Indica si la inscripción se puede cancelar o no.
  	*

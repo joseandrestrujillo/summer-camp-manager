@@ -2,12 +2,10 @@ package domain.entities;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.Date;
 
 import org.junit.jupiter.api.Test;
 
 import business.dtos.MonitorDTO;
-import utilities.Utils;
 
 class MonitorTest {
 	

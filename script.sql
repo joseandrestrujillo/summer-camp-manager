@@ -40,6 +40,7 @@ CREATE TABLE Inscription (
     inscriptionDate DATE,
     price FLOAT,
     canBeCanceled CHAR(1),
+    isPartial CHAR(1),
     PRIMARY KEY (assistantId, campId),
     FOREIGN KEY (assistantId) REFERENCES Assistant(id),
     FOREIGN KEY (campId) REFERENCES Camp(campID)

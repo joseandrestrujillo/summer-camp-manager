@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Date;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import business.dtos.AssistantDTO;
@@ -18,10 +19,16 @@ import business.interfaces.IDAO;
 import business.values.EducativeLevel;
 import data.memory.InMemoryAssistantRepository;
 import data.memory.InMemoryCampRepository;
+import data.memory.MapsManager;
 import utilities.Utils;
 
 class EarlyRegisterInscriptionFactoryTest  {
 
+	@BeforeEach
+	void setUp() {
+		MapsManager.resetInstance();
+	}
+	
 	@Test
 	void createPartial_whenTheDateIsInTime_createsAnInscriptionThatCanBeCancelled() {
 		int assistantId = 1;

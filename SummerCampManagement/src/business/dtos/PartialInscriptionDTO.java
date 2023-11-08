@@ -19,6 +19,6 @@ public class PartialInscriptionDTO extends InscriptionDTO {
      * @param canBeCanceled   Indica si la inscripción parcial puede ser cancelada.
      */
     public PartialInscriptionDTO(int assistantId, int campId, Date inscriptionDate, float price, boolean canBeCanceled) {
-        super(assistantId, campId, inscriptionDate, price, canBeCanceled);
+        super(assistantId, campId, inscriptionDate, price, canBeCanceled, true);
     }
 }
