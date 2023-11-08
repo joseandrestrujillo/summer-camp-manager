@@ -10,6 +10,7 @@ import business.exceptions.activity.ActivityAlreadyExistException;
 import business.exceptions.activity.ActivityNotFoundException;
 import business.exceptions.activity.MaxMonitorsAddedException;
 import business.exceptions.activity.MonitorIsNotInActivityException;
+import business.exceptions.activity.NotEnoughMonitorsException;
 import business.exceptions.camp.CampAlreadyRegisteredException;
 import business.exceptions.camp.IsNotAnSpecialEducator;
 import business.exceptions.camp.NotTheSameLevelException;
@@ -56,7 +57,10 @@ public class CampsManager {
         if (activity.getEducativeLevel() != camp.getEducativeLevel()) {
             throw new NotTheSameLevelException();
         }
-        
+        if (getMonitorsOfAnActivity(activity).size() != activity.getNeededMonitors())
+        {
+        	throw new NotEnoughMonitorsException();
+        }
         this.activityRepository.saveAndRelateWithACamp(activity, camp);
         return camp;
     }
