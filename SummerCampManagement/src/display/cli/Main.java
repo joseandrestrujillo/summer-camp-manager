@@ -675,7 +675,7 @@ public class Main {
 								clearConsole();
 								System.out.println("Opción no válida\n");
 						}
-					} while (optionCampManager != 5);
+					} while (optionCampManager != 6);
 					break;
 
                 //InscriptionManager
