@@ -5,9 +5,8 @@ import java.util.List;
 import business.dtos.AssistantDTO;
 import business.exceptions.assistant.AssistantAlreadyRegisteredException;
 import business.exceptions.assistant.AssistantNotFoundException;
-import business.exceptions.repository.NotFoundException;
+import business.exceptions.dao.NotFoundException;
 import business.interfaces.IAssistantDAO;
-import business.interfaces.IDAO;
 
 /**
  * La clase AssistantsManager se encarga de gestionar el registro, actualización y consulta de asistentes.

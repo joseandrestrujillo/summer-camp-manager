@@ -1,14 +1,9 @@
 package business.dtos;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import business.values.EducativeLevel;
-import business.values.TimeSlot;
-import utilities.Utils;
+import business.enums.EducativeLevel;
+import business.utilities.Utils;
 
 /**
  * La clase Camp representa un campamento educativo con su información básica y actividades asociadas.

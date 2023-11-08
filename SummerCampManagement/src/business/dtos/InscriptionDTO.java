@@ -1,11 +1,8 @@
 package business.dtos;
 
 import java.util.Date;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import business.values.InscriptionType;
-import utilities.Utils;
+import business.utilities.Utils;
 /**
  * La clase Inscription representa una inscripción para un asistente en un campamento.
  */

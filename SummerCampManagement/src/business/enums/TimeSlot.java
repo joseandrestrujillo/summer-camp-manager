@@ -1,4 +1,4 @@
-package business.values;
+package business.enums;
 
 /**
  * Enumerado que define las franjas horarias disponibles para actividades en campamentos.

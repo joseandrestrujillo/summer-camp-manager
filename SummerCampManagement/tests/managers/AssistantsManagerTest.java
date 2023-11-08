@@ -12,9 +12,9 @@ import business.dtos.AssistantDTO;
 import business.exceptions.assistant.AssistantAlreadyRegisteredException;
 import business.exceptions.assistant.AssistantNotFoundException;
 import business.managers.AssistantsManager;
-import data.memory.InMemoryAssistantRepository;
+import business.utilities.Utils;
 import data.memory.MapsManager;
-import utilities.Utils;
+import data.memory.daos.InMemoryAssistantDAO;
 
 class AssistantsManagerTest {
 
@@ -25,7 +25,7 @@ class AssistantsManagerTest {
 	
 	@Test
 	void registerAssistant_whenAssistantIsNotRegistered_thenRegisterTheAssistant(){
-		InMemoryAssistantRepository assistantRepository = new InMemoryAssistantRepository();
+		InMemoryAssistantDAO assistantRepository = new InMemoryAssistantDAO();
 		AssistantsManager assistantsManager = new AssistantsManager(assistantRepository);		
 		AssistantDTO assistant = new AssistantDTO(
 				1,
@@ -49,7 +49,7 @@ class AssistantsManagerTest {
 				Utils.parseDate("26/01/2001"),
 				true
 				);
-		InMemoryAssistantRepository assistantRepository = new InMemoryAssistantRepository();
+		InMemoryAssistantDAO assistantRepository = new InMemoryAssistantDAO();
 		assistantRepository.save(assistant);
 		AssistantsManager assistantsManager = new AssistantsManager(assistantRepository);		
 	
@@ -69,7 +69,7 @@ class AssistantsManagerTest {
 				Utils.parseDate("26/01/2001"),
 				true
 				);
-		InMemoryAssistantRepository assistantRepository = new InMemoryAssistantRepository();
+		InMemoryAssistantDAO assistantRepository = new InMemoryAssistantDAO();
 		assistantRepository.save(assistant);
 		AssistantsManager assistantsManager = new AssistantsManager(assistantRepository);
 		
@@ -90,7 +90,7 @@ class AssistantsManagerTest {
 	
 	@Test
 	void updateAssistant_whenAssistantIsNotRegistered_throwsAssitantisNotFoundException(){
-		InMemoryAssistantRepository assistantRepository = new InMemoryAssistantRepository();
+		InMemoryAssistantDAO assistantRepository = new InMemoryAssistantDAO();
 		AssistantsManager assistantsManager = new AssistantsManager(assistantRepository);		
 		
 		AssistantDTO assistant = new AssistantDTO(
@@ -108,7 +108,7 @@ class AssistantsManagerTest {
 	
 	@Test
 	void getListOfRegisteredAssistant_returnListRegisteredAssitant(){
-		InMemoryAssistantRepository assistantRepository = new InMemoryAssistantRepository();
+		InMemoryAssistantDAO assistantRepository = new InMemoryAssistantDAO();
 		AssistantsManager assistantsManager = new AssistantsManager(assistantRepository);		
 		AssistantDTO assistant = new AssistantDTO(
 				1,

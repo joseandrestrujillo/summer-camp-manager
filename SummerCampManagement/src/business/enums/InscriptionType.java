@@ -1,4 +1,4 @@
-package business.values;
+package business.enums;
 
 /**
  * Enumerado que define los tipos de inscripciones posibles para campamentos.

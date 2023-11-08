@@ -1,31 +1,27 @@
-package data.memory;
+package data.memory.daos;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import business.dtos.ActivityDTO;
-import business.dtos.AssistantDTO;
 import business.dtos.CampDTO;
-import business.exceptions.repository.NotFoundException;
+import business.exceptions.dao.NotFoundException;
 import business.interfaces.IActivityDAO;
 import business.interfaces.ICriteria;
-import business.interfaces.IDAO;
+import data.memory.MapsManager;
 
 /**
  * La clase InMemoryActivityRepository es una implementación en memoria de un repositorio de actividades.
  */
-public class InMemoryActivityRepository implements IActivityDAO {
+public class InMemoryActivityDAO implements IActivityDAO {
     private MapsManager mapsManager;
 
     /**
      * Constructor de la clase InMemoryActivityRepository.
      * Inicializa un nuevo mapa para almacenar actividades en memoria.
      */
-    public InMemoryActivityRepository() {
+    public InMemoryActivityDAO() {
         this.mapsManager = MapsManager.getInstance();
     }
 

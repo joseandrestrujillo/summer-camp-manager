@@ -11,6 +11,8 @@ import business.dtos.AssistantDTO;
 import business.dtos.CampDTO;
 import business.dtos.InscriptionDTO;
 import business.dtos.MonitorDTO;
+import business.enums.EducativeLevel;
+import business.enums.TimeSlot;
 import business.exceptions.activity.ActivityAlreadyExistException;
 import business.exceptions.activity.MaxMonitorsAddedException;
 import business.exceptions.activity.MonitorIsNotInActivityException;
@@ -31,17 +33,12 @@ import business.interfaces.IMonitorDAO;
 import business.managers.AssistantsManager;
 import business.managers.CampsManager;
 import business.managers.InscriptionManager;
-import business.values.EducativeLevel;
-import business.values.TimeSlot;
-
+import business.utilities.Utils;
 import data.database.daos.InDatabaseActivityDAO;
 import data.database.daos.InDatabaseAssistantDAO;
 import data.database.daos.InDatabaseCampDAO;
 import data.database.daos.InDatabaseInscriptionDAO;
 import data.database.daos.InDatabaseMonitorDAO;
-
-
-import utilities.Utils;
 
 
 public class Main {
@@ -231,7 +228,7 @@ public class Main {
 		IDAO<InscriptionDTO, String> inscriptionRepository = new InDatabaseInscriptionDAO();
 		AssistantsManager assistantsManager = new AssistantsManager(assistantRepository);
 		CampsManager campsManager = new CampsManager(campRepository, activityRepository, monitorRepository);
-		InscriptionManager inscriptionManager = new InscriptionManager(campRepository, activityRepository, monitorRepository,
+		InscriptionManager inscriptionManager = new InscriptionManager(campRepository, activityRepository,
 																		assistantRepository, inscriptionRepository);
 
 		

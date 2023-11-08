@@ -1,31 +1,27 @@
-package data.memory;
+package data.memory.daos;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
-import business.dtos.ActivityDTO;
-import business.dtos.AssistantDTO;
 import business.dtos.CampDTO;
-import business.exceptions.repository.NotFoundException;
+import business.exceptions.dao.NotFoundException;
 import business.interfaces.ICriteria;
 import business.interfaces.IDAO;
+import data.memory.MapsManager;
 
 /**
  * La clase InMemoryCampRepository es una implementación en memoria de un repositorio de campamentos.
  
  */
-public class InMemoryCampRepository implements IDAO<CampDTO, Integer> {
+public class InMemoryCampDAO implements IDAO<CampDTO, Integer> {
     private MapsManager mapsManager;
 
     /**
      * Constructor de la clase InMemoryCampRepository.
      * Inicializa un nuevo mapa para almacenar campamentos en memoria.
      */
-    public InMemoryCampRepository() {
+    public InMemoryCampDAO() {
         this.mapsManager = MapsManager.getInstance();
     }
 

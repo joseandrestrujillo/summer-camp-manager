@@ -10,20 +10,20 @@ import org.junit.jupiter.api.Test;
 import business.dtos.ActivityDTO;
 import business.dtos.CampDTO;
 import business.dtos.MonitorDTO;
+import business.enums.EducativeLevel;
+import business.enums.TimeSlot;
 import business.exceptions.activity.ActivityNotFoundException;
 import business.exceptions.activity.MonitorIsNotInActivityException;
 import business.exceptions.camp.CampAlreadyRegisteredException;
 import business.exceptions.camp.NotTheSameLevelException;
 import business.exceptions.camp.SpecialMonitorAlreadyRegisterException;
-import business.exceptions.repository.NotFoundException;
+import business.exceptions.dao.NotFoundException;
 import business.managers.CampsManager;
-import business.values.EducativeLevel;
-import business.values.TimeSlot;
-import data.memory.InMemoryActivityRepository;
-import data.memory.InMemoryCampRepository;
-import data.memory.InMemoryMontiorRepository;
+import business.utilities.Utils;
 import data.memory.MapsManager;
-import utilities.Utils;
+import data.memory.daos.InMemoryActivityDAO;
+import data.memory.daos.InMemoryCampDAO;
+import data.memory.daos.InMemoryMontiorDAO;
 
 class CampsManagerTest {
 	@BeforeEach
@@ -33,9 +33,9 @@ class CampsManagerTest {
 	
 	@Test
 	void registerCamp_whenCampIsNotRegistered_thenRegisterTheCamp(){
-		InMemoryCampRepository campRepository = new InMemoryCampRepository();
-		InMemoryActivityRepository activityRepository = new InMemoryActivityRepository();
-		InMemoryMontiorRepository monitorRepository = new InMemoryMontiorRepository();
+		InMemoryCampDAO campRepository = new InMemoryCampDAO();
+		InMemoryActivityDAO activityRepository = new InMemoryActivityDAO();
+		InMemoryMontiorDAO monitorRepository = new InMemoryMontiorDAO();
 		CampsManager campsManager = new CampsManager(campRepository, activityRepository, monitorRepository);
 		int campID = 1;
 		Date start = Utils.parseDate("15/01/2024");
@@ -69,9 +69,9 @@ class CampsManagerTest {
 				educativeLevel,
 				capacity				
 		);
-		InMemoryCampRepository campRepository = new InMemoryCampRepository();
-		InMemoryActivityRepository activityRepository = new InMemoryActivityRepository();
-		InMemoryMontiorRepository monitorRepository = new InMemoryMontiorRepository();
+		InMemoryCampDAO campRepository = new InMemoryCampDAO();
+		InMemoryActivityDAO activityRepository = new InMemoryActivityDAO();
+		InMemoryMontiorDAO monitorRepository = new InMemoryMontiorDAO();
 		campRepository.save(camp);
 		CampsManager campsManager = new CampsManager(campRepository, activityRepository, monitorRepository);
 	
@@ -106,9 +106,9 @@ class CampsManagerTest {
 				capacity				
 		);
 		
-		InMemoryCampRepository campRepository = new InMemoryCampRepository();
-		InMemoryActivityRepository activityRepository = new InMemoryActivityRepository();
-		InMemoryMontiorRepository monitorRepository = new InMemoryMontiorRepository();
+		InMemoryCampDAO campRepository = new InMemoryCampDAO();
+		InMemoryActivityDAO activityRepository = new InMemoryActivityDAO();
+		InMemoryMontiorDAO monitorRepository = new InMemoryMontiorDAO();
 		
 		CampsManager campManager = new CampsManager(campRepository, activityRepository, monitorRepository);
 		
@@ -144,9 +144,9 @@ class CampsManagerTest {
 				capacity				
 		);
 		
-		InMemoryCampRepository campRepository = new InMemoryCampRepository();
-		InMemoryActivityRepository activityRepository = new InMemoryActivityRepository();
-		InMemoryMontiorRepository monitorRepository = new InMemoryMontiorRepository();
+		InMemoryCampDAO campRepository = new InMemoryCampDAO();
+		InMemoryActivityDAO activityRepository = new InMemoryActivityDAO();
+		InMemoryMontiorDAO monitorRepository = new InMemoryMontiorDAO();
 		
 		CampsManager campManager = new CampsManager(campRepository, activityRepository, monitorRepository);
 		
@@ -187,9 +187,9 @@ class CampsManagerTest {
 		
 		
 		
-		InMemoryCampRepository campRepository = new InMemoryCampRepository();
-		InMemoryActivityRepository activityRepository = new InMemoryActivityRepository();
-		InMemoryMontiorRepository monitorRepository = new InMemoryMontiorRepository();
+		InMemoryCampDAO campRepository = new InMemoryCampDAO();
+		InMemoryActivityDAO activityRepository = new InMemoryActivityDAO();
+		InMemoryMontiorDAO monitorRepository = new InMemoryMontiorDAO();
 		
 		CampsManager campManager = new CampsManager(campRepository, activityRepository, monitorRepository);
 		
@@ -234,9 +234,9 @@ class CampsManagerTest {
 				false
 		);
 		
-		InMemoryCampRepository campRepository = new InMemoryCampRepository();
-		InMemoryActivityRepository activityRepository = new InMemoryActivityRepository();
-		InMemoryMontiorRepository monitorRepository = new InMemoryMontiorRepository();
+		InMemoryCampDAO campRepository = new InMemoryCampDAO();
+		InMemoryActivityDAO activityRepository = new InMemoryActivityDAO();
+		InMemoryMontiorDAO monitorRepository = new InMemoryMontiorDAO();
 		
 		CampsManager campManager = new CampsManager(campRepository, activityRepository, monitorRepository);
 		
@@ -279,9 +279,9 @@ class CampsManagerTest {
 				false
 		);
 		
-		InMemoryCampRepository campRepository = new InMemoryCampRepository();
-		InMemoryActivityRepository activityRepository = new InMemoryActivityRepository();
-		InMemoryMontiorRepository monitorRepository = new InMemoryMontiorRepository();
+		InMemoryCampDAO campRepository = new InMemoryCampDAO();
+		InMemoryActivityDAO activityRepository = new InMemoryActivityDAO();
+		InMemoryMontiorDAO monitorRepository = new InMemoryMontiorDAO();
 		
 		CampsManager campManager = new CampsManager(campRepository, activityRepository, monitorRepository);
 		campManager.registerMonitorInActivity(activity, monitor);
@@ -322,9 +322,9 @@ class CampsManagerTest {
 				true
 		);
 		
-		InMemoryCampRepository campRepository = new InMemoryCampRepository();
-		InMemoryActivityRepository activityRepository = new InMemoryActivityRepository();
-		InMemoryMontiorRepository monitorRepository = new InMemoryMontiorRepository();
+		InMemoryCampDAO campRepository = new InMemoryCampDAO();
+		InMemoryActivityDAO activityRepository = new InMemoryActivityDAO();
+		InMemoryMontiorDAO monitorRepository = new InMemoryMontiorDAO();
 		
 		CampsManager campManager = new CampsManager(campRepository, activityRepository, monitorRepository);
 
@@ -361,9 +361,9 @@ class CampsManagerTest {
 		);
 
 		
-		InMemoryCampRepository campRepository = new InMemoryCampRepository();
-		InMemoryActivityRepository activityRepository = new InMemoryActivityRepository();
-		InMemoryMontiorRepository monitorRepository = new InMemoryMontiorRepository();
+		InMemoryCampDAO campRepository = new InMemoryCampDAO();
+		InMemoryActivityDAO activityRepository = new InMemoryActivityDAO();
+		InMemoryMontiorDAO monitorRepository = new InMemoryMontiorDAO();
 		
 		CampsManager campManager = new CampsManager(campRepository, activityRepository, monitorRepository);
 		
@@ -402,9 +402,9 @@ class CampsManagerTest {
 		);
 
 		
-		InMemoryCampRepository campRepository = new InMemoryCampRepository();
-		InMemoryActivityRepository activityRepository = new InMemoryActivityRepository();
-		InMemoryMontiorRepository monitorRepository = new InMemoryMontiorRepository();
+		InMemoryCampDAO campRepository = new InMemoryCampDAO();
+		InMemoryActivityDAO activityRepository = new InMemoryActivityDAO();
+		InMemoryMontiorDAO monitorRepository = new InMemoryMontiorDAO();
 		
 		CampsManager campManager = new CampsManager(campRepository, activityRepository, monitorRepository);
 		
@@ -444,9 +444,9 @@ class CampsManagerTest {
 				false
 		);
 		
-		InMemoryCampRepository campRepository = new InMemoryCampRepository();
-		InMemoryActivityRepository activityRepository = new InMemoryActivityRepository();
-		InMemoryMontiorRepository monitorRepository = new InMemoryMontiorRepository();
+		InMemoryCampDAO campRepository = new InMemoryCampDAO();
+		InMemoryActivityDAO activityRepository = new InMemoryActivityDAO();
+		InMemoryMontiorDAO monitorRepository = new InMemoryMontiorDAO();
 		
 		CampsManager campManager = new CampsManager(campRepository, activityRepository, monitorRepository);
 		

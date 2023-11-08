@@ -10,9 +10,9 @@ import org.junit.jupiter.api.Test;
 
 import business.dtos.ActivityDTO;
 import business.dtos.CampDTO;
-import business.values.EducativeLevel;
-import business.values.TimeSlot;
-import utilities.Utils;
+import business.enums.EducativeLevel;
+import business.enums.TimeSlot;
+import business.utilities.Utils;
 
 class CampTest {
 	

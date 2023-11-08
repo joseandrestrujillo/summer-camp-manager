@@ -12,7 +12,7 @@ import java.util.Optional;
 import business.dtos.ActivityDTO;
 import business.dtos.MonitorDTO;
 import business.exceptions.dao.DAOTimeoutException;
-import business.exceptions.repository.NotFoundException;
+import business.exceptions.dao.NotFoundException;
 import business.interfaces.ICriteria;
 import business.interfaces.IMonitorDAO;
 import data.database.DBManager;

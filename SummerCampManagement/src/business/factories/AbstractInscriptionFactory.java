@@ -1,15 +1,13 @@
-package business.interfaces;
+package business.factories;
 
 import java.util.Date;
 
 import business.dtos.CompleteInscriptionDTO;
-import business.dtos.InscriptionDTO;
 import business.dtos.PartialInscriptionDTO;
-import business.values.InscriptionType;
 /**
  * La interfaz AbstractInscriptionFactory define métodos para crear instancias de inscripciones parciales y completas.
  */
-public interface AbstractInscriptionFactory {
+public abstract class AbstractInscriptionFactory {
 	  /**
      * Crea una nueva instancia de PartialInscription con la información proporcionada.
      *
@@ -19,7 +17,9 @@ public interface AbstractInscriptionFactory {
      * @param price           El precio total de la inscripción.
      * @return Una nueva instancia de PartialInscription.
      */
-	public PartialInscriptionDTO createPartial(int assistantId, int campId, Date inscriptionDate, float price);
+	public PartialInscriptionDTO createPartial(int assistantId, int campId, Date inscriptionDate, float price) {
+		return null;
+	}
 
 	/**
      * Crea una nueva instancia de CompleteInscription con la información proporcionada.
@@ -30,5 +30,7 @@ public interface AbstractInscriptionFactory {
      * @param price           El precio total de la inscripción.
      * @return Una nueva instancia de CompleteInscription.
      */
-	public CompleteInscriptionDTO createComplete(int assistantId, int campId, Date inscriptionDate, float price);
+	public CompleteInscriptionDTO createComplete(int assistantId, int campId, Date inscriptionDate, float price) {
+		return null;
+	}
 }

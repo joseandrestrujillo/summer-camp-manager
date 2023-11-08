@@ -1,4 +1,4 @@
-package business.values;
+package business.enums;
 
 /**
  * Enumerado que representa los niveles educativos para los asistentes a campamentos.

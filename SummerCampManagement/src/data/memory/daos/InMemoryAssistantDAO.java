@@ -1,34 +1,31 @@
-package data.memory;
+package data.memory.daos;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import business.dtos.ActivityDTO;
 import business.dtos.AssistantDTO;
 import business.dtos.CampDTO;
 import business.dtos.InscriptionDTO;
-import business.exceptions.repository.NotFoundException;
+import business.enums.TimeSlot;
+import business.exceptions.dao.NotFoundException;
 import business.interfaces.IAssistantDAO;
 import business.interfaces.ICriteria;
-import business.interfaces.IDAO;
-import business.values.TimeSlot;
+import data.memory.MapsManager;
 
 /**
  * La clase InMemoryAssistantRepository es una implementación en memoria de un repositorio de asistentes.
  
  */
-public class InMemoryAssistantRepository implements IAssistantDAO {
+public class InMemoryAssistantDAO implements IAssistantDAO {
     private MapsManager mapsManager;
 
     /**
      * Constructor de la clase InMemoryAssistantRepository.
      * Inicializa un nuevo mapa para almacenar asistentes en memoria.
      */
-    public InMemoryAssistantRepository() {
+    public InMemoryAssistantDAO() {
         this.mapsManager = MapsManager.getInstance();
     }
 
@@ -80,7 +77,7 @@ public class InMemoryAssistantRepository implements IAssistantDAO {
 
 	@Override
 	public List<AssistantDTO> getAssistantsInACamp(CampDTO camp) {
-		InMemoryInscriptionRepository inscriptionRepository = new InMemoryInscriptionRepository();
+		InMemoryInscriptionDAO inscriptionRepository = new InMemoryInscriptionDAO();
 		List<InscriptionDTO> inscriptions = inscriptionRepository.getAll();
 		
 		List<AssistantDTO> assistants = new ArrayList<AssistantDTO>();
@@ -94,9 +91,9 @@ public class InMemoryAssistantRepository implements IAssistantDAO {
 
 	@Override
 	public List<AssistantDTO> getAssistantsInAnActivity(ActivityDTO activity) {
-		InMemoryInscriptionRepository inscriptionRepository = new InMemoryInscriptionRepository();
-		InMemoryActivityRepository activityRepository = new InMemoryActivityRepository();
-		InMemoryCampRepository campRepository = new InMemoryCampRepository();
+		InMemoryInscriptionDAO inscriptionRepository = new InMemoryInscriptionDAO();
+		InMemoryActivityDAO activityRepository = new InMemoryActivityDAO();
+		InMemoryCampDAO campRepository = new InMemoryCampDAO();
 		List<InscriptionDTO> inscriptions = inscriptionRepository.getAll();
 		
 		List<AssistantDTO> assistants = new ArrayList<AssistantDTO>();

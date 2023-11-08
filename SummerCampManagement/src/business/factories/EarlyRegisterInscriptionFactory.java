@@ -8,19 +8,18 @@ import business.dtos.CompleteInscriptionDTO;
 import business.dtos.PartialInscriptionDTO;
 import business.exceptions.assistant.AssistantNotFoundException;
 import business.exceptions.camp.CampNotFoundException;
+import business.exceptions.dao.NotFoundException;
 import business.exceptions.inscription.AfterEarlyTimeException;
 import business.exceptions.inscription.AfterStartTimeException;
-import business.exceptions.repository.NotFoundException;
-import business.interfaces.AbstractInscriptionFactory;
 import business.interfaces.IDAO;
-import utilities.Utils;
+import business.utilities.Utils;
 
 /**
  * La clase EarlyRegisterInscriptionFactory es una fábrica que crea inscripciones 
  * anticipadas (early registration) para campamentos. Estas inscripciones se 
  * caracterizan por reglas especiales relacionadas con el tiempo y el precio.
  */
-public class EarlyRegisterInscriptionFactory implements AbstractInscriptionFactory {
+public class EarlyRegisterInscriptionFactory extends AbstractInscriptionFactory {
     private IDAO<CampDTO, Integer> campRepository;
     private IDAO<AssistantDTO, Integer> assistantRepository;
 

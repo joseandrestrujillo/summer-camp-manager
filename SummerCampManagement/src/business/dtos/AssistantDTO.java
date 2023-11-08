@@ -1,11 +1,8 @@
 package business.dtos;
 
-import java.lang.reflect.Constructor;
 import java.util.Date;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import utilities.Utils;
+import business.utilities.Utils;
 
 /**
  * La clase Assistant representa a un asistente con su información básica.

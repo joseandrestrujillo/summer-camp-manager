@@ -2,16 +2,9 @@
 
 package business.dtos;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import business.exceptions.activity.MaxMonitorsAddedException;
-import business.values.EducativeLevel;
-import business.values.TimeSlot;
-import utilities.Utils;
+import business.enums.EducativeLevel;
+import business.enums.TimeSlot;
 /**
  * La clase Activity representa una actividad educativa que se lleva a cabo en un horario específico
  * y se asocia con un nivel educativo, un nombre y un límite de asistentes y monitores.

@@ -2,15 +2,12 @@ package domain.entities;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
 import business.dtos.ActivityDTO;
-import business.dtos.MonitorDTO;
-import business.values.EducativeLevel;
-import business.values.TimeSlot;
+import business.enums.EducativeLevel;
+import business.enums.TimeSlot;
 
 class ActivityTest {
 	

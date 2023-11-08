@@ -14,6 +14,8 @@ import business.dtos.AssistantDTO;
 import business.dtos.CampDTO;
 import business.dtos.CompleteInscriptionDTO;
 import business.dtos.InscriptionDTO;
+import business.enums.EducativeLevel;
+import business.enums.TimeSlot;
 import business.exceptions.inscription.AssistantAlreadyEnrolledException;
 import business.exceptions.inscription.MaxAssistantExcededException;
 import business.exceptions.inscription.NeedToAddAnSpecialMonitorException;
@@ -21,22 +23,20 @@ import business.exceptions.inscription.WrongEducativeLevelException;
 import business.managers.AssistantsManager;
 import business.managers.CampsManager;
 import business.managers.InscriptionManager;
-import business.values.EducativeLevel;
-import business.values.TimeSlot;
-import data.memory.InMemoryActivityRepository;
-import data.memory.InMemoryAssistantRepository;
-import data.memory.InMemoryCampRepository;
-import data.memory.InMemoryInscriptionRepository;
-import data.memory.InMemoryMontiorRepository;
+import business.utilities.Utils;
 import data.memory.MapsManager;
-import utilities.Utils;
+import data.memory.daos.InMemoryActivityDAO;
+import data.memory.daos.InMemoryAssistantDAO;
+import data.memory.daos.InMemoryCampDAO;
+import data.memory.daos.InMemoryInscriptionDAO;
+import data.memory.daos.InMemoryMontiorDAO;
 
 class InscriptionManagerTest {
-	private InMemoryCampRepository campRepository;
-	private InMemoryActivityRepository activityRepository;
-	private InMemoryMontiorRepository monitorRepository;
-	private InMemoryAssistantRepository assistantRepository;
-	private InMemoryInscriptionRepository inscriptionRepository;
+	private InMemoryCampDAO campRepository;
+	private InMemoryActivityDAO activityRepository;
+	private InMemoryMontiorDAO monitorRepository;
+	private InMemoryAssistantDAO assistantRepository;
+	private InMemoryInscriptionDAO inscriptionRepository;
 	private InscriptionManager inscriptionManager;
 	private CampsManager campsManager;
 	private AssistantsManager assistantManager;
@@ -83,12 +83,12 @@ class InscriptionManagerTest {
 	@BeforeEach
 	void SetUp() {
 		MapsManager.resetInstance();
-		this.campRepository = new InMemoryCampRepository();
-		this.activityRepository = new InMemoryActivityRepository();
-		this.monitorRepository = new InMemoryMontiorRepository();
-		this.assistantRepository = new InMemoryAssistantRepository();
-		this.inscriptionRepository = new InMemoryInscriptionRepository();
-		this.inscriptionManager = new InscriptionManager(campRepository, activityRepository, monitorRepository, assistantRepository, inscriptionRepository);
+		this.campRepository = new InMemoryCampDAO();
+		this.activityRepository = new InMemoryActivityDAO();
+		this.monitorRepository = new InMemoryMontiorDAO();
+		this.assistantRepository = new InMemoryAssistantDAO();
+		this.inscriptionRepository = new InMemoryInscriptionDAO();
+		this.inscriptionManager = new InscriptionManager(campRepository, activityRepository, assistantRepository, inscriptionRepository);
 		this.campsManager = new CampsManager(campRepository, activityRepository, monitorRepository);
 		this.assistantManager = new AssistantsManager(assistantRepository);
 	}

@@ -1,7 +1,5 @@
 package business.dtos;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * La clase Monitor representa a un monitor en un sistema educativo.

@@ -1,8 +1,7 @@
-package utilities;
+package business.utilities;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;

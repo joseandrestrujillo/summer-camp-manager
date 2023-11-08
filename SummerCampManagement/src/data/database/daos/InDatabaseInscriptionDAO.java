@@ -11,7 +11,7 @@ import java.util.Optional;
 
 import business.dtos.InscriptionDTO;
 import business.exceptions.dao.DAOTimeoutException;
-import business.exceptions.repository.NotFoundException;
+import business.exceptions.dao.NotFoundException;
 import business.interfaces.ICriteria;
 import business.interfaces.IDAO;
 import data.database.DBManager;

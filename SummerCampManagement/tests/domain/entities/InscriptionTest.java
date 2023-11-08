@@ -7,7 +7,7 @@ import java.util.Date;
 import org.junit.jupiter.api.Test;
 
 import business.dtos.InscriptionDTO;
-import utilities.Utils;
+import business.utilities.Utils;
 
 class InscriptionTest {
 

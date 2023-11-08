@@ -14,7 +14,7 @@ import business.dtos.ActivityDTO;
 import business.dtos.AssistantDTO;
 import business.dtos.CampDTO;
 import business.exceptions.dao.DAOTimeoutException;
-import business.exceptions.repository.NotFoundException;
+import business.exceptions.dao.NotFoundException;
 import business.interfaces.IAssistantDAO;
 import business.interfaces.ICriteria;
 import data.database.DBManager;

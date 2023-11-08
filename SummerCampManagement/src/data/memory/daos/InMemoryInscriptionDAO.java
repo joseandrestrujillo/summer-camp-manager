@@ -1,28 +1,27 @@
-package data.memory;
+package data.memory.daos;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import business.dtos.InscriptionDTO;
-import business.exceptions.repository.NotFoundException;
+import business.exceptions.dao.NotFoundException;
 import business.interfaces.ICriteria;
 import business.interfaces.IDAO;
+import data.memory.MapsManager;
 
 /**
  * La clase InMemoryInscriptionRepository es una implementación en memoria de un repositorio de inscripciones.
 
  */
-public class InMemoryInscriptionRepository implements IDAO<InscriptionDTO, String> {
+public class InMemoryInscriptionDAO implements IDAO<InscriptionDTO, String> {
     private MapsManager mapsManager;
 
     /**
      * Constructor de la clase InMemoryInscriptionRepository.
      * Inicializa un nuevo mapa para almacenar inscripciones en memoria.
      */
-    public InMemoryInscriptionRepository() {
+    public InMemoryInscriptionDAO() {
         this.mapsManager = MapsManager.getInstance();
     }
 

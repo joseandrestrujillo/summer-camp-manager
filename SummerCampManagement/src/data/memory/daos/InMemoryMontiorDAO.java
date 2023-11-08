@@ -1,30 +1,28 @@
-package data.memory;
+package data.memory.daos;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import business.dtos.ActivityDTO;
 import business.dtos.MonitorDTO;
-import business.exceptions.repository.NotFoundException;
+import business.exceptions.dao.NotFoundException;
 import business.interfaces.ICriteria;
-import business.interfaces.IDAO;
 import business.interfaces.IMonitorDAO;
+import data.memory.MapsManager;
 
 /**
  * La clase InMemoryMontiorRepository es una implementación en memoria de un repositorio de monitores.
  
  */
-public class InMemoryMontiorRepository implements IMonitorDAO {
+public class InMemoryMontiorDAO implements IMonitorDAO {
     private MapsManager mapsManager;
 
     /**
      * Constructor de la clase InMemoryMontiorRepository.
      * Inicializa un nuevo mapa para almacenar monitores en memoria.
      */
-    public InMemoryMontiorRepository() {
+    public InMemoryMontiorDAO() {
         this.mapsManager = MapsManager.getInstance();
     }
 

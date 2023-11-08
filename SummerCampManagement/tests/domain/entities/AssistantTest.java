@@ -7,7 +7,7 @@ import java.util.Date;
 import org.junit.jupiter.api.Test;
 
 import business.dtos.AssistantDTO;
-import utilities.Utils;
+import business.utilities.Utils;
 
 class AssistantTest {
 

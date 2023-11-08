@@ -1,4 +1,4 @@
-package business.exceptions.repository;
+package business.exceptions.dao;
 
 /**
  * La clase NotFoundException representa una excepción que se lanza cuando un elemento no se encuentra.

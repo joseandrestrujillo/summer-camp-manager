@@ -8,20 +8,19 @@ import business.dtos.CompleteInscriptionDTO;
 import business.dtos.PartialInscriptionDTO;
 import business.exceptions.assistant.AssistantNotFoundException;
 import business.exceptions.camp.CampNotFoundException;
+import business.exceptions.dao.NotFoundException;
 import business.exceptions.inscription.AfterLateTimeException;
 import business.exceptions.inscription.AfterStartTimeException;
 import business.exceptions.inscription.BeforeLateTimeException;
-import business.exceptions.repository.NotFoundException;
-import business.interfaces.AbstractInscriptionFactory;
 import business.interfaces.IDAO;
-import utilities.Utils;
+import business.utilities.Utils;
 
 /**
  * La clase LateRegisterInscriptionFactory es una fábrica que crea inscripciones
  * tardías (late registration) para campamentos. Estas inscripciones se
  * caracterizan por reglas especiales relacionadas con el tiempo y el precio.
  */
-public class LateRegisterInscriptionFactory implements AbstractInscriptionFactory {
+public class LateRegisterInscriptionFactory extends AbstractInscriptionFactory {
     private IDAO<CampDTO, Integer> campRepository;
     private IDAO<AssistantDTO, Integer> assistantRepository;
 

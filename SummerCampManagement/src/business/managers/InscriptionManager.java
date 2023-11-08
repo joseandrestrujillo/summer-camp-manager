@@ -9,22 +9,21 @@ import business.dtos.ActivityDTO;
 import business.dtos.AssistantDTO;
 import business.dtos.CampDTO;
 import business.dtos.InscriptionDTO;
-import business.dtos.MonitorDTO;
+import business.enums.EducativeLevel;
+import business.enums.TimeSlot;
+import business.exceptions.dao.NotFoundException;
 import business.exceptions.inscription.AfterEarlyTimeException;
 import business.exceptions.inscription.AssistantAlreadyEnrolledException;
 import business.exceptions.inscription.MaxAssistantExcededException;
 import business.exceptions.inscription.NeedToAddAnSpecialMonitorException;
 import business.exceptions.inscription.WrongEducativeLevelException;
-import business.exceptions.repository.NotFoundException;
+import business.factories.AbstractInscriptionFactory;
 import business.factories.EarlyRegisterInscriptionFactory;
 import business.factories.LateRegisterInscriptionFactory;
-import business.interfaces.AbstractInscriptionFactory;
 import business.interfaces.IAssistantDAO;
 import business.interfaces.IDAO;
-import business.values.EducativeLevel;
-import business.values.TimeSlot;
+import business.utilities.Utils;
 import data.database.criteria.ActivityInCampCriteria;
-import utilities.Utils;
 
 /**
  * Esta clase gestiona las inscripciones en los campamentos y actividades.
@@ -33,7 +32,6 @@ import utilities.Utils;
 public class InscriptionManager {
 	private IDAO<CampDTO, Integer> campRepository;
 	private IDAO<ActivityDTO, String> activityRepository;
-	private IDAO<MonitorDTO, Integer> monitorRepository;
 	private IAssistantDAO assitantRepository;
 	private IDAO<InscriptionDTO, String> inscriptionRepository;
 
@@ -47,10 +45,9 @@ public class InscriptionManager {
      * @param inscriptionRepository Repositorio de inscripciones.
 	 */
 
-	public InscriptionManager(IDAO<CampDTO, Integer> campRepository, IDAO<ActivityDTO, String> activityRepository, IDAO<MonitorDTO, Integer> monitorRepository, IAssistantDAO assitantRepository, IDAO<InscriptionDTO, String> inscriptionRepository) {
+	public InscriptionManager(IDAO<CampDTO, Integer> campRepository, IDAO<ActivityDTO, String> activityRepository, IAssistantDAO assitantRepository, IDAO<InscriptionDTO, String> inscriptionRepository) {
 		this.campRepository = campRepository;
 		this.activityRepository = activityRepository;
-		this.monitorRepository = monitorRepository;
 		this.assitantRepository = assitantRepository;
 		this.inscriptionRepository = inscriptionRepository;
 	}
