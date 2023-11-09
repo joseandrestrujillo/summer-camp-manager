@@ -95,7 +95,7 @@ class CampsManagerTest {
 				educativeLevel,
 				TimeSlot.AFTERNOON,
 				10,
-				3
+				0
 		);
 
 		CampDTO camp = new CampDTO(
@@ -133,7 +133,7 @@ class CampsManagerTest {
 				EducativeLevel.PRESCHOOL,
 				TimeSlot.AFTERNOON,
 				10,
-				3
+				0
 		);
 
 		CampDTO camp = new CampDTO(
@@ -175,7 +175,7 @@ class CampsManagerTest {
 				EducativeLevel.PRESCHOOL,
 				TimeSlot.AFTERNOON,
 				10,
-				3
+				1
 		);
 
 		MonitorDTO monitor = new MonitorDTO(
@@ -224,7 +224,7 @@ class CampsManagerTest {
 				EducativeLevel.PRESCHOOL,
 				TimeSlot.AFTERNOON,
 				10,
-				3
+				0
 		);
 
 		MonitorDTO monitor = new MonitorDTO(
@@ -269,7 +269,7 @@ class CampsManagerTest {
 				EducativeLevel.PRESCHOOL,
 				TimeSlot.AFTERNOON,
 				10,
-				3
+				1
 		);
 
 		MonitorDTO monitor = new MonitorDTO(
@@ -312,7 +312,7 @@ class CampsManagerTest {
 				EducativeLevel.PRESCHOOL,
 				TimeSlot.AFTERNOON,
 				10,
-				3
+				0
 		);
 
 		MonitorDTO monitor = new MonitorDTO(
@@ -357,7 +357,7 @@ class CampsManagerTest {
 				EducativeLevel.PRESCHOOL,
 				TimeSlot.AFTERNOON,
 				10,
-				3
+				0
 		);
 
 		
@@ -398,7 +398,7 @@ class CampsManagerTest {
 				EducativeLevel.PRESCHOOL,
 				TimeSlot.AFTERNOON,
 				10,
-				3
+				0
 		);
 
 		
@@ -434,7 +434,7 @@ class CampsManagerTest {
 				EducativeLevel.PRESCHOOL,
 				TimeSlot.AFTERNOON,
 				10,
-				3
+				1
 		);
 
 		MonitorDTO monitor = new MonitorDTO(
@@ -454,7 +454,6 @@ class CampsManagerTest {
 		
 		camp = campManager.registerActivityInACamp(camp, activity);
 		CampDTO modifiedCamp = campManager.setPrincipalMonitor(camp, monitor);
-		campManager.registerMonitorInActivity(activity, monitor);
 		assertThrows(MonitorIsNotInActivityException.class, 
 				() -> campManager.deleteAnActivityOfACamp(modifiedCamp, activity)
 		);

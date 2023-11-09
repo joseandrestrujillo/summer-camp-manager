@@ -72,7 +72,7 @@ class InscriptionManagerTest {
 						educativeLevel,
 						TimeSlot.AFTERNOON,
 						10,
-						3
+						0
 				);
 				campsManager.registerActivityInACamp(camp, activity);
 			}
