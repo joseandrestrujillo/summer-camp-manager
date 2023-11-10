@@ -92,7 +92,7 @@ public class InDatabaseMonitorDAO implements IMonitorDAO{
     		
     		ps.executeUpdate();
     	} catch(SQLException e) { 
-    		System.out.println(e);
+    		throw new RuntimeException(e);
 		}
     }
     /**
@@ -133,7 +133,6 @@ public class InDatabaseMonitorDAO implements IMonitorDAO{
 			}
 			dbConnection.closeConnection();
 		} catch (SQLException e){
-			System.out.println(e);
 			throw new DAOTimeoutException();
 		}
 		return listOfMonitors;
@@ -188,7 +187,7 @@ public class InDatabaseMonitorDAO implements IMonitorDAO{
     		
     		ps.executeUpdate();
     	} catch(Exception e) { 
-    		System.out.println(e);
+    		throw new RuntimeException(e);
 		}		
 	}
 }

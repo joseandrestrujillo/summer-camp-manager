@@ -117,7 +117,7 @@ public class InDatabaseInscriptionDAO implements IDAO<InscriptionDTO, String> {
     		
     		ps.executeUpdate();
     	} catch(Exception e) { 
-    		System.out.println(e);
+    		throw new RuntimeException(e);
 		}
     }
 

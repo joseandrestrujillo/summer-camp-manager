@@ -27,7 +27,7 @@ public class PersistenceConfiguration {
 		return instance;
 	}
 	
-	PersistenceConfiguration() {
+	private PersistenceConfiguration() {
 		this.campRepository = new InDatabaseCampDAO();
 		this.activityRepository = new InDatabaseActivityDAO();
 		this.monitorRepository = new InDatabaseMonitorDAO();

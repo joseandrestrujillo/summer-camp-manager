@@ -104,7 +104,7 @@ public class InDatabaseAssistantDAO implements IAssistantDAO{
     		
     		ps.executeUpdate();
     	} catch(Exception e) { 
-    		System.out.println(e);
+    		throw new RuntimeException(e);
 		}
     }
     /**
@@ -148,7 +148,6 @@ public class InDatabaseAssistantDAO implements IAssistantDAO{
 			}
 			dbConnection.closeConnection();
 		} catch (SQLException e){
-			System.out.println(e);
 			throw new DAOTimeoutException();
 		}
 		return listOfAssistants;

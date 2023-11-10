@@ -111,7 +111,7 @@ public class InDatabaseActivityDAO implements IActivityDAO{
     		
     		ps.executeUpdate();
     	} catch(Exception e) { 
-    		System.out.println(e);
+    		throw new RuntimeException(e);
 		}
     }
     
@@ -149,7 +149,6 @@ public class InDatabaseActivityDAO implements IActivityDAO{
 			dbConnection.closeConnection();
 			
 		} catch (SQLException e){
-			System.out.println(e);
 			throw new DAOTimeoutException();
 		}
 		return listOfActivitiess;
@@ -177,7 +176,7 @@ public class InDatabaseActivityDAO implements IActivityDAO{
 	    		
 	    		ps.executeUpdate();
 	    	} catch(Exception e) { 
-	    		System.out.println(e);
+	    		throw new RuntimeException(e);
 			}
     	}
     	
@@ -195,7 +194,7 @@ public class InDatabaseActivityDAO implements IActivityDAO{
 	    		
 	    		ps.executeUpdate();
 	    	} catch(Exception e) { 
-	    		System.out.println(e);
+	    		throw new RuntimeException(e);
 			}
 		}
     	
@@ -244,7 +243,7 @@ public class InDatabaseActivityDAO implements IActivityDAO{
     		
     		ps.executeUpdate();
     	} catch(Exception e) { 
-    		System.out.println(e);
+    		throw new RuntimeException(e);
 		}
 	}
 

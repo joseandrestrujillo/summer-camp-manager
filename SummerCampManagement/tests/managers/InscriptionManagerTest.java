@@ -402,35 +402,35 @@ class InscriptionManagerTest {
 				educativeLevel,
 				TimeSlot.AFTERNOON,
 				10,
-				3
+				0
 		);
 		ActivityDTO activity2 = new ActivityDTO(
 				"Actividad2",
 				educativeLevel,
 				TimeSlot.AFTERNOON,
 				10,
-				3
+				0
 		);
 		ActivityDTO activity3 = new ActivityDTO(
 				"Actividad3",
 				educativeLevel,
 				TimeSlot.AFTERNOON,
 				10,
-				3
+				0
 		);
 		ActivityDTO activity4 = new ActivityDTO(
 				"Actividad4",
 				educativeLevel,
 				TimeSlot.AFTERNOON,
 				10,
-				3
+				0
 		);
 		ActivityDTO activity5 = new ActivityDTO(
 				"Actividad5",
 				educativeLevel,
 				TimeSlot.AFTERNOON,
 				10,
-				3
+				0
 		);
 		Date inscriptionDate = Utils.parseDate("10/01/2024");
 		
@@ -677,14 +677,14 @@ class InscriptionManagerTest {
 				educativeLevel,
 				TimeSlot.AFTERNOON,
 				10,
-				3
+				0
 		);
 		ActivityDTO activity2 = new ActivityDTO(
 				"Actividad2",
 				educativeLevel,
 				TimeSlot.AFTERNOON,
 				10,
-				3
+				0
 		);
 		
 		Date inscriptionDate = Utils.parseDate("10/01/2024");
@@ -746,14 +746,14 @@ class InscriptionManagerTest {
 				educativeLevel,
 				TimeSlot.AFTERNOON,
 				10,
-				3
+				0
 		);
 		ActivityDTO activity2 = new ActivityDTO(
 				"Actividad2",
 				educativeLevel,
 				TimeSlot.AFTERNOON,
 				1,
-				1
+				0
 		);
 		
 		Date inscriptionDate = Utils.parseDate("10/01/2024");
@@ -820,7 +820,7 @@ class InscriptionManagerTest {
 				educativeLevel,
 				TimeSlot.MORNING,
 				10,
-				3
+				0
 		);
 		
 		ActivityDTO activity2 = new ActivityDTO(
@@ -828,7 +828,7 @@ class InscriptionManagerTest {
 				educativeLevel,
 				TimeSlot.AFTERNOON,
 				10,
-				1
+				0
 		);
 		
 		Date inscriptionDate = Utils.parseDate("10/01/2024");
@@ -902,14 +902,14 @@ class InscriptionManagerTest {
 				educativeLevel,
 				TimeSlot.AFTERNOON,
 				10,
-				3
+				0
 		);
 		ActivityDTO activity2 = new ActivityDTO(
 				"Actividad2",
 				educativeLevel,
 				TimeSlot.MORNING,
 				1,
-				1
+				0
 		);
 		
 		Date inscriptionDate = Utils.parseDate("10/01/2024");

@@ -165,7 +165,7 @@ public class InDatabaseCampDAO implements IDAO<CampDTO, Integer> {
     		
     		ps.executeUpdate();
     	} catch(SQLException e) { 
-    		System.out.println(e);
+    		throw new RuntimeException(e);
 		}
     	
 		InDatabaseActivityDAO activityDAO = new InDatabaseActivityDAO();
@@ -183,7 +183,7 @@ public class InDatabaseCampDAO implements IDAO<CampDTO, Integer> {
 	    		
 	    		ps.executeUpdate();
 	    	} catch(Exception e) { 
-	    		System.out.println(e);
+	    		throw new RuntimeException(e);
 			}
 		}
     }
@@ -246,7 +246,7 @@ public class InDatabaseCampDAO implements IDAO<CampDTO, Integer> {
 	    		
 	    		ps.executeUpdate();
 	    	} catch(Exception e) { 
-	    		System.out.println(e);
+	    		throw new RuntimeException(e);
 			}
 		}
     	

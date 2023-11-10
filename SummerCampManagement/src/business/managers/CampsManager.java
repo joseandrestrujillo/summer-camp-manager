@@ -93,6 +93,12 @@ public class CampsManager {
             	ActivityDTO activityDTO = activities.get(i);
 				List<MonitorDTO> monitorsInActivity = this.monitorRepository.getMonitorsInAnActivity(activityDTO);
 				founded = monitorsInActivity.contains(monitor);
+				for (MonitorDTO monitorDTO : monitorsInActivity) {
+					if (monitorDTO.getId().equals(monitor.getId())) {
+						founded = true;
+						break;
+					}
+				}
 			} catch (NotFoundException e) {}
         }
         return founded;
@@ -107,7 +113,7 @@ public class CampsManager {
      * @throws MonitorIsNotInActivityException Si el monitor no está asignado a ninguna actividad en el campamento.
      */
     public CampDTO setPrincipalMonitor(CampDTO camp, MonitorDTO monitor) {
-        List<ActivityDTO> activities = this.activityRepository.getAll(Optional.of(new ActivityInCampCriteria(camp.getCampID())));;
+        List<ActivityDTO> activities = this.getActivitiesOfACamp(camp);
     	boolean founded = isMonitorInSomeActivity(activities, monitor);
 
         if (!founded) {
@@ -178,6 +184,15 @@ public class CampsManager {
 
         this.activityRepository.delete(activity);
         return camp;
+    }
+   
+    /**
+     * Elimina un campamento.
+     * 
+     * @param camp     El campamento a eliminar.
+     */
+    public void deleteCamp(CampDTO camp) {
+        this.campRepository.delete(camp);
     }
 
     /**
@@ -305,7 +320,7 @@ public class CampsManager {
      * @throws CampAlreadyRegisteredException Si el campamento ya está registrado.
      */
 	public void registerMonitorInActivity(ActivityDTO selectedActivity, MonitorDTO monitorCreated) {
-		List<MonitorDTO> monitorList = monitorRepository.getAll(Optional.of(new MonitorInActivityCriteria(selectedActivity.getActivityName())));
+		List<MonitorDTO> monitorList = this.getMonitorsOfAnActivity(selectedActivity);
 		if (monitorList.size() == selectedActivity.getNeededMonitors()) {
             throw new MaxMonitorsAddedException();
         }

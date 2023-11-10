@@ -32,6 +32,7 @@ public class Common {
         	AssistantDTO iterableAssistant = listOfAssistants.get(i);
             System.out.println((i + 1) + ". DNI:" + iterableAssistant.getId() 
             							+ ", Nombre:" + iterableAssistant.getFirstName() + " " + iterableAssistant.getLastName()
+            							+ ", Edad:" + Utils.yearsBetween(Utils.getCurrentDate(), iterableAssistant.getBirthDate())
             							+ ", Atención Especial: " + (iterableAssistant.isRequireSpecialAttention() ? "Si" : "No"));
         }
         if(returnOption) {
@@ -44,6 +45,7 @@ public class Common {
         	CampDTO iterableCamp = listOfCamps.get(i);
             System.out.println((i + 1) + ". Campamento #" + iterableCamp.getCampID() 
         						+ ": Inicio " + Utils.getStringDate(iterableCamp.getStart()) 
+        						+ ", Nivel educativo: " + translateEducativeLevel(iterableCamp.getEducativeLevel())
         						+ ".");
         }
         if(returnOption) {
@@ -94,15 +96,30 @@ public class Common {
 	private static String translateEducativeLevel(EducativeLevel educativeLevel) {
 		if(educativeLevel.name()== EducativeLevel.ELEMENTARY.name()) 
 		{
-			return "Juvenil";
+			return "Infantil (4-6)";
 		}
 		else if(educativeLevel.name()== EducativeLevel.PRESCHOOL.name()) 
 		{
-			return "Infantil";
+			return "Juvenil (7-12)";
 		}
 		else if(educativeLevel.name()== EducativeLevel.TEENAGER.name()) 
 		{
-			return "Adolescente";
+			return "Adolescente (13-17)";
+		}
+		else 
+		{
+			return null;
+		}
+	}
+	
+	private static String translateTimeSlot(TimeSlot timeSlot) {
+		if(timeSlot.name()== TimeSlot.AFTERNOON.name()) 
+		{
+			return "Tarde";
+		}
+		else if(timeSlot.name()== TimeSlot.MORNING.name()) 
+		{
+			return "Mañana";
 		}
 		else 
 		{
@@ -113,7 +130,10 @@ public class Common {
 	public static void showActivities(List<ActivityDTO> listOfActivities, boolean returnOption) {
 	    for (int i = 0; i < listOfActivities.size(); i++) {
 	    	ActivityDTO iterableActivity = listOfActivities.get(i);
-	        System.out.println((i + 1) + ". " + iterableActivity.getActivityName()+ ", Nivel Educativo: "+ translateEducativeLevel(iterableActivity.getEducativeLevel()));
+	        System.out.println((i + 1) 
+	        					+ ". " + iterableActivity.getActivityName()
+        						+ ", Nivel Educativo: "+ translateEducativeLevel(iterableActivity.getEducativeLevel())
+        						+ ", Franja horaria: " + translateTimeSlot(iterableActivity.getTimeSlot()));
 	    }
 	    if(returnOption) {
 	    	System.out.println((listOfActivities.size() + 1) + ". Volver");

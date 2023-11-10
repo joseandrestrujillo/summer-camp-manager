@@ -59,14 +59,16 @@ public class RegisterCampUseCase {
 		MonitorDTO selectedMonitor = monitorsOfTheActivity.get(optionSelected - 1);
 		
 		try {
+			campsManager.registerCamp(camp);
 			campsManager.registerActivityInACamp(camp, selectedActivity);									
 			campsManager.setPrincipalMonitor(camp, selectedMonitor);
-			campsManager.registerCamp(camp);
 		} catch (NotTheSameLevelException e) {
+			campsManager.deleteCamp(camp);
 			Common.clearConsole();
 			System.out.println("La actividad y el campamento deben de ser del mismo nivel educativo. ");
 			return;								
 		} catch (MonitorIsNotInActivityException e) {
+			campsManager.deleteCamp(camp);
 			Common.clearConsole();
 			System.out.println("El monitor principal no pertenece a ninguna actividad del campamento. ");
 			return;								
@@ -75,6 +77,7 @@ public class RegisterCampUseCase {
 			System.out.println("El campamento ya existe ");
 			return;	
 		} catch (NotEnoughMonitorsException e) {
+			campsManager.deleteCamp(camp);
 			Common.clearConsole();
 			System.out.println("La actividad no tiene suficientes monitores para llevarse a cabo. ");
 			return;		
