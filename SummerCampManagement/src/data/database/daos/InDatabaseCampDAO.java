@@ -30,7 +30,6 @@ public class InDatabaseCampDAO implements IDAO<CampDTO, Integer> {
 	private DBManager dbConnection;
 	/**
      * Constructor de la clase InDatabaseCampDAO.
-     * @param filePath La ruta de la tabla
      */
 
     public InDatabaseCampDAO() {

@@ -14,7 +14,7 @@ import java.util.Properties;
 
 /**
  * Clase para realizar las conexiones a base de datos
- * */
+ */
 
 public class DBManager {
 	private String dbUrl;
@@ -23,14 +23,22 @@ public class DBManager {
 	Map<String, String> queries;
 	protected Connection connection = null;
 	private static DBManager instance;
-	
+
+	/**
+	 * Este método se utiliza para obtener la instancia de DBManager.
+	 * 
+	 * @return DBManager La instancia de DBManager.
+	 */
 	public static DBManager getInstance() {
 		if (instance == null) {
 			instance = new DBManager();
 		}
 		return instance;
 	}
-	
+
+	/**
+	 * Este es el constructor de la clase DBManager.
+	 */
 	private DBManager() {
 		this.queries = new HashMap<String, String>();
 		Properties prop = new Properties();
@@ -38,11 +46,11 @@ public class DBManager {
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader(new File(filename)));
 			prop.load(reader);
-			
+
 			this.dbUrl = prop.getProperty("DB_URL");
 			this.username = prop.getProperty("USERNAME");
 			this.password = prop.getProperty("PASSWORD");
-			
+
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 			System.exit(-1);
@@ -50,16 +58,16 @@ public class DBManager {
 			e.printStackTrace();
 			System.exit(-1);
 		}
-		
+
 		filename = "sql.properties";
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader(new File(filename)));
 			prop.load(reader);
-			
+
 			for (Object key : prop.keySet()) {
 				this.queries.put((String) key, prop.getProperty((String) key));
 			}
-			
+
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 			System.exit(-1);
@@ -68,18 +76,28 @@ public class DBManager {
 			System.exit(-1);
 		}
 	}
-	
+
+	/**
+	 * Este método se utiliza para obtener una consulta SQL a partir de una clave.
+	 * 
+	 * @param queryKey La clave de la consulta SQL.
+	 * @return String La consulta SQL.
+	 */
 	public String getQuery(String queryKey) {
 		return this.queries.get(queryKey);
 	}
-	
-	public Connection getConnection(){
 
-		try{
+	/**
+	 * Este método se utiliza para obtener una conexión a la base de datos.
+	 * 
+	 * @return Connection La conexión a la base de datos.
+	 */
+	public Connection getConnection() {
+
+		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			this.connection = (Connection) DriverManager.getConnection(this.dbUrl, this.username, this.password);
-		} 
-		catch (SQLException e) {
+		} catch (SQLException e) {
 			System.err.println("Connection to MySQL has failed!");
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
@@ -89,10 +107,12 @@ public class DBManager {
 		return this.connection;
 	}
 
-
+	/**
+	 * Este método se utiliza para cerrar la conexión a la base de datos.
+	 */
 	public void closeConnection() {
 		try {
-			if(this.connection != null && !this.connection.isClosed()) {
+			if (this.connection != null && !this.connection.isClosed()) {
 				this.connection.close();
 			}
 		} catch (SQLException e) {

@@ -3,7 +3,7 @@ package business.dtos;
 import java.util.Date;
 
 /**
- * La clase CompleteInscription representa una inscripción completa para un asistente en un campamento.
+ * La clase CompleteInscriptionDTO representa una inscripción completa para un asistente en un campamento.
  * Es una subclase de Inscription.
  */
 public class CompleteInscriptionDTO extends InscriptionDTO{

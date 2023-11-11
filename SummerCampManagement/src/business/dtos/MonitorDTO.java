@@ -2,7 +2,7 @@ package business.dtos;
 
 
 /**
- * La clase Monitor representa a un monitor en un sistema educativo.
+ * La clase MonitorDTO representa a un monitor en un sistema educativo.
  */
 public class MonitorDTO {
     private int id;             
@@ -22,7 +22,7 @@ public class MonitorDTO {
     }
 
     /**
-     * Constructor de la clase Monitor que toma parámetros.
+     * Constructor de la clase MonitorDTO que toma parámetros.
      *
      * @param id El identificador del monitor.
      * @param firstName El primer nombre del monitor.

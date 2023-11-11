@@ -3,7 +3,7 @@ package business.interfaces;
 import java.util.List;
 import java.util.Optional;
 /**
- * La interfaz IRepository define operaciones básicas de persistencia para un tipo de entidad específico.
+ * La interfaz IDAO define operaciones básicas de persistencia para un tipo de entidad específico.
  *
  * @param <T> El tipo de entidad que se va a manipular en el repositorio.
  * @param <I> El tipo de identificador único utilizado para buscar entidades en el repositorio.

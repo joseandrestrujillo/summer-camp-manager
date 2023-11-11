@@ -33,9 +33,6 @@ public class InDatabaseAssistantDAO implements IAssistantDAO{
      * Constructor de la clase InDatabaseAssistantDAO.
      * Inicializa un nuevo mapa para almacenar asistentes en memoria y carga los asistentes almacenados en el DAO
      * 
-     * @param dbUrl url de la base de datos
-     * @param username username para acceder a la base de datos
-     * @param password contrasena para acceder a la base de datos
      */
     public InDatabaseAssistantDAO() {
     	this.dbConnection = DBManager.getInstance();

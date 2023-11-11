@@ -1,20 +1,10 @@
 package display.cli.menus.inscription;
 
-import java.util.List;
 import java.util.Scanner;
 
-import business.dtos.AssistantDTO;
-import business.dtos.CampDTO;
-import business.dtos.InscriptionDTO;
-import business.exceptions.inscription.AfterLateTimeException;
-import business.exceptions.inscription.AfterStartTimeException;
-import business.exceptions.inscription.AssistantAlreadyEnrolledException;
-import business.exceptions.inscription.MaxAssistantExcededException;
-import business.exceptions.inscription.NeedToAddAnSpecialMonitorException;
-import business.exceptions.inscription.WrongEducativeLevelException;
+
 import business.managers.AssistantsManager;
 import business.managers.InscriptionManager;
-import business.utilities.Utils;
 import display.cli.menus.Common;
 import display.cli.menus.inscription.usecases.EnrollUseCase;
 import display.cli.menus.inscription.usecases.ListAvailableCampsUseCase;

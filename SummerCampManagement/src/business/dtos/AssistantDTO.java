@@ -5,7 +5,7 @@ import java.util.Date;
 import business.utilities.Utils;
 
 /**
- * La clase Assistant representa a un asistente con su información básica.
+ * La clase AssistantDTO representa a un asistente con su información básica.
  */
 public class AssistantDTO {
 	private int id;
@@ -16,7 +16,7 @@ public class AssistantDTO {
 
 
  /**
-     * Constructor para crear un nuevo objeto Assistant con información proporcionada.
+     * Constructor para crear un nuevo objeto AssistantDTO con información proporcionada.
      *
      * @param id                     El identificador del asistente.
      * @param firstName              El nombre del asistente.

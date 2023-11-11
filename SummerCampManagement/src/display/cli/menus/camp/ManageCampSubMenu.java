@@ -1,14 +1,8 @@
 package display.cli.menus.camp;
-
-import java.util.List;
 import java.util.Scanner;
 
-import business.dtos.ActivityDTO;
 import business.dtos.CampDTO;
-import business.dtos.MonitorDTO;
-import business.exceptions.activity.MonitorIsNotInActivityException;
-import business.exceptions.camp.IsNotAnSpecialEducator;
-import business.exceptions.camp.SpecialMonitorAlreadyRegisterException;
+
 import business.managers.CampsManager;
 import display.cli.exceptions.InvalidOptionException;
 import display.cli.exceptions.ReturnException;

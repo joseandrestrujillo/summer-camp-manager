@@ -4,7 +4,7 @@ import java.util.Date;
 
 import business.utilities.Utils;
 /**
- * La clase Inscription representa una inscripción para un asistente en un campamento.
+ * La clase InscriptionDTO representa una inscripción para un asistente en un campamento.
  */
 public class InscriptionDTO {
 	private String inscriptionIdentifier;
@@ -16,13 +16,14 @@ public class InscriptionDTO {
 	private boolean partial;
 
 	 /**
-     * Constructor para crear un objeto Inscription con la información proporcionada.
+     * Constructor para crear un objeto InscriptionDTO con la información proporcionada.
      *
      * @param assistantId     El ID del asistente inscrito.
      * @param campId          El ID del campamento al que se ha inscrito el asistente.
      * @param inscriptionDate La fecha en que se realizó la inscripción.
      * @param price           El precio total de la inscripción.
      * @param canBeCanceled   Indica si la inscripción se puede cancelar o no.
+     * @param partial 		  Indica el tipo de inscripción
      */
 	public InscriptionDTO(int assistantId, int campId, Date inscriptionDate, float price, boolean canBeCanceled, boolean partial) {
 		this.assistantId = assistantId;
@@ -47,7 +48,7 @@ public class InscriptionDTO {
 		}
 	}
 	/**
- 	* Constructor predeterminado para crear un objeto Inscription vacío con valores predeterminados.
+ 	* Constructor predeterminado para crear un objeto InscriptionDTO vacío con valores predeterminados.
  	* El ID del asistente se inicializa como -1, el ID del campamento se inicializa como -1,
  	* la fecha de la inscripción se inicializa como null, el precio se inicializa como -1,
  	* y el identificador de la inscripción se recarga utilizando los valores iniciales.

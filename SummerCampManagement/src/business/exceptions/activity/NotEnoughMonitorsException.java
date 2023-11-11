@@ -1,11 +1,9 @@
 package business.exceptions.activity;
 
 /**
- * Esta clase representa una excepción que se lanza cuando se intenta agregar
- * más monitores de los permitidos en un contexto específico. Esta excepción
- * generalmente se utiliza para indicar que se ha alcanzado el límite máximo
- * de monitores permitidos.
- */
+ * Esta excepción generalmente se utiliza para indicar que no hay suficiente cantidad de monitores 
+ * para realizar una operación o acción.
+ *  */
 
 public class NotEnoughMonitorsException extends RuntimeException {
 

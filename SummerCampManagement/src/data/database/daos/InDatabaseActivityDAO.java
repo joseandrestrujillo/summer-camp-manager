@@ -33,7 +33,6 @@ public class InDatabaseActivityDAO implements IActivityDAO{
      * Constructor de la clase InDatabaseActivityDAO.
      * Inicializa un nuevo mapa para almacenar actividades en memoria y carga las actividades almacenadas en la base de datos
      * 
-     * @param filePath path a la tabla de actividades
      */
     public InDatabaseActivityDAO() {
     	this.dbConnection = DBManager.getInstance();

@@ -1,7 +1,7 @@
 package business.managers;
 
 import java.util.List;
-import java.util.Optional;
+
 
 import business.dtos.ActivityDTO;
 import business.dtos.CampDTO;
@@ -20,8 +20,7 @@ import business.exceptions.monitor.MonitorAlreadyExistException;
 import business.interfaces.IActivityDAO;
 import business.interfaces.IDAO;
 import business.interfaces.IMonitorDAO;
-import data.database.criteria.ActivityInCampCriteria;
-import data.database.criteria.MonitorInActivityCriteria;
+
 
 /**
  * La clase CampsManager se encarga de gestionar campamentos, actividades y monitores.
@@ -81,7 +80,7 @@ public class CampsManager {
     /**
      * Verifica si un monitor está asignado a alguna actividad en un campamento.
      * 
-     * @param camp    El campamento a verificar.
+     * @param activities   La actividades a verificar.
      * @param monitor El monitor a buscar.
      * @return true si el monitor está asignado a alguna actividad, false en caso contrario.
      */
@@ -228,7 +227,7 @@ public class CampsManager {
     /**
      * Verifica si un monitor está registrado en el repositorio.
      * 
-     * @param monitor El monitor a verificar.
+     * @param activity   Las actividades a verificar.
      * @return true si el monitor está registrado, false en caso contrario.
      */
     public boolean isRegisteredActivity(ActivityDTO activity) {
@@ -303,7 +302,7 @@ public class CampsManager {
     /**
      * Registra un monitor como monitor de una actividad.
      * 
-     * @param camp El campamento a registrar.
+     * @param monitorCreated El monitor a registrar.
      * @throws CampAlreadyRegisteredException Si el campamento ya está registrado.
      */
 	public void registerMonitor(MonitorDTO monitorCreated) {
@@ -316,7 +315,9 @@ public class CampsManager {
     /**
      * Registra un monitor como monitor de una actividad.
      * 
-     * @param camp El campamento a registrar.
+     * @param selectedActivity La actividad del monitor a registrar
+     * @param monitorCreated  El monitor de la actividad
+     * 
      * @throws CampAlreadyRegisteredException Si el campamento ya está registrado.
      */
 	public void registerMonitorInActivity(ActivityDTO selectedActivity, MonitorDTO monitorCreated) {

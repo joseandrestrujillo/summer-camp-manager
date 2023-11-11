@@ -6,7 +6,7 @@ package business.dtos;
 import business.enums.EducativeLevel;
 import business.enums.TimeSlot;
 /**
- * La clase Activity representa una actividad educativa que se lleva a cabo en un horario específico
+ * La clase ActivityDTO representa una actividad educativa que se lleva a cabo en un horario específico
  * y se asocia con un nivel educativo, un nombre y un límite de asistentes y monitores.
  */
 public class ActivityDTO {
@@ -17,7 +17,7 @@ public class ActivityDTO {
     private int neededMonitors;
 
     /**
-     * Constructor de la clase Activity.
+     * Constructor de la clase ActivityDTO.
      * 
      * @param activityName   El nombre de la actividad.
      * @param educativeLevel El nivel educativo al que se dirige la actividad.
@@ -35,7 +35,7 @@ public class ActivityDTO {
     }
 
     /**
-     * Constructor vacío de la clase Activity.
+     * Constructor vacío de la clase ActivityDTO.
      */
     public ActivityDTO() {
         this.activityName = null;

@@ -6,7 +6,7 @@ import business.enums.EducativeLevel;
 import business.utilities.Utils;
 
 /**
- * La clase Camp representa un campamento educativo con su información básica y actividades asociadas.
+ * La clase CampDTO representa un campamento educativo con su información básica y actividades asociadas.
  */
 public class CampDTO {
     private int campID;
@@ -17,7 +17,7 @@ public class CampDTO {
     private MonitorDTO principalMonitor;
     private MonitorDTO specialMonitor;
     /**
-     * Constructor predeterminado para crear un objeto Camp vacío.
+     * Constructor predeterminado para crear un objeto CampDTO vacío.
      */
     public CampDTO(){
         this.campID = -1;
@@ -28,7 +28,7 @@ public class CampDTO {
     }
 
     /**
-     * Constructor para crear un nuevo objeto Camp con información proporcionada.
+     * Constructor para crear un nuevo objeto CampDTO con información proporcionada.
      *
      * @param campID        El identificador del campamento.
      * @param start         La fecha de inicio del campamento.
