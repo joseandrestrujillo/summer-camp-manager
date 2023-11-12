@@ -21,6 +21,6 @@ public class RegisterMonitorUseCase {
 		}
 		
 		Common.clearConsole();
-		System.out.println("Asistente dado de alta correctamente");	
+		System.out.println("Monitor dado de alta correctamente");	
 	}
 }

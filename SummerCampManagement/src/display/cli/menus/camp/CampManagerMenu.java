@@ -14,6 +14,8 @@ public class CampManagerMenu {
 		int optionCampManager;
 		
 		do {
+			Common.showCampsWithActivities(campsManager.listOfCamps(), campsManager, false);
+			
 			System.out.println("1. Dar de alta un nuevo campamento");
 			System.out.println("2. Registrar nueva actividad");
 			System.out.println("3. Registrar nuevo monitor");
