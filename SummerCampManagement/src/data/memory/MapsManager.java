@@ -161,7 +161,7 @@ public class MapsManager {
     /**
      * Obtiene el mapa de monitores por actividad.
      *
-     * @returnecli El mapa de monitores por actividad.
+     * @return El mapa de monitores por actividad.
      */
     public Map<String, List<MonitorDTO>> getMapOfMonitorActivity() {
         return mapOfMonitorActivity;
