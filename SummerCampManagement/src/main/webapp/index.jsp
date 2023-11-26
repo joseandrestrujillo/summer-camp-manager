@@ -11,18 +11,18 @@
 	<body>
 		
 		<% 
-		//Este código de reset es únicamente para poder probar múltiples veces el MVC
 		if (request.getParameter("reset") != null) {
 		%>
 		<jsp:setProperty property="emailUser" value="" name="customerBean"/>
 		<%
 		}
 		if (customerBean == null || customerBean.getEmailUser()=="") {
-			// Usuario no logado -> Se invoca al controlador de la funcionalidad
 		%>
 		<a href="./mvc/controller/loginController.jsp">Acceder</a>
+		<a href="./mvc/controller/registerController.jsp">Registrarse</a>
 		<% } else { %>
 			¡¡Bienvenido <jsp:getProperty property="emailUser" name="customerBean"/>!! 
+			<a href="./mvc/controller/logoutController.jsp">Cerrar sesion</a>
 		<% } %>
 	</body>
 </html>
