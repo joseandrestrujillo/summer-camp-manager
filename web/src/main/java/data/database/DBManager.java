@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -42,9 +44,9 @@ public class DBManager {
 	private DBManager() {
 		this.queries = new HashMap<String, String>();
 		Properties prop = new Properties();
-		String filename = "config.properties";
 		try {
-			BufferedReader reader = new BufferedReader(new FileReader(new File(filename)));
+			InputStream pathConfig = getClass().getClassLoader().getResourceAsStream("/config.properties");
+			BufferedReader reader = new BufferedReader(new InputStreamReader(pathConfig));
 			prop.load(reader);
 
 			this.dbUrl = prop.getProperty("DB_URL");
@@ -59,9 +61,9 @@ public class DBManager {
 			System.exit(-1);
 		}
 
-		filename = "sql.properties";
 		try {
-			BufferedReader reader = new BufferedReader(new FileReader(new File(filename)));
+			InputStream pathSQL = getClass().getClassLoader().getResourceAsStream("/sql.properties");
+			BufferedReader reader = new BufferedReader(new InputStreamReader(pathSQL));
 			prop.load(reader);
 
 			for (Object key : prop.keySet()) {
