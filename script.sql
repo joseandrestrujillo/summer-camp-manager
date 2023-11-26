@@ -62,14 +62,16 @@ CREATE TABLE Monitor (
 );
 
 CREATE TABLE User (
-  email VARCHAR2(100) PRIMARY KEY,
+  email VARCHAR2(100),
   password VARCHAR2(100),
   role VARCHAR2(20),
+  PRIMARY KEY (email),
 );
 
 CREATE TABLE AssistantUser (
-  userEmail VARCHAR2(100) PRIMARY KEY,
+  userEmail VARCHAR2(100),
   assistantId NUMBER UNIQUE,
+  PRIMARY KEY (userEmail),
   FOREIGN KEY (userEmail) REFERENCES User(email),
   FOREIGN KEY (assistantId) REFERENCES Assistant(id),
 );
