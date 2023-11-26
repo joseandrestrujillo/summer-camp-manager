@@ -1,1 +1,0 @@
-{activityName: 'Act1', educativeLevel: TEENAGER, timeSlot: MORNING, maxAssistants: 5, neededMonitors: 1, assistants: [], monitors: [{id: 5, firstName: 'Pepe', lastName: 'Meñique', isSpecialEducator: false}]}
