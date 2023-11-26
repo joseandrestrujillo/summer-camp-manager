@@ -68,6 +68,8 @@ CREATE TABLE User (
 );
 
 CREATE TABLE AssistantUser (
-  userEmail NUMBER PRIMARY KEY,
+  userEmail VARCHAR2(100) PRIMARY KEY,
   assistantId NUMBER UNIQUE,
+  FOREIGN KEY (userEmail) REFERENCES User(email),
+  FOREIGN KEY (assistantId) REFERENCES Assistant(id),
 );
