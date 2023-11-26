@@ -74,18 +74,18 @@ public class InMemoryMontiorDAO implements IMonitorDAO {
 
 	@Override
 	public List<MonitorDTO> getMonitorsInAnActivity(ActivityDTO activity) {
-		if (this.mapsManager.getMapOfMonitorActivity().get(activity.getActivityName()) == null) {
-            this.mapsManager.getMapOfMonitorActivity().put(activity.getActivityName(), new ArrayList<MonitorDTO>());
+		if (this.mapsManager.getMapOfMonitorUser().get(activity.getActivityName()) == null) {
+            this.mapsManager.getMapOfMonitorUser().put(activity.getActivityName(), new ArrayList<MonitorDTO>());
         }
-		return this.mapsManager.getMapOfMonitorActivity().get(activity.getActivityName());
+		return this.mapsManager.getMapOfMonitorUser().get(activity.getActivityName());
 	}
 
 	@Override
 	public void saveAndRelateWithAnActivity(MonitorDTO monitor, ActivityDTO activity) {
-		if (this.mapsManager.getMapOfMonitorActivity().get(activity.getActivityName()) == null) {
-            this.mapsManager.getMapOfMonitorActivity().put(activity.getActivityName(), new ArrayList<MonitorDTO>());
+		if (this.mapsManager.getMapOfMonitorUser().get(activity.getActivityName()) == null) {
+            this.mapsManager.getMapOfMonitorUser().put(activity.getActivityName(), new ArrayList<MonitorDTO>());
         }
 		
-		this.mapsManager.getMapOfMonitorActivity().get(activity.getActivityName()).add(monitor);
+		this.mapsManager.getMapOfMonitorUser().get(activity.getActivityName()).add(monitor);
 	}
 }

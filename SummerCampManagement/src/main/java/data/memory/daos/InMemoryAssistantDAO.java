@@ -8,6 +8,8 @@ import business.dtos.ActivityDTO;
 import business.dtos.AssistantDTO;
 import business.dtos.CampDTO;
 import business.dtos.InscriptionDTO;
+import business.dtos.MonitorDTO;
+import business.dtos.UserDTO;
 import business.enums.TimeSlot;
 import business.exceptions.dao.NotFoundException;
 import business.interfaces.IAssistantDAO;
@@ -115,5 +117,14 @@ public class InMemoryAssistantDAO implements IAssistantDAO {
 			
 		}
 		return assistants;
+	}
+
+	@Override
+	public void saveAndRelateWithAnUser(AssistantDTO assistant, UserDTO user) {
+		if (this.mapsManager.getMapOfAssistantUser().get(user.getEmail()) == null) {
+            this.mapsManager.getMapOfAssistantUser().put(user.getEmail(), new ArrayList<AssistantDTO>());
+        }
+		
+		this.mapsManager.getMapOfAssistantUser().get(user.getEmail()).add(assistant);
 	}
 }

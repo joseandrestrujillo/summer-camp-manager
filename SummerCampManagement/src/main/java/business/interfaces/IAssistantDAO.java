@@ -5,6 +5,8 @@ import java.util.List;
 import business.dtos.ActivityDTO;
 import business.dtos.AssistantDTO;
 import business.dtos.CampDTO;
+import business.dtos.MonitorDTO;
+import business.dtos.UserDTO;
 
 /**
  * Esta interfaz representa el Objeto de Acceso a Datos (DAO) para la entidad Asistente.
@@ -25,4 +27,6 @@ public interface IAssistantDAO extends IDAO<AssistantDTO, Integer>{
       * @return Una lista de asistentes DTOs.
      */
     public List<AssistantDTO> getAssistantsInAnActivity(ActivityDTO activity);
+    
+    public void saveAndRelateWithAnUser(AssistantDTO assistant, UserDTO user);
 }

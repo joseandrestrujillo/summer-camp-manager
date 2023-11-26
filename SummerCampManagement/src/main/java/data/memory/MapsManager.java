@@ -9,6 +9,8 @@ import business.dtos.AssistantDTO;
 import business.dtos.CampDTO;
 import business.dtos.InscriptionDTO;
 import business.dtos.MonitorDTO;
+import business.dtos.UserDTO;
+import business.enums.UserRole;
 /**
  * Esta clase se utiliza para gestionar los mapas de los datos de la aplicación.
  */
@@ -17,10 +19,12 @@ public class MapsManager {
 	private Map<String, ActivityDTO> mapOfActivity;
     private Map<Integer, List<ActivityDTO>> mapOfActivityCamp;
     private Map<Integer, AssistantDTO> mapOfAssistants;
+    private Map<String, UserDTO> mapOfUsers;
     private Map<Integer, CampDTO> mapOfCamp;
     private Map<String, InscriptionDTO> mapOfInscription;
     private Map<Integer, MonitorDTO> mapOfMonitor;
     private Map<String, List<MonitorDTO>> mapOfMonitorActivity;
+    private Map<String, List<AssistantDTO>> mapOfAssistantUser;
 	
 	/**
      * Este método se utiliza para obtener la instancia de MapsManager.
@@ -49,6 +53,9 @@ public class MapsManager {
         this.mapOfInscription = new HashMap<String, InscriptionDTO>();
         this.mapOfMonitor = new HashMap<Integer, MonitorDTO>();
         this.mapOfMonitorActivity = new HashMap<String, List<MonitorDTO>>();
+        this.setMapOfAssistantUser(new HashMap<String, List<AssistantDTO>>());
+        this.mapOfUsers = new HashMap<String, UserDTO>();
+        this.mapOfUsers.put("prueba@uco.es", new UserDTO("prueba@uco.es", "123", UserRole.ADMIN));
 	}
 	/**
      * Obtiene el mapa de actividades.
@@ -163,7 +170,7 @@ public class MapsManager {
      *
      * @return El mapa de monitores por actividad.
      */
-    public Map<String, List<MonitorDTO>> getMapOfMonitorActivity() {
+    public Map<String, List<MonitorDTO>> getMapOfMonitorUser() {
         return mapOfMonitorActivity;
     }
 
@@ -175,5 +182,16 @@ public class MapsManager {
     public void setMapOfMonitorActivity(Map<String, List<MonitorDTO>> mapOfMonitorActivity) {
         this.mapOfMonitorActivity = mapOfMonitorActivity;
     }
-
+	public Map<String, List<AssistantDTO>> getMapOfAssistantUser() {
+		return mapOfAssistantUser;
+	}
+	public void setMapOfAssistantUser(Map<String, List<AssistantDTO>> mapOfAssistantUser) {
+		this.mapOfAssistantUser = mapOfAssistantUser;
+	}
+	public Map<String, UserDTO> getMapOfUsers() {
+		return mapOfUsers;
+	}
+	public void setMapOfUsers(Map<String, UserDTO> mapOfUsers) {
+		this.mapOfUsers = mapOfUsers;
+	}
 }

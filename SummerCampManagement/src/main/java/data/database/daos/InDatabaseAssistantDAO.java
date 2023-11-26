@@ -13,6 +13,7 @@ import java.sql.SQLTimeoutException;
 import business.dtos.ActivityDTO;
 import business.dtos.AssistantDTO;
 import business.dtos.CampDTO;
+import business.dtos.UserDTO;
 import business.exceptions.dao.DAOTimeoutException;
 import business.exceptions.dao.NotFoundException;
 import business.interfaces.IAssistantDAO;
@@ -177,6 +178,23 @@ public class InDatabaseAssistantDAO implements IAssistantDAO{
 	@Override
 	public List<AssistantDTO> getAssistantsInAnActivity(ActivityDTO activity) {
 		return getAll(Optional.of(new AssistantInActivityCriteria(activity.getActivityName())));
+	}
+	@Override
+	public void saveAndRelateWithAnUser(AssistantDTO assistant, UserDTO user) {
+		save(assistant);
+		try{
+    		Connection con = this.dbConnection.getConnection();
+    		PreparedStatement ps = con.prepareStatement(
+    				this.dbConnection.getQuery("UPDATE_ASSISTANT_USER_RELATION_QUERY")
+			);
+    		
+    		ps.setString(1, user.getEmail());
+    		ps.setInt(2, assistant.getId());
+    		
+    		ps.executeUpdate();
+    	} catch(Exception e) { 
+    		throw new RuntimeException(e);
+		}		
 	}
 
 }
