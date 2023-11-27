@@ -10,6 +10,7 @@ import business.interfaces.IMonitorDAO;
 import business.managers.AssistantsManager;
 import business.managers.CampsManager;
 import business.managers.InscriptionManager;
+import business.managers.UsersManager;
 import data.database.daos.*;
 import data.memory.daos.*;
 
@@ -25,6 +26,7 @@ public class Container {
 	private AssistantsManager assistantsManager;
 	private CampsManager campsManager;
 	private InscriptionManager inscriptionManager;
+	private UsersManager userManager;
 	
 	
 	public static Container getInstance() {
@@ -63,6 +65,7 @@ public class Container {
 		this.assistantsManager = new AssistantsManager(this.assistantRepository);
 		this.campsManager = new CampsManager(this.campRepository, this.activityRepository, this.monitorRepository);
 		this.inscriptionManager = new InscriptionManager(this.campRepository, this.activityRepository, this.assistantRepository, this.inscriptionRepository);
+		this.userManager = new UsersManager(this.userRepository, this.assistantRepository);
 	}
 
 	public AssistantsManager getAssistantsManager() {
@@ -75,5 +78,9 @@ public class Container {
 
 	public InscriptionManager getInscriptionManager() {
 		return inscriptionManager;
+	}
+
+	public UsersManager getUserManager() {
+		return userManager;
 	}
 }

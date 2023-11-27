@@ -55,7 +55,6 @@ public class MapsManager {
         this.mapOfMonitorActivity = new HashMap<String, List<MonitorDTO>>();
         this.setMapOfAssistantUser(new HashMap<String, List<AssistantDTO>>());
         this.mapOfUsers = new HashMap<String, UserDTO>();
-        this.mapOfUsers.put("prueba@uco.es", new UserDTO("prueba@uco.es", "123", UserRole.ADMIN));
 	}
 	/**
      * Obtiene el mapa de actividades.

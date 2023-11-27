@@ -196,5 +196,9 @@ public class InDatabaseAssistantDAO implements IAssistantDAO{
     		throw new RuntimeException(e);
 		}		
 	}
+	@Override
+	public List<AssistantDTO> getAssistantsRelatedWithAnUser(UserDTO user) {
+		return getAll(Optional.of(new AssistantInActivityCriteria(user.getEmail())));
+	}
 
 }

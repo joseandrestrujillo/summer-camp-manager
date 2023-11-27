@@ -28,5 +28,8 @@ public interface IAssistantDAO extends IDAO<AssistantDTO, Integer>{
      */
     public List<AssistantDTO> getAssistantsInAnActivity(ActivityDTO activity);
     
+    public List<AssistantDTO> getAssistantsRelatedWithAnUser(UserDTO user);
+    
     public void saveAndRelateWithAnUser(AssistantDTO assistant, UserDTO user);
+    
 }

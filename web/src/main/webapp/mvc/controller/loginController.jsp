@@ -1,7 +1,8 @@
+<%@page import="business.exceptions.user.WrongCredentialsException"%>
 <%@page import="business.exceptions.dao.NotFoundException"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import ="business.dtos.UserDTO,data.database.daos.InDatabaseUserDAO" %>
+<%@ page import ="business.dtos.UserDTO,display.web.Container" %>
 <jsp:useBean  id="customerBean" scope="session" class="display.web.javabean.CustomerBean"></jsp:useBean>
 <%
 String nextPage = "../../index.jsp";
@@ -12,21 +13,14 @@ if (customerBean == null || customerBean.getEmailUser().equals("")) {
 	String passwordUser = request.getParameter("password");
 
 	if (emailUser != null && passwordUser != null) {
-		InDatabaseUserDAO userDAO = new InDatabaseUserDAO();
-
 		try {
-			UserDTO user = userDAO.find(emailUser);
-			if (user.getEmail().equalsIgnoreCase(emailUser) && user.getPassword().equals(passwordUser)) {
+				UserDTO user = Container.getInstance().getUserManager().verifyCredentials(emailUser, passwordUser);
 				customerBean.setEmailUser(emailUser);
 				customerBean.setPasswordUser(passwordUser);
 				customerBean.setRoleUser(user.getRole().name());
 				response.sendRedirect(nextPage);
-			} else {
-				mensajeNextPage = "Credenciales incorrectas";
-				error = true;
-			}
-		} catch (NotFoundException e) {			
-			mensajeNextPage = "El usuario que ha indicado no existe";
+		} catch (WrongCredentialsException e) {			
+			mensajeNextPage = "El email o la contraseña son incorrectos";
 			error = true;
 		}
 

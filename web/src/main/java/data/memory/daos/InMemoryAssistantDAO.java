@@ -127,4 +127,15 @@ public class InMemoryAssistantDAO implements IAssistantDAO {
 		
 		this.mapsManager.getMapOfAssistantUser().get(user.getEmail()).add(assistant);
 	}
+
+	@Override
+	public List<AssistantDTO> getAssistantsRelatedWithAnUser(UserDTO user) {
+		List<AssistantDTO> assistants = new ArrayList<AssistantDTO>();
+		
+		if (this.mapsManager.getMapOfAssistantUser().get(user.getEmail()) != null) {
+			assistants = this.mapsManager.getMapOfAssistantUser().get(user.getEmail());
+		}
+		
+		return assistants;
+	}
 }
