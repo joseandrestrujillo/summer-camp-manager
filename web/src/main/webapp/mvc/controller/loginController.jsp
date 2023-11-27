@@ -1,7 +1,7 @@
 <%@page import="business.exceptions.dao.NotFoundException"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import ="business.dtos.UserDTO,data.memory.daos.InMemoryUserDAO" %>
+<%@ page import ="business.dtos.UserDTO,data.database.daos.InDatabaseUserDAO" %>
 <jsp:useBean  id="customerBean" scope="session" class="display.web.javabean.CustomerBean"></jsp:useBean>
 <%
 String nextPage = "../../index.jsp";
@@ -12,7 +12,7 @@ if (customerBean == null || customerBean.getEmailUser().equals("")) {
 	String passwordUser = request.getParameter("password");
 
 	if (emailUser != null && passwordUser != null) {
-		InMemoryUserDAO userDAO = new InMemoryUserDAO();
+		InDatabaseUserDAO userDAO = new InDatabaseUserDAO();
 
 		try {
 			UserDTO user = userDAO.find(emailUser);

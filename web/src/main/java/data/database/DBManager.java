@@ -45,7 +45,7 @@ public class DBManager {
 		this.queries = new HashMap<String, String>();
 		Properties prop = new Properties();
 		try {
-			InputStream pathConfig = getClass().getClassLoader().getResourceAsStream("/config.properties");
+			InputStream pathConfig = getClass().getClassLoader().getResourceAsStream("config.properties");
 			BufferedReader reader = new BufferedReader(new InputStreamReader(pathConfig));
 			prop.load(reader);
 
@@ -62,7 +62,7 @@ public class DBManager {
 		}
 
 		try {
-			InputStream pathSQL = getClass().getClassLoader().getResourceAsStream("/sql.properties");
+			InputStream pathSQL = getClass().getClassLoader().getResourceAsStream("sql.properties");
 			BufferedReader reader = new BufferedReader(new InputStreamReader(pathSQL));
 			prop.load(reader);
 

@@ -2,7 +2,7 @@
 <%@page import="business.enums.UserRole"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import ="business.dtos.UserDTO,data.memory.daos.InMemoryUserDAO" %>
+<%@ page import ="business.dtos.UserDTO,data.database.daos.InDatabaseUserDAO" %>
 <jsp:useBean  id="customerBean" scope="session" class="display.web.javabean.CustomerBean"></jsp:useBean>
 <%
 String nextPage = "../../index.jsp";
@@ -15,7 +15,7 @@ if (customerBean == null || customerBean.getEmailUser().equals("")) {
 	
 	if (emailUser != null && passwordUser != null && roleString != null) {
 		UserRole roleUser = UserRole.valueOf(roleString);
-		InMemoryUserDAO userDAO = new InMemoryUserDAO();
+		InDatabaseUserDAO userDAO = new InDatabaseUserDAO();
 		UserDTO user;		
 		
 		try {
