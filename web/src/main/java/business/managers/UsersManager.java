@@ -6,6 +6,7 @@ import java.util.List;
 import business.dtos.AssistantDTO;
 import business.dtos.UserDTO;
 import business.enums.UserRole;
+import business.exceptions.assistant.AssistantNotFoundException;
 import business.exceptions.dao.NotFoundException;
 import business.exceptions.user.InvalidRoleException;
 import business.exceptions.user.RegisterException;
@@ -73,4 +74,32 @@ public class UsersManager {
 			return false;
 		}
 	}
+	
+	public AssistantDTO getAssistantInfo(String email) {
+		try {			
+			List<AssistantDTO> result = this.assistantDAO.getAssistantsRelatedWithAnUser(new UserDTO(email, null, null));
+			if(result.size() == 0) {
+				return null;
+			}
+			return result.get(0);
+		} catch (NotFoundException e) {
+			return null;
+		}
+	}
+	
+	public void updateUser(UserDTO user) {
+        if (!isRegistered(user)) {
+            throw new AssistantNotFoundException();
+        }
+        this.userDAO.save(user);
+    }
+	
+	public boolean isRegistered(UserDTO user) {
+        try {
+            this.userDAO.find(user.getEmail());
+            return true;
+        } catch (NotFoundException e) {
+            return false;
+        }
+    }
 }

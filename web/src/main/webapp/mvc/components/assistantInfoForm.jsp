@@ -3,26 +3,35 @@
     
 <%
 
-String formAction = request.getParameter("formAction");
+String dniAttribute = request.getParameter("dniAttribute");
+String birthDateAttribute = request.getParameter("birthDateAttribute");
+
+String firstNameValue = request.getParameter("firstNameValue");
+firstNameValue = firstNameValue == null ? "" : "value='" + firstNameValue + "'";
+
+String lastNameValue = request.getParameter("lastNameValue");
+lastNameValue = lastNameValue == null ? "" : "value='" + lastNameValue + "'";
+
+String dniValue = request.getParameter("dniValue");
+dniValue = dniValue == null ? "" : "value='" + dniValue + "'";
+
+String birthDateValue = request.getParameter("birthDateValue");
+
+birthDateValue = birthDateValue == null ? "" : "value=\"" + birthDateValue + "\"";
 
 %>
-
-
-<form action="<%=formAction%>" method="post">
-    <label for="dni">DNI</label>
-    <input type="text" id="dni" name="dni" pattern="[0-9]{8}[A-Z]" required>
-    <br>
-    <label for="firstName">Nombre</label>
-    <input type="text" id="firstName" name="firstName" placeholder="Nombre" required>
-    <br>
-    <label for="lastName">Apellidos</label>
-    <input type="text" id="lastName" name="lastName" placeholder="Apellidos" required>
-    <br>
-    <label for="birthDate">Fecha de nacimiento</label>
-    <input type="date" id="birthDate" name="birthDate" required>
-    <br>
-    <label for="requireSpecialAttention">Requiere atención especial</label>
-    <input type="checkbox" id="requireSpecialAttention" name="requireSpecialAttention" value="true">
-    <br>
-   	<button type="submit">Enviar</button>
-</form>
+<label for="dni">DNI</label>
+<input type="text" id="dni" name="dni" pattern="[0-9]{8}[A-Z]" <%= dniAttribute %> <%= dniValue %>>
+<br>
+<label for="firstName">Nombre</label>
+<input type="text" id="firstName" name="firstName" placeholder="Nombre" required <%= firstNameValue %>>
+<br>
+<label for="lastName">Apellidos</label>
+<input type="text" id="lastName" name="lastName" placeholder="Apellidos" required <%= lastNameValue %>>
+<br>
+<label for="birthDate">Fecha de nacimiento</label>
+<input type="date" id="birthDate" name="birthDate" <%= birthDateAttribute %> <%= birthDateValue %>>
+<br>
+<label for="requireSpecialAttention">Requiere atención especial</label>
+<input type="checkbox" id="requireSpecialAttention" name="requireSpecialAttention" value="true">
+<br>

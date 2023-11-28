@@ -7,6 +7,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <jsp:useBean  id="customerBean" scope="session" class="display.web.javabean.CustomerBean"></jsp:useBean>
+<jsp:useBean  id="assistantBean" scope="session" class="display.web.javabean.AssistantInfoBean"></jsp:useBean>
+
 <%
 String nextPage = "../../index.jsp";
 String mensajeNextPage = "";
@@ -31,6 +33,12 @@ if (customerBean != null) {
 			
 			Container.getInstance().getAssistantsManager().registerAssistant(assistantDTO);
 			Container.getInstance().getUserManager().registerAssitantInfo(customerBean.getEmailUser(), dni);
+			
+			assistantBean.setDni(dni);
+			assistantBean.setFirstName(assistantFirstName);
+			assistantBean.setLastName(assistantLastName);
+			assistantBean.setBirthDate(assistantBirthDate.replace('-', '/'));
+			assistantBean.setRequireSpecialAttention(requireSpecialAttention);
 		}
 	}
 }

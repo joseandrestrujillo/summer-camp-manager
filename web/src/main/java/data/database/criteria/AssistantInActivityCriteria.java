@@ -8,9 +8,9 @@ import com.mysql.jdbc.Connection;
 import business.interfaces.ICriteria;
 import data.database.DBManager;
 public class AssistantInActivityCriteria implements ICriteria{
-	private String email;
-	public AssistantInActivityCriteria(String email) {
-		this.email = email;
+	private String activityName;
+	public AssistantInActivityCriteria(String activityName) {
+		this.activityName = activityName;
 	}
 	@Override
 	public <T> T applyCriteria(T obj) {
@@ -19,10 +19,10 @@ public class AssistantInActivityCriteria implements ICriteria{
 		try {
 			Connection con = (Connection) ((PreparedStatement) obj).getConnection();
 			
-			String query = dbConnection.getQuery("GET_ASSISTANTS_RELATED_WITH_AN_USER_QUERY");
+			String query = dbConnection.getQuery("GET_ASSISTANTS_OF_AN_ACTIVITY_QUERY");
 			stmt = con.prepareStatement(query);
 			
-			stmt.setString(1, email);
+			stmt.setString(1, activityName);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
