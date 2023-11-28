@@ -1,7 +1,6 @@
+<%@page import="business.exceptions.user.InvalidRoleException"%>
 <%@page import="business.exceptions.user.RegisterException"%>
 <%@page import="business.exceptions.user.UserAlreadyExistsException"%>
-<%@page import="business.exceptions.user.InvalidRoleException"%>
-<%@page import="business.exceptions.dao.NotFoundException"%>
 <%@page import="business.enums.UserRole"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>

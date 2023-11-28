@@ -16,15 +16,17 @@
 		%>
 			<a href="./mvc/controller/loginController.jsp">Acceder</a>
 			<a href="./mvc/controller/registerController.jsp">Registrarse</a>
-		<% } else { 
-			if (customerBean.getRoleUser() == UserRole.ASSISTANT.name()) {
+		<% 
+		} else { 
+			if (customerBean.getRoleUser().equals(UserRole.ASSISTANT.name())) {
 				if(!Container.getInstance().getUserManager().hasAssistantInfo(customerBean.getEmailUser())) {
 					response.sendRedirect("./mvc/controller/registerAssistantController.jsp");
 				}
 			}
 		%>
 			¡¡Bienvenido <jsp:getProperty property="emailUser" name="customerBean"/>!! 
-			<a href="./mvc/controller/logoutController.jsp">Cerrar sesion</a>
+			<a href="./mvc/controller/modifyUserController.jsp">Modificar datos de usuario</a>
+			<a href="./mvc/controller/logoutController.jsp">Desconectar</a>
 		<% 
 		} 
 		%>
