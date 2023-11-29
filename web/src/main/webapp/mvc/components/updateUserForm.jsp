@@ -36,11 +36,14 @@ String birthDateFormatted = localDate.format(DateTimeFormatter.ofPattern("yyyy-M
 <%
 
 if (role.equals(UserRole.ASSISTANT.name())){
+	
+String requireSpecialAttentionAttributes = "disabled" + (requireSpecialAttention.equals("true") ? " selected" : "");
 %>
 
 <jsp:include page="./assistantInfoForm.jsp">
 	<jsp:param name="dniAttribute" value="disabled"/>
 	<jsp:param name="birthDateAttribute" value="disabled"/>
+	<jsp:param name="requireSpecialAttentionAttributes" value="<%= requireSpecialAttentionAttributes %>"/>
 	<jsp:param name="firstNameValue" value="<%= firstName %>"/>
 	<jsp:param name="lastNameValue" value="<%= lastName %>"/>
 	<jsp:param name="dniValue" value="<%= dni %>"/>

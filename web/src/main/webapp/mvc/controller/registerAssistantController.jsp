@@ -28,7 +28,7 @@ if (customerBean != null) {
 			error = true;
 		} else {		
 			int dni = Integer.valueOf(assistantDni.substring(0, 8));
-			Date date = Utils.parseDate(assistantBirthDate.replace('-', '/'));
+			Date date = Utils.parseDateBrowserFormat(assistantBirthDate);
 			AssistantDTO assistantDTO = new AssistantDTO(dni, assistantFirstName, assistantLastName, date, requireSpecialAttention);
 			
 			Container.getInstance().getAssistantsManager().registerAssistant(assistantDTO);
@@ -37,7 +37,7 @@ if (customerBean != null) {
 			assistantBean.setDni(dni);
 			assistantBean.setFirstName(assistantFirstName);
 			assistantBean.setLastName(assistantLastName);
-			assistantBean.setBirthDate(assistantBirthDate.replace('-', '/'));
+			assistantBean.setBirthDate(Utils.getStringDate(date));
 			assistantBean.setRequireSpecialAttention(requireSpecialAttention);
 		}
 	}

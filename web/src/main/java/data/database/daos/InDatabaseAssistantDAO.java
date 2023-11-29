@@ -21,6 +21,7 @@ import business.interfaces.ICriteria;
 import data.database.DBManager;
 import data.database.criteria.AssistantInActivityCriteria;
 import data.database.criteria.AssistantInCampCriteria;
+import data.database.criteria.AssistantRelatedWithUserCriteria;
 
 
 /**
@@ -198,7 +199,7 @@ public class InDatabaseAssistantDAO implements IAssistantDAO{
 	}
 	@Override
 	public List<AssistantDTO> getAssistantsRelatedWithAnUser(UserDTO user) {
-		return getAll(Optional.of(new AssistantInActivityCriteria(user.getEmail())));
+		return getAll(Optional.of(new AssistantRelatedWithUserCriteria(user.getEmail())));
 	}
 
 }

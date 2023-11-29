@@ -73,4 +73,12 @@ public class Utils {
     public static Date getCurrentDate() {
         return new Date();
     }
+    
+    public static Date parseDateBrowserFormat(String dateString) {
+	    try {
+	        return new SimpleDateFormat("yyyy-MM-dd").parse(dateString);
+	    } catch (ParseException e) {
+	        return null;
+	    }
+	}
 }

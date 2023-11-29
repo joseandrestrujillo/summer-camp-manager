@@ -5,6 +5,7 @@
 
 String dniAttribute = request.getParameter("dniAttribute");
 String birthDateAttribute = request.getParameter("birthDateAttribute");
+String requireSpecialAttentionAttributes = request.getParameter("requireSpecialAttentionAttributes");
 
 String firstNameValue = request.getParameter("firstNameValue");
 firstNameValue = firstNameValue == null ? "" : "value='" + firstNameValue + "'";
@@ -33,5 +34,5 @@ birthDateValue = birthDateValue == null ? "" : "value=\"" + birthDateValue + "\"
 <input type="date" id="birthDate" name="birthDate" <%= birthDateAttribute %> <%= birthDateValue %>>
 <br>
 <label for="requireSpecialAttention">Requiere atención especial</label>
-<input type="checkbox" id="requireSpecialAttention" name="requireSpecialAttention" value="true">
+<input type="checkbox" id="requireSpecialAttention" name="requireSpecialAttention" value="true" <%= requireSpecialAttentionAttributes %>>
 <br>
