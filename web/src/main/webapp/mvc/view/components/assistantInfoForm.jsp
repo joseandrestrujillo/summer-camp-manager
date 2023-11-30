@@ -21,6 +21,7 @@ String birthDateValue = request.getParameter("birthDateValue");
 birthDateValue = birthDateValue == null ? "" : "value=\"" + birthDateValue + "\"";
 
 %>
+
 <label for="dni">DNI</label>
 <input type="text" id="dni" name="dni" pattern="[0-9]{8}[A-Z]" <%= dniAttribute %> <%= dniValue %>>
 <br>

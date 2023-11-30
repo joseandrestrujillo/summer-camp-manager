@@ -1,8 +1,8 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@page import="java.time.format.DateTimeFormatter"%>
 <%@page import="java.time.LocalDate"%>
 <%@page import="business.enums.UserRole"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
     
 <%
 
@@ -37,18 +37,18 @@ String birthDateFormatted = localDate.format(DateTimeFormatter.ofPattern("yyyy-M
 
 if (role.equals(UserRole.ASSISTANT.name())){
 	
-String requireSpecialAttentionAttributes = "disabled" + (requireSpecialAttention.equals("true") ? " selected" : "");
+	String requireSpecialAttentionAttributes = "disabled" + (requireSpecialAttention.equals("true") ? " selected" : "");
 %>
 
-<jsp:include page="./assistantInfoForm.jsp">
-	<jsp:param name="dniAttribute" value="disabled"/>
-	<jsp:param name="birthDateAttribute" value="disabled"/>
-	<jsp:param name="requireSpecialAttentionAttributes" value="<%= requireSpecialAttentionAttributes %>"/>
-	<jsp:param name="firstNameValue" value="<%= firstName %>"/>
-	<jsp:param name="lastNameValue" value="<%= lastName %>"/>
-	<jsp:param name="dniValue" value="<%= dni %>"/>
-	<jsp:param name="birthDateValue" value="<%= birthDateFormatted %>"/>
-</jsp:include>
+	<jsp:include page="./assistantInfoForm.jsp">
+		<jsp:param name="dniAttribute" value="disabled"/>
+		<jsp:param name="birthDateAttribute" value="disabled"/>
+		<jsp:param name="requireSpecialAttentionAttributes" value="<%= requireSpecialAttentionAttributes %>"/>
+		<jsp:param name="firstNameValue" value="<%= firstName %>"/>
+		<jsp:param name="lastNameValue" value="<%= lastName %>"/>
+		<jsp:param name="dniValue" value="<%= dni %>"/>
+		<jsp:param name="birthDateValue" value="<%= birthDateFormatted %>"/>
+	</jsp:include>
 
 <%
 }

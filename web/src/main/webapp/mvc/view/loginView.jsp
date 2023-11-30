@@ -9,28 +9,25 @@
 <title>Log in</title>
 </head>
 <body>
-<%
-String nextPage = "../controller/loginController.jsp";
-String messageNextPage = request.getParameter("message");
-if (messageNextPage == null) messageNextPage = "";
-
-if (customerBean != null && !customerBean.getEmailUser().equals("")) {
-	nextPage = "../../index.jsp";
-} else {
-%>
-<%= messageNextPage %><br/><br/>
-<form method="post" action="../controller/loginController.jsp">
-	<label for="email">Email: </label>
-	<input type="text" name="email">	
+	<%
+	String nextPage = "../controller/loginController.jsp";
+	String messageNextPage = request.getParameter("message");
+	
+	%>
+	
+	<%= messageNextPage %>
 	<br/>
-	<label for="password">Password: </label>
-	<input type="password" name="password">
-	<br/>
-	<input type="submit" value="Submit">
-</form>
-<%
-}
-%>
-
+	
+	<form method="post" action="../controller/loginController.jsp">
+		<label for="email">Email: </label>
+		<input type="text" name="email">	
+		<br/>
+		<label for="password">Password: </label>
+		<input type="password" name="password">
+		<br/>
+		<input type="submit" value="Entrar">
+	</form>
+	<a href="../controller/registerController.jsp">Registrarse</a>
+	
 </body>
 </html>

@@ -13,7 +13,7 @@
 <body>
 	<h1>Modificar datos de usuario</h1>
 	<form action="../controller/modifyUserController.jsp" method="post">
-		<jsp:include page="../components/updateUserForm.jsp">
+		<jsp:include page="./components/updateUserForm.jsp">
 			<jsp:param name="email" value="<%= customerBean.getEmailUser() %>"/>
 			<jsp:param name="password" value="<%= customerBean.getPasswordUser() %>"/>
 			<jsp:param name="role" value="<%= customerBean.getRoleUser() %>"/>
@@ -23,7 +23,8 @@
 			<jsp:param name="birthDate" value="<%= assistantBean.getBirthDate() %>"/>
 			<jsp:param name="requireSpecialAttention" value="<%= assistantBean.isRequireSpecialAttention() %>"/>
 		</jsp:include>
-		<button type="submit">Guardar</button>
+		
+	 	<input type="submit" value="Guardar"/>
 	</form>
 </body>
 </html>

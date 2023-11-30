@@ -13,11 +13,11 @@
 	
     <h1>Introduzca su información de asistente</h1>
 	<form action="../controller/registerAssistantController.jsp" method="post">
-		<jsp:include page="../components/assistantInfoForm.jsp">
+		<jsp:include page="./components/assistantInfoForm.jsp">
 				<jsp:param name="dniAttribute" value="required"/>
 				<jsp:param name="birthDateAttribute" value="required"/>
 	 	</jsp:include>
-		<button type="submit">Enviar</button>
+	 	<input type="submit" value="Guardar"/>
  	</form>
 </body>
 </html>

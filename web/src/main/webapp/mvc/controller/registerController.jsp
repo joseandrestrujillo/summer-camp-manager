@@ -9,39 +9,30 @@
 <%
 String nextPage = "../../index.jsp";
 String mensajeNextPage = "";
-boolean error = false;
-if (customerBean == null || customerBean.getEmailUser().equals("")) {
-	String emailUser = request.getParameter("email");
-	String passwordUser = request.getParameter("password");
-	String roleString = request.getParameter("role");
-	
-	if (emailUser != null && passwordUser != null && roleString != null) {
-		try {
-			Container.getInstance().getUserManager().registerUser(emailUser, passwordUser, roleString);
-			customerBean.setEmailUser(emailUser);
-			customerBean.setPasswordUser(passwordUser);
-			customerBean.setRoleUser(roleString);
-			response.sendRedirect(nextPage);			
-		}catch (InvalidRoleException e) {
-			mensajeNextPage = "El role proporcionado es invalido.";
-			error = true;
-		}catch (UserAlreadyExistsException e) {
-			mensajeNextPage = "Ya existe un usuario con ese email.";
-			error = true;
-		}catch (RegisterException e) {
-			mensajeNextPage = "Error al registrar";
-			error = true;
-		}
+
+String emailUser = request.getParameter("email");
+String passwordUser = request.getParameter("password");
+String roleString = request.getParameter("role");
+
+if (emailUser != null && passwordUser != null && roleString != null) {
+	try {
+		Container.getInstance().getUserManager().registerUser(emailUser, passwordUser, roleString);
+		customerBean.setEmailUser(emailUser);
+		customerBean.setPasswordUser(passwordUser);
+		customerBean.setRoleUser(roleString);
+		response.sendRedirect(nextPage);	
+		return;
+	}catch (InvalidRoleException e) {
+		mensajeNextPage = "El role proporcionado es invalido.";
+	}catch (UserAlreadyExistsException e) {
+		mensajeNextPage = "Ya existe un usuario con ese email.";
+	}catch (RegisterException e) {
+		mensajeNextPage = "Error al registrar";
 	}
 }
 
-if ((customerBean == null || customerBean.getEmailUser().equals("")) || (error)) {
 %>
 
 <jsp:forward page="../view/registerView.jsp">
 	<jsp:param value="<%=mensajeNextPage%>" name="message"/>
 </jsp:forward>
-
-<%
-}
-%>

@@ -7,33 +7,26 @@
 <%
 String nextPage = "../../index.jsp";
 String mensajeNextPage = "";
-boolean error = false;
-if (customerBean == null || customerBean.getEmailUser().equals("")) {
-	String emailUser = request.getParameter("email");
-	String passwordUser = request.getParameter("password");
 
-	if (emailUser != null && passwordUser != null) {
-		try {
-				UserDTO user = Container.getInstance().getUserManager().verifyCredentials(emailUser, passwordUser);
-				customerBean.setEmailUser(emailUser);
-				customerBean.setPasswordUser(passwordUser);
-				customerBean.setRoleUser(user.getRole().name());
-				response.sendRedirect(nextPage);
-		} catch (WrongCredentialsException e) {			
-			mensajeNextPage = "El email o la contraseña son incorrectos";
-			error = true;
-		}
+String emailUser = request.getParameter("email");
+String passwordUser = request.getParameter("password");
 
+if (emailUser != null && passwordUser != null) {
+	try {
+			UserDTO user = Container.getInstance().getUserManager().verifyCredentials(emailUser, passwordUser);
+			customerBean.setEmailUser(emailUser);
+			customerBean.setPasswordUser(passwordUser);
+			customerBean.setRoleUser(user.getRole().name());
+			response.sendRedirect(nextPage);
+			return;
+	} catch (WrongCredentialsException e) {			
+		mensajeNextPage = "El email o la contraseña son incorrectos";
 	}
+
 }
 
-if ((customerBean == null || customerBean.getEmailUser().equals("")) || (error)) {
 %>
 
 <jsp:forward page="../view/loginView.jsp">
 	<jsp:param value="<%=mensajeNextPage%>" name="message"/>
 </jsp:forward>
-
-<%
-}
-%>
