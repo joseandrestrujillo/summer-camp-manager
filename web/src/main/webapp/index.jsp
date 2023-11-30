@@ -18,7 +18,7 @@
 		<%
 			if (customerBean.getRoleUser().equals(UserRole.ASSISTANT.name())) {
 				if(!Container.getInstance().getUserManager().hasAssistantInfo(customerBean.getEmailUser())) {
-					response.sendRedirect("./mvc/controller/registerAssistantController.jsp");
+					response.sendRedirect("/web/mvc/controller/registerAssistantController.jsp");
 				} else {
 					AssistantDTO assistant = Container.getInstance().getUserManager().getAssistantInfo(customerBean.getEmailUser());
 					assistantBean.setDni(assistant.getId());
@@ -32,7 +32,7 @@
 			}
 		%>
 		¡¡Bienvenido <jsp:getProperty property="emailUser" name="customerBean"/>!! 
-		<a href="./mvc/controller/modifyUserController.jsp">Modificar datos de usuario</a>
-		<a href="./mvc/controller/logoutController.jsp">Desconectar</a>
+		<a href="/web/mvc/controller/modifyUserController.jsp">Modificar datos de usuario</a>
+		<a href="/web/mvc/controller/logoutController.jsp">Desconectar</a>
 	</body>
 </html>

@@ -9,7 +9,7 @@
 </head>
 <body>
 	¡¡Bienvenido <jsp:getProperty property="emailUser" name="customerBean"/>!! 
-	<a href="./mvc/controller/logoutController.jsp">Cerrar sesion</a>
+	<a href="/web/mvc/controller/logoutController.jsp">Cerrar sesion</a>
 	
     <h1>Introduzca su información de asistente</h1>
 	<form action="../controller/registerAssistantController.jsp" method="post">

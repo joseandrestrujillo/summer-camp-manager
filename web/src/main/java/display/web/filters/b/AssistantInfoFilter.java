@@ -11,6 +11,10 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import business.managers.UsersManager;
+import display.web.Container;
+import display.web.javabean.CustomerBean;
+
 /**
  * Servlet Filter implementation class AssistantInfoFilter
  */
@@ -29,8 +33,19 @@ public class AssistantInfoFilter implements Filter {
 		boolean skipFilter = (boolean) httpRequest.getAttribute("skipFilter");
 		
 		if(!skipFilter) {
-			response.getWriter().append("AssistantInfoFilter");
-			httpRequest.setAttribute("skipFilter", true);
+	        CustomerBean customerBean = (CustomerBean) httpRequest.getSession().getAttribute("customerBean");
+	        if (customerBean.getRoleUser().equals("ASSISTANT")) {
+	        	UsersManager usersManager = Container.getInstance().getUserManager();
+	            String url = httpRequest.getRequestURI();
+	            String registerAssistantUrl = "/web/mvc/controller/registerAssistantController.jsp";
+	            
+	            if (!(usersManager.hasAssistantInfo(customerBean.getEmailUser()) || url.equals(registerAssistantUrl))) {
+	            	httpResponse.sendRedirect(registerAssistantUrl);
+	                return;
+	            } else if (url.equals(registerAssistantUrl)) {
+	        		httpRequest.setAttribute("skipFilter", true);
+	            }
+	        }
 		}
 		
 		chain.doFilter(request, response);

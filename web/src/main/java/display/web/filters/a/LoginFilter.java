@@ -32,14 +32,18 @@ public class LoginFilter implements Filter {
 
         String url = httpRequest.getRequestURI();
 
-        if ((url.equals("/web/mvc/controller/loginController.jsp") || url.equals("/web/mvc/controller/registerController.jsp")) && (customerBean == null || customerBean.getEmailUser().equals(""))) {
+        boolean isUserLogged = !(customerBean == null || customerBean.getEmailUser().equals(""));
+        
+        if ((url.endsWith("/loginController.jsp") || url.endsWith("/registerController.jsp")) && (customerBean == null || !isUserLogged)) {
     		httpRequest.setAttribute("skipFilter", true);
-        }else if (customerBean == null || customerBean.getEmailUser().equals("")) {
+        }else if (!isUserLogged) {
         	httpResponse.sendRedirect("/web/mvc/controller/loginController.jsp");
         	return;
         } else if (url.endsWith("/loginController.jsp") || url.endsWith("/registerController.jsp")) {
         	httpResponse.sendRedirect("/web");
         	return;
+        } else if (url.endsWith("/logoutController.jsp")) {
+    		httpRequest.setAttribute("skipFilter", true);
         }
 		
 		
