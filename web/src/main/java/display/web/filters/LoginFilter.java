@@ -1,4 +1,4 @@
-package display.web.filters.a;
+package display.web.filters;
 
 import java.io.IOException;
 import javax.servlet.Filter;
@@ -33,21 +33,32 @@ public class LoginFilter implements Filter {
         String url = httpRequest.getRequestURI();
 
         boolean isUserLogged = !(customerBean == null || customerBean.getEmailUser().equals(""));
+        boolean isGoingToRegisterOrLogin = (url.endsWith("/loginController.jsp") || url.endsWith("/registerController.jsp"));
+        boolean isGoingToLogout = url.endsWith("/logoutController.jsp");
         
-        if ((url.endsWith("/loginController.jsp") || url.endsWith("/registerController.jsp")) && (customerBean == null || !isUserLogged)) {
-    		httpRequest.setAttribute("skipFilter", true);
-        }else if (!isUserLogged) {
-        	httpResponse.sendRedirect("/web/mvc/controller/loginController.jsp");
-        	return;
-        } else if (url.endsWith("/loginController.jsp") || url.endsWith("/registerController.jsp")) {
-        	httpResponse.sendRedirect("/web");
-        	return;
-        } else if (url.endsWith("/logoutController.jsp")) {
-    		httpRequest.setAttribute("skipFilter", true);
+        if (isUserLogged) {        	
+        	if (isGoingToRegisterOrLogin) {
+        		httpResponse.sendRedirect("/web");
+        		return;
+        	}
+        	
+        	if (isGoingToLogout) {
+        		httpRequest.setAttribute("skipFilter", true);
+        		AssistantInfoFilter.doFilter(request, response, chain);
+        		return;
+        	}
+        } else  {        	
+        	if (isGoingToRegisterOrLogin) {
+        		httpRequest.setAttribute("skipFilter", true);
+        		AssistantInfoFilter.doFilter(request, response, chain);
+        		return;
+        	} else {        		
+        		httpResponse.sendRedirect("/web/mvc/controller/loginController.jsp");
+        		return;
+        	}
         }
-		
-		
-		chain.doFilter(request, response);
+        
+		AssistantInfoFilter.doFilter(request, response, chain);
     }
 
 	public void init(FilterConfig fConfig) throws ServletException {

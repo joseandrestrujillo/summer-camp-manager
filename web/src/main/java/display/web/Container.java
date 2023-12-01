@@ -37,7 +37,7 @@ public class Container {
 	}
 	
 	private Container() {
-		this.configureMemoryPersistence();
+		this.configureDatabasePersistence();
 		this.setUpManagers();
 	}
 	

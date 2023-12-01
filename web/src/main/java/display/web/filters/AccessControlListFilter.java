@@ -1,4 +1,4 @@
-package display.web.filters.c;
+package display.web.filters;
 
 import java.io.IOException;
 import javax.servlet.Filter;
@@ -11,33 +11,34 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import display.web.AccessControlList;
+import display.web.javabean.CustomerBean;
+
 /**
  * Servlet Filter implementation class AccessControlListFilter
  */
-@WebFilter("/*")
-public class AccessControlListFilter implements Filter {
-       
-	public AccessControlListFilter() {
-    }
+public class AccessControlListFilter {
 
-	public void destroy() {
-	}
-
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+	public static void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
 		boolean skipFilter = (boolean) httpRequest.getAttribute("skipFilter");
 		
-		if (!skipFilter) {			
-		
-			response.getWriter().append("AccessControlListFilter");
-		
+		if (skipFilter) {
+			chain.doFilter(request, response);
+			return;
 		}
 		
-		chain.doFilter(request, response);
-	}
+		CustomerBean customerBean = (CustomerBean) httpRequest.getSession().getAttribute("customerBean");
+		AccessControlList acl = AccessControlList.getInstance();
+        String url = httpRequest.getRequestURI();
 
-	public void init(FilterConfig fConfig) throws ServletException {
+		
+		if(! acl.isAllowed(url, customerBean)) {
+			httpResponse.sendRedirect("/web");
+    		return;
+		}
+			
+		
 	}
-
 }
