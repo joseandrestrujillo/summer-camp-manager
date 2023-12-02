@@ -6,6 +6,7 @@ import business.dtos.UserDTO;
 import business.interfaces.IActivityDAO;
 import business.interfaces.IAssistantDAO;
 import business.interfaces.IDAO;
+import business.interfaces.IInscriptionDAO;
 import business.interfaces.IMonitorDAO;
 import business.managers.AssistantsManager;
 import business.managers.CampsManager;
@@ -20,7 +21,7 @@ public class Container {
 	private IActivityDAO activityRepository;
 	private IMonitorDAO monitorRepository;
 	private IAssistantDAO assistantRepository;
-	private IDAO<InscriptionDTO, String> inscriptionRepository;
+	private IInscriptionDAO inscriptionRepository;
 	private IDAO<UserDTO, String> userRepository;
 	
 	private AssistantsManager assistantsManager;

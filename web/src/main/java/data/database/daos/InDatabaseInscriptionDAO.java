@@ -9,12 +9,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import business.dtos.CampDTO;
 import business.dtos.InscriptionDTO;
 import business.exceptions.dao.DAOTimeoutException;
 import business.exceptions.dao.NotFoundException;
 import business.interfaces.ICriteria;
 import business.interfaces.IDAO;
+import business.interfaces.IInscriptionDAO;
 import data.database.DBManager;
+import data.database.criteria.InscriptionOfACampCriteria;
 
 
 /**
@@ -22,7 +25,7 @@ import data.database.DBManager;
 
  */
 
-public class InDatabaseInscriptionDAO implements IDAO<InscriptionDTO, String> {
+public class InDatabaseInscriptionDAO implements IInscriptionDAO {
 	private DBManager dbConnection;
 	
 	/**
@@ -166,6 +169,7 @@ public class InDatabaseInscriptionDAO implements IDAO<InscriptionDTO, String> {
 			}
 			dbConnection.closeConnection();
 		} catch (Exception e){
+			System.out.println(e);
 			throw new DAOTimeoutException();
 		}
 		return listOfInscriptions;
@@ -193,4 +197,10 @@ public class InDatabaseInscriptionDAO implements IDAO<InscriptionDTO, String> {
 			throw new NotFoundException();
 		}
     }
+
+
+	@Override
+	public List<InscriptionDTO> getInscriptionOfACamp(CampDTO camp) {
+		return getAll(Optional.of(new InscriptionOfACampCriteria(camp.getCampID())));
+	}
 }

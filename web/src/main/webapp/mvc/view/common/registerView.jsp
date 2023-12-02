@@ -10,7 +10,6 @@
 </head>
 <body>
 	<%
-	String nextPage = "../controller/registerController.jsp";
 	String messageNextPage = request.getParameter("message");
 	%>
 	
@@ -18,8 +17,6 @@
 	<br/>
 	
 	<form method="post" action="../controller/registerController.jsp">
-	  <fieldset>
-	    <legend>Registro</legend>
 	    <label for="email">Email: </label>
 	    <input type="email" name="email" required>
 	    <br/>
@@ -33,10 +30,9 @@
 	    </select>
 	    <br/>
 	    <input type="submit" value="Registrar">
-	  </fieldset>
 	</form>
 	
-	<a href="../controller/loginController.jsp">Acceder</a>
+	<a href="../../controller/loginController.jsp">Acceder</a>
 	
 </body>
 </html>

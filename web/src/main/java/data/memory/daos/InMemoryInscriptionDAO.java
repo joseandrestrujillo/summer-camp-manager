@@ -4,17 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import business.dtos.CampDTO;
 import business.dtos.InscriptionDTO;
 import business.exceptions.dao.NotFoundException;
 import business.interfaces.ICriteria;
 import business.interfaces.IDAO;
+import business.interfaces.IInscriptionDAO;
 import data.memory.MapsManager;
 
 /**
  * La clase InMemoryInscriptionRepository es una implementación en memoria de un repositorio de inscripciones.
 
  */
-public class InMemoryInscriptionDAO implements IDAO<InscriptionDTO, String> {
+public class InMemoryInscriptionDAO implements IInscriptionDAO {
     private MapsManager mapsManager;
 
     /**
@@ -70,4 +72,10 @@ public class InMemoryInscriptionDAO implements IDAO<InscriptionDTO, String> {
     public void delete(InscriptionDTO obj) {
         this.mapsManager.getMapOfInscription().remove(obj.getInscriptionIdentifier());
     }
+
+	@Override
+	public List<InscriptionDTO> getInscriptionOfACamp(CampDTO camp) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

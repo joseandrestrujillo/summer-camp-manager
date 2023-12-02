@@ -33,6 +33,6 @@ if (emailUser != null && passwordUser != null && roleString != null) {
 
 %>
 
-<jsp:forward page="../view/registerView.jsp">
+<jsp:forward page="../view/common/registerView.jsp">
 	<jsp:param value="<%=mensajeNextPage%>" name="message"/>
 </jsp:forward>

@@ -5,6 +5,7 @@ import business.dtos.InscriptionDTO;
 import business.interfaces.IActivityDAO;
 import business.interfaces.IAssistantDAO;
 import business.interfaces.IDAO;
+import business.interfaces.IInscriptionDAO;
 import business.interfaces.IMonitorDAO;
 import data.database.daos.InDatabaseActivityDAO;
 import data.database.daos.InDatabaseAssistantDAO;
@@ -17,7 +18,7 @@ public class PersistenceConfiguration {
 	private IActivityDAO activityRepository;
 	private IMonitorDAO monitorRepository;
 	private IAssistantDAO assistantRepository;
-	private IDAO<InscriptionDTO, String> inscriptionRepository;
+	private IInscriptionDAO inscriptionRepository;
 	
 	private static PersistenceConfiguration instance;
 	public static PersistenceConfiguration setUp() {
@@ -51,7 +52,7 @@ public class PersistenceConfiguration {
 		return assistantRepository;
 	}
 
-	public IDAO<InscriptionDTO, String> getInscriptionRepository() {
+	public IInscriptionDAO getInscriptionRepository() {
 		return inscriptionRepository;
 	}
 }

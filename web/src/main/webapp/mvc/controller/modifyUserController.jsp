@@ -14,6 +14,15 @@
 String passwordUser = request.getParameter("password");
 String roleUser = request.getParameter("role");
 
+if(customerBean.getRoleUser().equals("ASSISTANT")){
+	AssistantDTO assistant = Container.getInstance().getUserManager().getAssistantInfo(customerBean.getEmailUser());
+	assistantBean.setDni(assistant.getId());
+	assistantBean.setFirstName(assistant.getFirstName());
+	assistantBean.setLastName(assistant.getLastName());
+	assistantBean.setBirthDate(Utils.getStringDate(assistant.getBirthDate()));
+	assistantBean.setRequireSpecialAttention(assistant.isRequireSpecialAttention());
+}
+
 if(passwordUser != null && roleUser != null) {
 	UserDTO user = new UserDTO(customerBean.getEmailUser(), passwordUser, UserRole.valueOf(roleUser));
 	Container.getInstance().getUserManager().updateUser(user);
@@ -24,19 +33,19 @@ if(passwordUser != null && roleUser != null) {
 		String requireSpecialAttentionString = request.getParameter("requireSpecialAttention");
 		
 		if(assistantFirstName != null && assistantLastName != null && requireSpecialAttentionString != null) {
-			AssistantDTO assistant = new AssistantDTO(
+			AssistantDTO assistantModified = new AssistantDTO(
 					assistantBean.getDni(), 
 					assistantFirstName,
 					assistantLastName,
 					Utils.parseDate(assistantBean.getBirthDate()),
 					requireSpecialAttentionString == "true" ? true : false);
-			Container.getInstance().getAssistantsManager().updateAssistant(assistant);
+			Container.getInstance().getAssistantsManager().updateAssistant(assistantModified);
 		}
 	}
 }
 
 %> 
     
-<jsp:forward page="../view/modifyUserView.jsp">
+<jsp:forward page="../view/common/modifyUserView.jsp">
 	<jsp:param value="" name="message"/>
 </jsp:forward>

@@ -22,6 +22,7 @@ import business.factories.EarlyRegisterInscriptionFactory;
 import business.factories.LateRegisterInscriptionFactory;
 import business.interfaces.IAssistantDAO;
 import business.interfaces.IDAO;
+import business.interfaces.IInscriptionDAO;
 import business.utilities.Utils;
 import data.database.criteria.ActivityInCampCriteria;
 
@@ -33,7 +34,7 @@ public class InscriptionManager {
 	private IDAO<CampDTO, Integer> campRepository;
 	private IDAO<ActivityDTO, String> activityRepository;
 	private IAssistantDAO assitantRepository;
-	private IDAO<InscriptionDTO, String> inscriptionRepository;
+	private IInscriptionDAO inscriptionRepository;
 
 	  /**
      * Constructor de InscriptionManager.
@@ -44,7 +45,7 @@ public class InscriptionManager {
      * @param inscriptionRepository Repositorio de inscripciones.
 	 */
 
-	public InscriptionManager(IDAO<CampDTO, Integer> campRepository, IDAO<ActivityDTO, String> activityRepository, IAssistantDAO assitantRepository, IDAO<InscriptionDTO, String> inscriptionRepository) {
+	public InscriptionManager(IDAO<CampDTO, Integer> campRepository, IDAO<ActivityDTO, String> activityRepository, IAssistantDAO assitantRepository, IInscriptionDAO inscriptionRepository) {
 		this.campRepository = campRepository;
 		this.activityRepository = activityRepository;
 		this.assitantRepository = assitantRepository;
@@ -261,5 +262,34 @@ public class InscriptionManager {
     	
 		
 		return avaliableCamps;
+	}
+	
+	public int getNumberOfInscriptions(CampDTO camp) {
+		return this.inscriptionRepository.getInscriptionOfACamp(camp).size();
+	}
+	
+	
+	public int getNumberOfPartialInscriptions(CampDTO camp) {
+		int n = 0;
+		
+		for (InscriptionDTO inscription : this.inscriptionRepository.getInscriptionOfACamp(camp)) {
+			if (inscription.isPartial()) {
+				n++;
+			}
+		}
+		
+		return n;
+	}
+	
+	public int getNumberOfCompleteInscriptions(CampDTO camp) {
+		int n = 0;
+		
+		for (InscriptionDTO inscription : this.inscriptionRepository.getInscriptionOfACamp(camp)) {
+			if (!inscription.isPartial()) {
+				n++;
+			}
+		}
+		
+		return n;
 	}
 }

@@ -27,6 +27,6 @@ if (emailUser != null && passwordUser != null) {
 
 %>
 
-<jsp:forward page="../view/loginView.jsp">
+<jsp:forward page="../view/common/loginView.jsp">
 	<jsp:param value="<%=mensajeNextPage%>" name="message"/>
 </jsp:forward>

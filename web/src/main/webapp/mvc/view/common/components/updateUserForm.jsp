@@ -15,9 +15,7 @@ String lastName = request.getParameter("lastName");
 String birthDate = request.getParameter("birthDate");
 String requireSpecialAttention = request.getParameter("requireSpecialAttention");
 
-LocalDate localDate = LocalDate.parse(birthDate, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
-String birthDateFormatted = localDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
 %>
 
@@ -27,8 +25,8 @@ String birthDateFormatted = localDate.format(DateTimeFormatter.ofPattern("yyyy-M
 <label for="password">Password: </label>
 <input type="password" name="password" value="<%= password %>>">
 <br/>
-<select name="role" required>
-  <option value="ADMIN" <%= role.equals("ADMIN") ? "selected" : "" %>>>Administrador</option>
+<select name="role" disabled>
+  <option value="ADMIN" <%= role.equals("ADMIN") ? "selected" : "" %>>Administrador</option>
   <option value="ASSISTANT" <%= role.equals("ASSISTANT") ? "selected" : "" %>>Asistente</option>
 </select>
 <br/>
@@ -36,6 +34,9 @@ String birthDateFormatted = localDate.format(DateTimeFormatter.ofPattern("yyyy-M
 <%
 
 if (role.equals(UserRole.ASSISTANT.name())){
+	LocalDate localDate = LocalDate.parse(birthDate, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+
+	String birthDateFormatted = localDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 	
 	String requireSpecialAttentionAttributes = "disabled" + (requireSpecialAttention.equals("true") ? " selected" : "");
 %>

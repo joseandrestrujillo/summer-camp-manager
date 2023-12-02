@@ -184,6 +184,14 @@ public class CampsManager {
         this.activityRepository.delete(activity);
         return camp;
     }
+    
+    public ActivityDTO getActivity(String activityName) {
+    	return this.activityRepository.find(activityName);
+    }
+    
+    public MonitorDTO getMonitor(int monitorId) {
+    	return this.monitorRepository.find(monitorId);
+    }
    
     /**
      * Elimina un campamento.

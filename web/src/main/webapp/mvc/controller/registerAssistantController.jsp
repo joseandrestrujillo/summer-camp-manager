@@ -47,6 +47,6 @@ if (assistantDni != null && assistantFirstName != null && assistantLastName != n
 
 %>
 
-<jsp:forward page="../view/registerAssistantView.jsp">
+<jsp:forward page="../view/assistant/registerAssistantView.jsp">
 	<jsp:param value="<%=mensajeNextPage%>" name="message"/>
 </jsp:forward>

@@ -38,6 +38,8 @@ public class AccessControlListFilter {
 			httpResponse.sendRedirect("/web");
     		return;
 		}
+		
+		chain.doFilter(httpRequest, httpResponse);
 			
 		
 	}

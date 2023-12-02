@@ -23,9 +23,13 @@ public class LoginFilter implements Filter {
 	public void destroy() {
 	}
 
+	private String encoding = "utf-8";
+
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
+		httpRequest.setCharacterEncoding(encoding);
+
 		httpRequest.setAttribute("skipFilter", false);
 		
         CustomerBean customerBean = (CustomerBean) httpRequest.getSession().getAttribute("customerBean");
@@ -61,7 +65,11 @@ public class LoginFilter implements Filter {
 		AssistantInfoFilter.doFilter(request, response, chain);
     }
 
-	public void init(FilterConfig fConfig) throws ServletException {
+	public void init(FilterConfig filterConfig) throws ServletException {
+		String encodingParam = filterConfig.getInitParameter("encoding");
+		if (encodingParam != null) {
+			encoding = encodingParam;
+		}
 	}
 
 }
