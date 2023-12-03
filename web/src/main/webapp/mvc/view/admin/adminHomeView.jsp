@@ -29,8 +29,8 @@ listOfCampsBean.setCamps(camps);
 				  <ul>
 				    <li><a href="/web/campsManager">Campamentos</a></li>
 				    <li><a href="/web/activitiesManager">Actividades</a></li>
-				    <li><a href="">Monitores</a></li>
-				    <li><a href="">Asistentes</a></li>
+			    	<li><a href="/web/monitorsManager">Monitores</a></li>
+				    <li><a href="/web/assistantsManager">Asistentes</a></li>
 				  </ul>
 				</aside>
 				<table>

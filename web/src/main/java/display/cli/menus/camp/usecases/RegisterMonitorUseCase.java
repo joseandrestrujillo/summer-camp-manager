@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import business.dtos.MonitorDTO;
 import business.exceptions.inscription.AssistantAlreadyEnrolledException;
+import business.exceptions.monitor.MonitorAlreadyExistException;
 import business.managers.CampsManager;
 import display.cli.menus.Common;
 
@@ -14,7 +15,7 @@ public class RegisterMonitorUseCase {
 		MonitorDTO monitor = Common.getDataForMonitor(monitorId, sc);
 		try {									
 			campsManager.registerMonitor(monitor);
-		} catch (AssistantAlreadyEnrolledException e) {
+		} catch (MonitorAlreadyExistException e) {
 			Common.clearConsole();
 			System.out.println("Este DNI ya ha sido registrado en nuestro sistema");
 			return;

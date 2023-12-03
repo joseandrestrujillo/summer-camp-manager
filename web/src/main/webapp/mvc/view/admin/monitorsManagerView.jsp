@@ -18,23 +18,22 @@
 			  </ul>
 			</aside>
 			
-			<a href="/web/createCamp">Crear nuevo campamento</a>
+			<a href="/web/createMonitor">Dar de alta un nuevo monitor</a>
 			<%
-				String createCampMsg = (String) request.getSession().getAttribute("createCampMsg");
-				String createCampError = (String) request.getSession().getAttribute("createCampError");
+				String createMonitorMsg = (String) request.getSession().getAttribute("createMonitorMsg");
+				String createMonitorError = (String) request.getSession().getAttribute("createMonitorError");
 			
-				if (createCampError != null) {
+				if (createMonitorError != null) {
 			%>
-				<p style="color: red;"><%= createCampError %></p>
+				<p style="color: red;"><%= createMonitorError %></p>
 			<%
-				} else if (createCampMsg != null) {
+				} else if (createMonitorMsg != null) {
 			%>
-				<p style="color: green;"><%= createCampMsg %></p>
+				<p style="color: green;"><%= createMonitorMsg %></p>
 			<%
 				}
 			%>
-			<jsp:include page="../common/components/listOfCamps.jsp"></jsp:include>
-			
+			<jsp:include page="../common/components/listOfMonitors.jsp"></jsp:include>
 		</main>
 
 </body>

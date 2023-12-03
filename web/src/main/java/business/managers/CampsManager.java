@@ -17,6 +17,7 @@ import business.exceptions.camp.NotTheSameLevelException;
 import business.exceptions.camp.SpecialMonitorAlreadyRegisterException;
 import business.exceptions.dao.NotFoundException;
 import business.exceptions.monitor.MonitorAlreadyExistException;
+import business.exceptions.monitor.MonitorNotFoundException;
 import business.interfaces.IActivityDAO;
 import business.interfaces.IDAO;
 import business.interfaces.IMonitorDAO;
@@ -199,7 +200,10 @@ public class CampsManager {
      * @param camp     El campamento a eliminar.
      */
     public void deleteCamp(CampDTO camp) {
-        this.campRepository.delete(camp);
+        try {
+			this.campRepository.find(camp.getCampID());
+			this.campRepository.delete(camp);
+		} catch (NotFoundException e) {}
     }
 
     /**
@@ -335,4 +339,35 @@ public class CampsManager {
         }
         monitorRepository.saveAndRelateWithAnActivity(monitorCreated, selectedActivity);		
 	}
+	
+	public void linkMonitorWithActivity(String activityName, int monitorId) {
+		ActivityDTO activityDTO = null;
+		try {
+			activityDTO = this.activityRepository.find(activityName);
+		} catch (NotFoundException e) {
+			throw new ActivityNotFoundException();
+		}
+		
+		MonitorDTO monitorDTO = null;
+		try {
+			monitorDTO = this.monitorRepository.find(monitorId);
+		} catch (NotFoundException e) {
+			throw new MonitorNotFoundException();
+		}
+		
+		List<MonitorDTO> monitorList = this.getMonitorsOfAnActivity(activityDTO);
+		if (monitorList.size() == activityDTO.getNeededMonitors()) {
+            throw new MaxMonitorsAddedException();
+        }
+		
+		monitorRepository.saveAndRelateWithAnActivity(monitorDTO, activityDTO);
+	}
+	
+	public void deleteActivity(ActivityDTO activity) {
+		try {
+			this.activityRepository.find(activity.getActivityName());
+			this.activityRepository.delete(activity);
+		} catch (NotFoundException e) {}		
+    }
+	
 }

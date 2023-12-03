@@ -17,24 +17,7 @@
 			    <li><a href="/web/assistantsManager">Asistentes</a></li>
 			  </ul>
 			</aside>
-			
-			<a href="/web/createCamp">Crear nuevo campamento</a>
-			<%
-				String createCampMsg = (String) request.getSession().getAttribute("createCampMsg");
-				String createCampError = (String) request.getSession().getAttribute("createCampError");
-			
-				if (createCampError != null) {
-			%>
-				<p style="color: red;"><%= createCampError %></p>
-			<%
-				} else if (createCampMsg != null) {
-			%>
-				<p style="color: green;"><%= createCampMsg %></p>
-			<%
-				}
-			%>
-			<jsp:include page="../common/components/listOfCamps.jsp"></jsp:include>
-			
+			<jsp:include page="../common/components/listOfAssistants.jsp"></jsp:include>
 		</main>
 
 </body>

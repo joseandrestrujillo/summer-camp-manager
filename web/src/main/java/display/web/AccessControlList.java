@@ -18,7 +18,13 @@ public class AccessControlList {
 		acl.put("/web/campsManager", Arrays.asList("ADMIN"));
 		acl.put("/web/createCamp", Arrays.asList("ADMIN"));
 		acl.put("/web/activitiesManager", Arrays.asList("ADMIN"));
+		acl.put("/web/createActivity", Arrays.asList("ADMIN"));
+		acl.put("/web/scripts/createActivityValidations.js", Arrays.asList("ADMIN"));
+		acl.put("/web/monitorsManager", Arrays.asList("ADMIN"));
+		acl.put("/web/createMonitor", Arrays.asList("ADMIN"));
+		acl.put("/web/assistantsManager", Arrays.asList("ADMIN"));
 
+		
 		
 		acl.put("/web", Arrays.asList("ADMIN", "ASSISTANT"));
 		acl.put("/web/", Arrays.asList("ADMIN", "ASSISTANT"));
