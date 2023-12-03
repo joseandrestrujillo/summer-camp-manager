@@ -13,6 +13,7 @@ import business.enums.EducativeLevel;
 import business.enums.TimeSlot;
 import business.exceptions.dao.NotFoundException;
 import business.exceptions.inscription.AfterEarlyTimeException;
+import business.exceptions.inscription.AfterStartTimeException;
 import business.exceptions.inscription.AssistantAlreadyEnrolledException;
 import business.exceptions.inscription.MaxAssistantExcededException;
 import business.exceptions.inscription.NeedToAddAnSpecialMonitorException;
@@ -255,7 +256,7 @@ public class InscriptionManager {
 			CampDTO camp = allCamps.get(i);
 			List<AssistantDTO> assistants = getAssistantsOfACamp(camp);
 			
-			if (camp.getStart().after(actualDate) && (assistants.size() < camp.getCapacity())) {
+			if (camp.getStart().after(actualDate) && (Utils.daysBetween(camp.getStart(), actualDate) > 2) && (assistants.size() < camp.getCapacity())) {
 				avaliableCamps.add(camp);
 			}
 		}
@@ -292,4 +293,40 @@ public class InscriptionManager {
 		
 		return n;
 	}
+	
+	public List<InscriptionDTO> getInscriptionsOfAnAssistant(AssistantDTO assistantDTO) {
+		List<InscriptionDTO> allInscriptions = this.inscriptionRepository.getAll();
+		List<InscriptionDTO> inscriptionsOfAnAssistant = new ArrayList<InscriptionDTO>();
+		
+		for (int i = 0; i < allInscriptions.size(); i++) {
+			InscriptionDTO inscription = allInscriptions.get(i);
+			int inscriptionAssistantId = inscription.getAssistantId();
+			int assistantId = assistantDTO.getId();
+			if (inscriptionAssistantId == assistantId) {
+				CampDTO camp = this.campRepository.find(inscription.getCampId());
+				inscriptionsOfAnAssistant.add(inscription);
+			}
+			
+		}
+		
+		return inscriptionsOfAnAssistant;
+	}
+	
+	public boolean willBeEarly(int campId, Date inscriptionDate) {
+		
+		CampDTO camp = this.campRepository.find(campId);
+		
+		boolean isEarly = true;
+		
+		long daysDifference = Utils.daysBetween(camp.getStart(), inscriptionDate);
+
+        if ((daysDifference <= 15) && (daysDifference > 0)) {
+            isEarly = false;
+        } else if (daysDifference < 0) {
+            isEarly = false;
+        }
+        
+        return isEarly;
+	}
+
 }

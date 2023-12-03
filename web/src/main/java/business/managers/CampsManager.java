@@ -370,4 +370,8 @@ public class CampsManager {
 		} catch (NotFoundException e) {}		
     }
 	
+	public CampDTO getCamp(int campId) {
+		return this.campRepository.find(campId);
+	}
+	
 }

@@ -1,3 +1,4 @@
+<%@page import="business.dtos.InscriptionDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="java.util.List"%>
@@ -9,25 +10,34 @@
 <%@page import="business.enums.UserRole"%>
 <%@ page import ="display.web.Container" %>
 <jsp:useBean  id="customerBean" scope="session" class="display.web.javabean.CustomerBean"></jsp:useBean>
-<jsp:useBean  id="listOfCampsBean" scope="session" class="display.web.javabean.ListOfCampsBean"></jsp:useBean>
+<jsp:useBean  id="listOfInscriptions" scope="session" class="display.web.javabean.ListOfInscriptionsBean"></jsp:useBean>
 
 
 <%
-List<CampDTO> camps = Container.getInstance().getInscriptionManager().avaliableCamps(Utils.getCurrentDate());
+AssistantDTO assistant = Container.getInstance().getUserManager().getAssistantInfo(customerBean.getEmailUser());
 
-listOfCampsBean.setCamps(camps);
+List<InscriptionDTO> inscriptions = Container.getInstance().getInscriptionManager().getInscriptionsOfAnAssistant(assistant);
+
+listOfInscriptions.setInscriptions(inscriptions);
 %>
 
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Camping Site</title>
+		<title>Summer Camp</title>
 	</head>
 	<body>
 		<jsp:include page="../common/components/header.jsp"></jsp:include>
 		<main>
-			<jsp:include page="../common/components/listOfCamps.jsp"></jsp:include>
+			<aside>
+				<ul>
+					<li><a href="/web/inscriptions">Inscripciones realizadas</a></li>
+					<li><a href="/web/availableCamps">Campamentos disponibles</a></li>
+				</ul>
+				
+				<jsp:include page="../common/components/listOfInscriptions.jsp"></jsp:include>
+			</aside>
 		</main>
 	</body>
 </html>

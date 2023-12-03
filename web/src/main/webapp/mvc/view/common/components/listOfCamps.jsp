@@ -1,3 +1,4 @@
+<%@page import="display.web.javabean.CampBean"%>
 <%@page import="business.enums.EducativeLevel"%>
 <%@page import="java.util.List"%>
 <%@page import="business.dtos.CampDTO"%>
@@ -17,14 +18,17 @@
 	List<CampDTO> camps = listOfCampsBean.getCamps();
 	
 	for(CampDTO camp : camps) {
-		String educativeLevel = camp.getEducativeLevel() == EducativeLevel.ELEMENTARY 
-				? "Infantil"
-				: camp.getEducativeLevel() == EducativeLevel.PRESCHOOL
-					? "Juvenil"
-					: "Adolescente";
-	%>
-		<li>#<%= camp.getCampID() %>, <%= educativeLevel %>, Fecha de inicio: <%= Utils.getStringDate(camp.getStart()) %></li>	
-	<%
+		CampBean campBean = new CampBean();
+		campBean.setCamp(camp);
+		request.getSession().setAttribute("campBean", campBean);
+		%>
+		<li>
+			<jsp:include page="./campDetails.jsp">
+				<jsp:param name="cancelBtn" value="false"/>
+			</jsp:include>
+		</li>	
+		<%
+		request.getSession().setAttribute("campBean", null);
 	}
 	%>	
 </ul>

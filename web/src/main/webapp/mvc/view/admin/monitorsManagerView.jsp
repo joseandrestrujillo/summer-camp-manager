@@ -4,7 +4,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Camping Site</title>
+		<title>Summer Camp</title>
 	</head>
 	<body>
 		<jsp:include page="../common/components/header.jsp"></jsp:include>

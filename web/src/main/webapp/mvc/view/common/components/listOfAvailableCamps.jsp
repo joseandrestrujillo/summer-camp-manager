@@ -1,6 +1,5 @@
-<%@page import="display.web.javabean.ActivityBean"%>
+<%@page import="display.web.javabean.CampBean"%>
 <%@page import="business.enums.EducativeLevel"%>
-<%@page import="business.dtos.ActivityDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="business.dtos.CampDTO"%>
 <%@page import="business.utilities.Utils"%>
@@ -14,20 +13,22 @@
 <jsp:useBean  id="customerBean" scope="session" class="display.web.javabean.CustomerBean"></jsp:useBean>
 <jsp:useBean  id="listOfCampsBean" scope="session" class="display.web.javabean.ListOfCampsBean"></jsp:useBean>
 
-<ul>
+<%
+List<CampDTO> camps = listOfCampsBean.getCamps();
+
+for(CampDTO camp : camps) {
+	CampBean campBean = new CampBean();
+	campBean.setCamp(camp);
+	request.getSession().setAttribute("campBean", campBean);
+	%>
+	<label for="<%= camp.getCampID() %>">
+		<input type="radio" id="<%= camp.getCampID() %>" name="camp_id" value="<%= camp.getCampID() %>" required>
+		<jsp:include page="./campDetails.jsp">
+			<jsp:param name="cancelBtn" value="false"/>
+		</jsp:include>
+	</label><br>
 	<%
-	List<ActivityDTO> activityDTOs = Container.getInstance().getCampsManager().listOfActivities();
-	
-	for(ActivityDTO activity : activityDTOs) {
-		ActivityBean activityBean = new ActivityBean();
-		activityBean.setActivity(activity);
-		request.getSession().setAttribute("activityBean", activityBean);
-		%>							
-		<li>
-			<jsp:include page="./activityDetails.jsp"></jsp:include>
-		</li>
-		<%
-		request.getSession().setAttribute("activityBean", null);
-	}
-	%>	
-</ul>
+	request.getSession().setAttribute("campBean", null);
+}
+%>	
+
