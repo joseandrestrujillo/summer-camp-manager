@@ -34,6 +34,8 @@ public class AccessControlList {
 		acl.put("/web/inscriptions", Arrays.asList("ASSISTANT"));
 		acl.put("/web/availableCamps", Arrays.asList("ASSISTANT"));
 		acl.put("/web/enroll", Arrays.asList("ASSISTANT"));
+		acl.put("/web/deleteInscription", Arrays.asList("ASSISTANT"));
+		
 		
 		// acl.put("/web/anywhere", Arrays.asList("ADMIN"));
 	}

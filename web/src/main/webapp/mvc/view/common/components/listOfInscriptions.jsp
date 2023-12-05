@@ -26,6 +26,7 @@
 		<li>
 			<jsp:include page="./campDetails.jsp">
 				<jsp:param name="cancelBtn" value="<%= cancelBtnStr %>"/>
+				<jsp:param name="inscriptionId" value="<%= inscription.getInscriptionIdentifier() %>"/>
 			</jsp:include>
 		</li>	
 		<%

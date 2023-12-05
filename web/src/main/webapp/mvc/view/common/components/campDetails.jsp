@@ -25,38 +25,59 @@ String specialMonitor = camp.getSpecialMonitor() != null
 
 boolean cancelBtn = request.getParameter("cancelBtn").equals("true") ? true : false;
 
-String cancelBtnHtml = "<button>Cancelar</button>";
+
 
 %>
 
-
-<details>
-	<summary>
-		<span>
-			#<%= camp.getCampID() %>, 
-			Fecha de inicio: <%= Utils.getStringDate(camp.getStart()) %>, 
-			Nivel educativo: <%= educativeLevel %>
-		</span>
-		<%= cancelBtn ? cancelBtnHtml : "" %>
-	</summary>
-		<p>Monitor principal: <%= ppalMonitor %></p>
-		<p>Monitor especial: <%= specialMonitor %></p>
-	 	<h3>Actividades</h3>
-	<ul>
-		<%
-		List<ActivityDTO> activities = Container.getInstance().getCampsManager().getActivitiesOfACamp(camp);
-		
-		for(ActivityDTO activity : activities) {
-			ActivityBean activityBean = new ActivityBean();
-			activityBean.setActivity(activity);
-			request.getSession().setAttribute("activityBean", activityBean);
-			%>							
-			<li>
-				<jsp:include page="./activityDetails.jsp"></jsp:include>
-			</li>
+<% 
+if(cancelBtn) {
+	%>
+	<form action="/web/deleteInscription" method="post">
+	<%			
+}
+%>
+	<details>
+		<summary>
+			<span>
+				#<%= camp.getCampID() %>, 
+				Fecha de inicio: <%= Utils.getStringDate(camp.getStart()) %>, 
+				Nivel educativo: <%= educativeLevel %>
+			</span>
+			<% 
+			if(cancelBtn) {
+				%>
+					<input type="hidden" name="inscriptionId" value="<%= request.getParameter("inscriptionId") %>" />
+					<input type="submit" value="Cancelar" />
+				<%			
+			}
+			%>
+		</summary>
+			<p>Monitor principal: <%= ppalMonitor %></p>
+			<p>Monitor especial: <%= specialMonitor %></p>
+		 	<h3>Actividades</h3>
+		<ul>
 			<%
-				request.getSession().setAttribute("activityBean", null);
-		}
-		%>
-	</ul>
-</details>
+			List<ActivityDTO> activities = Container.getInstance().getCampsManager().getActivitiesOfACamp(camp);
+			
+			for(ActivityDTO activity : activities) {
+				ActivityBean activityBean = new ActivityBean();
+				activityBean.setActivity(activity);
+				request.getSession().setAttribute("activityBean", activityBean);
+				%>							
+				<li>
+					<jsp:include page="./activityDetails.jsp"></jsp:include>
+				</li>
+				<%
+					request.getSession().setAttribute("activityBean", null);
+			}
+			%>
+		</ul>
+	</details>
+	
+<% 
+if(cancelBtn) {
+	%>
+	</form>		
+	<%			
+}
+%>

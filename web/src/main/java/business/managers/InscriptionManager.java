@@ -328,5 +328,12 @@ public class InscriptionManager {
         
         return isEarly;
 	}
+	
+	public void deleteInscription(String inscriptionId) {
+        try {
+			InscriptionDTO inscription = this.inscriptionRepository.find(inscriptionId);
+			this.inscriptionRepository.delete(inscription);
+		} catch (NotFoundException e) {}
+    }
 
 }

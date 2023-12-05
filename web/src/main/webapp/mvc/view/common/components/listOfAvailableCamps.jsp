@@ -15,20 +15,22 @@
 
 <%
 List<CampDTO> camps = listOfCampsBean.getCamps();
-
+%>
+<div id="list_of_available_camps">
+<%
 for(CampDTO camp : camps) {
 	CampBean campBean = new CampBean();
 	campBean.setCamp(camp);
 	request.getSession().setAttribute("campBean", campBean);
 	%>
-	<label for="<%= camp.getCampID() %>">
 		<input type="radio" id="<%= camp.getCampID() %>" name="camp_id" value="<%= camp.getCampID() %>" required>
 		<jsp:include page="./campDetails.jsp">
 			<jsp:param name="cancelBtn" value="false"/>
 		</jsp:include>
-	</label><br>
+		<br>
 	<%
 	request.getSession().setAttribute("campBean", null);
 }
 %>	
 
+</div>
