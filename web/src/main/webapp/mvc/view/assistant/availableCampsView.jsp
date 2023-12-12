@@ -16,6 +16,7 @@ listOfCampsBean.setCamps(camps);
 	<head>
 		<meta charset="UTF-8">
 		<title>Campamentos disponibles</title>
+		<script defer src="${pageContext.request.contextPath}/scripts/filterAvailableCamps.js"></script>
 	</head>
 	<body>
 		<jsp:include page="../common/components/header.jsp"></jsp:include>
@@ -25,6 +26,28 @@ listOfCampsBean.setCamps(camps);
 					<li><a href="/web/inscriptions">Inscripciones realizadas</a></li>
 					<li><a href="/web/availableCamps">Campamentos disponibles</a></li>
 				</ul>
+				
+				<form>
+					<label for="since">Desde:</label>
+					<input type="date" name="since" id="since" required>
+					<br>
+					
+					<label for="until">Hasta:</label>
+					<input type="date" name="until" id="until" required>
+					<br>
+					
+					<label for="educative_level">Nivel Educativo:</label>
+					<select name="educative_level" id="educative_level">
+					  <option value="ELEMENTARY">Infantil</option>
+					  <option value="PRESCHOOL">Juvenil</option>
+					  <option value="TEENAGER">Adolescente</option>
+					</select>
+					<br>
+					
+					<label for="capacity">Capacidad:</label>
+					<input type="number" name="capacity" id="capacity" min="0" max="999" required>
+					<br>
+				</form>
 			</aside>
 			
 			<%

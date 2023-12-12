@@ -21,13 +21,18 @@ List<CampDTO> camps = listOfCampsBean.getCamps();
 for(CampDTO camp : camps) {
 	CampBean campBean = new CampBean();
 	campBean.setCamp(camp);
+	int nInscriptions = Container.getInstance().getInscriptionManager().getNumberOfInscriptions(camp);
+	int availableInscriptions = camp.getCapacity() - nInscriptions;
+	campBean.setAvailableInscriptions(availableInscriptions);
 	request.getSession().setAttribute("campBean", campBean);
 	%>
-		<input type="radio" id="<%= camp.getCampID() %>" name="camp_id" value="<%= camp.getCampID() %>" required>
-		<jsp:include page="./campDetails.jsp">
-			<jsp:param name="cancelBtn" value="false"/>
-		</jsp:include>
-		<br>
+		<div class="camp_details_div">
+			<input type="radio" id="<%= camp.getCampID() %>" name="camp_id" value="<%= camp.getCampID() %>" required>
+			<jsp:include page="./campDetails.jsp">
+				<jsp:param name="cancelBtn" value="false"/>
+			</jsp:include>
+			<br>
+		</div>
 	<%
 	request.getSession().setAttribute("campBean", null);
 }

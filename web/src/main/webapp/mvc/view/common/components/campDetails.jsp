@@ -25,8 +25,6 @@ String specialMonitor = camp.getSpecialMonitor() != null
 
 boolean cancelBtn = request.getParameter("cancelBtn").equals("true") ? true : false;
 
-
-
 %>
 
 <% 
@@ -38,10 +36,11 @@ if(cancelBtn) {
 %>
 	<details>
 		<summary>
-			<span>
+			<span></span>
 				#<%= camp.getCampID() %>, 
-				Fecha de inicio: <%= Utils.getStringDate(camp.getStart()) %>, 
-				Nivel educativo: <%= educativeLevel %>
+				Fecha de inicio: <span class="camp_details_start_date"><%= Utils.getStringDate(camp.getStart()) %></span>, 
+				Nivel educativo: <span class="camp_details_educative_level"><%= educativeLevel %></span>,
+				Plazas disponibles: <span class="camp_details_available_inscriptions"><%= campBean.getAvailableInscriptions() %></span>
 			</span>
 			<% 
 			if(cancelBtn) {
