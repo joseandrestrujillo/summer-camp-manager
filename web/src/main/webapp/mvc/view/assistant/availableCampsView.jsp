@@ -38,9 +38,10 @@ listOfCampsBean.setCamps(camps);
 					
 					<label for="educative_level">Nivel Educativo:</label>
 					<select name="educative_level" id="educative_level">
-					  <option value="ELEMENTARY">Infantil</option>
-					  <option value="PRESCHOOL">Juvenil</option>
-					  <option value="TEENAGER">Adolescente</option>
+					  <option value="">Sin filtrar</option>
+					  <option value="Infantil">Infantil</option>
+					  <option value="Juvenil">Juvenil</option>
+					  <option value="Adolescente">Adolescente</option>
 					</select>
 					<br>
 					

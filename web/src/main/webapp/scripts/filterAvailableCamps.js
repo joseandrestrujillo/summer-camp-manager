@@ -4,43 +4,106 @@ const educativeLevelInput = document.getElementById("educative_level")
 const capacityInput = document.getElementById("capacity")
 
 
+var listSinceFilterDeletions = []
+var listUntilFilterDeletions = []
+var listEducativeLevelFilterDeletions = []
+var listCapacityFilterDeletions = []
+
 
 sinceInput.addEventListener("change", () => {
-	console.log("Fecha desde ha cambiado a: " + sinceInput.value)
+	let date = new Date(sinceInput.value);
+	let camps = getCamps()
+	
+	listSinceFilterDeletions = []
+	camps.forEach(camp => {
+		if(camp.startDate < date) {
+			listSinceFilterDeletions.push(camp)
+		}
+	})	
+	
+	applyFilters()
 })
 
 untilInput.addEventListener("change", () => {
-	console.log("Fecha hasta ha cambiado a: " + untilInput.value)
+	let date = new Date(untilInput.value);
+	let camps = getCamps()
+	
+	listUntilFilterDeletions = []
+	camps.forEach(camp => {
+		if(camp.startDate > date) {
+			listUntilFilterDeletions.push(camp)
+		}
+	})	
+	
+	applyFilters()
+
 })
 
 educativeLevelInput.addEventListener("change", () => {
-	console.log("Nivel educativo ha cambiado a: " + educativeLevelInput.value)
+	let camps = getCamps()
+	
+	listEducativeLevelFilterDeletions = []
+	camps.forEach(camp => {
+		if(!camp.educativeLevel.includes(educativeLevelInput.value)) {
+			listEducativeLevelFilterDeletions.push(camp)
+		}
+	})	
+	
+	applyFilters()
 })
 
 capacityInput.addEventListener("change", () => {
-	console.log("Capacidad ha cambiado a: " + capacityInput.value)
-})
-
-const campDetailsDivs = document.querySelector('#list_of_available_camps').querySelectorAll('.camp_details_div');
-
-const camps = []
-
-
-
-campDetailsDivs.forEach(campDetailsDiv => {
-	const stringDate = campDetailsDiv.querySelector(".camp_details_start_date").innerText
-	const date = new Date(Date.from({
-	  year: stringDate.split("/")[2],
-	  month: stringDate.split("/")[1],
-	  day: stringDate.split("/")[0]
-	}));
+	let capacity = parseInt(capacityInput.value)
+	let camps = getCamps()
 	
-	camps.push({
-		div: campDetailsDiv,
-		startDate: new Date(campDetailsDiv.querySelector(".camp_details_start_date").innerText),
-		educativeLevel: date,
-		availableInscriptions: parseInt(campDetailsDiv.querySelector(".camp_details_available_inscriptions").innerText)
-	})
+	listCapacityFilterDeletions = []
+	camps.forEach(camp => {
+		if(camp.availableInscriptions < capacity) {
+			listCapacityFilterDeletions.push(camp)
+		}
+	})	
+	
+	applyFilters()
 })
 
-console.log(camps)
+
+function getCamps() {	
+	const campDetailsDivs = document.querySelector('#list_of_available_camps').querySelectorAll('.camp_details_div');
+	const camps = []
+	
+	campDetailsDivs.forEach(campDetailsDiv => {
+		const stringDate = campDetailsDiv.querySelector(".camp_details_start_date").innerText
+		const date = new Date(parseInt(stringDate.split("/")[2]), parseInt(stringDate.split("/")[1])-1, parseInt(stringDate.split("/")[0]));
+		
+		camps.push({
+			div: campDetailsDiv,
+			startDate: date,
+			educativeLevel: campDetailsDiv.querySelector(".camp_details_educative_level").innerText,
+			availableInscriptions: parseInt(campDetailsDiv.querySelector(".camp_details_available_inscriptions").innerText)
+		})
+	})
+	
+	return camps
+}
+
+
+function applyFilters() {
+	let camps = getCamps()
+	
+	camps.forEach(camp => {
+		camp.div.style.display = ""
+	})
+	
+	listSinceFilterDeletions.forEach(camp => {
+		camp.div.style.display = "none"
+	})
+	listUntilFilterDeletions.forEach(camp => {
+		camp.div.style.display = "none"
+	})
+	listEducativeLevelFilterDeletions.forEach(camp => {
+		camp.div.style.display = "none"
+	})
+	listCapacityFilterDeletions.forEach(camp => {
+		camp.div.style.display = "none"
+	})
+}
