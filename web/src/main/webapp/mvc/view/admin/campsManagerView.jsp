@@ -19,6 +19,7 @@
 			</aside>
 			
 			<a href="/web/createCamp">Crear nuevo campamento</a>
+			<a href="/web/associateActivityToCamp">Asociar una actividad con un campamento</a>
 			<%
 				String createCampMsg = (String) request.getSession().getAttribute("createCampMsg");
 				String createCampError = (String) request.getSession().getAttribute("createCampError");

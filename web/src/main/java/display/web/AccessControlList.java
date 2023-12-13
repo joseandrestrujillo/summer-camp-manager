@@ -23,6 +23,7 @@ public class AccessControlList {
 		acl.put("/web/monitorsManager", Arrays.asList("ADMIN"));
 		acl.put("/web/createMonitor", Arrays.asList("ADMIN"));
 		acl.put("/web/assistantsManager", Arrays.asList("ADMIN"));
+		acl.put("/web/associateActivityToCamp", Arrays.asList("ADMIN"));
 
 		
 		
