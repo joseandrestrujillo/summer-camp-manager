@@ -16,6 +16,7 @@ listOfCampsBean.setCamps(camps);
 	<head>
 		<meta charset="UTF-8">
 		<title>Campamentos disponibles</title>
+			<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/styles/common.css">
 		<script defer src="${pageContext.request.contextPath}/scripts/filterAvailableCamps.js"></script>
 	</head>
 	<body>

@@ -4,8 +4,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/styles/common.css">
 </head>
 <body>
 	<jsp:include page="../common/components/header.jsp"></jsp:include>

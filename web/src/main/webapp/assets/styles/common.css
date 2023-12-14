@@ -1,0 +1,91 @@
+@charset "UTF-8";
+
+body {
+	margin: 0;
+	padding: 0;
+	color: #261911;
+	font-family: "Segoe UI","Helvetica Neue","Lucida Grande","Roboto","Ebrima","Nirmala UI","Gadugi","Segoe Xbox Symbol","Segoe UI Symbol","Meiryo UI","Khmer UI","Tunga","Lao UI","Raavi","Iskoola Pota","Latha","Leelawadee","Microsoft YaHei UI","Microsoft JhengHei UI","Malgun Gothic","Estrangelo Edessa","Microsoft Himalaya","Microsoft New Tai Lue","Microsoft PhagsPa","Microsoft Tai Le","Microsoft Yi Baiti","Mongolian Baiti","MV Boli","Myanmar Text","Cambria Math";
+	background-color: #ffec99;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* HEADER */
+.header{
+	height: 4rem;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-around;
+	width: 85rem;
+	max-width: 90%;
+	background-color: white;
+	margin-top: 1rem;
+	box-shadow: 0px 10px 15px -3px rgb(38, 24, 16, 0.1);
+    border-radius: 2rem;
+}
+
+.header_logo_image {
+}
+
+.header_user_details {
+	height: min-content;
+}
+
+.header_user_details_info {
+	position: absolute;
+	float: right; 
+	margin-left: 80px;
+    height: 6rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.header_user_details_info a{
+	position: relative;
+	padding: 1rem;
+    background-color: white;
+    text-decoration: none;
+    color: black;
+	box-shadow: 0px 10px 15px -3px rgb(38, 24, 16, 0.1);
+}
+
+.header_user_details_info a:hover{
+    background-color:  #f2a549;
+    color: white;
+    cursor: pointer;
+}
+
+.header_user_wellcome_summary { 
+  list-style: none;
+  border-bottom: 1px dashed rgb(119, 118, 123);
+}
+.header_user_wellcome_summary:hover {
+	cursor: pointer;
+}
+
+
+.header_user_wellcome_summary::marker {
+  display: none
+}
+
+.header_user_wellcome_summary::after {
+  content: " ⮟";
+}
+
+.header_user_details[open] .header_user_wellcome_summary:after {
+  content: ' ⮜';
+}
+
+.header_user_wellcome_summary {
+	
+}
+
+.modify_user_link {
+	
+}
+
+logout_link {
+	
+}

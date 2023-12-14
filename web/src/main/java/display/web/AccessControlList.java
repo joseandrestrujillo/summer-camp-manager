@@ -32,6 +32,8 @@ public class AccessControlList {
 		acl.put("/web/index.jsp", Arrays.asList("ADMIN", "ASSISTANT"));
 		acl.put("/web/mvc/controller/modifyUserController.jsp", Arrays.asList("ADMIN", "ASSISTANT"));
 		acl.put("/web/assets/logo.png", Arrays.asList("ADMIN", "ASSISTANT"));
+		acl.put("/web/assets/styles/common.css", Arrays.asList("ADMIN", "ASSISTANT"));
+		
 		
 		acl.put("/web/inscriptions", Arrays.asList("ASSISTANT"));
 		acl.put("/web/availableCamps", Arrays.asList("ASSISTANT"));

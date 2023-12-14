@@ -28,6 +28,12 @@ public class PrincipalFilter implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
+		
+		if(httpRequest.getRequestURI().contains("assets")) {
+			chain.doFilter(request, response);
+			return;
+		}
+		
 		httpRequest.setCharacterEncoding(encoding);
 
 		MessageBean messageBean = (MessageBean) httpRequest.getSession().getAttribute("messageBean");

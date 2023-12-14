@@ -21,6 +21,7 @@ listOfCampsBean.setCamps(camps);
 	<head>
 		<meta charset="UTF-8">
 		<title>Camping Site</title>
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/styles/common.css">
 	</head>
 	<body>
 		<jsp:include page="../common/components/header.jsp"></jsp:include>

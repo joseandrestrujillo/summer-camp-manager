@@ -5,28 +5,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Sign up</title>
+	<meta charset="UTF-8">
+	<title>Sign up</title>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/styles/registerPageStyles.css">
 </head>
 <body>
-	<jsp:include page="./components/message.jsp"></jsp:include>
-	<form method="post" action="../controller/registerController.jsp">
-	    <label for="email">Email: </label>
-	    <input type="email" name="email" required>
-	    <br/>
-	    <label for="password">Password: </label>
-	    <input type="password" name="password" required>
-	    <br/>
-	    <label for="role">Rol: </label>
-	    <select name="role" required>
-	      <option value="ADMIN">Administrador</option>
-	      <option value="ASSISTANT" selected>Asistente</option>
-	    </select>
-	    <br/>
-	    <input type="submit" value="Registrar">
-	</form>
+	<main class="register_main">
+		<div class="register_page_div">
+			<img width="400px" class="logo_image_big" src="${pageContext.request.contextPath}/assets/logo.png" alt="Logo de la empresa"/>
+			<div class="register_form_div">
+				<h1>Crear una cuenta</h1>
+				<jsp:include page="./components/message.jsp"></jsp:include>
+				<form class="register_form" method="post" action="../controller/registerController.jsp">
+				    <input class="form_input" type="email" name="email" placeholder="Email" required>
+				    <input class="form_input" type="password" name="password" placeholder="Contraseña" required>
+				    <select class="form_input" name="role" required>
+				      <option value="ADMIN">Administrador</option>
+				      <option value="ASSISTANT" selected>Asistente</option>
+				    </select>
+				    <p>¿Ya tiene una cuenta? <a href="../controller/loginController.jsp">Accede.</a></p>
+				    <input class="register_btn" type="submit" value="Registrar">
+				</form>
+			</div>
+		</div>
+	</main>
 	
-	<a href="../../controller/loginController.jsp">Acceder</a>
 	
 </body>
 </html>

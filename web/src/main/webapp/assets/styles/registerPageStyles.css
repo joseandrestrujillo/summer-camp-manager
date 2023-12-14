@@ -7,7 +7,7 @@ body {
 	font-family: "Segoe UI","Helvetica Neue","Lucida Grande","Roboto","Ebrima","Nirmala UI","Gadugi","Segoe Xbox Symbol","Segoe UI Symbol","Meiryo UI","Khmer UI","Tunga","Lao UI","Raavi","Iskoola Pota","Latha","Leelawadee","Microsoft YaHei UI","Microsoft JhengHei UI","Malgun Gothic","Estrangelo Edessa","Microsoft Himalaya","Microsoft New Tai Lue","Microsoft PhagsPa","Microsoft Tai Le","Microsoft Yi Baiti","Mongolian Baiti","MV Boli","Myanmar Text","Cambria Math";
 }
 
-.login_main {
+.register_main {
     background-color: #ffec99;
     min-width: 100vw;
     min-height: 100vh;
@@ -15,7 +15,7 @@ body {
     align-items: center;
 }
 
-.login_page_div {
+.register_page_div {
     background-color: white;
     box-shadow: 0px 10px 15px -3px rgb(38, 24, 16, 0.1);
     border-radius: 2rem;
@@ -31,7 +31,7 @@ p {
 	max-width: 200px;
 }
 
-.login_form a {
+.register_form a {
     color: #2698ff;
     text-decoration: none;
 }
@@ -44,6 +44,12 @@ p {
     outline: none;
 }
 
+.register_form select {
+	background-color: rgb(255 246 220);
+}
+
+
+
 .form_input:focus {
     border-bottom: 2px solid #86BBD8;
     outline: none;
@@ -53,31 +59,31 @@ p {
     outline: none;
 }
 
-.login_form input::placeholder {
+.register_form input::placeholder {
   color: black;
   opacity: 0.7;
 }
 
-.login_form {
+.register_form {
     display: flex;
     flex-direction: column;
 }
 
-.login_form_div {
+.register_form_div {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-.login_form_div h1 {
+.register_form_div h1 {
     display: block;
     width: 100%;
     font-size: 1.4rem;
     font-weight: bold;
 }
 
-.login_btn {
+.register_btn {
     background-color: #ffec99;
     border: none;
     border-radius: none;
@@ -86,7 +92,7 @@ p {
 	transition: all linear 0.1s;
 }
 
-.login_btn:hover {
+.register_btn:hover {
     background-color: #f2a549;
     color: white;
 	cursor: pointer;
