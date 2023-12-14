@@ -4,6 +4,8 @@
     pageEncoding="UTF-8"%>
 <%@ page import ="business.dtos.UserDTO,display.web.Container" %>
 <jsp:useBean  id="customerBean" scope="session" class="display.web.javabean.CustomerBean"></jsp:useBean>
+<jsp:useBean  id="messageBean" scope="session" class="display.web.javabean.MessageBean"></jsp:useBean>
+
 <%
 String nextPage = "../../index.jsp";
 String mensajeNextPage = "";
@@ -20,13 +22,10 @@ if (emailUser != null && passwordUser != null) {
 			response.sendRedirect(nextPage);
 			return;
 	} catch (WrongCredentialsException e) {			
-		mensajeNextPage = "El email o la contraseña son incorrectos";
+		messageBean.setError("El email o la contraseña son incorrectos");
 	}
-
 }
 
 %>
 
-<jsp:forward page="../view/common/loginView.jsp">
-	<jsp:param value="<%=mensajeNextPage%>" name="message"/>
-</jsp:forward>
+<jsp:forward page="../view/common/loginView.jsp"></jsp:forward>

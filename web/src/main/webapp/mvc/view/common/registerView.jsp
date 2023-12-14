@@ -9,13 +9,7 @@
 <title>Sign up</title>
 </head>
 <body>
-	<%
-	String messageNextPage = request.getParameter("message");
-	%>
-	
-	<%= messageNextPage %>
-	<br/>
-	
+	<jsp:include page="./components/message.jsp"></jsp:include>
 	<form method="post" action="../controller/registerController.jsp">
 	    <label for="email">Email: </label>
 	    <input type="email" name="email" required>

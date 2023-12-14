@@ -6,6 +6,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import ="business.dtos.UserDTO,display.web.Container" %>
 <jsp:useBean  id="customerBean" scope="session" class="display.web.javabean.CustomerBean"></jsp:useBean>
+<jsp:useBean  id="messageBean" scope="session" class="display.web.javabean.MessageBean"></jsp:useBean>
 <%
 String nextPage = "../../index.jsp";
 String mensajeNextPage = "";
@@ -23,11 +24,11 @@ if (emailUser != null && passwordUser != null && roleString != null) {
 		response.sendRedirect(nextPage);	
 		return;
 	}catch (InvalidRoleException e) {
-		mensajeNextPage = "El role proporcionado es invalido.";
+		messageBean.setError("El rol proporcionado es invalido.");
 	}catch (UserAlreadyExistsException e) {
-		mensajeNextPage = "Ya existe un usuario con ese email.";
+		messageBean.setError("Ya existe un usuario con ese email.");
 	}catch (RegisterException e) {
-		mensajeNextPage = "Error al registrar";
+		messageBean.setError("Error al registrar");
 	}
 }
 

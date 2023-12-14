@@ -19,20 +19,9 @@
 			</aside>
 			
 			<a href="/web/createActivity">Crear una nueva actividad</a>
-			<%
-				String createActivityMsg = (String) request.getSession().getAttribute("createActivityMsg");
-				String createActivityError = (String) request.getSession().getAttribute("createActivityError");
 			
-				if (createActivityError != null) {
-			%>
-				<p style="color: red;"><%= createActivityError %></p>
-			<%
-				} else if (createActivityMsg != null) {
-			%>
-				<p style="color: green;"><%= createActivityMsg %></p>
-			<%
-				}
-			%>
+			<jsp:include page="../common/components/message.jsp"></jsp:include>
+
 			<jsp:include page="../common/components/listOfActivities.jsp"></jsp:include>
 			
 		</main>

@@ -14,21 +14,10 @@ import javax.servlet.http.HttpServletResponse;
 import display.web.javabean.CustomerBean;
 
 
-@WebFilter("/*")
-public class LoginFilter implements Filter {
-
-    public LoginFilter() {
-    }
-
-	public void destroy() {
-	}
-
-	private String encoding = "utf-8";
-
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+public class LoginFilter {
+	public static void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
-		httpRequest.setCharacterEncoding(encoding);
 
 		httpRequest.setAttribute("skipFilter", false);
 		
@@ -37,7 +26,7 @@ public class LoginFilter implements Filter {
         String url = httpRequest.getRequestURI();
 
         boolean isUserLogged = !(customerBean == null || customerBean.getEmailUser().equals(""));
-        boolean isGoingToRegisterOrLogin = (url.endsWith("/loginController.jsp") || url.endsWith("/registerController.jsp"));
+        boolean isGoingToRegisterOrLogin = (url.endsWith("/loginController.jsp") || url.endsWith("/registerController.jsp") || url.contains("assets"));
         boolean isGoingToLogout = url.endsWith("/logoutController.jsp");
         
         if (isUserLogged) {        	
@@ -64,12 +53,4 @@ public class LoginFilter implements Filter {
         
 		AssistantInfoFilter.doFilter(request, response, chain);
     }
-
-	public void init(FilterConfig filterConfig) throws ServletException {
-		String encodingParam = filterConfig.getInitParameter("encoding");
-		if (encodingParam != null) {
-			encoding = encodingParam;
-		}
-	}
-
 }

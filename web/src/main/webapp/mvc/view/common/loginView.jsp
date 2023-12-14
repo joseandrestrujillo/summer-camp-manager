@@ -5,29 +5,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Log in</title>
+	<meta charset="UTF-8">
+	<title>Log in</title>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/styles/loginPageStyles.css">
 </head>
 <body>
-	<%
-	String nextPage = "../controller/loginController.jsp";
-	String messageNextPage = request.getParameter("message");
-	
-	%>
-	
-	<%= messageNextPage %>
-	<br/>
-	
-	<form method="post" action="../controller/loginController.jsp">
-		<label for="email">Email: </label>
-		<input type="text" name="email">	
-		<br/>
-		<label for="password">Password: </label>
-		<input type="password" name="password">
-		<br/>
-		<input type="submit" value="Entrar">
-	</form>
-	<a href="../controller/registerController.jsp">Registrarse</a>
-	
+	<main class="login_main">
+		<div class="login_page_div">
+			<img width="400px" class="logo_image_big" src="${pageContext.request.contextPath}/assets/logo.png" alt="Logo de la empresa"/>
+			<div class="login_form_div">
+				<h1>Iniciar sesión</h1>
+				<jsp:include page="./components/message.jsp"></jsp:include>
+				<form class="login_form" method="post" action="../controller/loginController.jsp">
+					<input class="form_input" type="text" name="email" placeholder="Email">	
+					<input class="form_input" type="password" name="password" placeholder="Contraseña">
+					<p>¿No tiene una cuenta? <a href="../controller/registerController.jsp">Cree una.</a></p>
+			 		<input class="login_btn" type="submit" value="Entrar">
+				</form>	
+			</div>
+		</div>
+	</main>
 </body>
 </html>

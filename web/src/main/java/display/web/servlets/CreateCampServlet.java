@@ -25,6 +25,7 @@ import business.utilities.Utils;
 import display.cli.menus.Common;
 import display.web.Container;
 import display.web.javabean.CampFormBean;
+import display.web.javabean.MessageBean;
 
 @WebServlet("/createCamp")
 public class CreateCampServlet extends HttpServlet {
@@ -122,23 +123,29 @@ public class CreateCampServlet extends HttpServlet {
 				ActivityDTO selectedActivity = campsManager.getActivity(campFormBean.getActivityName());
 				MonitorDTO selectedMonitor = campsManager.getMonitor(campFormBean.getMonitorId());
 				
+				MessageBean messageBean = (MessageBean) request.getSession().getAttribute("messageBean");
+
 				try {
 					campsManager.registerCamp(camp);
 					campsManager.registerActivityInACamp(camp, selectedActivity);									
 					campsManager.setPrincipalMonitor(camp, selectedMonitor);
-					request.getSession().setAttribute("createCampMsg", "Campamento creado correctamente. ");
+					messageBean.setSuccess("Campamento creada correctamente. ");
 				} catch (NotTheSameLevelException e) {
 					campsManager.deleteCamp(camp);
-					request.getSession().setAttribute("createCampError", "La actividad y el campamento deben de ser del mismo nivel educativo. ");
+					messageBean.setError("La actividad y el campamento deben de ser del mismo nivel educativo. ");
 				} catch (MonitorIsNotInActivityException e) {
 					campsManager.deleteCamp(camp);
-					request.getSession().setAttribute("createCampError", "El monitor principal no pertenece a ninguna actividad del campamento. ");
+					messageBean.setError("El monitor principal no pertenece a ninguna actividad del campamento. ");
 				} catch (CampAlreadyRegisteredException e) {
-					request.getSession().setAttribute("createCampError", "El campamento ya existe. ");
+					messageBean.setError("El campamento ya existe. ");
 				} catch (NotEnoughMonitorsException e) {
 					campsManager.deleteCamp(camp);
-					request.getSession().setAttribute("createCampError", "La actividad no tiene suficientes monitores para llevarse a cabo. ");
+					messageBean.setError("La actividad no tiene suficientes monitores para llevarse a cabo. ");
 				}
+				
+				messageBean.setUrl("/web/campsManager");
+				request.getSession().setAttribute("messageBean", messageBean);
+				
 				
 				request.getSession().setAttribute("campFormBean", null);
 				response.sendRedirect("/web/campsManager");

@@ -33,6 +33,7 @@ import display.cli.menus.Common;
 import display.web.Container;
 import display.web.javabean.ActivityFormBean;
 import display.web.javabean.CampFormBean;
+import display.web.javabean.MessageBean;
 
 @WebServlet("/createActivity")
 public class CreateActivityServlet extends HttpServlet {
@@ -115,24 +116,28 @@ public class CreateActivityServlet extends HttpServlet {
 						activityFormBean.getCapacity(),
 						activityFormBean.getNeededMonitors()
 				);
-				
+				MessageBean messageBean = (MessageBean) request.getSession().getAttribute("messageBean");
+
 				try {
 					campsManager.registerActivity(activity);
 					for(String monitorId : listOfMonitors) {
 						campsManager.linkMonitorWithActivity(activity.getActivityName(), Integer.valueOf(monitorId));
 					}
-					request.getSession().setAttribute("createActivityMsg", "Actividad creada correctamente. ");
+					messageBean.setSuccess("Actividad creada correctamente. ");
 				} catch (ActivityAlreadyExistException e) {
-					request.getSession().setAttribute("createActivityError", "La actividad ya existe. ");
+					messageBean.setError("La actividad ya existe. ");
 				} catch (ActivityNotFoundException e) {
-					request.getSession().setAttribute("createActivityError", "Error al asociar monitores. ");
+					messageBean.setError("Error al asociar monitores. ");
 				} catch (MonitorNotFoundException e) {
 					campsManager.deleteActivity(activity);
-					request.getSession().setAttribute("createActivityError", "El monitor seleccionado no existe. ");
+					messageBean.setError("El monitor seleccionado no existe. ");
 				} catch (MaxMonitorsAddedException e) {
 					campsManager.deleteActivity(activity);
-					request.getSession().setAttribute("createActivityError", "La actividad requiere " + activityFormBean.getNeededMonitors() + " monitores exactamente para ser creada.");
+					messageBean.setError("La actividad requiere " + activityFormBean.getNeededMonitors() + " monitores exactamente para ser creada.");
 				}
+				
+				messageBean.setUrl("/web/activitiesManager");
+				request.getSession().setAttribute("messageBean", messageBean);
 				
 				request.getSession().setAttribute("activityFormBean", null);
 				response.sendRedirect("/web/activitiesManager");

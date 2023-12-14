@@ -31,13 +31,13 @@ public class AccessControlList {
 		acl.put("/web/", Arrays.asList("ADMIN", "ASSISTANT"));
 		acl.put("/web/index.jsp", Arrays.asList("ADMIN", "ASSISTANT"));
 		acl.put("/web/mvc/controller/modifyUserController.jsp", Arrays.asList("ADMIN", "ASSISTANT"));
+		acl.put("/web/assets/logo.png", Arrays.asList("ADMIN", "ASSISTANT"));
 		
 		acl.put("/web/inscriptions", Arrays.asList("ASSISTANT"));
 		acl.put("/web/availableCamps", Arrays.asList("ASSISTANT"));
 		acl.put("/web/enroll", Arrays.asList("ASSISTANT"));
 		acl.put("/web/deleteInscription", Arrays.asList("ASSISTANT"));
 		acl.put("/web/scripts/filterAvailableCamps.js", Arrays.asList("ASSISTANT"));
-		
 		
 		// acl.put("/web/anywhere", Arrays.asList("ADMIN"));
 	}

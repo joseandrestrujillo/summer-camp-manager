@@ -20,20 +20,9 @@
 			
 			<a href="/web/createCamp">Crear nuevo campamento</a>
 			<a href="/web/associateActivityToCamp">Asociar una actividad con un campamento</a>
-			<%
-				String createCampMsg = (String) request.getSession().getAttribute("createCampMsg");
-				String createCampError = (String) request.getSession().getAttribute("createCampError");
 			
-				if (createCampError != null) {
-			%>
-				<p style="color: red;"><%= createCampError %></p>
-			<%
-				} else if (createCampMsg != null) {
-			%>
-				<p style="color: green;"><%= createCampMsg %></p>
-			<%
-				}
-			%>
+			<jsp:include page="../common/components/message.jsp"></jsp:include>
+
 			<jsp:include page="../common/components/listOfCamps.jsp"></jsp:include>
 			
 		</main>

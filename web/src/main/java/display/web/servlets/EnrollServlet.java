@@ -25,6 +25,7 @@ import display.web.Container;
 import display.web.javabean.ActivityFormBean;
 import display.web.javabean.CustomerBean;
 import display.web.javabean.EnrollFormBean;
+import display.web.javabean.MessageBean;
 
 /**
  * Servlet implementation class CampsServlet
@@ -124,8 +125,10 @@ public class EnrollServlet extends HttpServlet {
 	}
 	
 	private void enroll(int campId, InscriptionType type, HttpServletRequest request) {
+		MessageBean messageBean = (MessageBean) request.getSession().getAttribute("messageBean");
+
 		if (campId == -1 || type == null) {
-			request.getSession().setAttribute("enrollError", "Faltan parametros para realizar la inscripción. ");
+			messageBean.setError("Faltan parametros para realizar la inscripción. ");
 			return;
 		}
 		
@@ -139,22 +142,26 @@ public class EnrollServlet extends HttpServlet {
 		
 		InscriptionDTO inscription;
 
+		
 		try {
 			inscription = inscriptionManager.enroll(assistant.getId(), campId, currentDate, type == InscriptionType.PARTIAL, assistant.isRequireSpecialAttention());
-			request.getSession().setAttribute("enrollMsg", "Inscripción realizada correctamente. Precio: " + inscription.getPrice() + " euros. ");
+			messageBean.setSuccess("Inscripción realizada correctamente. Precio: " + inscription.getPrice() + " euros. ");
 		} catch (WrongEducativeLevelException e) {
-			request.getSession().setAttribute("enrollError", "El nivel educativo de este campamento no es adecuado para el asistente. ");
+			messageBean.setError("El nivel educativo de este campamento no es adecuado para el asistente. ");
 		} catch (NeedToAddAnSpecialMonitorException e) {
-			request.getSession().setAttribute("enrollError", "Es necesario añadir un monitor de atención especial antes de inscribir al asistente. ");
+			messageBean.setError("Es necesario añadir un monitor de atención especial antes de inscribir al asistente. ");
 		} catch (AssistantAlreadyEnrolledException e) {
-			request.getSession().setAttribute("enrollError", "Este asistente ya está inscrito en el campamento. ");
+			messageBean.setError("Este asistente ya está inscrito en el campamento. ");
 		} catch (MaxAssistantExcededException e) {
-			request.getSession().setAttribute("enrollError", "No hay plazas libres para inscribir al asistente a todas las actividades de la modalidad seleccionada del campamento. ");
+			messageBean.setError("No hay plazas libres para inscribir al asistente a todas las actividades de la modalidad seleccionada del campamento. ");
 		} catch (AfterStartTimeException e) {
-			request.getSession().setAttribute("enrollError", "El campamento ya ha comenzado. ");
+			messageBean.setError("El campamento ya ha comenzado. ");
 		} catch (AfterLateTimeException e) {
-			request.getSession().setAttribute("enrollError", "No es posible inscribirse a un campamento si no se hace con al menos 48h de antelación. ");
+			messageBean.setError("No es posible inscribirse a un campamento si no se hace con al menos 48h de antelación. ");
 		}
+		
+		messageBean.setUrl("/web/activitiesManager");
+		request.getSession().setAttribute("messageBean", messageBean);
 	}
 
 }

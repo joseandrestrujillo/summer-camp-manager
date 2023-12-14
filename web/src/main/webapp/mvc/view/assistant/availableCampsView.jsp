@@ -51,20 +51,7 @@ listOfCampsBean.setCamps(camps);
 				</form>
 			</aside>
 			
-			<%
-				String enrollMsg = (String) request.getSession().getAttribute("enrollMsg");
-				String enrollError = (String) request.getSession().getAttribute("enrollError");
-			
-				if (enrollError != null) {
-			%>
-				<p style="color: red;"><%= enrollError %></p>
-			<%
-				} else if (enrollMsg != null) {
-			%>
-				<p style="color: green;"><%= enrollMsg %></p>
-			<%
-				}
-			%>
+			<jsp:include page="../common/components/message.jsp"></jsp:include>
 			
 			<form action="/web/enroll" method="post">
 				<label for="type">Tipo de inscripción:</label>

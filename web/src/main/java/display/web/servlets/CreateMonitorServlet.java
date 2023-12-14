@@ -35,6 +35,7 @@ import display.cli.menus.Common;
 import display.web.Container;
 import display.web.javabean.ActivityFormBean;
 import display.web.javabean.CampFormBean;
+import display.web.javabean.MessageBean;
 
 @WebServlet("/createMonitor")
 public class CreateMonitorServlet extends HttpServlet {
@@ -67,12 +68,16 @@ public class CreateMonitorServlet extends HttpServlet {
 		
 		CampsManager campsManager = Container.getInstance().getCampsManager();
 		
+		MessageBean messageBean = (MessageBean) request.getSession().getAttribute("messageBean");
+
 		try {									
 			campsManager.registerMonitor(monitor);
-			request.getSession().setAttribute("createMonitorMsg", "Monitor dado de alta correctamente. ");
+			messageBean.setSuccess("Monitor dado de alta correctamente. ");
 		} catch (MonitorAlreadyExistException e) {
-			request.getSession().setAttribute("createMonitorError", "Este DNI ya ha sido registrado en nuestro sistema. ");
+			messageBean.setError("Este DNI ya ha sido registrado en nuestro sistema. ");
 		}
+		messageBean.setUrl("/web/monitorsManager");
+		request.getSession().setAttribute("messageBean", messageBean);
 		
 		response.sendRedirect("/web/monitorsManager");
 	}

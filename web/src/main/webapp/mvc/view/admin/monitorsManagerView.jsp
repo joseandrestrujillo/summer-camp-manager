@@ -19,20 +19,9 @@
 			</aside>
 			
 			<a href="/web/createMonitor">Dar de alta un nuevo monitor</a>
-			<%
-				String createMonitorMsg = (String) request.getSession().getAttribute("createMonitorMsg");
-				String createMonitorError = (String) request.getSession().getAttribute("createMonitorError");
 			
-				if (createMonitorError != null) {
-			%>
-				<p style="color: red;"><%= createMonitorError %></p>
-			<%
-				} else if (createMonitorMsg != null) {
-			%>
-				<p style="color: green;"><%= createMonitorMsg %></p>
-			<%
-				}
-			%>
+			<jsp:include page="../common/components/message.jsp"></jsp:include>
+
 			<jsp:include page="../common/components/listOfMonitors.jsp"></jsp:include>
 		</main>
 
