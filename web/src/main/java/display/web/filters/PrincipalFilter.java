@@ -1,6 +1,9 @@
 package display.web.filters;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -11,6 +14,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import display.web.Container;
 import display.web.javabean.CustomerBean;
 import display.web.javabean.MessageBean;
 
@@ -28,6 +32,20 @@ public class PrincipalFilter implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
+		
+
+		String file =httpRequest.getSession().getServletContext().getInitParameter("properties");
+		
+		InputStream myIO = httpRequest.getSession().getServletContext().getResourceAsStream(file);
+		Properties queries = new Properties();
+
+		queries.load(myIO);
+		
+		String dbUrl = httpRequest.getSession().getServletContext().getInitParameter("DB_URL");
+		String dbUser = httpRequest.getSession().getServletContext().getInitParameter("DB_USERNAME");
+		String dbPassword = httpRequest.getSession().getServletContext().getInitParameter("DB_PASSWORD");
+		
+		Container.setProperties(queries, dbUrl, dbUser, dbPassword);
 		
 		if(httpRequest.getRequestURI().contains("assets")) {
 			chain.doFilter(request, response);

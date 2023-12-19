@@ -1,5 +1,7 @@
 package display.web;
 
+import java.util.Properties;
+
 import business.dtos.CampDTO;
 import business.dtos.InscriptionDTO;
 import business.dtos.UserDTO;
@@ -12,11 +14,14 @@ import business.managers.AssistantsManager;
 import business.managers.CampsManager;
 import business.managers.InscriptionManager;
 import business.managers.UsersManager;
+import data.database.DBManager;
 import data.database.daos.*;
 import data.memory.daos.*;
 
 public class Container {
 	private static Container _instance;
+	
+	
 	private IDAO<CampDTO, Integer> campRepository;
 	private IActivityDAO activityRepository;
 	private IMonitorDAO monitorRepository;
@@ -35,6 +40,10 @@ public class Container {
 			_instance = new Container();
 		}
 		return _instance;
+	}
+	
+	public static void setProperties(Properties queriesProp, String dbUrl, String dbUsername, String dbPassword) {
+		DBManager.setProperties(queriesProp, dbUrl, dbUsername, dbPassword);
 	}
 	
 	private Container() {

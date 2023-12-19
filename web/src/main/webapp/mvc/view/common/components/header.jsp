@@ -4,7 +4,7 @@
 <jsp:useBean  id="customerBean" scope="session" class="display.web.javabean.CustomerBean"></jsp:useBean>
     
 <header class="header">
-	<img class="header_logo_img" width="250px" class="logo_image_big" src="${pageContext.request.contextPath}/assets/logo_header.png" alt="Logo de la empresa"/>
+	<img class="header_logo_image" width="180px" src="${pageContext.request.contextPath}/assets/logo_header.png" alt="Logo de la empresa"/>
 	<details class="header_user_details">	
 		<summary class="header_user_wellcome_summary">¡¡Bienvenido <jsp:getProperty property="emailUser" name="customerBean"/>!! <%= Utils.getStringDate(Utils.getCurrentDate()) %></summary>
 		<div class="header_user_details_info">

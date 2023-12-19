@@ -25,46 +25,41 @@ listOfCampsBean.setCamps(camps);
 	</head>
 	<body>
 		<jsp:include page="../common/components/header.jsp"></jsp:include>
-		<main>
-				<aside>
-				  <ul>
-				    <li><a href="/web/campsManager">Campamentos</a></li>
-				    <li><a href="/web/activitiesManager">Actividades</a></li>
-			    	<li><a href="/web/monitorsManager">Monitores</a></li>
-				    <li><a href="/web/assistantsManager">Asistentes</a></li>
-				  </ul>
-				</aside>
-				<table>
-			    	<thead>
-			      	<tr>
-			        	<th>ID</th>
-			        	<th>Inscripciones</th>
-				        <th>Parciales</th>
-				        <th>Completas</th>
-				        <th>Capacidad</th>
-			      	</tr>
-				    </thead>
-				    <tbody>
-			    		<%
-			    		
-			    		for(CampDTO camp: camps) {
-			    			int numberOfInscriptions = Container.getInstance().getInscriptionManager().getNumberOfInscriptions(camp);
-			    			int numberOfPartialInscriptions =Container.getInstance().getInscriptionManager().getNumberOfPartialInscriptions(camp);
-			    			int numberOfCompleteInscription = numberOfInscriptions - numberOfPartialInscriptions;
-			    		%>
-					      	<tr>
-					        	<td><%= camp.getCampID() %></td>
-						        <td><%= numberOfInscriptions %></td>
-						        <td><%= numberOfPartialInscriptions %></td>
-						        <td><%= numberOfCompleteInscription %></td>
-						        <td><%= camp.getCapacity() %></td>
-					      	</tr>
-				      	<%
-				      	}
-				      	%>
-			    	</tbody>
-			  </table>
-		
-		</main>
+		<div class="content_container">
+			<jsp:include page="./navbarAdmin.jsp"></jsp:include>
+			<main>
+					<table>
+				    	<thead>
+				      	<tr>
+				        	<th>ID</th>
+				        	<th>Inscripciones</th>
+					        <th>Parciales</th>
+					        <th>Completas</th>
+					        <th>Capacidad</th>
+				      	</tr>
+					    </thead>
+					    <tbody>
+				    		<%
+				    		
+				    		for(CampDTO camp: camps) {
+				    			int numberOfInscriptions = Container.getInstance().getInscriptionManager().getNumberOfInscriptions(camp);
+				    			int numberOfPartialInscriptions =Container.getInstance().getInscriptionManager().getNumberOfPartialInscriptions(camp);
+				    			int numberOfCompleteInscription = numberOfInscriptions - numberOfPartialInscriptions;
+				    		%>
+						      	<tr>
+						        	<td><%= camp.getCampID() %></td>
+							        <td><%= numberOfInscriptions %></td>
+							        <td><%= numberOfPartialInscriptions %></td>
+							        <td><%= numberOfCompleteInscription %></td>
+							        <td><%= camp.getCapacity() %></td>
+						      	</tr>
+					      	<%
+					      	}
+					      	%>
+				    	</tbody>
+				  </table>
+			
+			</main>
+		</div>
 	</body>
 </html>

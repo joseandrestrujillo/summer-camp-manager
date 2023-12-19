@@ -1,12 +1,5 @@
 package data.database;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -19,9 +12,11 @@ import java.util.Properties;
  */
 
 public class DBManager {
-	private String dbUrl;
-	private String username;
-	private String password;
+	private static Properties _queriesProp;
+	private static String _dbUrl;
+	private static String _dbUsername;
+	private static String _dbPassword;
+	
 	Map<String, String> queries;
 	protected Connection connection = null;
 	private static DBManager instance;
@@ -37,45 +32,22 @@ public class DBManager {
 		}
 		return instance;
 	}
+	
+	public static void setProperties(Properties queriesProp, String dbUrl, String dbUsername, String dbPassword) {
+		_queriesProp = queriesProp;
+		_dbUrl = dbUrl;
+		_dbUsername = dbUsername;
+		_dbPassword = dbPassword;
+	}
 
 	/**
 	 * Este es el constructor de la clase DBManager.
 	 */
 	private DBManager() {
 		this.queries = new HashMap<String, String>();
-		Properties prop = new Properties();
-		try {
-			InputStream pathConfig = getClass().getClassLoader().getResourceAsStream("config.properties");
-			BufferedReader reader = new BufferedReader(new InputStreamReader(pathConfig));
-			prop.load(reader);
-
-			this.dbUrl = prop.getProperty("DB_URL");
-			this.username = prop.getProperty("USERNAME");
-			this.password = prop.getProperty("PASSWORD");
-
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			System.exit(-1);
-		} catch (IOException e) {
-			e.printStackTrace();
-			System.exit(-1);
-		}
-
-		try {
-			InputStream pathSQL = getClass().getClassLoader().getResourceAsStream("sql.properties");
-			BufferedReader reader = new BufferedReader(new InputStreamReader(pathSQL));
-			prop.load(reader);
-
-			for (Object key : prop.keySet()) {
-				this.queries.put((String) key, prop.getProperty((String) key));
-			}
-
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			System.exit(-1);
-		} catch (IOException e) {
-			e.printStackTrace();
-			System.exit(-1);
+		
+		for (Object key : _queriesProp.keySet()) {
+			this.queries.put((String) key, _queriesProp.getProperty((String) key));
 		}
 	}
 
@@ -95,10 +67,9 @@ public class DBManager {
 	 * @return Connection La conexión a la base de datos.
 	 */
 	public Connection getConnection() {
-
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			this.connection = (Connection) DriverManager.getConnection(this.dbUrl, this.username, this.password);
+			this.connection = (Connection) DriverManager.getConnection(_dbUrl, _dbUsername, _dbPassword);
 		} catch (SQLException e) {
 			System.err.println("Connection to MySQL has failed!");
 			e.printStackTrace();
