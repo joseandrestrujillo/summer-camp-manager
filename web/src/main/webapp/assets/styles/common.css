@@ -106,7 +106,6 @@ logout_link {
 }
 
 .navbar {
-	padding: 1rem;
     height: fit-content;	
 	background-color: white;
 	box-shadow: 0px 10px 15px -3px rgb(38, 24, 16, 0.1);
@@ -115,17 +114,142 @@ logout_link {
 
 .navbar_ul {
 	list-style: none;
+	margin: 0;
+	padding: 2rem 0;
 }
 
 .navbar_li {
 	
 }
 
-.navbar_a {
-	text-decoration: none;
-	color: #261911;
+
+.navbar_li {
+    display: flex;
+    flex-direction: column;
 }
 
-.navbar_li_selected a{
-	color:red;
+.navbar_li a{
+	padding: 1rem 2rem;
+    background-color: white;
+    text-decoration: none;
+    color: black;
 }
+
+.navbar_li a:hover{
+    background-color:  #f2a549;
+    color: white;
+    cursor: pointer;
+}
+.navbar_li_selected a{
+	background-color:  #f2a549;
+    color: white;
+}
+
+main {
+	background-color: white;
+	width: 100%;
+	margin-left: 1rem;
+	padding: 3rem;
+    border-radius: 2rem;	
+}
+
+.btn {
+    background-color: #ffec99;
+    border: none;
+    border-radius: none;
+	box-shadow: none;
+	padding: 0.6rem;
+	transition: all linear 0.1s;
+	text-decoration: none;
+	color: #666;
+}
+
+.btn:hover {
+    background-color: #f2a549;
+    color: white;
+	cursor: pointer;
+}
+
+main ul {
+	margin-top: 2rem;
+	list-style: none;
+	padding: 0;
+}
+
+.list_of_camps_li {
+	color: black;
+}
+
+.list_of_camps_li > details {
+	background-color: #d6f3ee;
+}
+
+.list_of_camps_li details {
+	margin-bottom: 1rem;
+	border-radius: 2rem;
+}
+
+.list_of_camps_li details summary {
+	border-radius: 2rem;
+	padding: 2rem;
+	background-color: #5985a5;
+	color: white;
+}
+
+.list_of_camps_li details summary::marker {
+  content: "";
+}
+
+.details_div {
+	padding: 1rem 2rem;
+}
+
+.activity_details {
+	background-color: rgb(177, 200, 213);
+}
+
+.activity_details summary{
+	background-color: #5985a5;
+}
+
+main summary:hover {
+	background-color: #d6f3ee;
+	border: 1px solid #5985a5;
+	color: black;
+	cursor: pointer;
+}
+
+/* TABLE */
+
+table {
+    border: none;
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 2rem;
+}
+
+thead {
+    background-color: #5985a5;
+    color: white;
+    border: none;
+}
+
+tbody {
+    background-color: rgb(177, 200, 213);
+}
+
+th {
+    text-align: center;
+	padding: 1rem;
+	
+}
+
+td {
+	padding: 1rem;
+    text-align: center;
+}
+
+tr {
+	
+}
+

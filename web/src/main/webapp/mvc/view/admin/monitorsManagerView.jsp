@@ -14,8 +14,8 @@
 				<jsp:param name="selected" value="monitorsManager"/>
 			</jsp:include>
 			<main>
-				
-				<a href="/web/createMonitor">Dar de alta un nuevo monitor</a>
+				<h1>Gestión de monitores</h1>
+				<a class="btn" href="/web/createMonitor">Dar de alta un nuevo monitor</a>
 				
 				<jsp:include page="../common/components/message.jsp"></jsp:include>
 	

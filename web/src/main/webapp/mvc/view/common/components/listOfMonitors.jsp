@@ -14,18 +14,29 @@
 <jsp:useBean  id="customerBean" scope="session" class="display.web.javabean.CustomerBean"></jsp:useBean>
 <jsp:useBean  id="listOfCampsBean" scope="session" class="display.web.javabean.ListOfCampsBean"></jsp:useBean>
 
-<ul>
-	<%
-	List<MonitorDTO> monitorDTOs = Container.getInstance().getCampsManager().listOfMonitors();
-	
-	for(MonitorDTO monitor : monitorDTOs) {
-	%>
-		<li>
-			<%= monitor.getId() %>, 
-			<%= monitor.getFirstName() %> <%= monitor.getLastName() %>
-			<%= monitor.isSpecialEducator() ? ", Educador especial" : "" %>
-		</li>	
-	<%
-	}
-	%>	
-</ul>
+<table>
+	<thead>
+		<tr>
+			<th>DNI</th>
+			<th>Nombre</th>
+			<th>Apellidos</th>
+			<th>Monitor Especial</th>
+		</tr>
+	</thead>
+	<tbody>
+		<%
+		List<MonitorDTO> monitorDTOs = Container.getInstance().getCampsManager().listOfMonitors();
+		
+		for(MonitorDTO monitor : monitorDTOs) {
+		%>
+			<tr>
+				<td><%= monitor.getId() %></td>
+				<td><%= monitor.getFirstName() %></td>
+				<td><%= monitor.getLastName() %></td>
+				<td><%= monitor.isSpecialEducator() ? "Si" : "No" %></td>
+			</tr>	
+		<%
+		}
+		%>	
+	</tbody>
+</table>

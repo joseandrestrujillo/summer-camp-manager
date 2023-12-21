@@ -18,23 +18,25 @@ String educativeLevel = activity.getEducativeLevel() == EducativeLevel.ELEMENTAR
 		: "Adolescente";
 %>
 
-<details>
+<details class="activity_details">
 	<summary><%= activity.getActivityName() %></summary>
-	<p>Nivel Educativo: <%= educativeLevel %></p>
-			<p>Horario: <%= activity.getTimeSlot() == TimeSlot.AFTERNOON ? "Tarde" : "Mañana" %></p>
-	<h4>Monitores</h4>
-	<ul>
-		<%
-			List<MonitorDTO> monitors = Container.getInstance().getCampsManager().getMonitorsOfAnActivity(activity);
-			for (MonitorDTO monitor : monitors) {
-			%>
-				<li>
-					<%= monitor.getId() %>, 
-					<%= monitor.getFirstName() %> <%= monitor.getLastName() %>
-					<%= monitor.isSpecialEducator() ? ", Educador especial" : "" %>
-				</li>
+	<div class="details_div">
+		<p>Nivel Educativo: <%= educativeLevel %></p>
+				<p>Horario: <%= activity.getTimeSlot() == TimeSlot.AFTERNOON ? "Tarde" : "Mañana" %></p>
+		<h4>Monitores</h4>
+		<ul>
 			<%
-			}
-		%>
-	</ul>
+				List<MonitorDTO> monitors = Container.getInstance().getCampsManager().getMonitorsOfAnActivity(activity);
+				for (MonitorDTO monitor : monitors) {
+				%>
+					<li>
+						<%= monitor.getId() %>, 
+						<%= monitor.getFirstName() %> <%= monitor.getLastName() %>
+						<%= monitor.isSpecialEducator() ? ", Educador especial" : "" %>
+					</li>
+				<%
+				}
+			%>
+		</ul>
+	</div>
 </details>

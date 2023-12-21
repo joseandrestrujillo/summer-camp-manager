@@ -49,26 +49,28 @@ if(cancelBtn) {
 			}
 			%>
 		</summary>
+		<div class="details_div">
 			<p>Monitor principal: <%= ppalMonitor %></p>
 			<p>Monitor especial: <%= specialMonitor %></p>
 		 	<h3>Actividades</h3>
-		<ul>
-			<%
-			List<ActivityDTO> activities = Container.getInstance().getCampsManager().getActivitiesOfACamp(camp);
-			
-			for(ActivityDTO activity : activities) {
-				ActivityBean activityBean = new ActivityBean();
-				activityBean.setActivity(activity);
-				request.getSession().setAttribute("activityBean", activityBean);
-				%>							
-				<li>
-					<jsp:include page="./activityDetails.jsp"></jsp:include>
-				</li>
+			<ul>
 				<%
-					request.getSession().setAttribute("activityBean", null);
-			}
-			%>
-		</ul>
+				List<ActivityDTO> activities = Container.getInstance().getCampsManager().getActivitiesOfACamp(camp);
+				
+				for(ActivityDTO activity : activities) {
+					ActivityBean activityBean = new ActivityBean();
+					activityBean.setActivity(activity);
+					request.getSession().setAttribute("activityBean", activityBean);
+					%>							
+					<li>
+						<jsp:include page="./activityDetails.jsp"></jsp:include>
+					</li>
+					<%
+						request.getSession().setAttribute("activityBean", null);
+				}
+				%>
+			</ul>
+		</div>
 	</details>
 	
 <% 

@@ -14,9 +14,9 @@
 				<jsp:param name="selected" value="campsManager"/>
 			</jsp:include>
 			<main>
-				
-				<a href="/web/createCamp">Crear nuevo campamento</a>
-				<a href="/web/associateActivityToCamp">Asociar una actividad con un campamento</a>
+				<h1>Gestión de campamentos</h1>
+				<a class="btn" href="/web/createCamp">Crear nuevo campamento</a>
+				<a class="btn" href="/web/associateActivityToCamp">Asociar una actividad con un campamento</a>
 				
 				<jsp:include page="../common/components/message.jsp"></jsp:include>
 	

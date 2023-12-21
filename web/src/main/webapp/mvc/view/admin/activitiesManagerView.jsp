@@ -14,8 +14,8 @@
 				<jsp:param name="selected" value="activityManager"/>
 			</jsp:include>
 			<main>
-				
-				<a href="/web/createActivity">Crear una nueva actividad</a>
+				<h1>Gestión de actividades</h1>
+				<a class="btn" href="/web/createActivity">Crear una nueva actividad</a>
 				
 				<jsp:include page="../common/components/message.jsp"></jsp:include>
 	

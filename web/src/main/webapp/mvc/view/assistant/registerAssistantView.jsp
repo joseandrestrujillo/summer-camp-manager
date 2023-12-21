@@ -10,15 +10,17 @@
 </head>
 <body>
 	<jsp:include page="../common/components/header.jsp"></jsp:include>
-	<main>
-		<h3>Introduzca su información de asistente</h3>
-		<form action="../controller/registerAssistantController.jsp" method="post">
-			<jsp:include page="../common/components/assistantInfoForm.jsp">
-					<jsp:param name="dniAttribute" value="required"/>
-					<jsp:param name="birthDateAttribute" value="required"/>
-		 	</jsp:include>
-		 	<input type="submit" value="Guardar"/>
-	 	</form>
-	</main>
+	<div class="content_container">
+		<main>
+			<h3>Introduzca su información de asistente</h3>
+			<form action="../controller/registerAssistantController.jsp" method="post">
+				<jsp:include page="../common/components/assistantInfoForm.jsp">
+						<jsp:param name="dniAttribute" value="required"/>
+						<jsp:param name="birthDateAttribute" value="required"/>
+			 	</jsp:include>
+			 	<input type="submit" value="Guardar"/>
+		 	</form>
+		</main>
+	</div>
 </body>
 </html>

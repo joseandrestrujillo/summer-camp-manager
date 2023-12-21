@@ -23,7 +23,7 @@
 		activityBean.setActivity(activity);
 		request.getSession().setAttribute("activityBean", activityBean);
 		%>							
-		<li>
+		<li class="list_of_camps_li">
 			<jsp:include page="./activityDetails.jsp"></jsp:include>
 		</li>
 		<%

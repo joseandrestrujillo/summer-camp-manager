@@ -28,6 +28,7 @@ listOfCampsBean.setCamps(camps);
 		<div class="content_container">
 			<jsp:include page="./navbarAdmin.jsp"></jsp:include>
 			<main>
+					<h1>Página principal</h1>
 					<table>
 				    	<thead>
 				      	<tr>

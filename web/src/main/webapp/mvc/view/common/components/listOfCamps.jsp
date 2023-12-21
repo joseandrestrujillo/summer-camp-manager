@@ -13,7 +13,7 @@
 <jsp:useBean  id="customerBean" scope="session" class="display.web.javabean.CustomerBean"></jsp:useBean>
 <jsp:useBean  id="listOfCampsBean" scope="session" class="display.web.javabean.ListOfCampsBean"></jsp:useBean>
 
-<ul>
+<ul class="list_of_camps_ul">
 	<%
 	List<CampDTO> camps = listOfCampsBean.getCamps();
 	
@@ -25,7 +25,7 @@
 		campBean.setAvailableInscriptions(availableInscriptions);
 		request.getSession().setAttribute("campBean", campBean);
 		%>
-		<li>
+		<li class="list_of_camps_li">
 			<jsp:include page="./campDetails.jsp">
 				<jsp:param name="cancelBtn" value="false"/>
 			</jsp:include>

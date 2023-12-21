@@ -14,6 +14,7 @@
 				<jsp:param name="selected" value="assistantsManager"/>
 			</jsp:include>		
 			<main>
+				<h1>Lista de asistentes</h1>
 				<jsp:include page="../common/components/listOfAssistants.jsp"></jsp:include>
 			</main>
 		</div>
