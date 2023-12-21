@@ -23,7 +23,7 @@
 			<br>
 			
 			<label for="isSpecialEducator">Educador especial</label>
-			<input type="checkbox" id="isSpecialEducator" name="isSpecialEducator" value="true">
+			<input type="checkbox" id="isSpecialEducator" name="isSpecialEducator">
 			<br>
 			
 			<input type="submit" value="Enviar">

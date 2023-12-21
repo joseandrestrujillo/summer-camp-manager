@@ -55,7 +55,7 @@ public class CreateMonitorServlet extends HttpServlet {
 		String monitorFirstName = request.getParameter("firstName");
 		String monitorLastName = request.getParameter("lastName");
 		String isSpecialEducatorStr = request.getParameter("isSpecialEducator");
-		boolean isSpecialEducator = isSpecialEducatorStr == "true" ? true : false;
+		boolean isSpecialEducator = isSpecialEducatorStr.equals("on") ? true : false;
 
 		if(!(monitorDni.length() == 9)) {
 			request.getSession().setAttribute("createMonitorError", "Formato de DNI invalido. ");

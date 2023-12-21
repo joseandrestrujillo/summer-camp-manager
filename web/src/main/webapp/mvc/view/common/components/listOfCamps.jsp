@@ -20,6 +20,9 @@
 	for(CampDTO camp : camps) {
 		CampBean campBean = new CampBean();
 		campBean.setCamp(camp);
+		int nInscriptions = Container.getInstance().getInscriptionManager().getNumberOfInscriptions(camp);
+		int availableInscriptions = camp.getCapacity() - nInscriptions;
+		campBean.setAvailableInscriptions(availableInscriptions);
 		request.getSession().setAttribute("campBean", campBean);
 		%>
 		<li>
