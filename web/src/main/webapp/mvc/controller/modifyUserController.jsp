@@ -38,8 +38,10 @@ if(passwordUser != null && roleUser != null) {
 					assistantFirstName,
 					assistantLastName,
 					Utils.parseDate(assistantBean.getBirthDate()),
-					requireSpecialAttentionString == "true" ? true : false);
+					requireSpecialAttentionString.equals("true") ? true : false);
 			Container.getInstance().getAssistantsManager().updateAssistant(assistantModified);
+			assistantBean.setFirstName(assistantFirstName);
+			assistantBean.setLastName(assistantLastName);
 		}
 	}
 }

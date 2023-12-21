@@ -35,5 +35,5 @@ birthDateValue = birthDateValue == null ? "" : "value=\"" + birthDateValue + "\"
 <input type="date" id="birthDate" name="birthDate" <%= birthDateAttribute %> <%= birthDateValue %>>
 <br>
 <label for="requireSpecialAttention">Requiere atención especial</label>
-<input type="checkbox" id="requireSpecialAttention" name="requireSpecialAttention" value="true" <%= requireSpecialAttentionAttributes %>>
+<input type="checkbox" id="requireSpecialAttention" name="requireSpecialAttention" <%= requireSpecialAttentionAttributes %>>
 <br>

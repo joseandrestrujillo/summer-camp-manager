@@ -23,8 +23,9 @@ String requireSpecialAttention = request.getParameter("requireSpecialAttention")
 <input type="text" name="email" disabled value="<%= email %>">	
 <br/>
 <label for="password">Password: </label>
-<input type="password" name="password" value="<%= password %>>">
+<input type="password" name="password" value="<%= password %>">
 <br/>
+<input type="hidden" name="role" value="<%= role %>"/>
 <select name="role" disabled>
   <option value="ADMIN" <%= role.equals("ADMIN") ? "selected" : "" %>>Administrador</option>
   <option value="ASSISTANT" <%= role.equals("ASSISTANT") ? "selected" : "" %>>Asistente</option>
@@ -50,7 +51,7 @@ if (role.equals(UserRole.ASSISTANT.name())){
 		<jsp:param name="dniValue" value="<%= dni %>"/>
 		<jsp:param name="birthDateValue" value="<%= birthDateFormatted %>"/>
 	</jsp:include>
-
+	<input type="hidden" name="requireSpecialAttention" value="<%= requireSpecialAttention %>"/>
 <%
 }
 %>
