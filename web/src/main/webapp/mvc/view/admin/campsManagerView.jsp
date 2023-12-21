@@ -17,6 +17,7 @@
 				<h1>Gestión de campamentos</h1>
 				<a class="btn" href="/web/createCamp">Crear nuevo campamento</a>
 				<a class="btn" href="/web/associateActivityToCamp">Asociar una actividad con un campamento</a>
+				<a class="btn" href="/web/associateSpecialMonitorToCamp">Asociar un monitor especial a un campamento</a>
 				
 				<jsp:include page="../common/components/message.jsp"></jsp:include>
 	

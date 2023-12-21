@@ -21,19 +21,16 @@ String birthDateValue = request.getParameter("birthDateValue");
 birthDateValue = birthDateValue == null ? "" : "value=\"" + birthDateValue + "\"";
 
 %>
-
-<label for="dni">DNI</label>
-<input type="text" id="dni" name="dni" pattern="[0-9]{8}[A-Z]" <%= dniAttribute %> <%= dniValue %>>
-<br>
-<label for="firstName">Nombre</label>
-<input type="text" id="firstName" name="firstName" placeholder="Nombre" required <%= firstNameValue %>>
-<br>
-<label for="lastName">Apellidos</label>
-<input type="text" id="lastName" name="lastName" placeholder="Apellidos" required <%= lastNameValue %>>
-<br>
-<label for="birthDate">Fecha de nacimiento</label>
-<input type="date" id="birthDate" name="birthDate" <%= birthDateAttribute %> <%= birthDateValue %>>
-<br>
-<label for="requireSpecialAttention">Requiere atención especial</label>
-<input type="checkbox" id="requireSpecialAttention" name="requireSpecialAttention" <%= requireSpecialAttentionAttributes %>>
-<br>
+<input class="form_input" type="text" placeholder="DNI con letra" id="dni" name="dni" pattern="[0-9]{8}[A-Z]" <%= dniAttribute %> <%= dniValue %>>
+<input class="form_input" type="text" placeholder="Nombre" id="firstName" name="firstName" placeholder="Nombre" required <%= firstNameValue %>>
+<input class="form_input" type="text" placeholder="Apellidos" id="lastName" name="lastName" placeholder="Apellidos" required <%= lastNameValue %>>
+<div class="form_div">
+	<div>
+		<label for="birthDate">Fecha de nacimiento</label>
+		<input type="date" id="birthDate" name="birthDate" <%= birthDateAttribute %> <%= birthDateValue %>>
+	</div>
+	<div>
+		<label for="requireSpecialAttention">Requiere atención especial</label>
+		<input type="checkbox" id="requireSpecialAttention" name="requireSpecialAttention" value="true" <%= requireSpecialAttentionAttributes %>>
+	</div>
+</div>

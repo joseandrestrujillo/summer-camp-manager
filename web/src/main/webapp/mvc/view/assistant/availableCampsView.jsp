@@ -21,24 +21,24 @@ listOfCampsBean.setCamps(camps);
 	</head>
 	<body>
 		<jsp:include page="../common/components/header.jsp"></jsp:include>
-		<main>
-			<aside>
-				<ul>
-					<li><a href="/web/inscriptions">Inscripciones realizadas</a></li>
-					<li><a href="/web/availableCamps">Campamentos disponibles</a></li>
-				</ul>
-				
-				<form>
+		
+		<div class="content_container">
+			<div class="navbar_container">
+				<jsp:include page="./navbarAssistant.jsp">
+					<jsp:param name="selected" value="availableCamps"/>
+				</jsp:include>
+
+				<form class="filter_form">
 					<label for="since">Desde:</label>
-					<input type="date" name="since" id="since" required>
+					<input class="form_input" type="date" name="since" id="since" required>
 					<br>
 					
 					<label for="until">Hasta:</label>
-					<input type="date" name="until" id="until" required>
+					<input class="form_input" type="date" name="until" id="until" required>
 					<br>
 					
 					<label for="educative_level">Nivel Educativo:</label>
-					<select name="educative_level" id="educative_level">
+					<select class="form_input" name="educative_level" id="educative_level">
 					  <option value="">Sin filtrar</option>
 					  <option value="Infantil">Infantil</option>
 					  <option value="Juvenil">Juvenil</option>
@@ -47,23 +47,25 @@ listOfCampsBean.setCamps(camps);
 					<br>
 					
 					<label for="capacity">Capacidad:</label>
-					<input type="number" name="capacity" id="capacity" min="0" max="999" required>
+					<input class="form_input" type="number" name="capacity" id="capacity" min="0" max="999" required>
 					<br>
 				</form>
-			</aside>
-			
-			<jsp:include page="../common/components/message.jsp"></jsp:include>
-			
-			<form action="/web/enroll" method="post">
-				<label for="type">Tipo de inscripción:</label>
-				<select name="type" id="type">
-				  <option value="COMPLETE" selected>Completa</option>
-				  <option value="PARTIAL">Parcial</option>
-				</select>
-				<br>
-				<input type="submit" value="Inscribirse"><br>
-				<jsp:include page="../common/components/listOfAvailableCamps.jsp"></jsp:include>
-			</form>
-		</main>
+			</div>
+			<main>
+				
+				<jsp:include page="../common/components/message.jsp"></jsp:include>
+				
+				<form action="/web/enroll" method="post">
+					<label for="type">Tipo de inscripción:</label>
+					<select class="form_input" name="type" id="type">
+					  <option value="COMPLETE" selected>Completa</option>
+					  <option value="PARTIAL">Parcial</option>
+					</select>
+					<br>
+					<input class="submit_btn" type="submit" value="Inscribirse"><br>
+					<jsp:include page="../common/components/listOfAvailableCamps.jsp"></jsp:include>
+				</form>
+			</main>
+		</div>
 	</body>
 </html>

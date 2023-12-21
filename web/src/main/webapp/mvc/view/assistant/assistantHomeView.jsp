@@ -30,15 +30,13 @@ listOfInscriptions.setInscriptions(inscriptions);
 	</head>
 	<body>
 		<jsp:include page="../common/components/header.jsp"></jsp:include>
-		<main>
-			<aside>
-				<ul>
-					<li><a href="/web/inscriptions">Inscripciones realizadas</a></li>
-					<li><a href="/web/availableCamps">Campamentos disponibles</a></li>
-				</ul>
-				
-				<jsp:include page="../common/components/listOfInscriptions.jsp"></jsp:include>
-			</aside>
-		</main>
+		<div class="content_container">
+			<jsp:include page="./navbarAssistant.jsp">
+				<jsp:param name="selected" value="inscriptions"/>
+			</jsp:include>
+			<main>
+					<jsp:include page="../common/components/listOfInscriptions.jsp"></jsp:include>
+			</main>
+		</div>
 	</body>
 </html>

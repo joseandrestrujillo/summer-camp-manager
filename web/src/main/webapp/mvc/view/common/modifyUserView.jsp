@@ -15,8 +15,8 @@
 	<jsp:include page="./components/header.jsp"></jsp:include>
 	<div class="content_container">
 		<main>
-			<h3>Modificar datos de usuario</h3>
-			<form action="../controller/modifyUserController.jsp" method="post">
+			<h1>Modificar datos de usuario</h1>
+			<form class="form" action="../controller/modifyUserController.jsp" method="post">
 				<jsp:include page="./components/updateUserForm.jsp">
 					<jsp:param name="email" value="<%= customerBean.getEmailUser() %>"/>
 					<jsp:param name="password" value="<%= customerBean.getPasswordUser() %>"/>
@@ -28,7 +28,7 @@
 					<jsp:param name="requireSpecialAttention" value="<%= assistantBean.isRequireSpecialAttention() %>"/>
 				</jsp:include>
 				
-			 	<input type="submit" value="Guardar"/>
+			 	<input class="submit_btn" type="submit" value="Guardar"/>
 			</form>
 		</main>
 	</div>

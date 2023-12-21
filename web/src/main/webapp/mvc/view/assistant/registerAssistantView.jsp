@@ -12,13 +12,13 @@
 	<jsp:include page="../common/components/header.jsp"></jsp:include>
 	<div class="content_container">
 		<main>
-			<h3>Introduzca su información de asistente</h3>
-			<form action="../controller/registerAssistantController.jsp" method="post">
+			<h1>Introduzca su información de asistente</h1>
+			<form class="form" action="../controller/registerAssistantController.jsp" method="post">
 				<jsp:include page="../common/components/assistantInfoForm.jsp">
 						<jsp:param name="dniAttribute" value="required"/>
 						<jsp:param name="birthDateAttribute" value="required"/>
 			 	</jsp:include>
-			 	<input type="submit" value="Guardar"/>
+			 	<input class="submit_btn" type="submit" value="Guardar"/>
 		 	</form>
 		</main>
 	</div>

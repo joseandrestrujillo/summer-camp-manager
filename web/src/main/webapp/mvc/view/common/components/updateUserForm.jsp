@@ -18,15 +18,18 @@ String requireSpecialAttention = request.getParameter("requireSpecialAttention")
 
 
 %>
-
+<div>
 <label for="email">Email: </label>
-<input type="text" name="email" disabled value="<%= email %>">	
+<input class="form_input" type="text" name="email" disabled value="<%= email %>">	
 <br/>
-<label for="password">Password: </label>
-<input type="password" name="password" value="<%= password %>">
-<br/>
+</div>
+<div>
+	<label for="password">Password: </label>
+	<input class="form_input" type="password" name="password" value="<%= password %>">
+	<br/>
+</div>
 <input type="hidden" name="role" value="<%= role %>"/>
-<select name="role" disabled>
+<select class="form_input" name="role" disabled>
   <option value="ADMIN" <%= role.equals("ADMIN") ? "selected" : "" %>>Administrador</option>
   <option value="ASSISTANT" <%= role.equals("ASSISTANT") ? "selected" : "" %>>Asistente</option>
 </select>
