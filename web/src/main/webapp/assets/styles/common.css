@@ -171,6 +171,15 @@ main {
 	cursor: pointer;
 }
 
+.cancel_btn {
+    background-color: rgb(246, 97, 81);
+	color: white;
+}
+
+.cancel_btn:hover {
+    background-color: rgb(237, 51, 59);
+}
+
 main ul {
 	margin-top: 2rem;
 	list-style: none;
@@ -180,6 +189,11 @@ main ul {
 .list_of_camps_li {
 	color: black;
 }
+
+.list_of_camps_li > form{
+	width: 100%;
+}
+
 
 .list_of_camps_li > details {
 	background-color: #d6f3ee;
@@ -196,6 +210,10 @@ main ul {
 	padding: 2rem;
 	background-color: #5985a5;
 	color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .list_of_camps_li details summary::marker {

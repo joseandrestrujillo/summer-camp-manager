@@ -36,15 +36,17 @@ if(cancelBtn) {
 %>
 	<details>
 		<summary>
-			#<%= camp.getCampID() %>, 
-			Fecha de inicio: <span class="camp_details_start_date"><%= Utils.getStringDate(camp.getStart()) %></span>, 
-			Nivel educativo: <span class="camp_details_educative_level"><%= educativeLevel %></span>,
-			Plazas disponibles: <span class="camp_details_available_inscriptions"><%= campBean.getAvailableInscriptions() %></span>
+			<div>
+				#<%= camp.getCampID() %>, 
+				Fecha de inicio: <span class="camp_details_start_date"><%= Utils.getStringDate(camp.getStart()) %></span>, 
+				Nivel educativo: <span class="camp_details_educative_level"><%= educativeLevel %></span>,
+				Plazas disponibles: <span class="camp_details_available_inscriptions"><%= campBean.getAvailableInscriptions() %></span>
+			</div>
 			<% 
 			if(cancelBtn) {
 				%>
 					<input type="hidden" name="inscriptionId" value="<%= request.getParameter("inscriptionId") %>" />
-					<input type="submit" value="Cancelar" />
+					<input class="btn cancel_btn" type="submit" value="Cancelar" />
 				<%			
 			}
 			%>

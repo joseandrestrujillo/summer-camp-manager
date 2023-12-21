@@ -16,7 +16,7 @@
 <%
 List<CampDTO> camps = listOfCampsBean.getCamps();
 %>
-<ul class="list_of_camps_ul">
+<ul class="list_of_camps_ul" id="list_of_available_camps">
 <%
 for(CampDTO camp : camps) {
 	CampBean campBean = new CampBean();
@@ -26,7 +26,7 @@ for(CampDTO camp : camps) {
 	campBean.setAvailableInscriptions(availableInscriptions);
 	request.getSession().setAttribute("campBean", campBean);
 	%>
-		<li class="list_of_camps_li available_camps_li">
+		<li class="camp_details_div list_of_camps_li available_camps_li">
 			<input class="radio_btn" type="radio" id="<%= camp.getCampID() %>" name="camp_id" value="<%= camp.getCampID() %>" required>
 			<jsp:include page="./campDetails.jsp">
 				<jsp:param name="cancelBtn" value="false"/>

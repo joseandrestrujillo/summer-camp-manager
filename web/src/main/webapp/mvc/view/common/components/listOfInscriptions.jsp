@@ -12,7 +12,7 @@
 <jsp:useBean  id="customerBean" scope="session" class="display.web.javabean.CustomerBean"></jsp:useBean>
 <jsp:useBean  id="listOfInscriptions" scope="session" class="display.web.javabean.ListOfInscriptionsBean"></jsp:useBean>
 
-<ul>
+<ul class="list_of_camps_ul">
 	<%
 	List<InscriptionDTO> inscriptionDTOs = listOfInscriptions.getInscriptions();
 	
@@ -23,7 +23,7 @@
 		request.getSession().setAttribute("campBean", campBean);
 		String cancelBtnStr = inscription.canBeCanceled() ? "true" : "false";
 		%>
-		<li>
+		<li class="camp_details_div list_of_camps_li available_camps_li">
 			<jsp:include page="./campDetails.jsp">
 				<jsp:param name="cancelBtn" value="<%= cancelBtnStr %>"/>
 				<jsp:param name="inscriptionId" value="<%= inscription.getInscriptionIdentifier() %>"/>
