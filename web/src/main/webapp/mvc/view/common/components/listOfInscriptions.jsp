@@ -20,6 +20,9 @@
 		CampDTO camp = Container.getInstance().getCampsManager().getCamp(inscription.getCampId());
 		CampBean campBean = new CampBean();
 		campBean.setCamp(camp);
+		int nInscriptions = Container.getInstance().getInscriptionManager().getNumberOfInscriptions(camp);
+		int availableInscriptions = camp.getCapacity() - nInscriptions;
+		campBean.setAvailableInscriptions(availableInscriptions);
 		request.getSession().setAttribute("campBean", campBean);
 		String cancelBtnStr = inscription.canBeCanceled() ? "true" : "false";
 		%>
