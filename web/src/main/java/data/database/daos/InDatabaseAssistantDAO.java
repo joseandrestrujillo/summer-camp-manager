@@ -201,5 +201,9 @@ public class InDatabaseAssistantDAO implements IAssistantDAO{
 	public List<AssistantDTO> getAssistantsRelatedWithAnUser(UserDTO user) {
 		return getAll(Optional.of(new AssistantRelatedWithUserCriteria(user.getEmail())));
 	}
+	@Override
+	public void create(AssistantDTO obj) {
+		save(obj);
+	}
 
 }

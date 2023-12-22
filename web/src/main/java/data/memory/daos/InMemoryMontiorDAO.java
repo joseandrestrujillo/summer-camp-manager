@@ -88,4 +88,9 @@ public class InMemoryMontiorDAO implements IMonitorDAO {
 		
 		this.mapsManager.getMapOfMonitorUser().get(activity.getActivityName()).add(monitor);
 	}
+
+	@Override
+	public void create(MonitorDTO obj) {
+		save(obj);		
+	}
 }

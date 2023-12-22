@@ -98,4 +98,9 @@ public class InMemoryActivityDAO implements IActivityDAO {
 		
 		this.mapsManager.getMapOfActivityCamp().get(camp.getCampID()).add(activity);
 	}
+
+	@Override
+	public void create(ActivityDTO obj) {
+		save(obj);
+	}
 }

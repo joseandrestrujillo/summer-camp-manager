@@ -246,4 +246,9 @@ public class InDatabaseActivityDAO implements IActivityDAO{
 		}
 	}
 
+	@Override
+	public void create(ActivityDTO obj) {
+		save(obj);
+	}
+
 }

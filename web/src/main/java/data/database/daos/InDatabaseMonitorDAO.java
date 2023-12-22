@@ -190,4 +190,8 @@ public class InDatabaseMonitorDAO implements IMonitorDAO{
     		throw new RuntimeException(e);
 		}		
 	}
+	@Override
+	public void create(MonitorDTO obj) {
+		save(obj);
+	}
 }

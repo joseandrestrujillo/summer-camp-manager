@@ -132,4 +132,9 @@ public class InDatabaseUserDAO implements IDAO<UserDTO, String>{
 		return listOfUsers;
 	}
 
+	@Override
+	public void create(UserDTO obj) {
+		save(obj);
+	}
+
 }

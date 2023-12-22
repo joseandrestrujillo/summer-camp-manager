@@ -23,6 +23,8 @@ public interface IDAO<T, I> {
      * @param obj La entidad que se desea guardar o actualizar en el repositorio.
      */
 	public void save(T obj);
+	
+	public void create(T obj);
 
 	/**
      * Elimina una entidad del repositorio.

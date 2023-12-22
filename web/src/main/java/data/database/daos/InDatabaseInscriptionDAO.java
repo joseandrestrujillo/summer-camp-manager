@@ -203,4 +203,10 @@ public class InDatabaseInscriptionDAO implements IInscriptionDAO {
 	public List<InscriptionDTO> getInscriptionOfACamp(CampDTO camp) {
 		return getAll(Optional.of(new InscriptionOfACampCriteria(camp.getCampID())));
 	}
+
+
+	@Override
+	public void create(InscriptionDTO obj) {
+		save(obj);
+	}
 }

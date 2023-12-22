@@ -75,7 +75,11 @@ public class InMemoryInscriptionDAO implements IInscriptionDAO {
 
 	@Override
 	public List<InscriptionDTO> getInscriptionOfACamp(CampDTO camp) {
-		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void create(InscriptionDTO obj) {
+		save(obj);		
 	}
 }

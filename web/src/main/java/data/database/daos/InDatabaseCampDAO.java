@@ -268,5 +268,85 @@ public class InDatabaseCampDAO implements IDAO<CampDTO, Integer> {
 			throw new NotFoundException();
 		}
     }
+		@Override
+		public void create(CampDTO obj) {
+			try{
+	    		Connection con = this.dbConnection.getConnection();
+	    		PreparedStatement ps = null ;
+	    		if((obj.getPrincipalMonitor()==null) && (obj.getSpecialMonitor()== null) ) 
+	    		{
+		    			
+		    		ps = con.prepareStatement(
+		    				this.dbConnection.getQuery("CREATE_CAMP_QUERY")
+					);
+	    		
+		    		ps.setDate(1, new Date(obj.getStart().getTime()));
+		    		ps.setDate(2, new Date(obj.getEnd().getTime()));
+		    		ps.setString(3, obj.getEducativeLevel().name());
+		    		ps.setInt(4, obj.getCapacity());
+	    		}
+	    		else if ((obj.getPrincipalMonitor()!=null) && (obj.getSpecialMonitor()!= null)) 
+	    		{
+	    			ps = con.prepareStatement(
+		    				this.dbConnection.getQuery("CREATE_CAMP_QUERY_WITH_BOTH_MONITORS")
+					);
+	    		
+		    		ps.setDate(1, new Date(obj.getStart().getTime()));
+		    		ps.setDate(2, new Date(obj.getEnd().getTime()));
+		    		ps.setString(3, obj.getEducativeLevel().name());
+		    		ps.setInt(4, obj.getCapacity());
+		    		ps.setInt(5, obj.getPrincipalMonitor() != null ? obj.getPrincipalMonitor().getId() : null);
+		    		ps.setInt(6, obj.getSpecialMonitor() != null ? obj.getSpecialMonitor().getId() : null);
+	    		}
+	    		else if (obj.getPrincipalMonitor()!=null) 
+	    		{
+	    			ps = con.prepareStatement(
+		    				this.dbConnection.getQuery("CREATE_CAMP_QUERY_WITH_PRINCIPAL_MONITOR")
+					);
+	    		
+		    		ps.setDate(1, new Date(obj.getStart().getTime()));
+		    		ps.setDate(2, new Date(obj.getEnd().getTime()));
+		    		ps.setString(3, obj.getEducativeLevel().name());
+		    		ps.setInt(4, obj.getCapacity());
+		    		ps.setInt(5, obj.getPrincipalMonitor() != null ? obj.getPrincipalMonitor().getId() : null);
+	    		}
+	    		else 
+	    		{
+	    			ps = con.prepareStatement(
+		    				this.dbConnection.getQuery("CREATE_CAMP_QUERY_WITH_SPECIAL_MONITOR")
+					);
+	    		
+		    		ps.setDate(1, new Date(obj.getStart().getTime()));
+		    		ps.setDate(2, new Date(obj.getEnd().getTime()));
+		    		ps.setString(3, obj.getEducativeLevel().name());
+		    		ps.setInt(4, obj.getCapacity());
+		    		ps.setInt(5, obj.getSpecialMonitor() != null ? obj.getSpecialMonitor().getId() : null);
+	    		}
+	    		
+	    		
+	    		ps.executeUpdate();
+	    	} catch(SQLException e) { 
+	    		throw new RuntimeException(e);
+			}
+	    	
+			InDatabaseActivityDAO activityDAO = new InDatabaseActivityDAO();
+	    	List<ActivityDTO> activities = activityDAO.getAll(Optional.of(new ActivityInCampCriteria(obj.getCampID())));
+			for (ActivityDTO activity : activities) {
+	    		activityDAO.save(activity);
+	    		try{
+		    		Connection con = this.dbConnection.getConnection();
+		    		PreparedStatement ps = con.prepareStatement(
+		    				this.dbConnection.getQuery("UPDATE_ACTIVITY_CAMP_RELATION_QUERY")
+					);
+		    		
+		    		ps.setInt(1, obj.getCampID());
+		    		ps.setString(2, activity.getActivityName());
+		    		
+		    		ps.executeUpdate();
+		    	} catch(Exception e) { 
+		    		throw new RuntimeException(e);
+				}
+			}
+		}
 
 }

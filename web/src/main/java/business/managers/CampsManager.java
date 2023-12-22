@@ -258,10 +258,7 @@ public class CampsManager {
      * @throws CampAlreadyRegisteredException Si el campamento ya está registrado.
      */
     public void registerCamp(CampDTO camp) {
-        if (isRegisteredCamp(camp)) {
-            throw new CampAlreadyRegisteredException();
-        }
-        this.campRepository.save(camp);
+        this.campRepository.create(camp);
     }
     
     /**

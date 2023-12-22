@@ -45,4 +45,10 @@ public class InMemoryUserDAO implements IDAO<UserDTO, String>{
 	}
 
 
+	@Override
+	public void create(UserDTO obj) {
+		save(obj);		
+	}
+
+
 }

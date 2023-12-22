@@ -138,4 +138,9 @@ public class InMemoryAssistantDAO implements IAssistantDAO {
 		
 		return assistants;
 	}
+
+	@Override
+	public void create(AssistantDTO obj) {
+		save(obj);		
+	}
 }

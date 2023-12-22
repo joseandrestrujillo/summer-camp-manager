@@ -70,4 +70,9 @@ public class InMemoryCampDAO implements IDAO<CampDTO, Integer> {
     public void delete(CampDTO obj) {
         this.mapsManager.getMapOfCamp().remove(obj.getCampID());
     }
+
+	@Override
+	public void create(CampDTO obj) {
+		save(obj);		
+	}
 }
