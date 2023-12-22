@@ -25,7 +25,7 @@ if (Container.getInstance().getUserManager().hasAssistantInfo(customerBean.getEm
 }
 
 if (assistantDni != null && assistantFirstName != null && assistantLastName != null && assistantBirthDate != null) {
-	boolean requireSpecialAttention = requireSpecialAttentionString != null &&  requireSpecialAttentionString.equals("true") ? true : false;
+	boolean requireSpecialAttention = requireSpecialAttentionString != null &&  requireSpecialAttentionString.equals("on") ? true : false;
 	
 	if(!(assistantDni.length() == 9)) {
 		mensajeNextPage = "DNI invalido";
