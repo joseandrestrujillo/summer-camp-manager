@@ -32,40 +32,44 @@ public class PrincipalFilter implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
-		
+		HttpServletResponse httpResponse = (HttpServletResponse) response;
 
-		String file =httpRequest.getSession().getServletContext().getInitParameter("properties");
-		
-		InputStream myIO = httpRequest.getSession().getServletContext().getResourceAsStream(file);
-		Properties queries = new Properties();
-
-		queries.load(myIO);
-		
-		String dbUrl = httpRequest.getSession().getServletContext().getInitParameter("DB_URL");
-		String dbUser = httpRequest.getSession().getServletContext().getInitParameter("DB_USERNAME");
-		String dbPassword = httpRequest.getSession().getServletContext().getInitParameter("DB_PASSWORD");
-		
-		Container.setProperties(queries, dbUrl, dbUser, dbPassword);
-		
-		if(httpRequest.getRequestURI().contains("assets")) {
-			chain.doFilter(request, response);
-			return;
+		try {			
+			String file =httpRequest.getSession().getServletContext().getInitParameter("properties");
+			
+			InputStream myIO = httpRequest.getSession().getServletContext().getResourceAsStream(file);
+			Properties queries = new Properties();
+	
+			queries.load(myIO);
+			
+			String dbUrl = httpRequest.getSession().getServletContext().getInitParameter("DB_URL");
+			String dbUser = httpRequest.getSession().getServletContext().getInitParameter("DB_USERNAME");
+			String dbPassword = httpRequest.getSession().getServletContext().getInitParameter("DB_PASSWORD");
+			
+			Container.setProperties(queries, dbUrl, dbUser, dbPassword);
+			
+			if(httpRequest.getRequestURI().contains("assets") || httpRequest.getRequestURI().contains("error.jsp")) {
+				chain.doFilter(request, response);
+				return;
+			}
+			
+			httpRequest.setCharacterEncoding(encoding);
+	
+			MessageBean messageBean = (MessageBean) httpRequest.getSession().getAttribute("messageBean");
+			
+			String url = httpRequest.getRequestURI();
+			
+			if (messageBean == null || !messageBean.getUrl().contains(url)) {
+				messageBean = new MessageBean();
+				messageBean.setUrl(url);
+			}
+			
+			httpRequest.getSession().setAttribute("messageBean", messageBean);
+			
+			LoginFilter.doFilter(request, response, chain);
+		} catch (Exception e) {
+			httpResponse.sendRedirect("/web/error.jsp");
 		}
-		
-		httpRequest.setCharacterEncoding(encoding);
-
-		MessageBean messageBean = (MessageBean) httpRequest.getSession().getAttribute("messageBean");
-		
-		String url = httpRequest.getRequestURI();
-		
-		if (messageBean == null || !messageBean.getUrl().contains(url)) {
-			messageBean = new MessageBean();
-			messageBean.setUrl(url);
-		}
-		
-		httpRequest.getSession().setAttribute("messageBean", messageBean);
-		
-		LoginFilter.doFilter(request, response, chain);
     }
 
 	public void init(FilterConfig filterConfig) throws ServletException {
